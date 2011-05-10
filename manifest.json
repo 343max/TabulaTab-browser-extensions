@@ -1,0 +1,11 @@
+{
+	"name": "TabulaTabs!",
+	"version": "0.1",
+	"description": "Access your Browser tabs from everywhere",
+	"permissions": [
+		"tabs", "http://*/", "https://*/",
+		"http://tabulatabs.com/"
+	],
+	"options_page": "options.html",
+	"background_page": "backgroundPage.html"
+}
