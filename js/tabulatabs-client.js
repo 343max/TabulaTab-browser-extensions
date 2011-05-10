@@ -8,7 +8,6 @@ function TabulatabsClient(clientId) {
 	}
 
 	var encrypt = function(payload) {
-		console.log(encryptionPassword);
 		if(!encryptionPassword) {
 			return {unencrypted: payload};
 		} else {
@@ -17,9 +16,17 @@ function TabulatabsClient(clientId) {
 	};
 
 	var decrypt = function(payload) {
+		if(!payload) {
+			return null;
+		}
+
 		if(!payload.encrypted) {
 			return payload.unencrypted;
 		} else {
+			if(!encryptionPassword) {
+				throw "noPassword";
+			}
+
 			return JSON.parse(sjcl.decrypt(encryptionPassword, payload.encrypted));
 		}
 	};
@@ -50,11 +57,15 @@ function TabulatabsClient(clientId) {
 		unhosted.dav.put('openTabs.json', encrypt(tabs));
 	}
 
-	this.getTabs = function() {
-		var tabs = decrypt(unhosted.dav.get('openTabs.json'));
-		if(!tabs) {
-			tabs = {};
-		}
+	this.getTabs = function(callback) {
+		var tabs = unhosted.dav.get('openTabs.json', function(encryptedTabs) {
+			var tabs = decrypt(encryptedTabs);
+			if(!tabs) {
+				tabs = {};
+			}
+
+			callback(tabs);
+		});
 	}
 
 	this.calculateThumbFilename = function(url, width, height) {
@@ -65,7 +76,11 @@ function TabulatabsClient(clientId) {
 		unhosted.dav.put(this.calculateThumbFilename(url, width, height), encrypt({src: thumbUrl}));
 	}
 
-	this.getThumbnail = function(url, width, height) {
-		return decrypt(unhosted.dav.get(this.calculateThumbFilename(url, width, height)));
+	this.getThumbnail = function(url, width, height, callback) {
+		var decryptCallback = function(encryptedThumb) {
+			callback(decrypt(encryptedThumb));
+		}
+		
+		return unhosted.dav.get(this.calculateThumbFilename(url, width, height), decryptCallback);
 	}
 }
