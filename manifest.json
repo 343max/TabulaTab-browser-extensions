@@ -4,7 +4,7 @@
 	"description": "Access your Browser tabs from everywhere",
 	"permissions": [
 		"tabs", "http://*/", "https://*/",
-		"http://tabulatabs.com/"
+		"http://*.tabulatabs.com/"
 	],
 	"options_page": "options.html",
 	"background_page": "backgroundPage.html"

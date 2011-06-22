@@ -1,20 +1,14 @@
 var tabulatabs = new TabulatabsClient();
 
-function each(array, callback) {
-	for(var i = 0; i < array.length; i++) {
-		callback(array[i]);
-	}
-}
-
 function collectAllTabs() {
 	if(!tabulatabs.loggedIn()) return false;
 
 	var tabs = [];
 
 	chrome.windows.getAll({'populate': true}, function(wins) {
-		each(wins, function(win) {
+		$.each(wins, function(win) {
 
-			each(win.tabs, function(cTab) {
+			$.each(win.tabs, function(cTab) {
 				if(!cTab.url.match(/^https?:\/\//)) return;
 
 				var tab = {
@@ -147,6 +141,6 @@ function openOptions(firstTime) {
 	});
 }
 
-if(!tabulatabs.loggedIn()) {
+if(!tabulatabs.getRegisteredClients().length == 0) {
 	openOptions(true);
 }

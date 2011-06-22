@@ -4,28 +4,17 @@
 	<meta charset="utf-8" />
 	<title>TabulaTabs!</title>
 	<script src="js/Base64.js"></script>
-	<script src="js/unhosted.js"></script>
+	<script src="js/uuid.js"></script>
+	<script src="js/sjcl.js"></script>
 	<script src="js/jquery-1.5.2.min.js"></script>
 	<script src="js/webtoolkit.sha1.js"></script>
 	<script src="js/tabulatabs-client.js"></script>
+	<script src="js/qrCode.js"></script>
 	<script src="options.js"></script>
 </head>
 <body>
-<div id="locked">
-	<form id="login">
-		<input type="text" name="username">
-		<input type="submit" value="Login">
-	</form>
-</div>
-<div id="unlocked">
-	<p class="nav"><a id="logout" href="#">Logout</a></p>
 
-	<form id="changeEncryptionPassword">
-		<p>highly recommeded: encrypt your data with another password, so that your tabs will be transmitted completly securly.</p>
-		<p>password: <input id="passwd1" type="password"></p>
-		<p>repeat password: <input id="passwd2" type="password"></p>
-		<input type="submit" value="Change password" />
-	</form>
-</div>
+<canvas width="360" height="360" id="qrCode"></canvas>
+
 </body>
 </html>
