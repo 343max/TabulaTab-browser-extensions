@@ -1,22 +1,19 @@
-var tabulatabs = new TabulatabsClient();
+var tabulatabs = new TabulatabsClient('Chrome');
 
 function collectAllTabs() {
-	if(!tabulatabs.loggedIn()) return false;
-
 	var tabs = [];
 
-	chrome.windows.getAll({'populate': true}, function(wins) {
-		$.each(wins, function(win) {
-
-			$.each(win.tabs, function(cTab) {
-				if(!cTab.url.match(/^https?:\/\//)) return;
+	chrome.windows.getAll({populate: true}, function(chromeWindows) {
+		$.each(chromeWindows, function(index, chromeWindow) {
+			$.each(chromeWindow.tabs, function(index, chromeTab) {
+				if(!chromeTab.url.match(/^https?:\/\//)) return;
 
 				var tab = {
-					title: cTab.title,
-					url: cTab.url,
-					windowId: win.id,
-					tabSelected: cTab.selected,
-					windowFocused: win.focused
+					title: chromeTab.title,
+					url: chromeTab.url,
+					windowId: chromeWindow.id,
+					tabSelected: chromeTab.selected,
+					windowFocused: chromeWindow.focused
 				};
 
 				tabs.push(tab);
@@ -57,7 +54,7 @@ function resizeThumbnail(dataUrl, maxWidth, maxHeight, callback) {
 
 function resizeAndUploadThumb(selectedTab, dataUrl, maxWidth, maxHeight) {
 	resizeThumbnail(dataUrl, maxWidth, maxHeight, function(resizedDataUrl) {
-		tabulatabs.setThumbnail(selectedTab.url, maxWidth, maxHeight, resizedDataUrl);
+		//tabulatabs.setThumbnail(selectedTab.url, maxWidth, maxHeight, resizedDataUrl);
 	});
 }
 
@@ -116,6 +113,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 	uploadTabThumb(tabId, changeInfo);
 });
 
+startUploadTabsTimeout();
 
 
 function openOptions(firstTime) {
