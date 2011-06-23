@@ -1,5 +1,10 @@
 <?php
 
+if (count($_POST) == 0) {
+	header('Location: http://tabulatabs.com/');
+	die();
+}
+
 require_once('class.tabulatabs.php');
 
 $client = new Tabulatabs($_POST['userId'], $_POST['userPasswd']);
