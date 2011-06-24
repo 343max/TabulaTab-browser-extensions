@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */; };
+		506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */; };
+		506BB26113B399F200B2CE85 /* BrowserRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* BrowserRepresentation.m */; };
+		5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */; };
+		5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */; };
+		5088E32513B4E48A00D12E49 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5088E31F13B4E48A00D12E49 /* libzbar.a */; };
+		5088E32613B4E48B00D12E49 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 5088E32113B4E48A00D12E49 /* zbar-back.png */; };
+		5088E32713B4E48B00D12E49 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = 5088E32213B4E48A00D12E49 /* zbar-help.html */; };
+		5088E32813B4E48B00D12E49 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = 5088E32313B4E48A00D12E49 /* zbar-helpicons.png */; };
+		5088E32913B4E48B00D12E49 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = 5088E32413B4E48A00D12E49 /* zbar-samples.png */; };
 		5091087713B3616900938AE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5091087613B3616900938AE6 /* UIKit.framework */; };
 		5091087913B3616900938AE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5091087813B3616900938AE6 /* Foundation.framework */; };
 		5091087B13B3616900938AE6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5091087A13B3616900938AE6 /* CoreGraphics.framework */; };
 		5091088113B3616900938AE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5091087F13B3616900938AE6 /* InfoPlist.strings */; };
 		5091088313B3616900938AE6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091088213B3616900938AE6 /* main.m */; };
-		5091088713B3616A00938AE6 /* tabulatabs_iosAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091088613B3616A00938AE6 /* tabulatabs_iosAppDelegate.m */; };
-		5091088913B3616A00938AE6 /* tabulatabs_iosViewController.h in Resources */ = {isa = PBXBuildFile; fileRef = 5091088813B3616A00938AE6 /* tabulatabs_iosViewController.h */; };
-		5091088B13B3616A00938AE6 /* tabulatabs_iosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091088A13B3616A00938AE6 /* tabulatabs_iosViewController.m */; };
-		5091088E13B3616A00938AE6 /* tabulatabs_iosViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5091088C13B3616A00938AE6 /* tabulatabs_iosViewController.xib */; };
+		5091088713B3616A00938AE6 /* TabulatabsApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5091088613B3616A00938AE6 /* TabulatabsApp.m */; };
 		5091089613B3616A00938AE6 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5091089513B3616A00938AE6 /* SenTestingKit.framework */; };
 		5091089713B3616A00938AE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5091087613B3616900938AE6 /* UIKit.framework */; };
 		5091089813B3616A00938AE6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5091087813B3616900938AE6 /* Foundation.framework */; };
@@ -23,6 +30,8 @@
 		509108A113B3616A00938AE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5091089F13B3616A00938AE6 /* InfoPlist.strings */; };
 		509108A313B3616A00938AE6 /* tabulatabs_iosTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 509108A213B3616A00938AE6 /* tabulatabs_iosTests.h */; };
 		509108A513B3616A00938AE6 /* tabulatabs_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */; };
+		509108B013B36DEF00938AE6 /* ios-client.html in Resources */ = {isa = PBXBuildFile; fileRef = 509108AF13B36DEF00938AE6 /* ios-client.html */; };
+		509108B213B36DFD00938AE6 /* ios-client.js in Sources */ = {isa = PBXBuildFile; fileRef = 509108B113B36DFD00938AE6 /* ios-client.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +45,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5091087213B3616900938AE6 /* tabulatabs-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tabulatabs-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserChooserViewController.h; sourceTree = "<group>"; };
+		506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserChooserViewController.m; sourceTree = "<group>"; };
+		506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserChooserViewController.xib; sourceTree = "<group>"; };
+		506BB25F13B399F200B2CE85 /* BrowserRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserRepresentation.h; sourceTree = "<group>"; };
+		506BB26013B399F200B2CE85 /* BrowserRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserRepresentation.m; sourceTree = "<group>"; };
+		5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBrowserStepsViewController.h; sourceTree = "<group>"; };
+		5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBrowserStepsViewController.m; sourceTree = "<group>"; };
+		5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBrowserStepsViewController.xib; sourceTree = "<group>"; };
+		5088E30C13B4E48A00D12E49 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		5088E30D13B4E48A00D12E49 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		5088E30E13B4E48A00D12E49 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		5088E30F13B4E48A00D12E49 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		5088E31013B4E48A00D12E49 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		5088E31113B4E48A00D12E49 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		5088E31213B4E48A00D12E49 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		5088E31313B4E48A00D12E49 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		5088E31413B4E48A00D12E49 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		5088E31513B4E48A00D12E49 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		5088E31613B4E48A00D12E49 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		5088E31713B4E48A00D12E49 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		5088E31813B4E48A00D12E49 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		5088E31913B4E48A00D12E49 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		5088E31A13B4E48A00D12E49 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		5088E31B13B4E48A00D12E49 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		5088E31C13B4E48A00D12E49 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		5088E31D13B4E48A00D12E49 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		5088E31E13B4E48A00D12E49 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		5088E31F13B4E48A00D12E49 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		5088E32113B4E48A00D12E49 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		5088E32213B4E48A00D12E49 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		5088E32313B4E48A00D12E49 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		5088E32413B4E48A00D12E49 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		5091087213B3616900938AE6 /* TabulaTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabulaTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5091087613B3616900938AE6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5091087813B3616900938AE6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5091087A13B3616900938AE6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -44,17 +85,23 @@
 		5091088013B3616900938AE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5091088213B3616900938AE6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5091088413B3616900938AE6 /* tabulatabs-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tabulatabs-ios-Prefix.pch"; sourceTree = "<group>"; };
-		5091088513B3616900938AE6 /* tabulatabs_iosAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tabulatabs_iosAppDelegate.h; sourceTree = "<group>"; };
-		5091088613B3616A00938AE6 /* tabulatabs_iosAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabulatabs_iosAppDelegate.m; sourceTree = "<group>"; };
-		5091088813B3616A00938AE6 /* tabulatabs_iosViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tabulatabs_iosViewController.h; sourceTree = "<group>"; };
-		5091088A13B3616A00938AE6 /* tabulatabs_iosViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabulatabs_iosViewController.m; sourceTree = "<group>"; };
-		5091088D13B3616A00938AE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/tabulatabs_iosViewController.xib; sourceTree = "<group>"; };
+		5091088513B3616900938AE6 /* TabulatabsApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabulatabsApp.h; sourceTree = "<group>"; };
+		5091088613B3616A00938AE6 /* TabulatabsApp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabulatabsApp.m; sourceTree = "<group>"; };
 		5091089413B3616A00938AE6 /* tabulatabs-iosTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "tabulatabs-iosTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5091089513B3616A00938AE6 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		5091089E13B3616A00938AE6 /* tabulatabs-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tabulatabs-iosTests-Info.plist"; sourceTree = "<group>"; };
 		509108A013B3616A00938AE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		509108A213B3616A00938AE6 /* tabulatabs_iosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tabulatabs_iosTests.h; sourceTree = "<group>"; };
 		509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabulatabs_iosTests.m; sourceTree = "<group>"; };
+		509108AF13B36DEF00938AE6 /* ios-client.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "ios-client.html"; sourceTree = "<group>"; };
+		509108B113B36DFD00938AE6 /* ios-client.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "ios-client.js"; sourceTree = "<group>"; };
+		509108C113B36EBD00938AE6 /* Base64.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Base64.js; sourceTree = "<group>"; };
+		509108C213B36EBD00938AE6 /* jquery-1.5.2.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "jquery-1.5.2.min.js"; sourceTree = "<group>"; };
+		509108C313B36EBD00938AE6 /* qrCode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = qrCode.js; sourceTree = "<group>"; };
+		509108C413B36EBD00938AE6 /* sjcl.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sjcl.js; sourceTree = "<group>"; };
+		509108C513B36EBD00938AE6 /* tabulatabs-client.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tabulatabs-client.js"; sourceTree = "<group>"; };
+		509108C613B36EBD00938AE6 /* uuid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = uuid.js; sourceTree = "<group>"; };
+		509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = webtoolkit.sha1.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +112,7 @@
 				5091087713B3616900938AE6 /* UIKit.framework in Frameworks */,
 				5091087913B3616900938AE6 /* Foundation.framework in Frameworks */,
 				5091087B13B3616900938AE6 /* CoreGraphics.framework in Frameworks */,
+				5088E32513B4E48A00D12E49 /* libzbar.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +130,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5088E2F813B4A0EE00D12E49 /* AddBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */,
+				5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */,
+				5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */,
+			);
+			name = AddBrowser;
+			sourceTree = "<group>";
+		};
+		5088E30813B4E48A00D12E49 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				5088E30913B4E48A00D12E49 /* Headers */,
+				5088E31F13B4E48A00D12E49 /* libzbar.a */,
+				5088E32013B4E48A00D12E49 /* Resources */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		5088E30913B4E48A00D12E49 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				5088E30A13B4E48A00D12E49 /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		5088E30A13B4E48A00D12E49 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				5088E30B13B4E48A00D12E49 /* zbar */,
+				5088E31513B4E48A00D12E49 /* zbar.h */,
+				5088E31613B4E48A00D12E49 /* ZBarCaptureReader.h */,
+				5088E31713B4E48A00D12E49 /* ZBarHelpController.h */,
+				5088E31813B4E48A00D12E49 /* ZBarImage.h */,
+				5088E31913B4E48A00D12E49 /* ZBarImageScanner.h */,
+				5088E31A13B4E48A00D12E49 /* ZBarReaderController.h */,
+				5088E31B13B4E48A00D12E49 /* ZBarReaderView.h */,
+				5088E31C13B4E48A00D12E49 /* ZBarReaderViewController.h */,
+				5088E31D13B4E48A00D12E49 /* ZBarSDK.h */,
+				5088E31E13B4E48A00D12E49 /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		5088E30B13B4E48A00D12E49 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				5088E30C13B4E48A00D12E49 /* Decoder.h */,
+				5088E30D13B4E48A00D12E49 /* Exception.h */,
+				5088E30E13B4E48A00D12E49 /* Image.h */,
+				5088E30F13B4E48A00D12E49 /* ImageScanner.h */,
+				5088E31013B4E48A00D12E49 /* Processor.h */,
+				5088E31113B4E48A00D12E49 /* Scanner.h */,
+				5088E31213B4E48A00D12E49 /* Symbol.h */,
+				5088E31313B4E48A00D12E49 /* Video.h */,
+				5088E31413B4E48A00D12E49 /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		5088E32013B4E48A00D12E49 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5088E32113B4E48A00D12E49 /* zbar-back.png */,
+				5088E32213B4E48A00D12E49 /* zbar-help.html */,
+				5088E32313B4E48A00D12E49 /* zbar-helpicons.png */,
+				5088E32413B4E48A00D12E49 /* zbar-samples.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		5091086713B3616900938AE6 = {
 			isa = PBXGroup;
 			children = (
@@ -95,7 +216,7 @@
 		5091087313B3616900938AE6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5091087213B3616900938AE6 /* tabulatabs-ios.app */,
+				5091087213B3616900938AE6 /* TabulaTab.app */,
 				5091089413B3616A00938AE6 /* tabulatabs-iosTests.octest */,
 			);
 			name = Products;
@@ -115,12 +236,16 @@
 		5091087C13B3616900938AE6 /* tabulatabs-ios */ = {
 			isa = PBXGroup;
 			children = (
-				5091088513B3616900938AE6 /* tabulatabs_iosAppDelegate.h */,
-				5091088613B3616A00938AE6 /* tabulatabs_iosAppDelegate.m */,
-				5091088813B3616A00938AE6 /* tabulatabs_iosViewController.h */,
-				5091088A13B3616A00938AE6 /* tabulatabs_iosViewController.m */,
-				5091088C13B3616A00938AE6 /* tabulatabs_iosViewController.xib */,
+				5088E30813B4E48A00D12E49 /* ZBarSDK */,
+				5088E2F813B4A0EE00D12E49 /* AddBrowser */,
+				5091088513B3616900938AE6 /* TabulatabsApp.h */,
+				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
+				506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */,
+				506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */,
+				506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */,
 				5091087D13B3616900938AE6 /* Supporting Files */,
+				506BB25F13B399F200B2CE85 /* BrowserRepresentation.h */,
+				506BB26013B399F200B2CE85 /* BrowserRepresentation.m */,
 			);
 			path = "tabulatabs-ios";
 			sourceTree = "<group>";
@@ -128,6 +253,7 @@
 		5091087D13B3616900938AE6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				509108AE13B36DD300938AE6 /* htmlclient */,
 				5091087E13B3616900938AE6 /* tabulatabs-ios-Info.plist */,
 				5091087F13B3616900938AE6 /* InfoPlist.strings */,
 				5091088213B3616900938AE6 /* main.m */,
@@ -155,6 +281,31 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		509108AE13B36DD300938AE6 /* htmlclient */ = {
+			isa = PBXGroup;
+			children = (
+				509108C013B36EBD00938AE6 /* js */,
+				509108AF13B36DEF00938AE6 /* ios-client.html */,
+				509108B113B36DFD00938AE6 /* ios-client.js */,
+			);
+			path = htmlclient;
+			sourceTree = "<group>";
+		};
+		509108C013B36EBD00938AE6 /* js */ = {
+			isa = PBXGroup;
+			children = (
+				509108C113B36EBD00938AE6 /* Base64.js */,
+				509108C213B36EBD00938AE6 /* jquery-1.5.2.min.js */,
+				509108C313B36EBD00938AE6 /* qrCode.js */,
+				509108C413B36EBD00938AE6 /* sjcl.js */,
+				509108C513B36EBD00938AE6 /* tabulatabs-client.js */,
+				509108C613B36EBD00938AE6 /* uuid.js */,
+				509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */,
+			);
+			name = js;
+			path = "../../../chrome-extension/js";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -164,6 +315,7 @@
 			buildPhases = (
 				5091086E13B3616900938AE6 /* Sources */,
 				5091086F13B3616900938AE6 /* Frameworks */,
+				509108C813B386AC00938AE6 /* ShellScript */,
 				5091087013B3616900938AE6 /* Resources */,
 			);
 			buildRules = (
@@ -172,7 +324,7 @@
 			);
 			name = "tabulatabs-ios";
 			productName = "tabulatabs-ios";
-			productReference = 5091087213B3616900938AE6 /* tabulatabs-ios.app */;
+			productReference = 5091087213B3616900938AE6 /* TabulaTab.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5091089313B3616A00938AE6 /* tabulatabs-iosTests */ = {
@@ -223,8 +375,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5091088113B3616900938AE6 /* InfoPlist.strings in Resources */,
-				5091088913B3616A00938AE6 /* tabulatabs_iosViewController.h in Resources */,
-				5091088E13B3616A00938AE6 /* tabulatabs_iosViewController.xib in Resources */,
+				509108B013B36DEF00938AE6 /* ios-client.html in Resources */,
+				506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */,
+				5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */,
+				5088E32613B4E48B00D12E49 /* zbar-back.png in Resources */,
+				5088E32713B4E48B00D12E49 /* zbar-help.html in Resources */,
+				5088E32813B4E48B00D12E49 /* zbar-helpicons.png in Resources */,
+				5088E32913B4E48B00D12E49 /* zbar-samples.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +410,19 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
+		509108C813B386AC00938AE6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp -r ../chrome-extension/js tabulatabs-ios/htmlclient/";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -261,8 +431,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5091088313B3616900938AE6 /* main.m in Sources */,
-				5091088713B3616A00938AE6 /* tabulatabs_iosAppDelegate.m in Sources */,
-				5091088B13B3616A00938AE6 /* tabulatabs_iosViewController.m in Sources */,
+				5091088713B3616A00938AE6 /* TabulatabsApp.m in Sources */,
+				509108B213B36DFD00938AE6 /* ios-client.js in Sources */,
+				506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */,
+				506BB26113B399F200B2CE85 /* BrowserRepresentation.m in Sources */,
+				5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,14 +464,6 @@
 				5091088013B3616900938AE6 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		5091088C13B3616A00938AE6 /* tabulatabs_iosViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5091088D13B3616A00938AE6 /* en */,
-			);
-			name = tabulatabs_iosViewController.xib;
 			sourceTree = "<group>";
 		};
 		5091089F13B3616A00938AE6 /* InfoPlist.strings */ = {
@@ -363,7 +528,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tabulatabs-ios/tabulatabs-ios-Prefix.pch";
 				INFOPLIST_FILE = "tabulatabs-ios/tabulatabs-ios-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/tabulatabs-ios/ZBarSDK\"",
+				);
+				PRODUCT_NAME = TabulaTab;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -374,7 +544,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tabulatabs-ios/tabulatabs-ios-Prefix.pch";
 				INFOPLIST_FILE = "tabulatabs-ios/tabulatabs-ios-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/tabulatabs-ios/ZBarSDK\"",
+				);
+				PRODUCT_NAME = TabulaTab;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -432,6 +607,7 @@
 				509108AA13B3616A00938AE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		509108AB13B3616A00938AE6 /* Build configuration list for PBXNativeTarget "tabulatabs-iosTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +616,7 @@
 				509108AD13B3616A00938AE6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
