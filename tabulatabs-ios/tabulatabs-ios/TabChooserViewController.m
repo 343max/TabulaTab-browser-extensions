@@ -9,6 +9,7 @@
 #import "TabChooserViewController.h"
 #import "TabulatabsBrowserWindow.h"
 #import "TabulatabsBrowserTab.h"
+#import "BrowserViewController.h"
 
 @implementation TabChooserViewController
 
@@ -76,7 +77,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 #pragma mark - Table view data source
@@ -105,12 +106,10 @@
     TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
     TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
     
-    cell.textLabel.adjustsFontSizeToFitWidth = NO;
     cell.textLabel.text = tab.title;
-    cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+ 
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-    // Configure the cell...
-    
     return cell;
 }
 
@@ -157,14 +156,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
+    TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
+    
+    BrowserViewController *browserView = [[BrowserViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
+    browserView.browserTab = tab;
+    
+    [self.navigationController pushViewController:browserView animated:YES]; 
 }
 
 @end

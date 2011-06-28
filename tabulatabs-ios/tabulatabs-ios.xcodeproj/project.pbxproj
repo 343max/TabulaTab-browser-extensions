@@ -13,6 +13,8 @@
 		50364B3B13BA16A80003F9A4 /* TabulatabsBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3A13BA16A80003F9A4 /* TabulatabsBrowserWindow.m */; };
 		50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */; };
 		50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */; };
+		50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B4213BA2C000003F9A4 /* BrowserViewController.m */; };
+		50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B4313BA2C010003F9A4 /* BrowserViewController.xib */; };
 		5041AD8913B8EC6500586862 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD7113B8EC6500586862 /* NSObject+SBJson.m */; };
 		5041AD8A13B8EC6500586862 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD7413B8EC6500586862 /* SBJsonParser.m */; };
 		5041AD8B13B8EC6500586862 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD7613B8EC6500586862 /* SBJsonStreamParser.m */; };
@@ -76,6 +78,9 @@
 		50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserViewController.h; sourceTree = "<group>"; };
 		50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserViewController.m; sourceTree = "<group>"; };
 		50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabChooserViewController.xib; sourceTree = "<group>"; };
+		50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BrowserViewController.h; sourceTree = "<group>"; };
+		50364B4213BA2C000003F9A4 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
+		50364B4313BA2C010003F9A4 /* BrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserViewController.xib; sourceTree = "<group>"; };
 		5041AD7013B8EC6500586862 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		5041AD7113B8EC6500586862 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		5041AD7213B8EC6500586862 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -210,6 +215,22 @@
 				50364B3A13BA16A80003F9A4 /* TabulatabsBrowserWindow.m */,
 			);
 			name = Tabulatabs;
+			sourceTree = "<group>";
+		};
+		50364B4613BA2C710003F9A4 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */,
+				506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */,
+				506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */,
+				50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */,
+				50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */,
+				50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */,
+				50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */,
+				50364B4213BA2C000003F9A4 /* BrowserViewController.m */,
+				50364B4313BA2C010003F9A4 /* BrowserViewController.xib */,
+			);
+			name = ViewController;
 			sourceTree = "<group>";
 		};
 		5041AD6F13B8EC6500586862 /* JSON */ = {
@@ -361,12 +382,7 @@
 				5088E2F813B4A0EE00D12E49 /* AddBrowser */,
 				5091088513B3616900938AE6 /* TabulatabsApp.h */,
 				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
-				506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */,
-				506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */,
-				506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */,
-				50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */,
-				50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */,
-				50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */,
+				50364B4613BA2C710003F9A4 /* ViewController */,
 				5091087D13B3616900938AE6 /* Supporting Files */,
 				50364B3813BA14930003F9A4 /* Tabulatabs */,
 				50F7835613B8D2B40017FB9D /* MWURLConnection.h */,
@@ -511,6 +527,7 @@
 				5088E32913B4E48B00D12E49 /* zbar-samples.png in Resources */,
 				50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */,
 				50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */,
+				50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +598,7 @@
 				50364B3713BA14880003F9A4 /* TabulatabsBrowserTab.m in Sources */,
 				50364B3B13BA16A80003F9A4 /* TabulatabsBrowserWindow.m in Sources */,
 				50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */,
+				50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
