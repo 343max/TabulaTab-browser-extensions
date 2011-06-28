@@ -1,30 +1,25 @@
 //
-//  BrowserChooserViewController.m
+//  TabChooserViewController.m
 //  tabulatabs-ios
 //
-//  Created by Max Winde on 23.06.11.
+//  Created by Max Winde on 28.06.11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "BrowserChooserViewController.h"
-#import "TabulatabsBrowserRepresentation.h"
-#import "TabulatabsApp.h"
-#import "AddBrowserStepsViewController.h"
 #import "TabChooserViewController.h"
+#import "TabulatabsBrowserWindow.h"
+#import "TabulatabsBrowserTab.h"
 
-const int BrowserChooserViewControllerBrowserSelectionSection = 0;
-const int BrowserChooserViewControllerAddBrowserSection = 1;
+@implementation TabChooserViewController
 
-@implementation BrowserChooserViewController
+@synthesize browser;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    
+    self = [super initWithStyle:style];
     if (self) {
-        self.title = NSLocalizedString(@"TabulaTabs", @"TabulaTabs");
+        // Custom initialization
     }
-    
     return self;
 }
 
@@ -58,6 +53,8 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.title = self.browser.label;
+    
     [super viewWillAppear:animated];
 }
 
@@ -86,40 +83,32 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [self.browser.windows count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == BrowserChooserViewControllerBrowserSelectionSection) {
-        return [TabulatabsApp.sharedInstance.browserRepresenations count];
-    } else if (section == BrowserChooserViewControllerAddBrowserSection) {
-        return 1;
-    }
+    TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:section];
     
-    return 0;
+    return [window.tabs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"TabCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection)
-    {
-        TabulatabsBrowserRepresentation *browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:[indexPath row]];
-        cell.textLabel.text = browser.label;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else if (indexPath.section == BrowserChooserViewControllerAddBrowserSection)
-    {
-        cell.textLabel.text = NSLocalizedString(@"Add your Browser", @"Add a new Browser Table cell label");
-    }
+    TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
+    TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
     
+    cell.textLabel.adjustsFontSizeToFitWidth = NO;
+    cell.textLabel.text = tab.title;
+    cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+
     // Configure the cell...
     
     return cell;
@@ -168,20 +157,14 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == BrowserChooserViewControllerAddBrowserSection) {
-        AddBrowserStepsViewController *browserSteps = [[AddBrowserStepsViewController alloc] initWithNibName:@"AddBrowserStepsViewController" bundle:nil];
-        
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:browserSteps];
-        
-        [self presentModalViewController:navigationController animated:YES];
-    }
-    else if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection) {
-        TabChooserViewController *tabChooser = [[TabChooserViewController alloc] initWithNibName:@"TabChooserViewController" bundle:nil];
-        tabChooser.browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:indexPath.row];
-        
-        [self.navigationController pushViewController:tabChooser animated:YES];
-    }
-    
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     [detailViewController release];
+     */
 }
 
 @end

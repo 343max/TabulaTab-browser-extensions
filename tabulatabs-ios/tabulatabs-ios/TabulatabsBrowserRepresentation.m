@@ -10,6 +10,7 @@
 #import "MWURLConnection.h"
 #import "MWJavaScriptQueue.h"
 #import "NSObject+SBJson.h"
+#import "TabulatabsBrowserWindow.h"
 
 static MWJavaScriptQueue *javaScriptClientQueue;
 
@@ -17,7 +18,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 @synthesize label, iconId;
 @synthesize userId, userPassword, encryptionPassword;
-@synthesize connections;
+@synthesize windows;
 @synthesize delegate;
 
 - (NSDictionary *)parseQueryString:(NSString *)query
@@ -39,7 +40,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 {
     self = [super init];
     if (self) {
-        self.connections = [[NSMutableArray alloc] init];
+        self.windows = [[NSArray alloc] init];
         
         if (!javaScriptClientQueue) {
             javaScriptClientQueue = [[MWJavaScriptQueue alloc] initWithFile:@"iosJavaScriptIndex"];
@@ -136,7 +137,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
         NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"result: %@", dataString);
         [browserReprensentation decryptAssynchronly:dataString didDecryptDataBlock:didFinishLoadingBlock];
     }];
 }
@@ -160,6 +160,20 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     [self getObjectForKey:@"browserInfo" withDidFinishLoadingBlock:^(NSDictionary *browserInfo) {
         self.label = [browserInfo objectForKey:@"label"];
         self.iconId = [browserInfo objectForKey:@"icon"];
+        [self refreshViews];
+    }];
+}
+
+- (void)loadWindowsAndTabs
+{
+    [self getObjectForKey:@"browserTabs" withDidFinishLoadingBlock:^(NSArray *rawWindows) {
+        NSLog(@"%i", [rawWindows count]);
+        
+        self.windows = [[NSArray alloc] init];
+        
+        for (NSDictionary *rawWindow in rawWindows) {
+            self.windows = [self.windows arrayByAddingObject:[[TabulatabsBrowserWindow alloc] initWithDictionary:rawWindow]];
+        }
         [self refreshViews];
     }];
 }

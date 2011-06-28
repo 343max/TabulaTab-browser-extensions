@@ -8,6 +8,8 @@ function collectAllTabs() {
 			if (!chromeWindow.incognito) {
 				var window = {id: chromeWindow.id, focused: chromeWindow.focused, tabs: []};
 
+				console.dir(chromeWindow.tabs[0]);
+
 				$.each(chromeWindow.tabs, function(index, chromeTab) {
 					if(!chromeTab.url.match(/^https?:\/\//)) return;
 

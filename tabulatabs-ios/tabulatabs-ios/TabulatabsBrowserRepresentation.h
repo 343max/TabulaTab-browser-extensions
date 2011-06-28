@@ -17,7 +17,8 @@
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *userPassword;
 @property (strong, nonatomic) NSString *encryptionPassword;
-@property (strong, nonatomic) NSMutableArray *connections;
+
+@property (strong, nonatomic) NSArray *windows;
 
 @property (weak) TabulatabsApp *delegate;
 
@@ -28,5 +29,6 @@
 - (NSData *)buildQueryStringFromParameters:(NSDictionary *)parameters;
 - (NSMutableDictionary *)parametersForAction:(NSString *)action;
 - (void)loadBrowserInfo;
+- (void)loadWindowsAndTabs;
 
 @end

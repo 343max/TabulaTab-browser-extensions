@@ -82,6 +82,12 @@ static TabulatabsApp* sharedTabulatabApp;
         [browserRepresenations addObject:browser];
     }
     
+    [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
+        [browser loadWindowsAndTabs];
+        
+        stop = NO;
+    }];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
