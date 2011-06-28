@@ -1,27 +1,34 @@
 var tabulatabs = new TabulatabsClient('Chrome');
 
 function collectAllTabs() {
-	var tabs = [];
+	var windows = [];
 
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
 		$.each(chromeWindows, function(index, chromeWindow) {
-			$.each(chromeWindow.tabs, function(index, chromeTab) {
-				if(!chromeTab.url.match(/^https?:\/\//)) return;
+			if (!chromeWindow.incognito) {
+				var window = {id: chromeWindow.id, focused: chromeWindow.focused, tabs: []};
 
-				var tab = {
-					title: chromeTab.title,
-					url: chromeTab.url,
-					windowId: chromeWindow.id,
-					tabSelected: chromeTab.selected,
-					windowFocused: chromeWindow.focused
-				};
+				$.each(chromeWindow.tabs, function(index, chromeTab) {
+					if(!chromeTab.url.match(/^https?:\/\//)) return;
 
-				tabs.push(tab);
+					var tab = {
+						title: chromeTab.title,
+						url: chromeTab.url,
+						selected: chromeTab.selected
+					};
 
-			});
+					window.tabs.push(tab);
+
+				});
+
+				if (window.tabs.length > 0) {
+					windows.push(window);
+				}
+			}
 		});
 
-		tabulatabs.setTabs(tabs);
+		console.dir(windows);
+		tabulatabs.setTabs(windows);
 	});
 }
 
