@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZBarSDK.h"
 
-@interface AddBrowserStepsViewController : UIViewController
+@interface AddBrowserStepsViewController : UIViewController <ZBarReaderDelegate>
+
+- (IBAction)dismiss:(id)sender;
+- (IBAction)startScanning:(id)sender;
 
 @end

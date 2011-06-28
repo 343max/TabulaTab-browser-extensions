@@ -9,14 +9,13 @@
 #import "TabulatabsApp.h"
 
 #import "BrowserChooserViewController.h"
-#import "BrowserRepresentation.h"
+#import "TabulatabsBrowserRepresentation.h"
 
 static TabulatabsApp* sharedTabulatabApp;
 
 @implementation TabulatabsApp
 
 @synthesize window = _window;
-@synthesize viewController = _viewController;
 @synthesize navigationController = _navigationController;
 @synthesize browserRepresenations;
 
@@ -26,14 +25,44 @@ static TabulatabsApp* sharedTabulatabApp;
         NSLog(@"Error: You are creating a second AppController");
     }
     self = [super init];
+    
+    networkProcessCount = 0;
+    
     sharedTabulatabApp = self;
     
     return self;
 }
 
+- (void)addNetworkProcess
+{
+    networkProcessCount += 1;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)finishNetworkPorcess
+{
+    networkProcessCount -= 1;
+    if (networkProcessCount < 0) {
+        NSLog(@"negative network process count");
+    }
+    
+    if (networkProcessCount <= 0) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
+}
+
 + (TabulatabsApp *)sharedInstance
 {
     return sharedTabulatabApp;
+}
+
+- (void)redrawTables
+{
+    UIViewController *visibileViewController = self.navigationController.visibleViewController;
+    if ([visibileViewController isKindOfClass:[UITableViewController class]]) {
+        UITableViewController *tableViewController = (UITableViewController *)self.navigationController.visibleViewController;
+        [tableViewController.tableView reloadData];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -46,7 +75,12 @@ static TabulatabsApp* sharedTabulatabApp;
     
     browserRepresenations = [[NSMutableArray alloc] init];
     
-    [browserRepresenations addObject:[[BrowserRepresentation alloc] initWithLabel:@"Chrome" userId:@"xx" userPassword:@"xx" encryptionPassword:@"xx"]];
+    TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
+    if ([browser setRegistrationUrl:@"tabulatabs:/register?id=CDE0FEDA-97DB-40EB-B928-385A853ECF90&p1=umln3D1Duu53n9rFSygJYZppPFy69039&p2=lAcy4O7BJd8ilxf2izwJpnWKhSs3YBhj"]) {
+        [browser setDelegate:self];
+        [browser loadBrowserInfo];
+        [browserRepresenations addObject:browser];
+    }
     
     [self.window makeKeyAndVisible];
     return YES;

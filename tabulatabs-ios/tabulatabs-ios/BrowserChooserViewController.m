@@ -7,7 +7,7 @@
 //
 
 #import "BrowserChooserViewController.h"
-#import "BrowserRepresentation.h"
+#import "TabulatabsBrowserRepresentation.h"
 #import "TabulatabsApp.h"
 #import "AddBrowserStepsViewController.h"
 
@@ -110,7 +110,7 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     
     if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection)
     {
-        BrowserRepresentation *browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:[indexPath row]];
+        TabulatabsBrowserRepresentation *browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:[indexPath row]];
         cell.textLabel.text = browser.label;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -118,7 +118,6 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     {
         cell.textLabel.text = NSLocalizedString(@"Add your Browser", @"Add a new Browser Table cell label");
     }
-    
     
     // Configure the cell...
     

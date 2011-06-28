@@ -66,7 +66,9 @@ function TabulatabsClient(clientId) {
 	}
 
 	this.clientRegistrationUrl = function() {
-		return 'tabulatabs:register?id=' + userId + '&p1=' + userPassword + '&p2=' + encryptionPassword;
+		var url = 'tabulatabs:/register?id=' + userId + '&p1=' + userPassword + '&p2=' + encryptionPassword;
+		console.log(url);
+		return url;
 	}
 
 	this.getObjectForKey = function(key, callback, errorCallback) {
@@ -85,7 +87,7 @@ function TabulatabsClient(clientId) {
 	this.putObjectForKey = function(key, value, callback) {
 		if (!callback) callback = function(data) {};
 		
-		encryptedValue = JSON.stringify(encrypt(value));
+		encryptedValue = encrypt(value);
 
 		$.post(serverPath, {
 			'userId': userId,

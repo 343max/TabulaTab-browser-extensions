@@ -11,14 +11,18 @@
 @class BrowserChooserViewController;
 
 @interface TabulatabsApp : UIResponder <UIApplicationDelegate>
+{
+    int networkProcessCount;
+}
 
 + (TabulatabsApp *)sharedInstance;
 
+- (void)redrawTables;
+- (void)addNetworkProcess;
+- (void)finishNetworkPorcess;
+
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) BrowserChooserViewController *viewController;
 @property (strong, nonatomic) UINavigationController *navigationController;
-
 @property (strong, nonatomic) NSMutableArray *browserRepresenations;
 
 @end

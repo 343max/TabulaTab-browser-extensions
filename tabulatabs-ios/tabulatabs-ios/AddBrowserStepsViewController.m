@@ -7,6 +7,9 @@
 //
 
 #import "AddBrowserStepsViewController.h"
+#import "ZBarSDK.h"
+#import "TabulatabsApp.h"
+#import "TabulatabsBrowserRepresentation.h"
 
 @implementation AddBrowserStepsViewController
 
@@ -33,6 +36,37 @@
 - (void)dismiss:(id)sender
 {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)startScanning:(id)sender
+{
+    ZBarReaderViewController *reader = [[ZBarReaderViewController alloc] init];
+    reader.readerDelegate = self;
+    
+    ZBarImageScanner *scanner = reader.scanner;
+    
+    [scanner setSymbology:ZBAR_I25 config:ZBAR_CFG_ENABLE to:0];
+    
+    [self presentModalViewController:reader animated:YES];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    id<NSFastEnumeration> results = [info objectForKey:ZBarReaderControllerResults];
+    ZBarSymbol *symbol = nil;
+   
+    for (symbol in results)
+        break;
+    
+    TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
+    
+    if ([browser setRegistrationUrl:symbol.data]) {
+        [picker dismissModalViewControllerAnimated:YES];
+        [[TabulatabsApp sharedInstance].browserRepresenations addObject:browser];
+    } else {
+        // !!!TODO warn on incorrect urls
+        NSLog(@"not an tabulatabs registration url");
+    }
 }
 
 #pragma mark - View lifecycle
