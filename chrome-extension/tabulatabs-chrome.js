@@ -3,6 +3,8 @@ var tabulatabs = new TabulatabsClient('Chrome');
 function collectAllTabs() {
 	var windows = [];
 
+	var dump = [];
+
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
 		$.each(chromeWindows, function(index, chromeWindow) {
 			if (!chromeWindow.incognito) {
@@ -19,6 +21,10 @@ function collectAllTabs() {
 						selected: chromeTab.selected
 					};
 
+					enrichWithMetaInfo(tab);
+
+					dump.push({title: chromeTab.title, url: chromeTab.url});
+
 					window.tabs.push(tab);
 
 				});
@@ -29,7 +35,8 @@ function collectAllTabs() {
 			}
 		});
 
-		console.dir(windows);
+		console.log(JSON.stringify(dump));
+
 		tabulatabs.setTabs(windows);
 	});
 }

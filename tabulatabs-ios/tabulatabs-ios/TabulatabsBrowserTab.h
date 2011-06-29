@@ -14,6 +14,9 @@
 
 @property (strong) NSString *title;
 @property (strong) NSURL *url;
+@property (strong) NSString *shortDomain;
+@property (strong) NSString *siteTitle;
+@property (strong) NSString *pageTitle;
 @property BOOL selected;
 
 @end

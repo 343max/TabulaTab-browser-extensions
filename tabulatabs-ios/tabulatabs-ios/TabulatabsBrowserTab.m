@@ -11,6 +11,7 @@
 @implementation TabulatabsBrowserTab
 
 @synthesize title, url, selected;
+@synthesize shortDomain, siteTitle, pageTitle;
 
 - (id)init
 {
@@ -29,6 +30,9 @@
         self.selected = [(NSNumber *)[dictionary objectForKey:@"selected"] integerValue] != 0;
         self.title = [dictionary valueForKey:@"title"];
         self.url = [NSURL URLWithString:[dictionary valueForKey:@"url"]];
+        self.shortDomain = [dictionary objectForKey:@"shortDomain"];
+        self.siteTitle = [dictionary objectForKey:@"siteTitle"];
+        self.pageTitle = [dictionary objectForKey:@"pageTitle"];
     }
     
     return self;
@@ -42,6 +46,9 @@
         selected = [aDecoder decodeBoolForKey:@"selected"];
         title = [aDecoder decodeObjectForKey:@"title"];
         url = [aDecoder decodeObjectForKey:@"url"];
+        shortDomain = [aDecoder decodeObjectForKey:@"shortDomain"];
+        siteTitle = [aDecoder decodeObjectForKey:@"siteTitle"];
+        pageTitle = [aDecoder decodeObjectForKey:@"pageTitle"];
     }
     
     return self;
@@ -52,6 +59,9 @@
     [aCoder encodeBool:selected forKey:@"selected"];
     [aCoder encodeObject:title forKey:@"title"];
     [aCoder encodeObject:url forKey:@"url"];
+    [aCoder encodeObject:shortDomain forKey:@"shortDomain"];
+    [aCoder encodeObject:siteTitle forKey:@"siteTitle"];
+    [aCoder encodeObject:pageTitle forKey:@"pageTitle"];
 }
 
 @end

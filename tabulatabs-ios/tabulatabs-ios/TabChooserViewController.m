@@ -106,14 +106,15 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         //cell = [[BrowserTabCellView alloc] init];
     }
     
     TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
     TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = tab.title;
+    cell.textLabel.text = tab.pageTitle;
+    cell.detailTextLabel.text = ([tab.siteTitle isEqualToString:@""] ? tab.shortDomain : tab.siteTitle);
  
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 

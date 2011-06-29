@@ -95,11 +95,12 @@ static TabulatabsApp* sharedTabulatabApp;
     browserRepresenations = [[NSMutableArray alloc] init];
     
     [self restoreSettings];
-    
-    /*TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
+    /*
+    TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
     if ([browser setRegistrationUrl:@"tabulatabs:/register?id=CDE0FEDA-97DB-40EB-B928-385A853ECF90&p1=umln3D1Duu53n9rFSygJYZppPFy69039&p2=lAcy4O7BJd8ilxf2izwJpnWKhSs3YBhj"]) {
         [browserRepresenations addObject:browser];
-    } */
+    } 
+    */
     
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
         [browser loadWindowsAndTabs];
