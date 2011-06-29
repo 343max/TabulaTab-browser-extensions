@@ -34,4 +34,24 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [self init];
+    
+    if (self) {
+        selected = [aDecoder decodeBoolForKey:@"selected"];
+        title = [aDecoder decodeObjectForKey:@"title"];
+        url = [aDecoder decodeObjectForKey:@"url"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeBool:selected forKey:@"selected"];
+    [aCoder encodeObject:title forKey:@"title"];
+    [aCoder encodeObject:url forKey:@"url"];
+}
+
 @end

@@ -16,10 +16,9 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 @implementation TabulatabsBrowserRepresentation
 
-@synthesize label, iconId;
+@synthesize label, iconId, browserInfoLoaded;
 @synthesize userId, userPassword, encryptionPassword;
 @synthesize windows;
-@synthesize delegate;
 
 - (NSDictionary *)parseQueryString:(NSString *)query
 {
@@ -64,15 +63,30 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     return self;
 }
 
-- (void)refreshViews
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self.delegate) {
-        [self.delegate redrawTables];
+    self = [self init];
+    
+    if (self) {
+        label = [aDecoder decodeObjectForKey:@"label"];
+        iconId = [aDecoder decodeObjectForKey:@"iconId"];
+        
+        userId = [aDecoder decodeObjectForKey:@"userId"];
+        userPassword = [aDecoder decodeObjectForKey:@"userPassword"];
+        encryptionPassword = [aDecoder decodeObjectForKey:@"encryptionPassword"];
+        
+        browserInfoLoaded = [aDecoder decodeBoolForKey:@"browserInfoLoaded"];
+        
+        windows = [aDecoder decodeObjectForKey:@"windows"];
     }
+    
+    return self;
 }
 
 - (BOOL)setRegistrationUrl:(NSString *)urlString
 {
+    browserInfoLoaded = NO;
+    
     self.label = NSLocalizedString(@"Registering your browser…", @"Registering your browser…");
     
     NSURL *url = [NSURL URLWithString:urlString];
@@ -160,7 +174,9 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     [self getObjectForKey:@"browserInfo" withDidFinishLoadingBlock:^(NSDictionary *browserInfo) {
         self.label = [browserInfo objectForKey:@"label"];
         self.iconId = [browserInfo objectForKey:@"icon"];
-        [self refreshViews];
+        browserInfoLoaded = YES;
+        
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedBrowserList" object:self]];
     }];
 }
 
@@ -174,8 +190,22 @@ static MWJavaScriptQueue *javaScriptClientQueue;
         for (NSDictionary *rawWindow in rawWindows) {
             self.windows = [self.windows arrayByAddingObject:[[TabulatabsBrowserWindow alloc] initWithDictionary:rawWindow]];
         }
-        [self refreshViews];
+
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self]];
     }];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{    
+    [aCoder encodeObject:label forKey:@"label"];
+    [aCoder encodeObject:iconId forKey:@"iconId"];
+    [aCoder encodeObject:userId forKey:@"userId"];
+    [aCoder encodeObject:userPassword forKey:@"userPassword"];
+    [aCoder encodeObject:encryptionPassword forKey:@"encryptionPassword"];
+    
+    [aCoder encodeBool:browserInfoLoaded forKey:@"browserInfoLoaded"];
+    
+    [aCoder encodeObject:windows forKey:@"windows"];
 }
 
 @end

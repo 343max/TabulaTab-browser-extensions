@@ -13,6 +13,8 @@
 
 @implementation AddBrowserStepsViewController
 
+@synthesize openerViewController;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,11 +60,18 @@
     for (symbol in results)
         break;
     
+    NSLog(@"%@", symbol.data);
+    
     TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
     
     if ([browser setRegistrationUrl:symbol.data]) {
-        [picker dismissModalViewControllerAnimated:YES];
+        [self.openerViewController dismissModalViewControllerAnimated:YES];
         [[TabulatabsApp sharedInstance].browserRepresenations addObject:browser];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedBrowserList" object:browser]];
+        
+        [browser loadBrowserInfo];
+        [browser loadWindowsAndTabs];
+        
     } else {
         // !!!TODO warn on incorrect urls
         NSLog(@"not an tabulatabs registration url");

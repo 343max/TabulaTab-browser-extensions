@@ -42,6 +42,8 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"updatedBrowserList" object:nil];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -52,6 +54,9 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -113,7 +118,17 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     {
         TabulatabsBrowserRepresentation *browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:[indexPath row]];
         cell.textLabel.text = browser.label;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        if (!browser.browserInfoLoaded) {
+            UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            
+            [activityView startAnimating];
+            
+            cell.accessoryView = activityView;
+        } else {
+            cell.accessoryView = nil;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
     else if (indexPath.section == BrowserChooserViewControllerAddBrowserSection)
     {
@@ -171,8 +186,9 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     if (indexPath.section == BrowserChooserViewControllerAddBrowserSection) {
         AddBrowserStepsViewController *browserSteps = [[AddBrowserStepsViewController alloc] initWithNibName:@"AddBrowserStepsViewController" bundle:nil];
         
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:browserSteps];
+        browserSteps.openerViewController = self;
         
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:browserSteps];
         [self presentModalViewController:navigationController animated:YES];
     }
     else if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection) {

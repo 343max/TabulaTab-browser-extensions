@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TabulatabsBrowserTab : NSObject
+@interface TabulatabsBrowserTab : NSObject <NSCoding>
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 

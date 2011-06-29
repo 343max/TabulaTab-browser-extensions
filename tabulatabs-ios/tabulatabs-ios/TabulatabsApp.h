@@ -17,7 +17,6 @@
 
 + (TabulatabsApp *)sharedInstance;
 
-- (void)redrawTables;
 - (void)addNetworkProcess;
 - (void)finishNetworkPorcess;
 

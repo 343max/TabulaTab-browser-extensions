@@ -10,6 +10,7 @@
 
 #import "BrowserChooserViewController.h"
 #import "TabulatabsBrowserRepresentation.h"
+#import "Helpers.h"
 
 static TabulatabsApp* sharedTabulatabApp;
 
@@ -32,6 +33,8 @@ static TabulatabsApp* sharedTabulatabApp;
     
     return self;
 }
+
+#pragma mark network activity indicator
 
 - (void)addNetworkProcess
 {
@@ -56,12 +59,28 @@ static TabulatabsApp* sharedTabulatabApp;
     return sharedTabulatabApp;
 }
 
-- (void)redrawTables
+#pragma mark save status
+
+- (void)saveSettings
 {
-    UIViewController *visibileViewController = self.navigationController.visibleViewController;
-    if ([visibileViewController isKindOfClass:[UITableViewController class]]) {
-        UITableViewController *tableViewController = (UITableViewController *)self.navigationController.visibleViewController;
-        [tableViewController.tableView reloadData];
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    
+    [archiver encodeObject:browserRepresenations forKey:@"tabulatabsBrowsers"];
+    
+    [archiver finishEncoding];
+    
+    [data writeToFile:pathInDocumentDirectory(@"settings.plist") atomically:YES];
+}
+
+- (void)restoreSettings
+{
+    NSMutableData *data = [[NSMutableData alloc] initWithContentsOfFile:pathInDocumentDirectory(@"settings.plist")];
+    
+    if (data) {
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        
+        browserRepresenations = [unarchiver decodeObjectForKey:@"tabulatabsBrowsers"];
     }
 }
 
@@ -75,15 +94,16 @@ static TabulatabsApp* sharedTabulatabApp;
     
     browserRepresenations = [[NSMutableArray alloc] init];
     
-    TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
+    [self restoreSettings];
+    
+    /*TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
     if ([browser setRegistrationUrl:@"tabulatabs:/register?id=CDE0FEDA-97DB-40EB-B928-385A853ECF90&p1=umln3D1Duu53n9rFSygJYZppPFy69039&p2=lAcy4O7BJd8ilxf2izwJpnWKhSs3YBhj"]) {
-        [browser setDelegate:self];
-        [browser loadBrowserInfo];
         [browserRepresenations addObject:browser];
-    }
+    } */
     
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
         [browser loadWindowsAndTabs];
+        [browser loadBrowserInfo];
         
         stop = NO;
     }];
@@ -102,10 +122,7 @@ static TabulatabsApp* sharedTabulatabApp;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    /*
-     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-     If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-     */
+    [self saveSettings];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

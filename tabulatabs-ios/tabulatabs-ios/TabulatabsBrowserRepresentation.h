@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TabulatabsApp.h"
 
-@interface TabulatabsBrowserRepresentation : NSObject
+@interface TabulatabsBrowserRepresentation : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *label;
 @property (strong, nonatomic) NSString *iconId;
@@ -18,9 +18,9 @@
 @property (strong, nonatomic) NSString *userPassword;
 @property (strong, nonatomic) NSString *encryptionPassword;
 
-@property (strong, nonatomic) NSArray *windows;
+@property (readonly) BOOL browserInfoLoaded;
 
-@property (weak) TabulatabsApp *delegate;
+@property (strong, nonatomic) NSArray *windows;
 
 - (id)initWithLabel:(NSString*)l userId:(NSString*)uid userPassword:(NSString*)upwd encryptionPassword:(NSString*)epwd;
 - (BOOL)setRegistrationUrl:(NSString *)urlString;

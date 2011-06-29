@@ -7,6 +7,7 @@
 //
 
 #import "BrowserViewController.h"
+#import "TabulatabsApp.h"
 
 @implementation BrowserViewController
 
@@ -57,6 +58,20 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark WebViewDelegate
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [[TabulatabsApp sharedInstance] addNetworkProcess];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [[TabulatabsApp sharedInstance] finishNetworkPorcess];
+    
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 }
 
 @end

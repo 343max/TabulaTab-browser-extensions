@@ -11,6 +11,8 @@
 
 @interface AddBrowserStepsViewController : UIViewController <ZBarReaderDelegate>
 
+@property (strong) UIViewController *openerViewController;
+
 - (IBAction)dismiss:(id)sender;
 - (IBAction)startScanning:(id)sender;
 

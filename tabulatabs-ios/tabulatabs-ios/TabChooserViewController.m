@@ -10,6 +10,7 @@
 #import "TabulatabsBrowserWindow.h"
 #import "TabulatabsBrowserTab.h"
 #import "BrowserViewController.h"
+#import "BrowserTabCellView.h"
 
 @implementation TabChooserViewController
 
@@ -38,6 +39,8 @@
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"updatedTabList" object:nil];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -47,6 +50,9 @@
 
 - (void)viewDidUnload
 {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -101,6 +107,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        //cell = [[BrowserTabCellView alloc] init];
     }
     
     TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];

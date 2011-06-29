@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "TabulatabsBrowserTab.h"
 
-@interface BrowserViewController : UIViewController
+@interface BrowserViewController : UIViewController <UIWebViewDelegate>
 
-@property IBOutlet UIWebView *webView;
+@property (strong) IBOutlet UIWebView *webView;
 
 @property (strong) TabulatabsBrowserTab *browserTab;
 

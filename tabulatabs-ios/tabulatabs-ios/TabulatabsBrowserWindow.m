@@ -24,6 +24,28 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [self init];
+    
+    if (self) {
+        windowId = [aDecoder decodeIntegerForKey:@"windowId"];
+        focused = [aDecoder decodeBoolForKey:@"focused"];
+        
+        tabs = [aDecoder decodeObjectForKey:@"tabs"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeInteger:windowId forKey:@"windowId"];
+    [aCoder encodeBool:focused forKey:@"focused"];
+    
+    [aCoder encodeObject:tabs forKey:@"tabs"];
+}
+
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [self init];

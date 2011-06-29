@@ -27,6 +27,7 @@
 		5041AD9213B8EC6500586862 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD8413B8EC6500586862 /* SBJsonTokeniser.m */; };
 		5041AD9313B8EC6500586862 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD8613B8EC6500586862 /* SBJsonUTF8Stream.m */; };
 		5041AD9413B8EC6500586862 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD8813B8EC6500586862 /* SBJsonWriter.m */; };
+		506AE72D13BB338600134EF3 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 506AE72B13BB338500134EF3 /* Helpers.m */; };
 		506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */; };
 		506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */; };
 		506BB26113B399F200B2CE85 /* TabulatabsBrowserRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TabulatabsBrowserRepresentation.m */; };
@@ -57,6 +58,8 @@
 		509108A513B3616A00938AE6 /* tabulatabs_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */; };
 		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
 		50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */; };
+		50EDD5F013BA3074001FF86A /* BrowserTabCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EDD5EF13BA3074001FF86A /* BrowserTabCellView.m */; };
+		50EDD5F413BA3171001FF86A /* BrowserTabCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50EDD5F313BA3171001FF86A /* BrowserTabCellView.xib */; };
 		50F7835813B8D2B40017FB9D /* MWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F7835713B8D2B40017FB9D /* MWURLConnection.m */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +81,7 @@
 		50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserViewController.h; sourceTree = "<group>"; };
 		50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserViewController.m; sourceTree = "<group>"; };
 		50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabChooserViewController.xib; sourceTree = "<group>"; };
-		50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BrowserViewController.h; sourceTree = "<group>"; };
+		50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
 		50364B4213BA2C000003F9A4 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
 		50364B4313BA2C010003F9A4 /* BrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserViewController.xib; sourceTree = "<group>"; };
 		5041AD7013B8EC6500586862 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 		5041AD8613B8EC6500586862 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		5041AD8713B8EC6500586862 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		5041AD8813B8EC6500586862 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		506AE72B13BB338500134EF3 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
+		506AE72C13BB338500134EF3 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
 		506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserChooserViewController.h; sourceTree = "<group>"; };
 		506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserChooserViewController.m; sourceTree = "<group>"; };
 		506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserChooserViewController.xib; sourceTree = "<group>"; };
@@ -169,6 +174,9 @@
 		50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWJavaScriptQueue.h; path = ../MWJavaScriptQueue.h; sourceTree = "<group>"; };
 		50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWJavaScriptQueue.m; path = ../MWJavaScriptQueue.m; sourceTree = "<group>"; };
 		50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = iosJavaScriptIndex.html; sourceTree = "<group>"; };
+		50EDD5EE13BA3074001FF86A /* BrowserTabCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserTabCellView.h; sourceTree = "<group>"; };
+		50EDD5EF13BA3074001FF86A /* BrowserTabCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserTabCellView.m; sourceTree = "<group>"; };
+		50EDD5F313BA3171001FF86A /* BrowserTabCellView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserTabCellView.xib; sourceTree = "<group>"; };
 		50F7835613B8D2B40017FB9D /* MWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWURLConnection.h; path = ../MWURLConnection.h; sourceTree = "<group>"; };
 		50F7835713B8D2B40017FB9D /* MWURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWURLConnection.m; path = ../MWURLConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,6 +237,9 @@
 				50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */,
 				50364B4213BA2C000003F9A4 /* BrowserViewController.m */,
 				50364B4313BA2C010003F9A4 /* BrowserViewController.xib */,
+				50EDD5EE13BA3074001FF86A /* BrowserTabCellView.h */,
+				50EDD5EF13BA3074001FF86A /* BrowserTabCellView.m */,
+				50EDD5F313BA3171001FF86A /* BrowserTabCellView.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -377,14 +388,16 @@
 		5091087C13B3616900938AE6 /* tabulatabs-ios */ = {
 			isa = PBXGroup;
 			children = (
+				506AE72B13BB338500134EF3 /* Helpers.m */,
+				506AE72C13BB338500134EF3 /* Helpers.h */,
 				5041AD6F13B8EC6500586862 /* JSON */,
 				5088E30813B4E48A00D12E49 /* ZBarSDK */,
 				5088E2F813B4A0EE00D12E49 /* AddBrowser */,
 				5091088513B3616900938AE6 /* TabulatabsApp.h */,
 				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
 				50364B4613BA2C710003F9A4 /* ViewController */,
-				5091087D13B3616900938AE6 /* Supporting Files */,
 				50364B3813BA14930003F9A4 /* Tabulatabs */,
+				5091087D13B3616900938AE6 /* Supporting Files */,
 				50F7835613B8D2B40017FB9D /* MWURLConnection.h */,
 				50F7835713B8D2B40017FB9D /* MWURLConnection.m */,
 				50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */,
@@ -528,6 +541,7 @@
 				50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */,
 				50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */,
 				50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */,
+				50EDD5F413BA3171001FF86A /* BrowserTabCellView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +613,8 @@
 				50364B3B13BA16A80003F9A4 /* TabulatabsBrowserWindow.m in Sources */,
 				50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */,
 				50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */,
+				50EDD5F013BA3074001FF86A /* BrowserTabCellView.m in Sources */,
+				506AE72D13BB338600134EF3 /* Helpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
