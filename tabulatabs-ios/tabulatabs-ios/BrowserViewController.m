@@ -36,6 +36,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.title = browserTab.title;
+    self.webView.scalesPageToFit = YES;
     [self.webView loadRequest:[NSURLRequest requestWithURL:browserTab.url]];
     
     [super viewWillAppear:animated];

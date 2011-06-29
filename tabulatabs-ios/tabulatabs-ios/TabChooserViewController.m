@@ -10,7 +10,6 @@
 #import "TabulatabsBrowserWindow.h"
 #import "TabulatabsBrowserTab.h"
 #import "BrowserViewController.h"
-#import "BrowserTabCellView.h"
 
 @implementation TabChooserViewController
 
