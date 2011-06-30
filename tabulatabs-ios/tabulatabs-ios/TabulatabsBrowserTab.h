@@ -11,6 +11,7 @@
 @interface TabulatabsBrowserTab : NSObject <NSCoding>
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+- (BOOL)containsString:(NSString *)searchString;
 
 @property (strong) NSString *title;
 @property (strong) NSURL *url;

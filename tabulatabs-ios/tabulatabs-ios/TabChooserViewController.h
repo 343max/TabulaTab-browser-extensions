@@ -14,6 +14,6 @@
 @property IBOutlet UISearchBar *searchBar;
 
 @property (strong) TabulatabsBrowserRepresentation *browser;
-@property (strong) NSArray *windowsContainingSearchText;
+@property (strong) NSArray *searchResults;
 
 @end

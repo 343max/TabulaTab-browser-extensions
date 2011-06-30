@@ -31,4 +31,8 @@
 - (void)loadBrowserInfo;
 - (void)loadWindowsAndTabs;
 
+- (NSArray *)tabsContainingString:(NSString *)searchString;
+- (NSArray *)allTabs;
+
+
 @end

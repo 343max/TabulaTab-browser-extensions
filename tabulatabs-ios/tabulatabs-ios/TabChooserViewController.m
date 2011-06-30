@@ -15,7 +15,7 @@
 @implementation TabChooserViewController
 
 @synthesize browser;
-@synthesize windowsContainingSearchText;
+@synthesize searchResults;
 @synthesize searchBar;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -33,6 +33,17 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)performSearchFor:(NSString *)searchString
+{
+    if ([searchString isEqualToString:@""]) {
+        self.searchResults = [self.browser allTabs];
+    } else {
+        self.searchResults = [self.browser tabsContainingString:searchString];
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - View lifecycle
@@ -74,6 +85,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.searchBar.text = @"";
+    [self performSearchFor:@""];
     [super viewWillAppear:animated];
 }
 
@@ -102,14 +115,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.browser.windows count];
+    return [self.searchResults count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:section];
+    NSArray *tabs = [self.searchResults objectAtIndex:section];
     
-    return [window.tabs count];
+    return [tabs count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,8 +135,8 @@
         //cell = [[BrowserTabCellView alloc] init];
     }
     
-    TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
-    TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
+    NSArray *tabs = [self.searchResults objectAtIndex:indexPath.section];
+    TabulatabsBrowserTab *tab = [tabs objectAtIndex:indexPath.row];
     
     [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
     [cell setFavIcon:tab.favIconImage];
@@ -192,7 +205,7 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    
+    [self performSearchFor:searchText];
 }
 
 @end

@@ -195,6 +195,31 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     }];
 }
 
+- (NSArray *)tabsContainingString:(NSString *)searchString
+{
+    __block NSArray *searchResults = [[NSArray alloc] init];
+    
+    [self.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
+        NSArray *tabs = [window tabsContainingString:searchString];
+        if ([tabs count] > 0) {
+            searchResults = [searchResults arrayByAddingObject:tabs];
+        }
+    }];
+    
+    return searchResults;
+}
+
+- (NSArray *)allTabs
+{
+    __block NSArray *searchResults = [[NSArray alloc] init];
+    
+    [self.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
+        searchResults = [searchResults arrayByAddingObject:window.tabs];
+    }];
+    
+    return searchResults;
+}
+
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {    
     [aCoder encodeObject:label forKey:@"label"];

@@ -11,6 +11,7 @@
 @interface TabulatabsBrowserWindow : NSObject <NSCoding>
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
+- (NSArray *)tabsContainingString:(NSString *)searchString;
 
 @property NSInteger windowId;
 @property BOOL focused;

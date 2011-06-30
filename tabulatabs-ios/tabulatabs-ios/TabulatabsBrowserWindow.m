@@ -63,4 +63,11 @@
     return self;
 }
 
+- (NSArray *)tabsContainingString:(NSString *)searchString
+{
+    return [self.tabs filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TabulatabsBrowserTab *tab, NSDictionary *bindings) {
+        return [tab containsString:searchString];
+    }]];
+}
+
 @end

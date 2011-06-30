@@ -40,6 +40,11 @@
     return self;
 }
 
+- (BOOL)containsString:(NSString *)searchString
+{
+    return [self.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound;
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [self init];
