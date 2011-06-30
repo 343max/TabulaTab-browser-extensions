@@ -12,7 +12,12 @@
 @implementation BrowserViewController
 
 @synthesize browserTab;
-@synthesize webView;
+@synthesize webView, toolbar;
+
+- (void)share:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:webView.request.URL];
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

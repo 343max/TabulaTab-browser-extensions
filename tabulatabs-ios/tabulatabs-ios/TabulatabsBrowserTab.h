@@ -17,6 +17,9 @@
 @property (strong) NSString *shortDomain;
 @property (strong) NSString *siteTitle;
 @property (strong) NSString *pageTitle;
+@property (strong) NSURL *favIconUrl;
 @property BOOL selected;
+
+@property (strong) UIImage *favIconImage;
 
 @end

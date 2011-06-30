@@ -10,10 +10,13 @@
 #import "TabulatabsBrowserWindow.h"
 #import "TabulatabsBrowserTab.h"
 #import "BrowserViewController.h"
+#import "TabChooserCell.h"
 
 @implementation TabChooserViewController
 
 @synthesize browser;
+@synthesize windowsContainingSearchText;
+@synthesize searchBar;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -40,6 +43,18 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"updatedTabList" object:nil];
 
+    self.title = self.browser.label;
+    UITableView *tableView = self.tableView;
+    
+    [browser.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
+        [window.tabs enumerateObjectsUsingBlock:^(TabulatabsBrowserTab *tab, NSUInteger idx, BOOL *stop) {
+            [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
+                tab.favIconImage = image;
+                [tableView reloadData];
+            }];
+        }];
+    }];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -59,8 +74,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.title = self.browser.label;
-    
     [super viewWillAppear:animated];
 }
 
@@ -103,20 +116,18 @@
 {
     static NSString *CellIdentifier = @"TabCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TabChooserCell *cell = (TabChooserCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[TabChooserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         //cell = [[BrowserTabCellView alloc] init];
     }
     
     TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
     TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = tab.pageTitle;
-    cell.detailTextLabel.text = ([tab.siteTitle isEqualToString:@""] ? tab.shortDomain : tab.siteTitle);
- 
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+    [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
+    [cell setFavIcon:tab.favIconImage];
+    
     return cell;
 }
 
@@ -170,6 +181,18 @@
     browserView.browserTab = tab;
     
     [self.navigationController pushViewController:browserView animated:YES]; 
+}
+
+#pragma mark SearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    
 }
 
 @end

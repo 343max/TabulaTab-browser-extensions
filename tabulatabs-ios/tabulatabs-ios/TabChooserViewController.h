@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "TabulatabsBrowserRepresentation.h"
 
-@interface TabChooserViewController : UITableViewController
+@interface TabChooserViewController : UITableViewController <UISearchBarDelegate>
 
-@property (strong)TabulatabsBrowserRepresentation *browser;
+@property IBOutlet UISearchBar *searchBar;
+
+@property (strong) TabulatabsBrowserRepresentation *browser;
+@property (strong) NSArray *windowsContainingSearchText;
 
 @end

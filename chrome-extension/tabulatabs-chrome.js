@@ -18,7 +18,8 @@ function collectAllTabs() {
 					var tab = {
 						title: chromeTab.title,
 						url: chromeTab.url,
-						selected: chromeTab.selected
+						selected: chromeTab.selected,
+						favIconUrl: chromeTab.favIconUrl
 					};
 
 					enrichWithMetaInfo(tab);

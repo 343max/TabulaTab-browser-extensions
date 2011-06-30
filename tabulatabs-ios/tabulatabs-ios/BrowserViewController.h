@@ -12,7 +12,11 @@
 @interface BrowserViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong) IBOutlet UIWebView *webView;
+@property (strong) IBOutlet UIToolbar *toolbar;
 
 @property (strong) TabulatabsBrowserTab *browserTab;
+
+- (IBAction)share:(id)sender;
+
 
 @end

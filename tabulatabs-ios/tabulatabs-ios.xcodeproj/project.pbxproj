@@ -27,10 +27,21 @@
 		5041AD9213B8EC6500586862 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD8413B8EC6500586862 /* SBJsonTokeniser.m */; };
 		5041AD9313B8EC6500586862 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD8613B8EC6500586862 /* SBJsonUTF8Stream.m */; };
 		5041AD9413B8EC6500586862 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD8813B8EC6500586862 /* SBJsonWriter.m */; };
+		50498F6C13BB8823006EBDDA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50498F6B13BB8823006EBDDA /* SystemConfiguration.framework */; };
+		50498F6E13BB882F006EBDDA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50498F6D13BB882F006EBDDA /* Security.framework */; };
+		50498F7013BB8838006EBDDA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50498F6F13BB8838006EBDDA /* MessageUI.framework */; };
+		50498F7613BB905C006EBDDA /* Compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 50498F7513BB905C006EBDDA /* Compass.png */; };
+		50498F7813BB906E006EBDDA /* Compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50498F7713BB906E006EBDDA /* Compass@2x.png */; };
 		506AE72D13BB338600134EF3 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 506AE72B13BB338500134EF3 /* Helpers.m */; };
 		506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */; };
 		506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */; };
 		506BB26113B399F200B2CE85 /* TabulatabsBrowserRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TabulatabsBrowserRepresentation.m */; };
+		507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */; };
+		507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */; };
+		507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */; };
+		507E53AF13BBA15300CEB2A1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507E53AE13BBA15300CEB2A1 /* CoreText.framework */; };
+		507E53BB13BC7E2F00CEB2A1 /* TISwipeableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BA13BC7E2F00CEB2A1 /* TISwipeableTableView.m */; };
+		507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BE13BC801200CEB2A1 /* ImagePool.m */; };
 		5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */; };
 		5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */; };
 		5088E32513B4E48A00D12E49 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5088E31F13B4E48A00D12E49 /* libzbar.a */; };
@@ -107,6 +118,11 @@
 		5041AD8613B8EC6500586862 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		5041AD8713B8EC6500586862 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		5041AD8813B8EC6500586862 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		50498F6B13BB8823006EBDDA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		50498F6D13BB882F006EBDDA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		50498F6F13BB8838006EBDDA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		50498F7513BB905C006EBDDA /* Compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Compass.png; sourceTree = "<group>"; };
+		50498F7713BB906E006EBDDA /* Compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Compass@2x.png"; sourceTree = "<group>"; };
 		506AE72B13BB338500134EF3 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
 		506AE72C13BB338500134EF3 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
 		506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserChooserViewController.h; sourceTree = "<group>"; };
@@ -114,6 +130,17 @@
 		506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserChooserViewController.xib; sourceTree = "<group>"; };
 		506BB25F13B399F200B2CE85 /* TabulatabsBrowserRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabulatabsBrowserRepresentation.h; sourceTree = "<group>"; };
 		506BB26013B399F200B2CE85 /* TabulatabsBrowserRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabulatabsBrowserRepresentation.m; sourceTree = "<group>"; };
+		507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserCell.h; sourceTree = "<group>"; };
+		507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserCell.m; sourceTree = "<group>"; };
+		507E53A813BBA12100CEB2A1 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
+		507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
+		507E53AA13BBA12100CEB2A1 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
+		507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
+		507E53AE13BBA15300CEB2A1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		507E53B913BC7E2F00CEB2A1 /* TISwipeableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TISwipeableTableView.h; sourceTree = "<group>"; };
+		507E53BA13BC7E2F00CEB2A1 /* TISwipeableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TISwipeableTableView.m; sourceTree = "<group>"; };
+		507E53BD13BC801200CEB2A1 /* ImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePool.h; sourceTree = "<group>"; };
+		507E53BE13BC801200CEB2A1 /* ImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePool.m; sourceTree = "<group>"; };
 		5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBrowserStepsViewController.h; sourceTree = "<group>"; };
 		5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBrowserStepsViewController.m; sourceTree = "<group>"; };
 		5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBrowserStepsViewController.xib; sourceTree = "<group>"; };
@@ -181,6 +208,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				507E53AF13BBA15300CEB2A1 /* CoreText.framework in Frameworks */,
+				50498F7013BB8838006EBDDA /* MessageUI.framework in Frameworks */,
+				50498F6E13BB882F006EBDDA /* Security.framework in Frameworks */,
+				50498F6C13BB8823006EBDDA /* SystemConfiguration.framework in Frameworks */,
 				5088E33313B4E50E00D12E49 /* libiconv.dylib in Frameworks */,
 				5088E33113B4E4FE00D12E49 /* QuartzCore.framework in Frameworks */,
 				5088E32F13B4E4F400D12E49 /* CoreVideo.framework in Frameworks */,
@@ -229,6 +260,8 @@
 				50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */,
 				50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */,
 				50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */,
+				507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */,
+				507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */,
 				50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */,
 				50364B4213BA2C000003F9A4 /* BrowserViewController.m */,
 				50364B4313BA2C010003F9A4 /* BrowserViewController.xib */,
@@ -267,6 +300,37 @@
 			);
 			name = JSON;
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		50498F7113BB8882006EBDDA /* External Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				507E53BC13BC7E3600CEB2A1 /* TISwipeableTableView */,
+				507E53A313BB9C1D00CEB2A1 /* OHAttributedLabel */,
+				5041AD6F13B8EC6500586862 /* JSON */,
+				5088E30813B4E48A00D12E49 /* ZBarSDK */,
+			);
+			name = "External Frameworks";
+			sourceTree = "<group>";
+		};
+		507E53A313BB9C1D00CEB2A1 /* OHAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				507E53A813BBA12100CEB2A1 /* NSAttributedString+Attributes.h */,
+				507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */,
+				507E53AA13BBA12100CEB2A1 /* OHAttributedLabel.h */,
+				507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */,
+			);
+			name = OHAttributedLabel;
+			sourceTree = "<group>";
+		};
+		507E53BC13BC7E3600CEB2A1 /* TISwipeableTableView */ = {
+			isa = PBXGroup;
+			children = (
+				507E53B913BC7E2F00CEB2A1 /* TISwipeableTableView.h */,
+				507E53BA13BC7E2F00CEB2A1 /* TISwipeableTableView.m */,
+			);
+			name = TISwipeableTableView;
 			sourceTree = "<group>";
 		};
 		5088E2F813B4A0EE00D12E49 /* AddBrowser */ = {
@@ -345,6 +409,7 @@
 		5091086713B3616900938AE6 = {
 			isa = PBXGroup;
 			children = (
+				507E53AE13BBA15300CEB2A1 /* CoreText.framework */,
 				5091087C13B3616900938AE6 /* tabulatabs-ios */,
 				5091089C13B3616A00938AE6 /* tabulatabs-iosTests */,
 				5091087513B3616900938AE6 /* Frameworks */,
@@ -364,6 +429,9 @@
 		5091087513B3616900938AE6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				50498F6F13BB8838006EBDDA /* MessageUI.framework */,
+				50498F6D13BB882F006EBDDA /* Security.framework */,
+				50498F6B13BB8823006EBDDA /* SystemConfiguration.framework */,
 				5088E33213B4E50E00D12E49 /* libiconv.dylib */,
 				5088E33013B4E4FE00D12E49 /* QuartzCore.framework */,
 				5088E32E13B4E4F400D12E49 /* CoreVideo.framework */,
@@ -380,10 +448,11 @@
 		5091087C13B3616900938AE6 /* tabulatabs-ios */ = {
 			isa = PBXGroup;
 			children = (
+				50498F7113BB8882006EBDDA /* External Frameworks */,
 				506AE72B13BB338500134EF3 /* Helpers.m */,
 				506AE72C13BB338500134EF3 /* Helpers.h */,
-				5041AD6F13B8EC6500586862 /* JSON */,
-				5088E30813B4E48A00D12E49 /* ZBarSDK */,
+				507E53BD13BC801200CEB2A1 /* ImagePool.h */,
+				507E53BE13BC801200CEB2A1 /* ImagePool.m */,
 				5088E2F813B4A0EE00D12E49 /* AddBrowser */,
 				5091088513B3616900938AE6 /* TabulatabsApp.h */,
 				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
@@ -401,6 +470,8 @@
 		5091087D13B3616900938AE6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				50498F7713BB906E006EBDDA /* Compass@2x.png */,
+				50498F7513BB905C006EBDDA /* Compass.png */,
 				509108AE13B36DD300938AE6 /* htmlclient */,
 				5091087E13B3616900938AE6 /* tabulatabs-ios-Info.plist */,
 				5091087F13B3616900938AE6 /* InfoPlist.strings */,
@@ -504,6 +575,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
 			);
 			mainGroup = 5091086713B3616900938AE6;
 			productRefGroup = 5091087313B3616900938AE6 /* Products */;
@@ -533,6 +605,8 @@
 				50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */,
 				50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */,
 				50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */,
+				50498F7613BB905C006EBDDA /* Compass.png in Resources */,
+				50498F7813BB906E006EBDDA /* Compass@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +679,11 @@
 				50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */,
 				50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */,
 				506AE72D13BB338600134EF3 /* Helpers.m in Sources */,
+				507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */,
+				507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */,
+				507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */,
+				507E53BB13BC7E2F00CEB2A1 /* TISwipeableTableView.m in Sources */,
+				507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

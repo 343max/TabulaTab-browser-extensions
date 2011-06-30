@@ -10,8 +10,9 @@
 
 @implementation TabulatabsBrowserTab
 
-@synthesize title, url, selected;
+@synthesize title, url, favIconUrl, selected;
 @synthesize shortDomain, siteTitle, pageTitle;
+@synthesize favIconImage;
 
 - (id)init
 {
@@ -33,6 +34,7 @@
         self.shortDomain = [dictionary objectForKey:@"shortDomain"];
         self.siteTitle = [dictionary objectForKey:@"siteTitle"];
         self.pageTitle = [dictionary objectForKey:@"pageTitle"];
+        self.favIconUrl = [NSURL URLWithString:[dictionary objectForKey:@"favIconUrl"]];
     }
     
     return self;
@@ -49,6 +51,7 @@
         shortDomain = [aDecoder decodeObjectForKey:@"shortDomain"];
         siteTitle = [aDecoder decodeObjectForKey:@"siteTitle"];
         pageTitle = [aDecoder decodeObjectForKey:@"pageTitle"];
+        favIconUrl = [aDecoder decodeObjectForKey:@"favIconUrl"];
     }
     
     return self;
@@ -62,6 +65,7 @@
     [aCoder encodeObject:shortDomain forKey:@"shortDomain"];
     [aCoder encodeObject:siteTitle forKey:@"siteTitle"];
     [aCoder encodeObject:pageTitle forKey:@"pageTitle"];
+    [aCoder encodeObject:favIconUrl forKey:@"favIconUrl"];
 }
 
 @end

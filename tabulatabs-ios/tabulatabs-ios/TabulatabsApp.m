@@ -10,9 +10,11 @@
 
 #import "BrowserChooserViewController.h"
 #import "TabulatabsBrowserRepresentation.h"
+#import "ImagePool.h"
 #import "Helpers.h"
 
 static TabulatabsApp* sharedTabulatabApp;
+static ImagePool *sharedImagePool;
 
 @implementation TabulatabsApp
 
@@ -57,6 +59,15 @@ static TabulatabsApp* sharedTabulatabApp;
 + (TabulatabsApp *)sharedInstance
 {
     return sharedTabulatabApp;
+}
+
++ (ImagePool *)sharedImagePool
+{
+    if (!sharedImagePool) {
+        sharedImagePool = [[ImagePool alloc] init];
+    }
+    
+    return sharedImagePool;
 }
 
 #pragma mark save status
