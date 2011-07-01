@@ -24,6 +24,7 @@
 
 - (id)initWithLabel:(NSString*)l userId:(NSString*)uid clientId:(NSString*)cid encryptionPassword:(NSString*)epwd;
 - (BOOL)setRegistrationUrl:(NSString *)urlString;
+- (void)claimClient;
 - (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *))didFinishLoadingBlock;
 - (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *))didDecryptDataBlock;
 - (NSData *)buildQueryStringFromParameters:(NSDictionary *)parameters;

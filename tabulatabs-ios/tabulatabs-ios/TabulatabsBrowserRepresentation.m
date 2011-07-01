@@ -101,14 +101,23 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     
     NSDictionary *query = [self parseQueryString:url.query];
 
-    self.userId = [query objectForKey:@"id"];
-    self.clientId = [query objectForKey:@"p1"];
-    self.encryptionPassword = [query objectForKey:@"p2"];
+    self.userId = [query objectForKey:@"uid"];
+    self.clientId = [query objectForKey:@"cid"];
+    self.encryptionPassword = [query objectForKey:@"p"];
     
     if ((!self.userId) | (!self.clientId) | (!self.encryptionPassword))
         return NO;
     
     return YES;
+}
+
+- (void)claimClient
+{
+    NSMutableDictionary *parameters = [self parametersForAction:@"claimClient"];
+
+    [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
+        
+    }];
 }
 
 - (NSData *)buildQueryStringFromParameters:(NSDictionary *)parameters

@@ -1,5 +1,7 @@
 <?php
 
+//if (count($_POST) == 0) $_POST = $_GET;
+
 if (count($_POST) == 0) {
 	header('Location: http://tabulatabs.com/');
 	die();
@@ -30,14 +32,28 @@ function okayResponse($data = null) {
 switch($_POST['action']) {
 	case 'registerBrowser':
 		if($client->userExists()) {
-			errorResponse('Browser ID allready exists');
+			errorResponse('User ID allready exists');
 		} else {
-			$client->createUser();
+			$client->registerBrowser();
 			okayResponse();
 		}
 		break;
 
 	case 'registerClient':
+		if(!$client->userExists()) {
+			errorResponse('unknown user');
+		} else {
+			$client->registerClient();
+			okayResponse();
+		}
+		break;
+
+	case 'claimClient':
+		$client->dieOnInvalidUserCredentials();
+		$client->claimClient();
+		okayResponse();
+
+		break;
 
 	case 'get':
 		$client->dieOnInvalidUserCredentials();

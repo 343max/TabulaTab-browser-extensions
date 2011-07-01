@@ -65,6 +65,8 @@
     TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
     
     if ([browser setRegistrationUrl:symbol.data]) {
+        [browser claimClient];
+        
         [self.openerViewController dismissModalViewControllerAnimated:YES];
         [[TabulatabsApp sharedInstance].browserRepresenations addObject:browser];
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedBrowserList" object:browser]];

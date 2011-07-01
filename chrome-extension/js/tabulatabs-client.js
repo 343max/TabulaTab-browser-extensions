@@ -10,7 +10,7 @@ function TabulatabsClient(clientId) {
 			if(defaultValue) localStorage.setItem(varName, defaultValue);
 			return defaultValue;
 		}
-	}
+	};
 
 	var generatePassword = function() {
 		var c = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ';
@@ -23,7 +23,7 @@ function TabulatabsClient(clientId) {
 		}
 
 		return passwd;
-	}
+	};
 
 	var registerBrowser = function(userId, clientId, callback) {
 		if (!callback) callback = function(data) {};
@@ -33,7 +33,17 @@ function TabulatabsClient(clientId) {
 			"clientId": clientId,
 			'action': 'registerBrowser'
 		}, callback, 'json');
-	}
+	};
+
+	var registerClient = function(userId, clientId, callback) {
+		if (!callback) callback = function(data) {};
+
+		$.post(serverPath, {
+			'userId': userId,
+			"clientId": clientId,
+			'action': 'registerClient'
+		}, callback, 'json');
+	};
 
 	var encryptionPassword = getOption('encryptionPassword', generatePassword());
 	var userId = getOption('userId', null);
@@ -66,7 +76,10 @@ function TabulatabsClient(clientId) {
 	}
 
 	this.clientRegistrationUrl = function() {
-		var url = 'tabulatabs:/register?id=' + userId + '&p1=' + clientId + '&p2=' + encryptionPassword;
+		var newClientId = generatePassword();
+		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&p=' + encryptionPassword;
+		registerClient(userId, newClientId);
+		
 		console.log(url);
 		return url;
 	}
@@ -96,11 +109,11 @@ function TabulatabsClient(clientId) {
 			'key': key,
 			'value': encryptedValue
 		}, callback, 'json');
-	}
+	};
 	
 	this.getRegisteredClients = function() {
 		return registeredClients;
-	}
+	};
 
 	this.getTabs = function(callback) {
 		/* var tabs = unhosted.dav.get('openTabs.json', function(encryptedTabs) {
@@ -111,7 +124,8 @@ function TabulatabsClient(clientId) {
 
 			callback(tabs);
 		}); */
-	}
+	};
+	
 	/*
 	this.calculateThumbFilename = function(url, width, height) {
 		return 'thumb_' + SHA1(url) + '_' + width + 'x' + height + '.json';

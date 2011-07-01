@@ -108,10 +108,12 @@ static ImagePool *sharedImagePool;
     [self restoreSettings];
     /*
     TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
-    if ([browser setRegistrationUrl:@"tabulatabs:/register?id=CDE0FEDA-97DB-40EB-B928-385A853ECF90&p1=umln3D1Duu53n9rFSygJYZppPFy69039&p2=lAcy4O7BJd8ilxf2izwJpnWKhSs3YBhj"]) {
+    if ([browser setRegistrationUrl:@"tabulatabs:/register?uid=3499536E-CC57-41E1-95D0-03624EA961F5&cid=Rn3lwOh46gifI7PPoSAUM6Ff1o4dho4X&p=0Gz5NvgBm6BikhL0W2dI5PHvnMntdRGf"]) {
+        [browser claimClient];
         [browserRepresenations addObject:browser];
     } 
     */
+    
     
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
         [browser loadWindowsAndTabs];

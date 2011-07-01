@@ -1,5 +1,8 @@
 <?php
 
+
+require_once('class.tabulatabsAuthentification.php');
+
 define('tabulatabs_datadir', dirname(dirname(__FILE__)) . '/data/');
 
 
@@ -7,6 +10,10 @@ class Tabulatabs {
 	const authDataFileId = 'auth';
 	private $userId = '';
 	private $clientId = '';
+	/**
+	 * @var TabulatabsAuthentification
+	 */
+	private $authObject = null;
 
 	public function __construct($userId, $clientId) {
 		$this->userId = preg_replace('/[^a-zA-Z0-9]/', '', $userId);
@@ -29,28 +36,53 @@ class Tabulatabs {
 		return file_exists($this->dataFilePath(self::authDataFileId));
 	}
 
-	public function verifyUserCredentials() {
-		$authData = json_decode($this->readDataFile(self::authDataFileId), true);
+	/**
+	 * @return TabulatabsAuthentification
+	 */
+	private function authentification() {
+		if (!$this->authObject) {
+			$this->authObject = new TabulatabsAuthentification($this->readDataFile(self::authDataFileId));
+		}
 
-		if ($authData['userId'] != $this->userId) return false;
-		if ($authData['clientId'] != sha1($this->clientId)) return false;
+		if (rand(0, 1000) == 1) {
+			$this->writeAuthFile();
+		}
 
-		return true;
+		return $this->authObject;
+	}
+
+	private function writeAuthFile() {
+		if (!$this->authObject)
+			return false;
+
+		$this->writeDataFile(self::authDataFileId, $this->authObject->jsonify());
+	}
+
+	public function verifyClientCredentials() {
+		return $this->authentification()->verifyClient($this->clientId);
 	}
 
 	public function dieOnInvalidUserCredentials() {
-		if(!$this->verifyUserCredentials()) {
-			errorResponse('invalid user');
+		if(!$this->verifyClientCredentials()) {
+			errorResponse('invalid userId or clientId');
 		}
 	}
 
-	public function createUser() {
-		$authData = array(
-			'userId' => $this->userId,
-			'clientId' => sha1($this->clientId)
-		);
+	public function registerBrowser() {
+		$this->authObject = new TabulatabsAuthentification();
+		$this->authObject->registerBrowser($this->userId, $this->clientId);
 
-		$this->writeDataFile(self::authDataFileId, json_encode($authData));
+		$this->writeAuthFile();
+	}
+
+	public function registerClient() {
+		$this->authentification()->registerClient($this->clientId);
+		$this->writeAuthFile();
+	}
+
+	public function claimClient() {
+		$this->authentification()->claimClient($this->clientId);
+		$this->writeAuthFile();
 	}
 
 	public function validReadWriteableFileId($fileId) {
