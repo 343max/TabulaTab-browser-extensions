@@ -25,26 +25,26 @@ function TabulatabsClient(clientId) {
 		return passwd;
 	}
 
-	var registerBrowser = function(userId, userPassword, callback) {
+	var registerBrowser = function(userId, clientId, callback) {
 		if (!callback) callback = function(data) {};
 
 		$.post(serverPath, {
 			'userId': userId,
-			'userPasswd': userPassword,
+			"clientId": clientId,
 			'action': 'registerBrowser'
 		}, callback, 'json');
 	}
 
 	var encryptionPassword = getOption('encryptionPassword', generatePassword());
 	var userId = getOption('userId', null);
-	var userPassword = getOption('userPassword', null);
+	var clientId = getOption('clientId', null);
 	var registeredClients = getOption('registeredClients', []);
 
-	if (!userId | !userPassword) {
+	if (!userId | !clientId) {
 		userId = getOption('userId', randomUUID());
-		userPassword = getOption('userPassword', generatePassword());
+		clientId = getOption('clientId', generatePassword());
 
-		registerBrowser(userId, userPassword, function() {
+		registerBrowser(userId, clientId, function() {
 			self.putObjectForKey('browserInfo', {'label': 'Chrome', 'icon': 'chromeIcon_512.png'});
 		});
 	}
@@ -66,7 +66,7 @@ function TabulatabsClient(clientId) {
 	}
 
 	this.clientRegistrationUrl = function() {
-		var url = 'tabulatabs:/register?id=' + userId + '&p1=' + userPassword + '&p2=' + encryptionPassword;
+		var url = 'tabulatabs:/register?id=' + userId + '&p1=' + clientId + '&p2=' + encryptionPassword;
 		console.log(url);
 		return url;
 	}
@@ -76,7 +76,7 @@ function TabulatabsClient(clientId) {
 
 		$.post(serverPath, {
 			'userId': userId,
-			'userPasswd': userPassword,
+			"clientId": clientId,
 			'action': 'get',
 			'key': key
 		}, function(data) {
@@ -91,7 +91,7 @@ function TabulatabsClient(clientId) {
 
 		$.post(serverPath, {
 			'userId': userId,
-			'userPasswd': userPassword,
+			"clientId": clientId,
 			'action': 'put',
 			'key': key,
 			'value': encryptedValue

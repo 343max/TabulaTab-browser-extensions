@@ -10,7 +10,7 @@
 #import "TISwipeableTableView.h"
 #import "OHAttributedLabel.h"
 
-@interface TabChooserCell : TISwipeableTableViewCell
+@interface TabChooserCell : UITableViewCell
 {
     NSRange secondaryLineRange;
     NSRange mainLineRange;

@@ -13,11 +13,17 @@
 @implementation TabChooserCell
 
 @synthesize labelView, labelViewSelected, favIconView;
-
+/*
++ (Class)layerClass {
+    return [CAGradientLayer class];
+}
+*/
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        //[(CAGradientLayer *)self.layer setColors:[NSArray arrayWithObjects:objc_unretainedObject([[UIColor colorWithWhite:0.5 alpha:0] CGColor]), objc_unretainedObject([[UIColor colorWithWhite:0.5 alpha:1] CGColor]), nil]];
+        
         self.labelView = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
         self.labelView.userInteractionEnabled = NO;
         self.labelView.automaticallyDetectLinks = NO;
@@ -74,24 +80,27 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
-    [super setHighlighted:highlighted animated:animated];
-    
     self.labelView.hidden = highlighted;
     self.labelViewSelected.hidden = !highlighted;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    [super setSelected:selected animated:animated];
-    
     self.labelView.hidden = selected;
     self.labelViewSelected.hidden = !selected;
 }
 
-
 - (void)drawRect:(CGRect)rect
 {
+    CGContextRef context = UIGraphicsGetCurrentContext();
     
+    CGContextSetLineWidth(context, 1);
+    [[UIColor colorWithWhite:0 alpha:0.1] setStroke];
+    
+    CGContextBeginPath(context);
+    CGContextMoveToPoint(context, 0, self.bounds.size.height - 0.5);
+    CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height - 0.5);
+    CGContextStrokePath(context);
 }
 
 @end

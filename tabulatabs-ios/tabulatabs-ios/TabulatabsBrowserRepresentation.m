@@ -17,7 +17,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 @implementation TabulatabsBrowserRepresentation
 
 @synthesize label, iconId, browserInfoLoaded;
-@synthesize userId, userPassword, encryptionPassword;
+@synthesize userId, clientId, encryptionPassword;
 @synthesize windows;
 
 - (NSDictionary *)parseQueryString:(NSString *)query
@@ -49,14 +49,14 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     return self;
 }
 
-- (id)initWithLabel:(NSString*)l userId:(NSString*)uid userPassword:(NSString*)upwd encryptionPassword:(NSString*)epwd
+- (id)initWithLabel:(NSString*)l userId:(NSString*)uid clientId:(NSString*)cid encryptionPassword:(NSString*)epwd
 {
     self = [self init];
     
     if (self) {
         self.label = l;
         self.userId = uid;
-        self.userPassword = upwd;
+        self.clientId = cid;
         self.encryptionPassword = epwd;
     }
     
@@ -68,16 +68,16 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     self = [self init];
     
     if (self) {
-        label = [aDecoder decodeObjectForKey:@"label"];
-        iconId = [aDecoder decodeObjectForKey:@"iconId"];
+        self.label = [aDecoder decodeObjectForKey:@"label"];
+        self.iconId = [aDecoder decodeObjectForKey:@"iconId"];
         
-        userId = [aDecoder decodeObjectForKey:@"userId"];
-        userPassword = [aDecoder decodeObjectForKey:@"userPassword"];
-        encryptionPassword = [aDecoder decodeObjectForKey:@"encryptionPassword"];
+        self.userId = [aDecoder decodeObjectForKey:@"userId"];
+        self.clientId = [aDecoder decodeObjectForKey:@"clientId"];
+        self.encryptionPassword = [aDecoder decodeObjectForKey:@"encryptionPassword"];
         
         browserInfoLoaded = [aDecoder decodeBoolForKey:@"browserInfoLoaded"];
         
-        windows = [aDecoder decodeObjectForKey:@"windows"];
+        self.windows = [aDecoder decodeObjectForKey:@"windows"];
     }
     
     return self;
@@ -102,10 +102,10 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     NSDictionary *query = [self parseQueryString:url.query];
 
     self.userId = [query objectForKey:@"id"];
-    self.userPassword = [query objectForKey:@"p1"];
+    self.clientId = [query objectForKey:@"p1"];
     self.encryptionPassword = [query objectForKey:@"p2"];
     
-    if ((!self.userId) | (!self.userPassword) | (!self.encryptionPassword))
+    if ((!self.userId) | (!self.clientId) | (!self.encryptionPassword))
         return NO;
     
     return YES;
@@ -139,7 +139,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (NSMutableDictionary *)parametersForAction:(NSString *)action
 {
-    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.userId, @"userId", self.userPassword, @"userPasswd", action, @"action", nil];
+    return [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.userId, @"userId", self.clientId, @"clientId", action, @"action", nil];
 }
 
 - (void)getValueForKey:(NSString *)key withDidFinishLoadingBlock:(void(^)(NSString *))didFinishLoadingBlock
@@ -222,15 +222,15 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {    
-    [aCoder encodeObject:label forKey:@"label"];
-    [aCoder encodeObject:iconId forKey:@"iconId"];
-    [aCoder encodeObject:userId forKey:@"userId"];
-    [aCoder encodeObject:userPassword forKey:@"userPassword"];
-    [aCoder encodeObject:encryptionPassword forKey:@"encryptionPassword"];
+    [aCoder encodeObject:self.label forKey:@"label"];
+    [aCoder encodeObject:self.iconId forKey:@"iconId"];
+    [aCoder encodeObject:self.userId forKey:@"userId"];
+    [aCoder encodeObject:self.clientId forKey:@"clientId"];
+    [aCoder encodeObject:self.encryptionPassword forKey:@"encryptionPassword"];
     
-    [aCoder encodeBool:browserInfoLoaded forKey:@"browserInfoLoaded"];
+    [aCoder encodeBool:self.browserInfoLoaded forKey:@"browserInfoLoaded"];
     
-    [aCoder encodeObject:windows forKey:@"windows"];
+    [aCoder encodeObject:self.windows forKey:@"windows"];
 }
 
 @end

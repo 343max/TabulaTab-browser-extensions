@@ -15,14 +15,14 @@
 @property (strong, nonatomic) NSString *iconId;
 
 @property (strong, nonatomic) NSString *userId;
-@property (strong, nonatomic) NSString *userPassword;
+@property (strong, nonatomic) NSString *clientId;
 @property (strong, nonatomic) NSString *encryptionPassword;
 
 @property (readonly) BOOL browserInfoLoaded;
 
 @property (strong, nonatomic) NSArray *windows;
 
-- (id)initWithLabel:(NSString*)l userId:(NSString*)uid userPassword:(NSString*)upwd encryptionPassword:(NSString*)epwd;
+- (id)initWithLabel:(NSString*)l userId:(NSString*)uid clientId:(NSString*)cid encryptionPassword:(NSString*)epwd;
 - (BOOL)setRegistrationUrl:(NSString *)urlString;
 - (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *))didFinishLoadingBlock;
 - (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *))didDecryptDataBlock;

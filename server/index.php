@@ -7,7 +7,7 @@ if (count($_POST) == 0) {
 
 require_once('class.tabulatabs.php');
 
-$client = new Tabulatabs($_POST['userId'], $_POST['userPasswd']);
+$client = new Tabulatabs($_POST['userId'], $_POST['clientId']);
 
 function errorResponse($errorMessage) {
 	echo json_encode(array(
@@ -35,8 +35,10 @@ switch($_POST['action']) {
 			$client->createUser();
 			okayResponse();
 		}
-
 		break;
+
+	case 'registerClient':
+
 	case 'get':
 		$client->dieOnInvalidUserCredentials();
 		$client->getValueForKey($_POST['key']);

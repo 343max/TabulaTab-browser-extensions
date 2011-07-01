@@ -66,6 +66,11 @@
         }];
     }];
     
+    CGRect scrollRect = tableView.bounds;
+    scrollRect.origin.x = 0;
+    scrollRect.origin.y = self.searchBar.bounds.size.height;
+    [tableView scrollRectToVisible:scrollRect animated:NO];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

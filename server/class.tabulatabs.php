@@ -6,11 +6,11 @@ define('tabulatabs_datadir', dirname(dirname(__FILE__)) . '/data/');
 class Tabulatabs {
 	const authDataFileId = 'auth';
 	private $userId = '';
-	private $userPasswd = '';
+	private $clientId = '';
 
-	public function __construct($userId, $userPasswd) {
+	public function __construct($userId, $clientId) {
 		$this->userId = preg_replace('/[^a-zA-Z0-9]/', '', $userId);
-		$this->userPasswd = $userPasswd;
+		$this->clientId = $clientId;
 	}
 
 	public function dataFilePath($fileId) {
@@ -33,7 +33,7 @@ class Tabulatabs {
 		$authData = json_decode($this->readDataFile(self::authDataFileId), true);
 
 		if ($authData['userId'] != $this->userId) return false;
-		if ($authData['userPasswd'] != sha1($this->userPasswd)) return false;
+		if ($authData['clientId'] != sha1($this->clientId)) return false;
 
 		return true;
 	}
@@ -47,7 +47,7 @@ class Tabulatabs {
 	public function createUser() {
 		$authData = array(
 			'userId' => $this->userId,
-			'userPasswd' => sha1($this->userPasswd)
+			'clientId' => sha1($this->clientId)
 		);
 
 		$this->writeDataFile(self::authDataFileId, json_encode($authData));
