@@ -42,7 +42,7 @@
 
 - (BOOL)containsString:(NSString *)searchString
 {
-    return [self.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound;
+    return ([self.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) | ([self.shortDomain rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

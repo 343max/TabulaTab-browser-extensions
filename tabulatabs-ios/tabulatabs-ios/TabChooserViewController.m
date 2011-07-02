@@ -16,7 +16,7 @@
 
 @synthesize browser;
 @synthesize searchResults;
-@synthesize searchBar;
+@synthesize tabSearchBar;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -68,7 +68,7 @@
     
     CGRect scrollRect = tableView.bounds;
     scrollRect.origin.x = 0;
-    scrollRect.origin.y = self.searchBar.bounds.size.height;
+    scrollRect.origin.y = self.tabSearchBar.bounds.size.height;
     [tableView scrollRectToVisible:scrollRect animated:NO];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -90,7 +90,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.searchBar.text = @"";
+    self.tabSearchBar.text = @"";
     [self performSearchFor:@""];
     [super viewWillAppear:animated];
 }
@@ -211,6 +211,26 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self performSearchFor:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.text = @"";
+    [self performSearchFor:@""];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.4];
+    searchBar.showsCancelButton = YES;
+    [UIView commitAnimations];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = NO;
 }
 
 @end

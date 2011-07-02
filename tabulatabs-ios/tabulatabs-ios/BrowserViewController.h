@@ -11,7 +11,7 @@
 
 @interface BrowserViewController : UIViewController <UIWebViewDelegate>
 
-@property (strong) IBOutlet UIWebView *webView;
+@property (strong) IBOutlet UIWebView *mainWebView;
 @property (strong) IBOutlet UIToolbar *toolbar;
 
 @property (strong) TabulatabsBrowserTab *browserTab;

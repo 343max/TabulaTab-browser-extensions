@@ -11,7 +11,7 @@
 
 @interface TabChooserViewController : UITableViewController <UISearchBarDelegate>
 
-@property IBOutlet UISearchBar *searchBar;
+@property (strong) IBOutlet UISearchBar *tabSearchBar;
 
 @property (strong) TabulatabsBrowserRepresentation *browser;
 @property (strong) NSArray *searchResults;

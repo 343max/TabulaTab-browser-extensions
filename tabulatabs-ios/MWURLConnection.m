@@ -55,7 +55,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Coennection Error: %@", [error description]);
+    NSLog(@"Connection Error: %@", [error description]);
 }
 
 @end

@@ -12,11 +12,15 @@
 @implementation BrowserViewController
 
 @synthesize browserTab;
-@synthesize webView, toolbar;
+@synthesize mainWebView, toolbar;
 
 - (void)share:(id)sender
 {
-    [[UIApplication sharedApplication] openURL:webView.request.URL];
+    NSURL *url = browserTab.url;
+    if (![mainWebView.request.URL.absoluteString isEqualToString:@""]) {
+        url = mainWebView.request.URL;
+    }
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,8 +45,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.title = browserTab.title;
-    self.webView.scalesPageToFit = YES;
-    [self.webView loadRequest:[NSURLRequest requestWithURL:browserTab.url]];
+    self.mainWebView.scalesPageToFit = YES;
+    [self.mainWebView loadRequest:[NSURLRequest requestWithURL:browserTab.url]];
     
     [super viewWillAppear:animated];
 }
