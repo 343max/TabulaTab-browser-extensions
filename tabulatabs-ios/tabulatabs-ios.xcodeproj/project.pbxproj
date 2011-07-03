@@ -40,7 +40,6 @@
 		507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */; };
 		507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */; };
 		507E53AF13BBA15300CEB2A1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507E53AE13BBA15300CEB2A1 /* CoreText.framework */; };
-		507E53BB13BC7E2F00CEB2A1 /* TISwipeableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BA13BC7E2F00CEB2A1 /* TISwipeableTableView.m */; };
 		507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BE13BC801200CEB2A1 /* ImagePool.m */; };
 		5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */; };
 		5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */; };
@@ -69,6 +68,8 @@
 		509108A513B3616A00938AE6 /* tabulatabs_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */; };
 		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
 		50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */; };
+		50F3D16713C0B09D00F470FC /* Circle-Check.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F3D16613C0B09D00F470FC /* Circle-Check.png */; };
+		50F3D16913C0B0AB00F470FC /* Circle-Check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F3D16813C0B0AB00F470FC /* Circle-Check@2x.png */; };
 		50F7835813B8D2B40017FB9D /* MWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F7835713B8D2B40017FB9D /* MWURLConnection.m */; };
 /* End PBXBuildFile section */
 
@@ -137,8 +138,6 @@
 		507E53AA13BBA12100CEB2A1 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
 		507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
 		507E53AE13BBA15300CEB2A1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		507E53B913BC7E2F00CEB2A1 /* TISwipeableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TISwipeableTableView.h; sourceTree = "<group>"; };
-		507E53BA13BC7E2F00CEB2A1 /* TISwipeableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TISwipeableTableView.m; sourceTree = "<group>"; };
 		507E53BD13BC801200CEB2A1 /* ImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePool.h; sourceTree = "<group>"; };
 		507E53BE13BC801200CEB2A1 /* ImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePool.m; sourceTree = "<group>"; };
 		5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBrowserStepsViewController.h; sourceTree = "<group>"; };
@@ -199,6 +198,8 @@
 		50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWJavaScriptQueue.h; path = ../MWJavaScriptQueue.h; sourceTree = "<group>"; };
 		50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWJavaScriptQueue.m; path = ../MWJavaScriptQueue.m; sourceTree = "<group>"; };
 		50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = iosJavaScriptIndex.html; sourceTree = "<group>"; };
+		50F3D16613C0B09D00F470FC /* Circle-Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle-Check.png"; sourceTree = "<group>"; };
+		50F3D16813C0B0AB00F470FC /* Circle-Check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Circle-Check@2x.png"; sourceTree = "<group>"; };
 		50F7835613B8D2B40017FB9D /* MWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWURLConnection.h; path = ../MWURLConnection.h; sourceTree = "<group>"; };
 		50F7835713B8D2B40017FB9D /* MWURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWURLConnection.m; path = ../MWURLConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -305,7 +306,6 @@
 		50498F7113BB8882006EBDDA /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				507E53BC13BC7E3600CEB2A1 /* TISwipeableTableView */,
 				507E53A313BB9C1D00CEB2A1 /* OHAttributedLabel */,
 				5041AD6F13B8EC6500586862 /* JSON */,
 				5088E30813B4E48A00D12E49 /* ZBarSDK */,
@@ -322,15 +322,6 @@
 				507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */,
 			);
 			name = OHAttributedLabel;
-			sourceTree = "<group>";
-		};
-		507E53BC13BC7E3600CEB2A1 /* TISwipeableTableView */ = {
-			isa = PBXGroup;
-			children = (
-				507E53B913BC7E2F00CEB2A1 /* TISwipeableTableView.h */,
-				507E53BA13BC7E2F00CEB2A1 /* TISwipeableTableView.m */,
-			);
-			name = TISwipeableTableView;
 			sourceTree = "<group>";
 		};
 		5088E2F813B4A0EE00D12E49 /* AddBrowser */ = {
@@ -470,6 +461,8 @@
 		5091087D13B3616900938AE6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				50F3D16813C0B0AB00F470FC /* Circle-Check@2x.png */,
+				50F3D16613C0B09D00F470FC /* Circle-Check.png */,
 				50498F7713BB906E006EBDDA /* Compass@2x.png */,
 				50498F7513BB905C006EBDDA /* Compass.png */,
 				509108AE13B36DD300938AE6 /* htmlclient */,
@@ -607,6 +600,8 @@
 				50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */,
 				50498F7613BB905C006EBDDA /* Compass.png in Resources */,
 				50498F7813BB906E006EBDDA /* Compass@2x.png in Resources */,
+				50F3D16713C0B09D00F470FC /* Circle-Check.png in Resources */,
+				50F3D16913C0B0AB00F470FC /* Circle-Check@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,7 +677,6 @@
 				507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */,
 				507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */,
 				507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */,
-				507E53BB13BC7E2F00CEB2A1 /* TISwipeableTableView.m in Sources */,
 				507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
