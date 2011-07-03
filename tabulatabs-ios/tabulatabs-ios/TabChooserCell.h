@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TISwipeableTableView.h"
 #import "OHAttributedLabel.h"
 
 @interface TabChooserCell : UITableViewCell

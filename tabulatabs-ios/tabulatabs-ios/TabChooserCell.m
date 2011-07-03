@@ -9,6 +9,7 @@
 #import "TabChooserCell.h"
 #import "NSAttributedString+Attributes.h"
 #import "TabulatabsApp.h"
+#import <QuartzCore/CAGradientLayer.h>
 
 @implementation TabChooserCell
 

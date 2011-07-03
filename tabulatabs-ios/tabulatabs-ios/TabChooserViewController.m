@@ -233,4 +233,11 @@
     searchBar.showsCancelButton = NO;
 }
 
+#pragma mark SearchViewDelegate
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self performSearchFor:searchString];
+}
+
 @end
