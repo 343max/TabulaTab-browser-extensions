@@ -64,6 +64,15 @@ switch($_POST['action']) {
 		$client->dieOnInvalidUserCredentials();
 		$client->putValueForKey($_POST['key'], $_POST['value']);
 		break;
+
+	case 'addValue':
+		$client->dieOnInvalidUserCredentials();
+		$client->addItemToQueue($_POST['queue'], $_POST['value']);
+		break;
+
+	case 'getQueue':
+		$client->dieOnInvalidUserCredentials();
+		$client->getQueueItems($_POST['queue']);
 }
 
 errorResponse('unkown method');
