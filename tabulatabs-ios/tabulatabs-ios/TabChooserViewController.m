@@ -240,4 +240,15 @@
     [self performSearchFor:searchString];
 }
 
+#pragma mark ScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tableView) {
+        [self.tableView.visibleCells enumerateObjectsUsingBlock:^(TabChooserCell *cell, NSUInteger idx, BOOL *stop) {
+            cell.actionViewVisibile = NO;
+        }];
+    }
+}
+
 @end

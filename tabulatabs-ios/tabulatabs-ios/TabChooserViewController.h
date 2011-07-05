@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TabulatabsBrowserRepresentation.h"
 
-@interface TabChooserViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate>
+@interface TabChooserViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 @property (strong) IBOutlet UISearchBar *tabSearchBar;
 

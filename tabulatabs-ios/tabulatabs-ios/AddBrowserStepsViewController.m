@@ -60,8 +60,6 @@
     for (symbol in results)
         break;
     
-    NSLog(@"%@", symbol.data);
-    
     TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
     
     if ([browser setRegistrationUrl:symbol.data]) {

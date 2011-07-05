@@ -66,6 +66,11 @@
 		509108A113B3616A00938AE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5091089F13B3616A00938AE6 /* InfoPlist.strings */; };
 		509108A313B3616A00938AE6 /* tabulatabs_iosTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 509108A213B3616A00938AE6 /* tabulatabs_iosTests.h */; };
 		509108A513B3616A00938AE6 /* tabulatabs_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */; };
+		50CDA7E213C316880079272D /* TabBarLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CDA7E113C316870079272D /* TabBarLikeButton.m */; };
+		50CDA7E413C317380079272D /* TabBarLikeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CDA7E313C317380079272D /* TabBarLikeButton.png */; };
+		50CDA7E613C34CBC0079272D /* 165-glasses-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CDA7E513C34CBC0079272D /* 165-glasses-3.png */; };
+		50CDA7E813C34CCE0079272D /* 164-glasses-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CDA7E713C34CCE0079272D /* 164-glasses-2.png */; };
+		50CE6B0013C1CDD000DA8B75 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE6AFF13C1CDD000DA8B75 /* GradientView.m */; };
 		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
 		50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */; };
 		50F3D16713C0B09D00F470FC /* Circle-Check.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F3D16613C0B09D00F470FC /* Circle-Check.png */; };
@@ -195,6 +200,13 @@
 		509108C513B36EBD00938AE6 /* tabulatabs-client.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tabulatabs-client.js"; sourceTree = "<group>"; };
 		509108C613B36EBD00938AE6 /* uuid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = uuid.js; sourceTree = "<group>"; };
 		509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = webtoolkit.sha1.js; sourceTree = "<group>"; };
+		50CDA7E013C316870079272D /* TabBarLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarLikeButton.h; sourceTree = "<group>"; };
+		50CDA7E113C316870079272D /* TabBarLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarLikeButton.m; sourceTree = "<group>"; };
+		50CDA7E313C317380079272D /* TabBarLikeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarLikeButton.png; sourceTree = "<group>"; };
+		50CDA7E513C34CBC0079272D /* 165-glasses-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "165-glasses-3.png"; sourceTree = "<group>"; };
+		50CDA7E713C34CCE0079272D /* 164-glasses-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "164-glasses-2.png"; sourceTree = "<group>"; };
+		50CE6AFE13C1CDD000DA8B75 /* GradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientView.h; sourceTree = "<group>"; };
+		50CE6AFF13C1CDD000DA8B75 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 		50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWJavaScriptQueue.h; path = ../MWJavaScriptQueue.h; sourceTree = "<group>"; };
 		50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWJavaScriptQueue.m; path = ../MWJavaScriptQueue.m; sourceTree = "<group>"; };
 		50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = iosJavaScriptIndex.html; sourceTree = "<group>"; };
@@ -255,14 +267,12 @@
 		50364B4613BA2C710003F9A4 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */,
+				5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */,
+				5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */,
 				506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */,
 				506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */,
 				506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */,
-				50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */,
-				50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */,
-				50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */,
-				507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */,
-				507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */,
 				50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */,
 				50364B4213BA2C000003F9A4 /* BrowserViewController.m */,
 				50364B4313BA2C010003F9A4 /* BrowserViewController.xib */,
@@ -322,16 +332,6 @@
 				507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */,
 			);
 			name = OHAttributedLabel;
-			sourceTree = "<group>";
-		};
-		5088E2F813B4A0EE00D12E49 /* AddBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */,
-				5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */,
-				5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */,
-			);
-			name = AddBrowser;
 			sourceTree = "<group>";
 		};
 		5088E30813B4E48A00D12E49 /* ZBarSDK */ = {
@@ -444,7 +444,7 @@
 				506AE72C13BB338500134EF3 /* Helpers.h */,
 				507E53BD13BC801200CEB2A1 /* ImagePool.h */,
 				507E53BE13BC801200CEB2A1 /* ImagePool.m */,
-				5088E2F813B4A0EE00D12E49 /* AddBrowser */,
+				50CDA7E913C34CF30079272D /* TabChooser */,
 				5091088513B3616900938AE6 /* TabulatabsApp.h */,
 				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
 				50364B4613BA2C710003F9A4 /* ViewController */,
@@ -461,6 +461,8 @@
 		5091087D13B3616900938AE6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				50CDA7E713C34CCE0079272D /* 164-glasses-2.png */,
+				50CDA7E513C34CBC0079272D /* 165-glasses-3.png */,
 				50F3D16813C0B0AB00F470FC /* Circle-Check@2x.png */,
 				50F3D16613C0B09D00F470FC /* Circle-Check.png */,
 				50498F7713BB906E006EBDDA /* Compass@2x.png */,
@@ -515,6 +517,23 @@
 			);
 			name = js;
 			path = "../../../chrome-extension/js";
+			sourceTree = "<group>";
+		};
+		50CDA7E913C34CF30079272D /* TabChooser */ = {
+			isa = PBXGroup;
+			children = (
+				50CE6AFE13C1CDD000DA8B75 /* GradientView.h */,
+				50CE6AFF13C1CDD000DA8B75 /* GradientView.m */,
+				50CDA7E013C316870079272D /* TabBarLikeButton.h */,
+				50CDA7E113C316870079272D /* TabBarLikeButton.m */,
+				50CDA7E313C317380079272D /* TabBarLikeButton.png */,
+				507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */,
+				507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */,
+				50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */,
+				50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */,
+				50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */,
+			);
+			name = TabChooser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -602,6 +621,9 @@
 				50498F7813BB906E006EBDDA /* Compass@2x.png in Resources */,
 				50F3D16713C0B09D00F470FC /* Circle-Check.png in Resources */,
 				50F3D16913C0B0AB00F470FC /* Circle-Check@2x.png in Resources */,
+				50CDA7E413C317380079272D /* TabBarLikeButton.png in Resources */,
+				50CDA7E613C34CBC0079272D /* 165-glasses-3.png in Resources */,
+				50CDA7E813C34CCE0079272D /* 164-glasses-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +700,8 @@
 				507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */,
 				507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */,
 				507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */,
+				50CE6B0013C1CDD000DA8B75 /* GradientView.m in Sources */,
+				50CDA7E213C316880079272D /* TabBarLikeButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

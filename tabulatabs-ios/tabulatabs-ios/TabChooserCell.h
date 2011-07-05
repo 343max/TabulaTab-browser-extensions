@@ -11,8 +11,7 @@
 
 @interface TabChooserCell : UITableViewCell
 {
-    NSRange secondaryLineRange;
-    NSRange mainLineRange;
+    NSArray* actionButtons;
 }
 
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
@@ -21,5 +20,9 @@
 @property (strong) UIImageView *favIconView;
 @property (strong) OHAttributedLabel *labelView;
 @property (strong) OHAttributedLabel *labelViewSelected;
+
+@property (strong) UIView *primaryView;
+@property (strong) UIView *actionView;
+@property (setter=setActionViewVisible:) BOOL actionViewVisibile;
 
 @end
