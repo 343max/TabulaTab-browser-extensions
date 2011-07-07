@@ -12,10 +12,12 @@
 #import <QuartzCore/CAGradientLayer.h>
 #import "GradientView.h"
 #import "TabBarLikeButton.h"
+#import "MWTimedBlock.h"
+#import "TabActionController.h"
 
 @implementation TabChooserCell
 
-@synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile;
+@synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
 
 + (Class)layerClass {
     return [CAGradientLayer class];
@@ -24,6 +26,49 @@
 - (void)prepareForReuse
 {
     self.actionViewVisibile = NO;
+}
+
+- (void)showActionView
+{
+    self.actionView.hidden = NO;    
+
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^(void) {
+        self.primaryView.layer.position = CGPointMake(self.primaryView.layer.position.x + self.frame.size.width, self.primaryView.layer.position.y);
+    } completion:nil];
+    
+    float frameWidth = self.frame.size.width;
+    
+    [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {
+        button.layer.opacity = 0;
+        CGPoint endPosition = button.layer.position;
+        CGPoint startPosition = CGPointMake(endPosition.x - frameWidth, endPosition.y);
+        button.layer.position = startPosition;
+        
+        [UIView animateWithDuration:0.2 delay:(actionButtons.count - idx) * 0.07  options:UIViewAnimationCurveEaseOut animations:^(void) {
+            button.layer.opacity = 1;
+            button.layer.position = endPosition;
+        } completion:nil];
+    }];
+}
+
+- (void)hideActionView
+{
+    int multiplier = 1;
+    
+    [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {        
+        [UIView animateWithDuration:0.1 * multiplier delay:(actionButtons.count - idx - 1) * 0.07 * multiplier  options:UIViewAnimationCurveEaseOut animations:^(void) {
+            button.layer.opacity = 0;
+            button.layer.contentsScale = 0.1;
+        } completion:nil];
+    }];    
+    
+    [UIView animateWithDuration:0.1 * multiplier delay:0.2 * multiplier options:0 animations:^(void) {
+        self.primaryView.layer.position = CGPointMake(self.primaryView.layer.position.x - self.frame.size.width, self.primaryView.layer.position.y);
+    } completion:nil];
+
+    MWTimedBlock *timedBlock = [[MWTimedBlock alloc] initWithTimout:0.2 completionBlock:^(void) {
+        self.actionView.hidden = YES;
+    }];
 }
 
 - (void)setActionViewVisible:(BOOL)visible
@@ -36,20 +81,14 @@
     actionViewVisibile = visible;
     
     if (visible) {
-        self.actionView.hidden = NO;
+        [self showActionView];
+    } else {
+        [self hideActionView];
     }
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2];
-    
-    int direction = (visible ? 1 : -1);
-    self.primaryView.layer.position = CGPointMake(self.primaryView.layer.position.x + self.frame.size.width * direction, self.primaryView.layer.position.y);
-    [UIView commitAnimations];
 }
 
 - (void)hideOtherCellsActionView
 {
-    NSLog(@"superview: %@", self.superview);
     NSAssert(self.superview != nil, @"SuperView of TableCell set");
     
     UITableView *tableview = (UITableView *)self.superview;
@@ -65,6 +104,12 @@
 {
     [self hideOtherCellsActionView];
     self.actionViewVisibile = YES;
+}
+
+- (void)launchSafariAction:(id)sender
+{
+    self.actionViewVisibile = NO;
+    [TabActionController launchInSafari:self.browserTab];
 }
 
 - (void)setupActionView
@@ -88,6 +133,7 @@
         nil]];
     
     TabBarLikeButton *safariButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"Compass.png"]];
+    [safariButton addTarget:self action:@selector(launchSafariAction:) forControlEvents:UIControlEventTouchUpInside];
     TabBarLikeButton *readabilityButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"164-glasses-2.png"]];
     TabBarLikeButton *closeTabButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"Circle-Check.png"]];
     
@@ -156,20 +202,24 @@
         [self setupPrimaryView];
         [self setupGestures];
     }
-    return self;
+    return self;    
 }
 
 - (void)layoutSubviews
 {
-    CGRect bounds = self.contentView.bounds;
+    [super layoutSubviews];
     
+    CGRect bounds = self.bounds;
+    
+    self.primaryView.bounds = bounds;
+    self.actionView.bounds = bounds;
+
     CGRect iconBounds = CGRectMake(5.0, 5.0, 16, 16);
     [self.favIconView setFrame:iconBounds];
     
     CGRect labelBounds = CGRectMake(26, 2, bounds.size.width - 26 - 5, bounds.size.height - 8);
     [self.labelView setFrame:labelBounds];
     [self.labelViewSelected setFrame:labelBounds];
-    
     
     float buttonWidth = self.frame.size.height;
     int buttonCount = actionButtons.count;

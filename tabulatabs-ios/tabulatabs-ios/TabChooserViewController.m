@@ -65,11 +65,11 @@
             }];
         }];
     }];
-    
-    CGRect scrollRect = tableView.bounds;
+        
+/*    CGRect scrollRect = tableView.bounds;
     scrollRect.origin.x = 0;
     scrollRect.origin.y = self.tabSearchBar.bounds.size.height;
-    [tableView scrollRectToVisible:scrollRect animated:NO];
+    [tableView scrollRectToVisible:scrollRect animated:NO];*/
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -98,6 +98,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -136,8 +137,7 @@
     
     TabChooserCell *cell = (TabChooserCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[TabChooserCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        //cell = [[BrowserTabCellView alloc] init];
+        cell = [[TabChooserCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
     NSArray *tabs = [self.searchResults objectAtIndex:indexPath.section];
@@ -145,6 +145,7 @@
     
     [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
     [cell setFavIcon:tab.favIconImage];
+    cell.browserTab = tab;
     
     return cell;
 }

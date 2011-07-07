@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OHAttributedLabel.h"
+#import "TabulatabsBrowserTab.h"
 
 @interface TabChooserCell : UITableViewCell
 {
@@ -16,6 +17,7 @@
 
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
 - (void)setFavIcon:(UIImage *)favIconUrl;
+- (void)launchSafariAction:(id)sender;
 
 @property (strong) UIImageView *favIconView;
 @property (strong) OHAttributedLabel *labelView;
@@ -23,6 +25,9 @@
 
 @property (strong) UIView *primaryView;
 @property (strong) UIView *actionView;
+
+@property (strong) TabulatabsBrowserTab *browserTab;
+
 @property (setter=setActionViewVisible:) BOOL actionViewVisibile;
 
 @end
