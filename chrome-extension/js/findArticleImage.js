@@ -1,4 +1,4 @@
-function findRepresentingImage() {
+window.setTimeout(function() {
 	var images = document.getElementsByTagName('img');
 
 	var bestMatch = null;
@@ -25,12 +25,13 @@ function findRepresentingImage() {
 		if (message) {
 			image.setAttribute('title', message);
 			console.log(message + ' ' + image.src);
-			console.dir(image);
 		}
 
 		if (!color) color = 'red';
-		//image.style.border = '3px solid ' + color + ' !important';
+		image.style.border = '3px solid ' + color + ' !important';
 	}
+
+	debug = function() {};
 
 	for (var i = 0; i < images.length; i++)  {
 		var image = images[i];
@@ -81,5 +82,7 @@ function findRepresentingImage() {
 	if (bestMatch) {
 		var image = bestMatch;
 		debug(image, 'best match: ' + bestArea, 'green');
+
+		chrome.extension.sendRequest({articleImage: bestMatch.src});
 	}
-}
+}, 5000);

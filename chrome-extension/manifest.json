@@ -6,6 +6,10 @@
 		"tabs", "http://*/", "https://*/",
 		"http://*.tabulatabs.com/"
 	],
+	"content_scripts": [{
+		"js": ["js/findArticleImage.js"],
+		"matches": ["http://*/*"]
+	}],
 	"options_page": "options.html",
 	"background_page": "backgroundPage.html"
 }
