@@ -15,6 +15,13 @@
 #import "MWTimedBlock.h"
 #import "TabActionController.h"
 
+@interface TabChooserCell () {
+@private
+    UIScrollView *scrollView;
+}
+@end
+
+
 @implementation TabChooserCell
 
 @synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
@@ -28,63 +35,21 @@
     self.actionViewVisibile = NO;
 }
 
-- (void)showActionView
+- (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
 {
-    self.actionView.hidden = NO;    
-
-    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^(void) {
-        self.primaryView.layer.position = CGPointMake(self.primaryView.layer.position.x + self.frame.size.width, self.primaryView.layer.position.y);
-    } completion:nil];
-    
-    float frameWidth = self.frame.size.width;
-    
-    [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {
-        button.layer.opacity = 0;
-        CGPoint endPosition = button.layer.position;
-        CGPoint startPosition = CGPointMake(endPosition.x - frameWidth, endPosition.y);
-        button.layer.position = startPosition;
-        
-        [UIView animateWithDuration:0.2 delay:(actionButtons.count - idx) * 0.07  options:UIViewAnimationCurveEaseOut animations:^(void) {
-            button.layer.opacity = 1;
-            button.layer.position = endPosition;
-        } completion:nil];
-    }];
-}
-
-- (void)hideActionView
-{
-    int multiplier = 1;
-    
-    [CATransaction setCompletionBlock:^(void) {
-        self.actionView.hidden = YES;
-    }];
-    
-    [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {        
-        [UIView animateWithDuration:0.1 * multiplier delay:(actionButtons.count - idx - 1) * 0.07 * multiplier  options:UIViewAnimationCurveEaseOut animations:^(void) {
-            button.layer.opacity = 0;
-            button.layer.contentsScale = 0.1;
-        } completion:nil];
-    }];    
-    
-    [UIView animateWithDuration:0.1 * multiplier delay:0.2 * multiplier options:0 animations:^(void) {
-        self.primaryView.layer.position = CGPointMake(self.primaryView.layer.position.x - self.frame.size.width, self.primaryView.layer.position.y);
-    } completion:nil];
-}
-
-- (void)setActionViewVisible:(BOOL)visible
-{
-    
-    if (actionViewVisibile == visible) {
-        return;
-    }
-    
     actionViewVisibile = visible;
     
-    if (visible) {
-        [self showActionView];
-    } else {
-        [self hideActionView];
+    CGPoint contentOffset = CGPointMake(0.0, 0.0);
+    if (!visible) {
+        contentOffset.x = self.bounds.size.width;
     }
+
+    [scrollView setContentOffset:contentOffset animated:animated];
+}
+
+- (void)setActionViewVisibile:(BOOL)aActionViewVisibile;
+{
+    [self setActionViewVisibile:aActionViewVisibile animated:NO];
 }
 
 - (void)hideOtherCellsActionView
@@ -95,15 +60,9 @@
     
     [tableview.visibleCells enumerateObjectsUsingBlock:^(TabChooserCell *cell, NSUInteger idx, BOOL *stop) {
         if (cell != self) {
-            cell.actionViewVisibile = NO;
+            [cell setActionViewVisibile:NO animated:YES];
         }
     }];
-}
-
-- (void)handleSwipeGesture:(UISwipeGestureRecognizer *)swipeGesture
-{
-    [self hideOtherCellsActionView];
-    self.actionViewVisibile = YES;
 }
 
 - (void)launchSafariAction:(id)sender
@@ -119,7 +78,7 @@
 }
 
 - (void)setupActionView
-{    
+{ 
     GradientView* view = [[GradientView alloc] initWithFrame:self.frame];
     [self.contentView insertSubview:view atIndex:0];
     
@@ -150,15 +109,25 @@
         [view addSubview:button];
     }];
     
-    view.hidden = YES;
-        
     self.actionView = view;
 }
 
 - (void)setupPrimaryView
 {
-    GradientView *view = [[GradientView alloc] initWithFrame:self.frame];
-    [self.contentView addSubview:view];
+    scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    scrollView.pagingEnabled = YES;
+    scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
+    scrollView.contentOffset = CGPointMake(self.bounds.size.width, 0);
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.delegate = self;
+    
+    [self.contentView addSubview:scrollView];
+    
+    CGRect contentViewBounds = self.bounds;
+    contentViewBounds.origin.x = contentViewBounds.size.width;
+    GradientView *view = [[GradientView alloc] initWithFrame:contentViewBounds];
+    [scrollView addSubview:view];
     
     [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
                                               objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
@@ -194,20 +163,12 @@
     self.primaryView = view;
 }
 
-- (void)setupGestures
-{
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft | UISwipeGestureRecognizerDirectionRight;
-    [self addGestureRecognizer:swipeGesture];
-}
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setupActionView];
         [self setupPrimaryView];
-        [self setupGestures];
     }
     return self;    
 }
@@ -218,7 +179,11 @@
     
     CGRect bounds = self.bounds;
     
-    self.primaryView.frame = bounds;
+    scrollView.frame = bounds;
+    scrollView.contentSize = CGSizeMake(bounds.size.width * 3, bounds.size.height);
+    CGRect contentViewBounds = self.bounds;
+    contentViewBounds.origin.x = contentViewBounds.size.width;
+    self.primaryView.frame = contentViewBounds;
     self.actionView.frame = bounds;
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
@@ -280,6 +245,18 @@
     
     self.labelView.hidden = selected;
     self.labelViewSelected.hidden = !selected;
+}
+
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView;
+{
+    actionViewVisibile = (aScrollView.contentOffset.x != self.bounds.size.width);
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
+{
+    [self hideOtherCellsActionView];
 }
 
 @end

@@ -10,7 +10,7 @@
 #import "OHAttributedLabel.h"
 #import "TabulatabsBrowserTab.h"
 
-@interface TabChooserCell : UITableViewCell
+@interface TabChooserCell : UITableViewCell <UIScrollViewDelegate>
 {
     NSArray* actionButtons;
 }
@@ -18,6 +18,7 @@
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
 - (void)setFavIcon:(UIImage *)favIconUrl;
 - (void)launchSafariAction:(id)sender;
+- (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
 
 @property (strong) UIImageView *favIconView;
 @property (strong) OHAttributedLabel *labelView;
@@ -28,6 +29,6 @@
 
 @property (strong) TabulatabsBrowserTab *browserTab;
 
-@property (setter=setActionViewVisible:) BOOL actionViewVisibile;
+@property (assign, nonatomic) BOOL actionViewVisibile;
 
 @end
