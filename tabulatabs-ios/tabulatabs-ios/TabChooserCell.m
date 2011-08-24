@@ -218,13 +218,13 @@
     
     CGRect bounds = self.bounds;
     
-    self.primaryView.bounds = bounds;
-    self.actionView.bounds = bounds;
+    self.primaryView.frame = bounds;
+    self.actionView.frame = bounds;
 
-    CGRect iconBounds = CGRectMake(5.0, 5.0, 16, 16);
+    CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
     [self.favIconView setFrame:iconBounds];
     
-    CGRect labelBounds = CGRectMake(26, 2, bounds.size.width - 26 - 5, bounds.size.height - 8);
+    CGRect labelBounds = CGRectMake(30.0, 7.0, bounds.size.width - 30.0 - 5, bounds.size.height - 8);
     [self.labelView setFrame:labelBounds];
     [self.labelViewSelected setFrame:labelBounds];
     
@@ -251,7 +251,8 @@
     
     NSMutableAttributedString *labelText = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"%@\n%@", secondaryLine, mainLine]];
     [labelText setTextColor:[UIColor darkGrayColor] range:secondaryLineRange];
-    [labelText setFont:[UIFont boldSystemFontOfSize:14.0] range:mainLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Baskerville" size:18.0] range:mainLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Baskerville" size:14.0] range:secondaryLineRange];
     self.labelView.attributedText = labelText;
     
     NSMutableAttributedString *labelTextSelected = [NSMutableAttributedString attributedStringWithAttributedString:labelText];

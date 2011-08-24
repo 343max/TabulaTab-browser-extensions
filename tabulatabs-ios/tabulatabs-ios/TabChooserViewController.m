@@ -57,6 +57,8 @@
     self.title = self.browser.label;
     UITableView *tableView = self.tableView;
     
+    tableView.rowHeight = 72;
+    
     [browser.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
         [window.tabs enumerateObjectsUsingBlock:^(TabulatabsBrowserTab *tab, NSUInteger idx, BOOL *stop) {
             [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
