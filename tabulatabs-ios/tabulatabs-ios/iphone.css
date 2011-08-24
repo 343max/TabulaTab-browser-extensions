@@ -1,0 +1,15 @@
+div#readTools {
+	display: none;
+}
+
+body .style-newspaper {
+	background-color: transparent;
+}
+
+img {
+	max-width: 290px;
+}
+
+* {
+	max-width: 290px;
+}
