@@ -17,6 +17,6 @@
 - (id)initWithUrlRequest:(NSURLRequest *)urlRequest;
 - (id)initWithFile:(NSString *)fileName;
 - (void)executeJavaScriptAsynchronly:(NSString *)javaScriptCommand executionFinished:(void(^)(NSString *))resultCallback;
-
+- (void)executeJavaScriptFunctionAsynchronly:(NSString *)javaScriptFunction withParameter:(NSString *)parameter executionFinished:(void(^)(NSString *))resultCallback;
 
 @end

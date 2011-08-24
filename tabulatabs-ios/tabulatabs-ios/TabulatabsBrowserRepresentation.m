@@ -117,7 +117,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
         NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", string);
     }];
 }
 
@@ -134,10 +133,10 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *))didFinishLoadingBlock
 {
-    NSLog(@"postToApi:");
+    /*NSLog(@"postToApi:");
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
         NSLog(@"%@=%@", key, value);
-    }];
+    }];*/
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://apiv0.tabulatabs.com/"]];
@@ -173,7 +172,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 - (void)getObjectForKey:(NSString *)key withDidFinishLoadingBlock:(void(^)(id))didFinishLoadingBlock
 {
     [self getValueForKey:key withDidFinishLoadingBlock:^(NSString *data) {
-        NSLog(@"getObjectForKey:%@ : %@", key, data);
         didFinishLoadingBlock([data JSONValue]);
     }];
 }
@@ -198,8 +196,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 - (void)loadWindowsAndTabs
 {
     [self getObjectForKey:@"browserTabs" withDidFinishLoadingBlock:^(NSArray *rawWindows) {
-        NSLog(@"%i", [rawWindows count]);
-        
         self.windows = [[NSArray alloc] init];
         
         for (NSDictionary *rawWindow in rawWindows) {

@@ -11,6 +11,7 @@
 #import "TabulatabsApp.h"
 #import "AddBrowserStepsViewController.h"
 #import "TabChooserViewController.h"
+#import "TabActionController.h"
 
 const int BrowserChooserViewControllerBrowserSelectionSection = 0;
 const int BrowserChooserViewControllerAddBrowserSection = 1;
@@ -43,6 +44,9 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"updatedBrowserList" object:nil];
+
+    //[TabActionController presentWithReadabilty:[TabulatabsBrowserTab tabWithURL:[NSURL URLWithString:@"http://thedailywtf.com/Articles/Supported-Image-Formats,-The-Dreaded-Zebra,-and-The-Unfix.aspx"]] inViewContoller:self.navigationController];
+    //[TabActionController presentWithReadabilty:[NSURL URLWithString:@"http://www.spiegel.de/politik/ausland/0,1518,773211,00.html"] inViewContoller:self.navigationController];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

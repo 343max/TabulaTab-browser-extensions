@@ -8,6 +8,7 @@
 
 #import "BrowserViewController.h"
 #import "TabulatabsApp.h"
+#import "TabActionController.h"
 
 @implementation BrowserViewController
 
@@ -20,7 +21,7 @@
     if (![mainWebView.request.URL.absoluteString isEqualToString:@""]) {
         url = mainWebView.request.URL;
     }
-    [[UIApplication sharedApplication] openURL:url];
+    [TabActionController launchInSafari:url];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

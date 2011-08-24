@@ -8,6 +8,11 @@
 
 #import "MWJavaScriptQueue.h"
 
-@interface ReadabilityWebView : MWJavaScriptQueue
+@interface ReadabilityWebView : MWJavaScriptQueue <UIWebViewDelegate>
+{
+    void (^readabilityCompleteBlock)(void);
+}
+
+- (void)setReadabilityCompleteBlock:(void (^)(void))completeBlock;
 
 @end

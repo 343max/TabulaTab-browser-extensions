@@ -13,6 +13,8 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 - (BOOL)containsString:(NSString *)searchString;
 
++ (TabulatabsBrowserTab *)tabWithURL:(NSURL *)url;
+
 @property (strong) NSString *title;
 @property (strong) NSURL *url;
 @property (strong) NSString *shortDomain;

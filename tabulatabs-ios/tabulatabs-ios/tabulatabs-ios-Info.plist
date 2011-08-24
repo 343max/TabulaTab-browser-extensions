@@ -32,5 +32,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Vollkorn-Bold.ttf</string>
+		<string>Vollkorn-BoldItalic.ttf</string>
+		<string>Vollkorn-Italic.ttf</string>
+		<string>Vollkorn-Regular.ttf</string>
+	</array>
 </dict>
 </plist>

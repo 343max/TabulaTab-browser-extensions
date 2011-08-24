@@ -35,8 +35,10 @@
         MWURLConnection *connection = [[MWURLConnection alloc] initWithRequest:imageUrlRequest];
         [connection setDidFinishLoadingBlock:^(NSData *data) {
             UIImage *image = [[UIImage alloc] initWithData:data];
-            [pool setObject:image forKey:urlString];
-            imageLoadedBlock(image);
+            if (image) {
+                [pool setObject:image forKey:urlString];
+                imageLoadedBlock(image);
+            }
         }];
         [connection start];
     }

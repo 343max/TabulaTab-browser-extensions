@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		501A847013C7284100EE12DE /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A846E13C7284100EE12DE /* paper.png */; };
+		501A847313C7284A00EE12DE /* paper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A847213C7284A00EE12DE /* paper@2x.png */; };
 		50364B2E13B9E1D60003F9A4 /* Base64.js in Resources */ = {isa = PBXBuildFile; fileRef = 509108C113B36EBD00938AE6 /* Base64.js */; };
 		50364B2F13B9E1D60003F9A4 /* sjcl.js in Resources */ = {isa = PBXBuildFile; fileRef = 509108C413B36EBD00938AE6 /* sjcl.js */; };
 		50364B3713BA14880003F9A4 /* TabulatabsBrowserTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3613BA14870003F9A4 /* TabulatabsBrowserTab.m */; };
@@ -32,10 +34,18 @@
 		50498F7013BB8838006EBDDA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50498F6F13BB8838006EBDDA /* MessageUI.framework */; };
 		50498F7613BB905C006EBDDA /* Compass.png in Resources */ = {isa = PBXBuildFile; fileRef = 50498F7513BB905C006EBDDA /* Compass.png */; };
 		50498F7813BB906E006EBDDA /* Compass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 50498F7713BB906E006EBDDA /* Compass@2x.png */; };
+		50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50537C1B13C6FCB500F9E309 /* ReadabilityViewController.m */; };
+		50537C1E13C6FCB500F9E309 /* ReadabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50537C1C13C6FCB500F9E309 /* ReadabilityViewController.xib */; };
 		506AE72D13BB338600134EF3 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 506AE72B13BB338500134EF3 /* Helpers.m */; };
 		506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */; };
 		506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */; };
 		506BB26113B399F200B2CE85 /* TabulatabsBrowserRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TabulatabsBrowserRepresentation.m */; };
+		507A4B4013C75E3100C2B281 /* iphone.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3E13C75E3100C2B281 /* iphone.css */; };
+		507A4B4113C75E3100C2B281 /* readability.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3F13C75E3100C2B281 /* readability.css */; };
+		507A4B4313C75E4500C2B281 /* readability.js in Sources */ = {isa = PBXBuildFile; fileRef = 507A4B4213C75E4500C2B281 /* readability.js */; };
+		507A4B4513C75F1F00C2B281 /* injectReadability.js in Sources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
+		507A4B4613C7619600C2B281 /* injectReadability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
+		507A4B4713C7619900C2B281 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4213C75E4500C2B281 /* readability.js */; };
 		507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */; };
 		507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */; };
 		507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */; };
@@ -73,6 +83,7 @@
 		50CDA7F413C4C2470079272D /* MWTimedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CDA7F313C4C2460079272D /* MWTimedBlock.m */; };
 		50CE6B0013C1CDD000DA8B75 /* GradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CE6AFF13C1CDD000DA8B75 /* GradientView.m */; };
 		50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E5464D13C629DA00DC5985 /* TabActionController.m */; };
+		50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E6F66713C74033009BB757 /* ReadabilityWebView.m */; };
 		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
 		50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */; };
 		50F3D16713C0B09D00F470FC /* Circle-Check.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F3D16613C0B09D00F470FC /* Circle-Check.png */; };
@@ -91,6 +102,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		501A846E13C7284100EE12DE /* paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paper.png; sourceTree = "<group>"; };
+		501A847213C7284A00EE12DE /* paper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paper@2x.png"; sourceTree = "<group>"; };
 		50364B3513BA14870003F9A4 /* TabulatabsBrowserTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabulatabsBrowserTab.h; sourceTree = "<group>"; };
 		50364B3613BA14870003F9A4 /* TabulatabsBrowserTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabulatabsBrowserTab.m; sourceTree = "<group>"; };
 		50364B3913BA16A80003F9A4 /* TabulatabsBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabulatabsBrowserWindow.h; sourceTree = "<group>"; };
@@ -131,6 +144,9 @@
 		50498F6F13BB8838006EBDDA /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		50498F7513BB905C006EBDDA /* Compass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Compass.png; sourceTree = "<group>"; };
 		50498F7713BB906E006EBDDA /* Compass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Compass@2x.png"; sourceTree = "<group>"; };
+		50537C1A13C6FCB500F9E309 /* ReadabilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadabilityViewController.h; sourceTree = "<group>"; };
+		50537C1B13C6FCB500F9E309 /* ReadabilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadabilityViewController.m; sourceTree = "<group>"; };
+		50537C1C13C6FCB500F9E309 /* ReadabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadabilityViewController.xib; sourceTree = "<group>"; };
 		506AE72B13BB338500134EF3 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
 		506AE72C13BB338500134EF3 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
 		506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserChooserViewController.h; sourceTree = "<group>"; };
@@ -138,6 +154,10 @@
 		506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserChooserViewController.xib; sourceTree = "<group>"; };
 		506BB25F13B399F200B2CE85 /* TabulatabsBrowserRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabulatabsBrowserRepresentation.h; sourceTree = "<group>"; };
 		506BB26013B399F200B2CE85 /* TabulatabsBrowserRepresentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabulatabsBrowserRepresentation.m; sourceTree = "<group>"; };
+		507A4B3E13C75E3100C2B281 /* iphone.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = iphone.css; sourceTree = "<group>"; };
+		507A4B3F13C75E3100C2B281 /* readability.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = readability.css; sourceTree = "<group>"; };
+		507A4B4213C75E4500C2B281 /* readability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = readability.js; sourceTree = "<group>"; };
+		507A4B4413C75F1F00C2B281 /* injectReadability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectReadability.js; sourceTree = "<group>"; };
 		507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserCell.h; sourceTree = "<group>"; };
 		507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserCell.m; sourceTree = "<group>"; };
 		507E53A813BBA12100CEB2A1 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
@@ -213,6 +233,8 @@
 		50CE6AFF13C1CDD000DA8B75 /* GradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientView.m; sourceTree = "<group>"; };
 		50E5464C13C629DA00DC5985 /* TabActionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabActionController.h; sourceTree = "<group>"; };
 		50E5464D13C629DA00DC5985 /* TabActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabActionController.m; sourceTree = "<group>"; };
+		50E6F66613C74033009BB757 /* ReadabilityWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadabilityWebView.h; sourceTree = "<group>"; };
+		50E6F66713C74033009BB757 /* ReadabilityWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadabilityWebView.m; sourceTree = "<group>"; };
 		50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWJavaScriptQueue.h; path = ../MWJavaScriptQueue.h; sourceTree = "<group>"; };
 		50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWJavaScriptQueue.m; path = ../MWJavaScriptQueue.m; sourceTree = "<group>"; };
 		50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = iosJavaScriptIndex.html; sourceTree = "<group>"; };
@@ -257,6 +279,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		501A846D13C7282B00EE12DE /* Readability */ = {
+			isa = PBXGroup;
+			children = (
+				507A4B4413C75F1F00C2B281 /* injectReadability.js */,
+				507A4B3E13C75E3100C2B281 /* iphone.css */,
+				507A4B3F13C75E3100C2B281 /* readability.css */,
+				507A4B4213C75E4500C2B281 /* readability.js */,
+				50537C1A13C6FCB500F9E309 /* ReadabilityViewController.h */,
+				50537C1B13C6FCB500F9E309 /* ReadabilityViewController.m */,
+				50537C1C13C6FCB500F9E309 /* ReadabilityViewController.xib */,
+				50E6F66613C74033009BB757 /* ReadabilityWebView.h */,
+				50E6F66713C74033009BB757 /* ReadabilityWebView.m */,
+				501A846E13C7284100EE12DE /* paper.png */,
+				501A847213C7284A00EE12DE /* paper@2x.png */,
+			);
+			name = Readability;
+			sourceTree = "<group>";
+		};
 		50364B3813BA14930003F9A4 /* Tabulatabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -454,6 +494,7 @@
 				507E53BE13BC801200CEB2A1 /* ImagePool.m */,
 				5091088513B3616900938AE6 /* TabulatabsApp.h */,
 				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
+				501A846D13C7282B00EE12DE /* Readability */,
 				50CDA7E913C34CF30079272D /* TabChooser */,
 				50364B4613BA2C710003F9A4 /* ViewController */,
 				50364B3813BA14930003F9A4 /* Tabulatabs */,
@@ -591,6 +632,9 @@
 /* Begin PBXProject section */
 		5091086913B3616900938AE6 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 5091086C13B3616900938AE6 /* Build configuration list for PBXProject "tabulatabs-ios" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -634,6 +678,13 @@
 				50CDA7E413C317380079272D /* TabBarLikeButton.png in Resources */,
 				50CDA7E613C34CBC0079272D /* 165-glasses-3.png in Resources */,
 				50CDA7E813C34CCE0079272D /* 164-glasses-2.png in Resources */,
+				50537C1E13C6FCB500F9E309 /* ReadabilityViewController.xib in Resources */,
+				501A847013C7284100EE12DE /* paper.png in Resources */,
+				501A847313C7284A00EE12DE /* paper@2x.png in Resources */,
+				507A4B4013C75E3100C2B281 /* iphone.css in Resources */,
+				507A4B4113C75E3100C2B281 /* readability.css in Resources */,
+				507A4B4713C7619900C2B281 /* readability.js in Resources */,
+				507A4B4613C7619600C2B281 /* injectReadability.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,6 +765,10 @@
 				50CDA7E213C316880079272D /* TabBarLikeButton.m in Sources */,
 				50CDA7F413C4C2470079272D /* MWTimedBlock.m in Sources */,
 				50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */,
+				50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */,
+				50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */,
+				507A4B4313C75E4500C2B281 /* readability.js in Sources */,
+				507A4B4513C75F1F00C2B281 /* injectReadability.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

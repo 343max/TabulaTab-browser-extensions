@@ -9,7 +9,7 @@
 #import "TabChooserCell.h"
 #import "NSAttributedString+Attributes.h"
 #import "TabulatabsApp.h"
-#import <QuartzCore/CAGradientLayer.h>
+#import <QuartzCore/QuartzCore.h>
 #import "GradientView.h"
 #import "TabBarLikeButton.h"
 #import "MWTimedBlock.h"
@@ -55,6 +55,10 @@
 {
     int multiplier = 1;
     
+    [CATransaction setCompletionBlock:^(void) {
+        self.actionView.hidden = YES;
+    }];
+    
     [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {        
         [UIView animateWithDuration:0.1 * multiplier delay:(actionButtons.count - idx - 1) * 0.07 * multiplier  options:UIViewAnimationCurveEaseOut animations:^(void) {
             button.layer.opacity = 0;
@@ -65,10 +69,6 @@
     [UIView animateWithDuration:0.1 * multiplier delay:0.2 * multiplier options:0 animations:^(void) {
         self.primaryView.layer.position = CGPointMake(self.primaryView.layer.position.x - self.frame.size.width, self.primaryView.layer.position.y);
     } completion:nil];
-
-    MWTimedBlock *timedBlock = [[MWTimedBlock alloc] initWithTimout:0.2 completionBlock:^(void) {
-        self.actionView.hidden = YES;
-    }];
 }
 
 - (void)setActionViewVisible:(BOOL)visible
@@ -109,7 +109,13 @@
 - (void)launchSafariAction:(id)sender
 {
     self.actionViewVisibile = NO;
-    [TabActionController launchInSafari:self.browserTab];
+    [TabActionController launchInSafari:self.browserTab.url];
+}
+
+- (void)presentInReadability:(id)sender
+{
+    self.actionViewVisibile = NO;
+    [TabActionController presentWithReadabilty:self.browserTab.url inViewContoller:[TabulatabsApp sharedInstance].navigationController];
 }
 
 - (void)setupActionView
@@ -135,6 +141,7 @@
     TabBarLikeButton *safariButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"Compass.png"]];
     [safariButton addTarget:self action:@selector(launchSafariAction:) forControlEvents:UIControlEventTouchUpInside];
     TabBarLikeButton *readabilityButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"164-glasses-2.png"]];
+    [readabilityButton addTarget:self action:@selector(presentInReadability:) forControlEvents:UIControlEventTouchUpInside];
     TabBarLikeButton *closeTabButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"Circle-Check.png"]];
     
     actionButtons = [NSArray arrayWithObjects:safariButton, readabilityButton, closeTabButton, nil];

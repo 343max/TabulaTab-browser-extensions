@@ -113,9 +113,7 @@ static ImagePool *sharedImagePool;
         [browserRepresenations addObject:browser];
     }
     */
-    
-    
-    
+        
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
         [browser loadWindowsAndTabs];
         [browser loadBrowserInfo];

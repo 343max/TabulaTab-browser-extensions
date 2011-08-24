@@ -7,6 +7,7 @@
 //
 
 #import "TabActionController.h"
+#import "ReadabilityViewController.h"
 
 @implementation TabActionController
 
@@ -21,9 +22,16 @@
     return self;
 }
 
-+ (void)launchInSafari:(TabulatabsBrowserTab *)tab 
++ (void)launchInSafari:(NSURL *)url 
 {
-    [[UIApplication sharedApplication] openURL:tab.url];
+    [[UIApplication sharedApplication] openURL:url];
+}
+
++ (void)presentWithReadabilty:(NSURL *)url inViewContoller:(UIViewController *)parentViewController
+{
+    ReadabilityViewController* readabilityViewController = [[ReadabilityViewController alloc] initWithNibName:@"ReadabilityViewController" bundle:nil];
+    readabilityViewController.url = url;
+    [parentViewController presentModalViewController:readabilityViewController animated:YES];
 }
 
 @end

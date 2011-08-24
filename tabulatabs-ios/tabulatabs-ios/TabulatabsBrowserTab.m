@@ -24,6 +24,15 @@
     return self;
 }
 
++ (TabulatabsBrowserTab *)tabWithURL:(NSURL *)url
+{
+    TabulatabsBrowserTab *tab = [[TabulatabsBrowserTab alloc] init];
+    if (tab) {
+        tab.url = url;
+    }
+    return tab;
+}
+
 - (id)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [self init];

@@ -239,6 +239,7 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     [self performSearchFor:searchString];
+    return YES;
 }
 
 #pragma mark ScrollViewDelegate

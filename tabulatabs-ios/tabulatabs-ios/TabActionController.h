@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TabulatabsBrowserTab.h"
 
 @interface TabActionController : NSObject
 
-+ (void)launchInSafari:(TabulatabsBrowserTab *)tab;
++ (void)launchInSafari:(NSURL *)url;
++ (void)presentWithReadabilty:(NSURL *)url inViewContoller:(UIViewController *)parentViewController;
 
 @end
