@@ -21,9 +21,10 @@
 @property (strong) NSString *siteTitle;
 @property (strong) NSString *pageTitle;
 @property (strong) NSURL *favIconUrl;
-@property (strong) NSURL *articleImage;
+@property (strong) NSURL *articleImageUrl;
 @property BOOL selected;
 
 @property (strong) UIImage *favIconImage;
+@property (strong) UIImage *articleImage;
 
 @end

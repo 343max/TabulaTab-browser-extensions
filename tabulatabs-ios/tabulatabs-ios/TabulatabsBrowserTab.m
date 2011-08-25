@@ -13,6 +13,7 @@
 @synthesize title, url, favIconUrl, selected;
 @synthesize shortDomain, siteTitle, pageTitle;
 @synthesize favIconImage;
+@synthesize articleImageUrl;
 @synthesize articleImage;
 
 - (id)init
@@ -45,7 +46,7 @@
         self.siteTitle = [dictionary objectForKey:@"siteTitle"];
         self.pageTitle = [dictionary objectForKey:@"pageTitle"];
         self.favIconUrl = [NSURL URLWithString:[dictionary objectForKey:@"favIconUrl"]];
-        self.articleImage = [NSURL URLWithString:[dictionary objectForKey:@"articleImage"]];
+        self.articleImageUrl = [NSURL URLWithString:[dictionary objectForKey:@"articleImage"]];
     }
     
     return self;
@@ -68,7 +69,7 @@
         siteTitle = [aDecoder decodeObjectForKey:@"siteTitle"];
         pageTitle = [aDecoder decodeObjectForKey:@"pageTitle"];
         favIconUrl = [aDecoder decodeObjectForKey:@"favIconUrl"];
-        articleImage = [aDecoder decodeObjectForKey:@"articleImage"];
+        articleImageUrl = [aDecoder decodeObjectForKey:@"articleImageUrl"];
     }
     
     return self;
@@ -83,7 +84,7 @@
     [aCoder encodeObject:siteTitle forKey:@"siteTitle"];
     [aCoder encodeObject:pageTitle forKey:@"pageTitle"];
     [aCoder encodeObject:favIconUrl forKey:@"favIconUrl"];
-    [aCoder encodeObject:articleImage forKey:@"articleImage"];
+    [aCoder encodeObject:articleImageUrl forKey:@"articleImageUrl"];
 }
 
 @end

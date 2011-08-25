@@ -27,6 +27,7 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
 @implementation TabChooserCell
 
 @synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
+@synthesize articleImageView;
 
 + (Class)layerClass {
     return [CAGradientLayer class];
@@ -81,23 +82,40 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
 
 - (void)setupActionView
 { 
-    GradientView* view = [[GradientView alloc] initWithFrame:self.frame];
+    GradientView* view = [[GradientView alloc] initWithFrame:self.bounds];
     [self.contentView insertSubview:view atIndex:0];
     
-    view.layer.backgroundColor = [[UIColor colorWithRed:0.396 green:0.45 blue:0.56 alpha:1] CGColor];
-    
+//    view.layer.backgroundColor = [[UIColor colorWithRed:0.396 green:0.45 blue:0.56 alpha:1] CGColor];
+//    
+//    [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
+//        objc_unretainedObject([[UIColor colorWithWhite:0 alpha:1] CGColor]),
+//        objc_unretainedObject([[UIColor colorWithWhite:0 alpha:1] CGColor]),
+//        objc_unretainedObject([[UIColor colorWithWhite:(float)21/255 alpha:1] CGColor]),
+//        objc_unretainedObject([[UIColor colorWithWhite:(float)48/255 alpha:1] CGColor]),
+//        nil]];
+//    [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
+//                                                 [NSNumber numberWithFloat:0],
+//                                                 [NSNumber numberWithFloat:0.5],
+//                                                 [NSNumber numberWithFloat:0.5],
+//                                                 [NSNumber numberWithFloat:1],
+//        nil]];
     [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
-        objc_unretainedObject([[UIColor colorWithWhite:0 alpha:1] CGColor]),
-        objc_unretainedObject([[UIColor colorWithWhite:0 alpha:1] CGColor]),
-        objc_unretainedObject([[UIColor colorWithWhite:(float)21/255 alpha:1] CGColor]),
-        objc_unretainedObject([[UIColor colorWithWhite:(float)48/255 alpha:1] CGColor]),
-        nil]];
+                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.4] CGColor]),
+                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.1] CGColor]),
+                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
+                                              nil]];
+    view.backgroundColor = [UIColor whiteColor];
+    
     [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
                                                  [NSNumber numberWithFloat:0],
-                                                 [NSNumber numberWithFloat:0.5],
-                                                 [NSNumber numberWithFloat:0.5],
-                                                 [NSNumber numberWithFloat:1],
-        nil]];
+                                                 [NSNumber numberWithFloat:0.03],
+                                                 [NSNumber numberWithFloat:0.4],
+                                                 nil]];
+
+    
+    articleImageView = [[UIImageView alloc] initWithFrame:view.bounds];
+    articleImageView.contentMode = UIViewContentModeScaleToFill;
+    [view addSubview:articleImageView];
     
     self.actionView = view;
 }
@@ -111,13 +129,18 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.delegate = self;
+    scrollView.userInteractionEnabled = YES;
     
     [self.contentView addSubview:scrollView];
     
     CGRect contentViewBounds = self.bounds;
     contentViewBounds.origin.x = contentViewBounds.size.width;
     GradientView *view = [[GradientView alloc] initWithFrame:contentViewBounds];
-    [scrollView addSubview:view];
+    
+    view.layer.shadowColor = [[UIColor blackColor] CGColor];
+    view.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    view.layer.shadowOpacity = 0.9;
+    view.layer.shadowRadius = 8.0;
     
     [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
                                               objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
@@ -150,6 +173,8 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     self.favIconView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [view addSubview:self.favIconView];
     
+    [scrollView addSubview:view];
+
     self.primaryView = view;
 }
 
@@ -176,6 +201,12 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     contentViewBounds.size.width -= kTabChooserCellBackgroundCrack;
     self.primaryView.frame = contentViewBounds;
     self.actionView.frame = bounds;
+
+    if (articleImageView.image) {
+        CGRect articleImageFrame = bounds;
+        articleImageFrame.size.width = articleImageFrame.size.height * (articleImageView.image.size.width / articleImageView.image.size.height);
+        articleImageView.frame = articleImageFrame;
+    }
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
     [self.favIconView setFrame:iconBounds];
@@ -208,6 +239,12 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
 {
     favIconView.image = favIcon;
     [favIconView setNeedsDisplay];
+}
+
+- (void)setArticleImage:(UIImage *)articleImage;
+{
+    articleImageView.image = articleImage;
+    [self setNeedsLayout];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated

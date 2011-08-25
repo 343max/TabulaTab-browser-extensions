@@ -14,9 +14,11 @@
 
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
 - (void)setFavIcon:(UIImage *)favIconUrl;
+- (void)setArticleImage:(UIImage *)articleImage;
 - (void)launchSafariAction:(id)sender;
 - (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
 
+@property (strong) UIImageView *articleImageView;
 @property (strong) UIImageView *favIconView;
 @property (strong) OHAttributedLabel *labelView;
 @property (strong) OHAttributedLabel *labelViewSelected;

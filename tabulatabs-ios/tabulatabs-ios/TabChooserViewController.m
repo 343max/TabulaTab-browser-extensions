@@ -61,10 +61,20 @@
     
     [browser.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
         [window.tabs enumerateObjectsUsingBlock:^(TabulatabsBrowserTab *tab, NSUInteger idx, BOOL *stop) {
-            [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
-                tab.favIconImage = image;
-                [tableView reloadData];
-            }];
+            if (tab.favIconUrl) {
+                [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
+                    tab.favIconImage = image;
+                    [tableView reloadData];
+                }];
+            }
+
+            if (tab.articleImageUrl) {
+                [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.articleImageUrl] imageLoadedBlock:^(UIImage *imageData) {
+                    NSLog(@"loaded article image");
+                    tab.articleImage = imageData;
+                    [tableView reloadData];
+                }];
+            }
         }];
     }];
         
@@ -147,6 +157,8 @@
     
     [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
     [cell setFavIcon:tab.favIconImage];
+    [cell setArticleImage:tab.articleImage];
+    
     cell.browserTab = tab;
     
     return cell;
