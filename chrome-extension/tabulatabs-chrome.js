@@ -24,13 +24,16 @@ function collectAllTabs() {
 					enrichWithMetaInfo(tab);
 
 					if (tabMetaInfo[chromeTab.id]) {
-						tab.articleImage = tabMetaInfo[chromeTab.id].articleImage;
+						if (tabMetaInfo[chromeTab.id].articleImage) {
+							tab.pageThumbnail = tabMetaInfo[chromeTab.id].articleImage;
+						} else {
+							tab.pageThumbnail = tabMetaInfo[chromeTab.id].pageThumbnail;
+						}
 					}
 
 					dump.push(tab);
 
 					window.tabs.push(tab);
-
 				});
 
 				if (window.tabs.length > 0) {
@@ -45,10 +48,6 @@ function collectAllTabs() {
 }
 
 function resizeThumbnail(dataUrl, maxWidth, maxHeight, callback) {
-
-	var maxWidth = 320;
-	var maxHeight = 240;
-
 	var img = new Image();
 
 	var canvas = document.createElement('canvas');
@@ -92,6 +91,19 @@ function uploadTabThumb(tabId, changeInfo) {
 	});
 }
 
+function captureThumbnailOfCurrentVisibleTab() {
+	chrome.tabs.getSelected(null, function(tab) {
+		if(!tab.url.match(/^https?:\/\//)) return;
+		
+		chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
+			resizeThumbnail(dataUrl, 480, 144, function(resizedDataUrl) {
+				if(!tabMetaInfo[tab.id]) tabMetaInfo[tab.id] = {};
+				 tabMetaInfo[tab.id].pageThumbnail = resizedDataUrl;
+			});
+		});
+	});
+}
+
 var uploadTabTimout = null;
 
 function startUploadTabsTimeout() {
@@ -125,15 +137,20 @@ chrome.tabs.onRemoved.addListener(function(tabId) {
 
 chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
 	startUploadTabsTimeout();
+	captureThumbnailOfCurrentVisibleTab();
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 	startUploadTabsTimeout();
+	if (changeInfo.status == 'complete') {
+		captureThumbnailOfCurrentVisibleTab();
+	}
 });
 
 chrome.extension.onRequest.addListener(function(request, sender, callback) {
 	if (request.articleImage) {
-		tabMetaInfo[sender.tab.id] = {articleImage: request.articleImage};
+		if(!tabMetaInfo[sender.tab.id]) tabMetaInfo[sender.tab.id] = {};
+		 tabMetaInfo[sender.tab.id].articleImage = request.articleImage;
 	}
 });
 

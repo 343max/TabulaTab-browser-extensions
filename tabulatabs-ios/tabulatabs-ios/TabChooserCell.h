@@ -14,11 +14,11 @@
 
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
 - (void)setFavIcon:(UIImage *)favIconUrl;
-- (void)setArticleImage:(UIImage *)articleImage;
+- (void)setPageThumbnail:(UIImage *)pageThumbnail;
 - (void)launchSafariAction:(id)sender;
 - (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
 
-@property (strong) UIImageView *articleImageView;
+@property (strong) UIImageView *pageThumbnailView;
 @property (strong) UIImageView *favIconView;
 @property (strong) OHAttributedLabel *labelView;
 @property (strong) OHAttributedLabel *labelViewSelected;

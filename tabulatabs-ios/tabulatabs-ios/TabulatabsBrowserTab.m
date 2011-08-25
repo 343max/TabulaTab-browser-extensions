@@ -13,8 +13,8 @@
 @synthesize title, url, favIconUrl, selected;
 @synthesize shortDomain, siteTitle, pageTitle;
 @synthesize favIconImage;
-@synthesize articleImageUrl;
-@synthesize articleImage;
+@synthesize pageThumbnailUrl;
+@synthesize pageThumbnail;
 
 - (id)init
 {
@@ -46,7 +46,7 @@
         self.siteTitle = [dictionary objectForKey:@"siteTitle"];
         self.pageTitle = [dictionary objectForKey:@"pageTitle"];
         self.favIconUrl = [NSURL URLWithString:[dictionary objectForKey:@"favIconUrl"]];
-        self.articleImageUrl = [NSURL URLWithString:[dictionary objectForKey:@"articleImage"]];
+        self.pageThumbnailUrl = [NSURL URLWithString:[dictionary objectForKey:@"pageThumbnail"]];
     }
     
     return self;
@@ -69,7 +69,7 @@
         siteTitle = [aDecoder decodeObjectForKey:@"siteTitle"];
         pageTitle = [aDecoder decodeObjectForKey:@"pageTitle"];
         favIconUrl = [aDecoder decodeObjectForKey:@"favIconUrl"];
-        articleImageUrl = [aDecoder decodeObjectForKey:@"articleImageUrl"];
+        pageThumbnailUrl = [aDecoder decodeObjectForKey:@"pageThumbnailUrl"];
     }
     
     return self;
@@ -84,7 +84,7 @@
     [aCoder encodeObject:siteTitle forKey:@"siteTitle"];
     [aCoder encodeObject:pageTitle forKey:@"pageTitle"];
     [aCoder encodeObject:favIconUrl forKey:@"favIconUrl"];
-    [aCoder encodeObject:articleImageUrl forKey:@"articleImageUrl"];
+    [aCoder encodeObject:pageThumbnailUrl forKey:@"pageThumbnailUrl"];
 }
 
 @end

@@ -27,7 +27,7 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
 @implementation TabChooserCell
 
 @synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
-@synthesize articleImageView;
+@synthesize pageThumbnailView;
 
 + (Class)layerClass {
     return [CAGradientLayer class];
@@ -113,9 +113,9 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
                                                  nil]];
 
     
-    articleImageView = [[UIImageView alloc] initWithFrame:view.bounds];
-    articleImageView.contentMode = UIViewContentModeScaleToFill;
-    [view addSubview:articleImageView];
+    pageThumbnailView = [[UIImageView alloc] initWithFrame:view.bounds];
+    pageThumbnailView.contentMode = UIViewContentModeScaleToFill;
+    [view addSubview:pageThumbnailView];
     
     self.actionView = view;
 }
@@ -202,10 +202,11 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     self.primaryView.frame = contentViewBounds;
     self.actionView.frame = bounds;
 
-    if (articleImageView.image) {
-        CGRect articleImageFrame = bounds;
-        articleImageFrame.size.width = articleImageFrame.size.height * (articleImageView.image.size.width / articleImageView.image.size.height);
-        articleImageView.frame = articleImageFrame;
+    if (pageThumbnailView.image) {
+        CGRect pageThumbnailFrame = bounds;
+        pageThumbnailFrame.size.width = pageThumbnailFrame.size.height * (pageThumbnailView.image.size.width / pageThumbnailView.image.size.height);
+        NSLog(@"sizes: %@ %@", NSStringFromCGSize(pageThumbnailView.image.size), NSStringFromCGSize(pageThumbnailFrame.size));
+        pageThumbnailView.frame = pageThumbnailFrame;
     }
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
@@ -241,9 +242,9 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     [favIconView setNeedsDisplay];
 }
 
-- (void)setArticleImage:(UIImage *)articleImage;
+- (void)setPageThumbnail:(UIImage *)pageThumbnail;
 {
-    articleImageView.image = articleImage;
+    pageThumbnailView.image = pageThumbnail;
     [self setNeedsLayout];
 }
 

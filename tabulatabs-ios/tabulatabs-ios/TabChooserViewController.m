@@ -68,10 +68,10 @@
                 }];
             }
 
-            if (tab.articleImageUrl) {
-                [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.articleImageUrl] imageLoadedBlock:^(UIImage *imageData) {
+            if (tab.pageThumbnailUrl) {
+                [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
                     NSLog(@"loaded article image");
-                    tab.articleImage = imageData;
+                    tab.pageThumbnail = imageData;
                     [tableView reloadData];
                 }];
             }
@@ -157,7 +157,7 @@
     
     [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
     [cell setFavIcon:tab.favIconImage];
-    [cell setArticleImage:tab.articleImage];
+    [cell setPageThumbnail:tab.pageThumbnail];
     
     cell.browserTab = tab;
     

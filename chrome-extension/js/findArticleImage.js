@@ -54,7 +54,7 @@ window.setTimeout(function() {
 			continue;
 		}
 
-		if (area < 3000) {
+		if (area < 60000) {
 			debug(image, 'to small (area: ' + area + ' sq px)');
 			continue;
 		}
