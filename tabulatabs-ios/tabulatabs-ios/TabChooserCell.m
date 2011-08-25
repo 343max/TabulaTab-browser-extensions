@@ -21,6 +21,8 @@
 }
 @end
 
+const CGFloat kTabChooserCellBackgroundCrack = 30.0;
+const CGFloat kTabChooserCellLabelRest = 45.0;
 
 @implementation TabChooserCell
 
@@ -41,7 +43,7 @@
     
     CGPoint contentOffset = CGPointMake(0.0, 0.0);
     if (!visible) {
-        contentOffset.x = self.bounds.size.width;
+        contentOffset.x = self.bounds.size.width - kTabChooserCellBackgroundCrack - kTabChooserCellLabelRest;
     }
 
     [scrollView setContentOffset:contentOffset animated:animated];
@@ -116,7 +118,7 @@
 {
     scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     scrollView.pagingEnabled = YES;
-    scrollView.contentSize = CGSizeMake(self.bounds.size.width * 3, self.bounds.size.height);
+    scrollView.contentSize = CGSizeMake(self.bounds.size.width * 2, self.bounds.size.height);
     scrollView.contentOffset = CGPointMake(self.bounds.size.width, 0);
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -180,16 +182,17 @@
     CGRect bounds = self.bounds;
     
     scrollView.frame = bounds;
-    scrollView.contentSize = CGSizeMake(bounds.size.width * 3, bounds.size.height);
+    scrollView.contentSize = CGSizeMake(bounds.size.width * 2 - kTabChooserCellLabelRest - kTabChooserCellBackgroundCrack, bounds.size.height);
     CGRect contentViewBounds = self.bounds;
-    contentViewBounds.origin.x = contentViewBounds.size.width;
+    contentViewBounds.origin.x = contentViewBounds.size.width - kTabChooserCellLabelRest;
+    contentViewBounds.size.width -= kTabChooserCellBackgroundCrack;
     self.primaryView.frame = contentViewBounds;
     self.actionView.frame = bounds;
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
     [self.favIconView setFrame:iconBounds];
     
-    CGRect labelBounds = CGRectMake(30.0, 7.0, bounds.size.width - 30.0 - 5, bounds.size.height - 8);
+    CGRect labelBounds = CGRectMake(30.0, 7.0, contentViewBounds.size.width - 30.0 - 5, contentViewBounds.size.height - 8);
     [self.labelView setFrame:labelBounds];
     [self.labelViewSelected setFrame:labelBounds];
     
