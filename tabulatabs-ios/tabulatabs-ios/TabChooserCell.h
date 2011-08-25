@@ -11,9 +11,6 @@
 #import "TabulatabsBrowserTab.h"
 
 @interface TabChooserCell : UITableViewCell <UIScrollViewDelegate>
-{
-    NSArray* actionButtons;
-}
 
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
 - (void)setFavIcon:(UIImage *)favIconUrl;

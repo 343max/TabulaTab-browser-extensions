@@ -99,18 +99,6 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
                                                  [NSNumber numberWithFloat:1],
         nil]];
     
-    TabBarLikeButton *safariButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"Compass.png"]];
-    [safariButton addTarget:self action:@selector(launchSafariAction:) forControlEvents:UIControlEventTouchUpInside];
-    TabBarLikeButton *readabilityButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"164-glasses-2.png"]];
-    [readabilityButton addTarget:self action:@selector(presentInReadability:) forControlEvents:UIControlEventTouchUpInside];
-    TabBarLikeButton *closeTabButton = [[TabBarLikeButton alloc] initWithImage:[UIImage imageNamed:@"Circle-Check.png"]];
-    
-    actionButtons = [NSArray arrayWithObjects:safariButton, readabilityButton, closeTabButton, nil];
-    
-    [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {
-        [view addSubview:button];
-    }];
-    
     self.actionView = view;
 }
 
@@ -195,18 +183,6 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     CGRect labelBounds = CGRectMake(30.0, 7.0, contentViewBounds.size.width - 30.0 - 5, contentViewBounds.size.height - 8);
     [self.labelView setFrame:labelBounds];
     [self.labelViewSelected setFrame:labelBounds];
-    
-    float buttonWidth = self.frame.size.height;
-    int buttonCount = actionButtons.count;
-    float buttonDistance = (self.frame.size.width - buttonWidth * buttonCount) / (buttonCount + 1);
-    
-    CGRect emptyButtonFrame = CGRectMake(buttonDistance, 0, buttonWidth, buttonWidth);
-    
-    [actionButtons enumerateObjectsUsingBlock:^(TabBarLikeButton *button, NSUInteger idx, BOOL *stop) {
-        CGRect buttonFrame = emptyButtonFrame;
-        buttonFrame.origin.x = buttonFrame.origin.x + (buttonDistance + buttonWidth) * idx;
-        button.frame = buttonFrame;
-    }];
 }
 
 - (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName

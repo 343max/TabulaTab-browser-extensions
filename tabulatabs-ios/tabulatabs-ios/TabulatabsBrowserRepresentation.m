@@ -116,7 +116,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     NSMutableDictionary *parameters = [self parametersForAction:@"claimClient"];
 
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
-        NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        //NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     }];
 }
 
