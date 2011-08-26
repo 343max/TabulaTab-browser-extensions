@@ -1,5 +1,21 @@
 var tabulatabs = new TabulatabsClient('Chrome');
-var tabMetaInfo = {};
+var tabMetaInfo = localStorage.getItem('tabMetaInfo');
+if (!tabMetaInfo) tabMetaInfo = {};
+
+function saveTabMeta() {
+	localStorage.setItem('tabMetaInfo', tabMetaInfo);
+}
+
+function setTabMetaProperty(tabId, key, value) {
+	if (!tabMetaInfo[tabId]) tabMetaInfo[tabId] = {};
+	tabMetaInfo[tabId][key] = value;
+	saveTabMeta();
+}
+
+function unsetTabMeta(tabId) {
+	delete tabMetaInfo[tabId];
+	saveTabMeta();
+}
 
 function collectAllTabs() {
 	var windows = [];
