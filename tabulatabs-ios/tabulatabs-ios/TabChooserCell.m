@@ -227,8 +227,8 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     
     NSMutableAttributedString *labelText = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"%@\n%@", secondaryLine, mainLine]];
     [labelText setTextColor:[UIColor darkGrayColor] range:secondaryLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Baskerville" size:18.0] range:mainLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Baskerville" size:14.0] range:secondaryLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Palatino" size:16.0] range:mainLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Palatino" size:12.0] range:secondaryLineRange];
     self.labelView.attributedText = labelText;
     
     NSMutableAttributedString *labelTextSelected = [NSMutableAttributedString attributedStringWithAttributedString:labelText];
