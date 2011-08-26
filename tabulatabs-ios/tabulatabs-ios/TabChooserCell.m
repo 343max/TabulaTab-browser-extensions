@@ -87,20 +87,6 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     GradientView* view = [[GradientView alloc] initWithFrame:self.bounds];
     [self.contentView insertSubview:view atIndex:0];
     
-//    view.layer.backgroundColor = [[UIColor colorWithRed:0.396 green:0.45 blue:0.56 alpha:1] CGColor];
-//    
-//    [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
-//        objc_unretainedObject([[UIColor colorWithWhite:0 alpha:1] CGColor]),
-//        objc_unretainedObject([[UIColor colorWithWhite:0 alpha:1] CGColor]),
-//        objc_unretainedObject([[UIColor colorWithWhite:(float)21/255 alpha:1] CGColor]),
-//        objc_unretainedObject([[UIColor colorWithWhite:(float)48/255 alpha:1] CGColor]),
-//        nil]];
-//    [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
-//                                                 [NSNumber numberWithFloat:0],
-//                                                 [NSNumber numberWithFloat:0.5],
-//                                                 [NSNumber numberWithFloat:0.5],
-//                                                 [NSNumber numberWithFloat:1],
-//        nil]];
     [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
                                               objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.4] CGColor]),
                                               objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.1] CGColor]),
@@ -131,6 +117,7 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.delegate = self;
     scrollView.userInteractionEnabled = YES;
+    scrollView.directionalLockEnabled = YES;
     
     [self.contentView addSubview:scrollView];
         
