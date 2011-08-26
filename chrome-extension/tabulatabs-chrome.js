@@ -57,9 +57,8 @@ function resizeThumbnail(dataUrl, maxWidth, maxHeight, callback) {
 	var context = canvas.getContext('2d');
 
 	img.onload = function() {
-
-		var width = maxWidth;
-		var height = img.height * (width / img.width);
+		var height = maxHeight;
+		var width = img.width * (height / img.height);
 
 		context.drawImage(img, 0, 0, width, height);
 
@@ -70,33 +69,12 @@ function resizeThumbnail(dataUrl, maxWidth, maxHeight, callback) {
 	img.src = dataUrl;
 }
 
-function resizeAndUploadThumb(selectedTab, dataUrl, maxWidth, maxHeight) {
-	resizeThumbnail(dataUrl, maxWidth, maxHeight, function(resizedDataUrl) {
-		//tabulatabs.setThumbnail(selectedTab.url, maxWidth, maxHeight, resizedDataUrl);
-	});
-}
-
-function uploadTabThumb(tabId, changeInfo) {
-	chrome.tabs.get(tabId, function(updatedTab) {
-		if(!updatedTab.url.match(/^https?:\/\//)) return;
-
-		chrome.tabs.getSelected(updatedTab.windowId, function(selectedTab) {
-			if(selectedTab.id != updatedTab.id) return;
-
-			chrome.tabs.captureVisibleTab(null, {}, function(dataUrl) {
-				resizeAndUploadThumb(selectedTab, dataUrl, 320, 240);
-				resizeAndUploadThumb(selectedTab, dataUrl, 180, 180);
-			});
-		});
-	});
-}
-
 function captureThumbnailOfCurrentVisibleTab() {
 	chrome.tabs.getSelected(null, function(tab) {
 		if(!tab.url.match(/^https?:\/\//)) return;
 		
 		chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
-			resizeThumbnail(dataUrl, 480, 144, function(resizedDataUrl) {
+			resizeThumbnail(dataUrl, 256, 144, function(resizedDataUrl) {
 				if(!tabMetaInfo[tab.id]) tabMetaInfo[tab.id] = {};
 				 tabMetaInfo[tab.id].pageThumbnail = resizedDataUrl;
 			});
