@@ -4,6 +4,17 @@ window.setTimeout(function() {
 	var bestMatch = null;
 	var bestArea = 0;
 
+	var adSizes = [
+		{width: 728, height: 90},
+		{width: 468, height: 60},
+		{width: 120, height: 600},
+		{width: 160, height: 600},
+		{width: 200, height: 200},
+		{width: 250, height: 250},
+		{width: 300, height: 250},
+		{width: 336, height: 280}
+	];
+
 	var isHidden = function(el) {
 		try {
 			if (computedStyle.getPropertyValue('display') == 'hidden') {
@@ -62,6 +73,14 @@ window.setTimeout(function() {
 		if (image.x == 0 && image.y == 0) {
 			debug(image, 'position: 0,0');
 			continue;
+		}
+
+		for(var i = 0; i < adSizes.length; i++) {
+			var adSize = adSizes[i];
+			if (image.width == adSize.width && image.height == adSize.height) {
+				debug(image, 'ad: ' + adSize.width + 'x' + adSize.height);
+				continue(2);
+			}
 		}
 
 		if (isHidden(image)) {
