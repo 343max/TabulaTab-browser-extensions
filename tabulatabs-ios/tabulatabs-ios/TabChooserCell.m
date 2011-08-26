@@ -18,6 +18,8 @@
 @interface TabChooserCell () {
 @private
     UIScrollView *scrollView;
+    UIImageView *tableCellLeftShadowView;
+    UIImageView *tableCellRightShadowView;
 }
 @end
 
@@ -112,7 +114,6 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
                                                  [NSNumber numberWithFloat:0.4],
                                                  nil]];
 
-    
     pageThumbnailView = [[UIImageView alloc] initWithFrame:view.bounds];
     pageThumbnailView.contentMode = UIViewContentModeScaleToFill;
     [view addSubview:pageThumbnailView];
@@ -132,15 +133,10 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     scrollView.userInteractionEnabled = YES;
     
     [self.contentView addSubview:scrollView];
-    
+        
     CGRect contentViewBounds = self.bounds;
     contentViewBounds.origin.x = contentViewBounds.size.width;
     GradientView *view = [[GradientView alloc] initWithFrame:contentViewBounds];
-    
-    view.layer.shadowColor = [[UIColor blackColor] CGColor];
-    view.layer.shadowOffset = CGSizeMake(0.0, 0.0);
-    view.layer.shadowOpacity = 0.9;
-    view.layer.shadowRadius = 8.0;
     
     [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
                                               objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
@@ -155,6 +151,11 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
                                                  [NSNumber numberWithFloat:1],
                                                  nil]];
     
+    tableCellLeftShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowLeft.png"]];
+    [view addSubview:tableCellLeftShadowView];
+    tableCellRightShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowRight.png"]];
+    [view addSubview:tableCellRightShadowView];
+
     self.labelView = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
     self.labelView.userInteractionEnabled = NO;
     self.labelView.automaticallyDetectLinks = NO;
@@ -201,11 +202,13 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     contentViewBounds.size.width -= kTabChooserCellBackgroundCrack;
     self.primaryView.frame = contentViewBounds;
     self.actionView.frame = bounds;
+    
+    tableCellLeftShadowView.frame = CGRectMake(-8.0, 0.0, 8.0, 72.0);
+    tableCellRightShadowView.frame = CGRectMake(self.primaryView.bounds.size.width,0.0, 8.0, 72.0);
 
     if (pageThumbnailView.image) {
         CGRect pageThumbnailFrame = bounds;
         pageThumbnailFrame.size.width = pageThumbnailFrame.size.height * (pageThumbnailView.image.size.width / pageThumbnailView.image.size.height);
-        NSLog(@"sizes: %@ %@", NSStringFromCGSize(pageThumbnailView.image.size), NSStringFromCGSize(pageThumbnailFrame.size));
         pageThumbnailView.frame = pageThumbnailFrame;
     }
 

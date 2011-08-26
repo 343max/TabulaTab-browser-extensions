@@ -74,6 +74,8 @@
 		509108A113B3616A00938AE6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5091089F13B3616A00938AE6 /* InfoPlist.strings */; };
 		509108A313B3616A00938AE6 /* tabulatabs_iosTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 509108A213B3616A00938AE6 /* tabulatabs_iosTests.h */; };
 		509108A513B3616A00938AE6 /* tabulatabs_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */; };
+		509785A814078DAB00535B55 /* cellShadowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 509785A614078DAB00535B55 /* cellShadowLeft@2x.png */; };
+		509785A914078DAB00535B55 /* cellShadowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 509785A714078DAB00535B55 /* cellShadowRight@2x.png */; };
 		50CDA7E213C316880079272D /* TabBarLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CDA7E113C316870079272D /* TabBarLikeButton.m */; };
 		50CDA7E413C317380079272D /* TabBarLikeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CDA7E313C317380079272D /* TabBarLikeButton.png */; };
 		50CDA7F413C4C2470079272D /* MWTimedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 50CDA7F313C4C2460079272D /* MWTimedBlock.m */; };
@@ -214,6 +216,8 @@
 		509108C513B36EBD00938AE6 /* tabulatabs-client.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tabulatabs-client.js"; sourceTree = "<group>"; };
 		509108C613B36EBD00938AE6 /* uuid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = uuid.js; sourceTree = "<group>"; };
 		509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = webtoolkit.sha1.js; sourceTree = "<group>"; };
+		509785A614078DAB00535B55 /* cellShadowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellShadowLeft@2x.png"; sourceTree = "<group>"; };
+		509785A714078DAB00535B55 /* cellShadowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellShadowRight@2x.png"; sourceTree = "<group>"; };
 		50CDA7E013C316870079272D /* TabBarLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarLikeButton.h; sourceTree = "<group>"; };
 		50CDA7E113C316870079272D /* TabBarLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarLikeButton.m; sourceTree = "<group>"; };
 		50CDA7E313C317380079272D /* TabBarLikeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarLikeButton.png; sourceTree = "<group>"; };
@@ -500,6 +504,7 @@
 		5091087D13B3616900938AE6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				509785A414078CA700535B55 /* Images */,
 				509108AE13B36DD300938AE6 /* htmlclient */,
 				5091087E13B3616900938AE6 /* tabulatabs-ios-Info.plist */,
 				5091087F13B3616900938AE6 /* InfoPlist.strings */,
@@ -550,6 +555,15 @@
 			);
 			name = js;
 			path = "../../../chrome-extension/js";
+			sourceTree = "<group>";
+		};
+		509785A414078CA700535B55 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				509785A614078DAB00535B55 /* cellShadowLeft@2x.png */,
+				509785A714078DAB00535B55 /* cellShadowRight@2x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		50CDA7E913C34CF30079272D /* TabChooser */ = {
@@ -661,6 +675,8 @@
 				507A4B4113C75E3100C2B281 /* readability.css in Resources */,
 				507A4B4713C7619900C2B281 /* readability.js in Resources */,
 				507A4B4613C7619600C2B281 /* injectReadability.js in Resources */,
+				509785A814078DAB00535B55 /* cellShadowLeft@2x.png in Resources */,
+				509785A914078DAB00535B55 /* cellShadowRight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

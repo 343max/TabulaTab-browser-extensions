@@ -11,6 +11,7 @@
 #import "TabulatabsBrowserTab.h"
 #import "BrowserViewController.h"
 #import "TabChooserCell.h"
+#import "Helpers.h"
 
 @implementation TabChooserViewController
 
@@ -70,8 +71,7 @@
 
             if (tab.pageThumbnailUrl) {
                 [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
-                    NSLog(@"loaded article image");
-                    tab.pageThumbnail = imageData;
+                    tab.pageThumbnail = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
                     [tableView reloadData];
                 }];
             }
