@@ -72,7 +72,9 @@ function TabulatabsClient(clientId) {
 	};
 
 	this.setTabs = function(tabs) {
-		this.putObjectForKey('browserTabs', tabs, function(response) { console.dir(response); });
+		this.putObjectForKey('browserTabs', tabs, function(response) {
+			// console.dir(response);
+		});
 	}
 
 	this.clientRegistrationUrl = function() {

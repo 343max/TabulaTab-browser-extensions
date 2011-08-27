@@ -1,0 +1,49 @@
+<div style="width: 300px; height: 600px">
+
+<img id="pageThumbnail" src="http://www.google.de/images/srpr/logo3w.png">
+<img id="articleImage" src="" style="max-width: 120px; max-height: 120px">
+<p id="tabId"></p>
+</div>
+<script type="text/javascript">
+
+var tabMetaInfo;
+try {
+	tabMetaInfo = JSON.parse(localStorage.getItem('tabMetaInfo'));
+} catch(e) {}
+if (!tabMetaInfo) tabMetaInfo = {};
+
+chrome.tabs.getSelected(null, function(tab) {
+	document.getElementById('tabId').innerText = tab.id;
+
+	var pageThumbnailImg = document.getElementById('pageThumbnail');
+	var articleImageImg = document.getElementById('articleImage');
+
+
+	//pageThumbnailImg.style.display = 'none';
+	//articleImageImg.style.display = 'none';
+
+	if (tabMetaInfo[tab.url]) {
+		if (tabMetaInfo[tab.url].articleImage) {
+			articleImageImg.src = tabMetaInfo[tab.url].articleImage;
+			articleImageImg.display = 'block';
+		}
+		if (tabMetaInfo[tab.url].pageThumbnail) {
+			pageThumbnailImg.src = tabMetaInfo[tab.url].pageThumbnail;
+			pageThumbnailImg.display = 'block';
+		}
+	}
+});
+
+/*
+
+if (tabMetaInfo[chromeTab.id]) {
+						if (tabMetaInfo[chromeTab.id].articleImage) {
+							tab.pageThumbnail = tabMetaInfo[chromeTab.id].articleImage;
+						} else {
+							tab.pageThumbnail = tabMetaInfo[chromeTab.id].pageThumbnail;
+						}
+					}
+
+ */
+
+</script>

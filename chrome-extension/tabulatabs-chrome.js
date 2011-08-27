@@ -1,19 +1,22 @@
 var tabulatabs = new TabulatabsClient('Chrome');
-var tabMetaInfo = localStorage.getItem('tabMetaInfo');
+var tabMetaInfo;
+try {
+	tabMetaInfo = JSON.parse(localStorage.getItem('tabMetaInfo'));
+} catch(e) {}
 if (!tabMetaInfo) tabMetaInfo = {};
 
 function saveTabMeta() {
-	localStorage.setItem('tabMetaInfo', tabMetaInfo);
+	localStorage.setItem('tabMetaInfo', JSON.stringify(tabMetaInfo));
 }
 
-function setTabMetaProperty(tabId, key, value) {
-	if (!tabMetaInfo[tabId]) tabMetaInfo[tabId] = {};
-	tabMetaInfo[tabId][key] = value;
+function setTabMetaProperty(url, key, value) {
+	if (!tabMetaInfo[url]) tabMetaInfo[url] = {};
+	tabMetaInfo[url][key] = value;
 	saveTabMeta();
 }
 
-function unsetTabMeta(tabId) {
-	delete tabMetaInfo[tabId];
+function unsetTabMeta(url) {
+	delete tabMetaInfo[url];
 	saveTabMeta();
 }
 
@@ -39,11 +42,11 @@ function collectAllTabs() {
 
 					enrichWithMetaInfo(tab);
 
-					if (tabMetaInfo[chromeTab.id]) {
-						if (tabMetaInfo[chromeTab.id].articleImage) {
-							tab.pageThumbnail = tabMetaInfo[chromeTab.id].articleImage;
+					if (tabMetaInfo[chromeTab.url]) {
+						if (tabMetaInfo[chromeTab.url].articleImage) {
+							tab.pageThumbnail = tabMetaInfo[chromeTab.url].articleImage;
 						} else {
-							tab.pageThumbnail = tabMetaInfo[chromeTab.id].pageThumbnail;
+							tab.pageThumbnail = tabMetaInfo[chromeTab.url].pageThumbnail;
 						}
 					}
 
@@ -91,8 +94,7 @@ function captureThumbnailOfCurrentVisibleTab() {
 		
 		chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
 			resizeThumbnail(dataUrl, 256, 144, function(resizedDataUrl) {
-				if(!tabMetaInfo[tab.id]) tabMetaInfo[tab.id] = {};
-				 tabMetaInfo[tab.id].pageThumbnail = resizedDataUrl;
+				setTabMetaProperty(tab.url, 'pageThumbnail', resizedDataUrl);
 			});
 		});
 	});
@@ -127,6 +129,7 @@ chrome.tabs.onMoved.addListener(function(tabId, moveInfo) {
 
 chrome.tabs.onRemoved.addListener(function(tabId) {
 	startUploadTabsTimeout();
+	unsetTabMeta(tabId);
 });
 
 chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
@@ -143,8 +146,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 
 chrome.extension.onRequest.addListener(function(request, sender, callback) {
 	if (request.articleImage) {
-		if(!tabMetaInfo[sender.tab.id]) tabMetaInfo[sender.tab.id] = {};
-		 tabMetaInfo[sender.tab.id].articleImage = request.articleImage;
+		setTabMetaProperty(sender.tab.url, 'articleImage', request.articleImage);
 	}
 });
 
