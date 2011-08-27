@@ -75,18 +75,20 @@ window.setTimeout(function() {
 			continue;
 		}
 
+		/*
 		for(var i = 0; i < adSizes.length; i++) {
 			var adSize = adSizes[i];
 			if (image.width == adSize.width && image.height == adSize.height) {
 				debug(image, 'ad: ' + adSize.width + 'x' + adSize.height);
-				continue(2);
 			}
 		}
-
+		*/
+		/*
 		if (isHidden(image)) {
 			debug(image, 'is hidden');
 			continue;
 		}
+		*/
 
 		debug(image, 'valid candidate (area: ' + area + ' ratio: ' + ratio + ')', 'yellowgreen')
 
