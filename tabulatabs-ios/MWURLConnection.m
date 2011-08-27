@@ -12,9 +12,9 @@
 
 @synthesize dataReceived;
 
-- (void)setDidFinishLoadingBlock:(void(^)(NSData *))dflb
+- (void)setDidFinishLoadingBlock:(void(^)(NSData *))aDidFinishLoadingBlock
 {
-    didFinishLoadingBlock = dflb;
+    didFinishLoadingBlock = aDidFinishLoadingBlock;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request
