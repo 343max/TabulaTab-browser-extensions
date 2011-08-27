@@ -20,6 +20,8 @@
     UIScrollView *scrollView;
     UIImageView *tableCellLeftShadowView;
     UIImageView *tableCellRightShadowView;
+    UIImageView *thumbnailRightShadowView;
+    UIButton *showPageButton;
 }
 @end
 
@@ -37,6 +39,7 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
 
 - (void)prepareForReuse
 {
+    [super prepareForReuse];
     self.actionViewVisibile = NO;
 }
 
@@ -84,26 +87,32 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
 
 - (void)setupActionView
 { 
-    GradientView* view = [[GradientView alloc] initWithFrame:self.bounds];
-    [self.contentView insertSubview:view atIndex:0];
-    
-    [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
-                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.4] CGColor]),
-                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.1] CGColor]),
-                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
-                                              nil]];
-    view.backgroundColor = [UIColor whiteColor];
-    
-    [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
-                                                 [NSNumber numberWithFloat:0],
-                                                 [NSNumber numberWithFloat:0.03],
-                                                 [NSNumber numberWithFloat:0.4],
-                                                 nil]];
+//    GradientView* view = [[GradientView alloc] initWithFrame:self.bounds];
+//    
+//    [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
+//                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.4] CGColor]),
+//                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.1] CGColor]),
+//                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
+//                                              nil]];
+//    view.backgroundColor = [UIColor whiteColor];
+//    
+//    [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
+//                                                 [NSNumber numberWithFloat:0],
+//                                                 [NSNumber numberWithFloat:0.03],
+//                                                 [NSNumber numberWithFloat:0.4],
+//                                                 nil]];
+    UIView* view = [[UIView alloc] initWithFrame:self.bounds];
+    view.backgroundColor = [UIColor colorWithRed:227.0 / 255.0 green:235.0 / 255.0 blue:1.0 alpha:1.0];
 
     pageThumbnailView = [[UIImageView alloc] initWithFrame:view.bounds];
     pageThumbnailView.contentMode = UIViewContentModeScaleToFill;
     [view addSubview:pageThumbnailView];
     
+    thumbnailRightShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowRight.png"]];
+    thumbnailRightShadowView.alpha = 0.7;
+    [view addSubview:thumbnailRightShadowView];
+
+    [self.contentView insertSubview:view atIndex:0];
     self.actionView = view;
 }
 
@@ -193,10 +202,17 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     tableCellLeftShadowView.frame = CGRectMake(-8.0, 0.0, 8.0, 72.0);
     tableCellRightShadowView.frame = CGRectMake(self.primaryView.bounds.size.width,0.0, 8.0, 72.0);
 
-    if (pageThumbnailView.image) {
+    if (!pageThumbnailView.image) {
+        pageThumbnailView.hidden = YES;
+        thumbnailRightShadowView.hidden = YES;
+    } else {
         CGRect pageThumbnailFrame = bounds;
         pageThumbnailFrame.size.width = pageThumbnailFrame.size.height * (pageThumbnailView.image.size.width / pageThumbnailView.image.size.height);
         pageThumbnailView.frame = pageThumbnailFrame;
+        thumbnailRightShadowView.frame = CGRectMake(pageThumbnailFrame.size.width, 0.0, 8.0, 72.0);
+
+        pageThumbnailView.hidden = NO;
+        thumbnailRightShadowView.hidden = NO;
     }
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
@@ -217,7 +233,7 @@ const CGFloat kTabChooserCellLabelRest = 45.0;
     
     NSMutableAttributedString *labelText = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"%@\n%@", secondaryLine, mainLine]];
     [labelText setTextColor:[UIColor darkGrayColor] range:secondaryLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Palatino" size:16.0] range:mainLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Palatino-Bold" size:16.0] range:mainLineRange];
     [labelText setFont:[UIFont fontWithName:@"Palatino" size:12.0] range:secondaryLineRange];
     self.labelView.attributedText = labelText;
     
