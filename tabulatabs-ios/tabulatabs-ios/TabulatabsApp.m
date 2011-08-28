@@ -115,7 +115,7 @@ static ImagePool *sharedImagePool;
     */
         
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
-        [browser loadWindowsAndTabs];
+        [browser loadTabs];
         [browser loadBrowserInfo];
         
         stop = NO;

@@ -63,9 +63,9 @@ switch($_POST['action']) {
 		okayResponse();
 		break;
 
-	case 'getTabs':
+	case 'loadTabs':
 		$client->dieOnInvalidUserCredentials();
-		$client->getTabs();
+		$client->loadTabs();
 		break;
 
 	case 'get':

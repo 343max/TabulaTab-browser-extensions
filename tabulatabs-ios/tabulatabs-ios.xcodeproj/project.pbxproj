@@ -12,7 +12,6 @@
 		50364B2E13B9E1D60003F9A4 /* Base64.js in Resources */ = {isa = PBXBuildFile; fileRef = 509108C113B36EBD00938AE6 /* Base64.js */; };
 		50364B2F13B9E1D60003F9A4 /* sjcl.js in Resources */ = {isa = PBXBuildFile; fileRef = 509108C413B36EBD00938AE6 /* sjcl.js */; };
 		50364B3713BA14880003F9A4 /* TabulatabsBrowserTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3613BA14870003F9A4 /* TabulatabsBrowserTab.m */; };
-		50364B3B13BA16A80003F9A4 /* TabulatabsBrowserWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3A13BA16A80003F9A4 /* TabulatabsBrowserWindow.m */; };
 		50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */; };
 		50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */; };
 		50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B4213BA2C000003F9A4 /* BrowserViewController.m */; };
@@ -102,8 +101,6 @@
 		501A847213C7284A00EE12DE /* paper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paper@2x.png"; sourceTree = "<group>"; };
 		50364B3513BA14870003F9A4 /* TabulatabsBrowserTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabulatabsBrowserTab.h; sourceTree = "<group>"; };
 		50364B3613BA14870003F9A4 /* TabulatabsBrowserTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabulatabsBrowserTab.m; sourceTree = "<group>"; };
-		50364B3913BA16A80003F9A4 /* TabulatabsBrowserWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabulatabsBrowserWindow.h; sourceTree = "<group>"; };
-		50364B3A13BA16A80003F9A4 /* TabulatabsBrowserWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabulatabsBrowserWindow.m; sourceTree = "<group>"; };
 		50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserViewController.h; sourceTree = "<group>"; };
 		50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserViewController.m; sourceTree = "<group>"; };
 		50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabChooserViewController.xib; sourceTree = "<group>"; };
@@ -298,8 +295,6 @@
 				50364B3613BA14870003F9A4 /* TabulatabsBrowserTab.m */,
 				50E5464C13C629DA00DC5985 /* TabActionController.h */,
 				50E5464D13C629DA00DC5985 /* TabActionController.m */,
-				50364B3913BA16A80003F9A4 /* TabulatabsBrowserWindow.h */,
-				50364B3A13BA16A80003F9A4 /* TabulatabsBrowserWindow.m */,
 			);
 			name = Tabulatabs;
 			sourceTree = "<group>";
@@ -745,7 +740,6 @@
 				5041AD9313B8EC6500586862 /* SBJsonUTF8Stream.m in Sources */,
 				5041AD9413B8EC6500586862 /* SBJsonWriter.m in Sources */,
 				50364B3713BA14880003F9A4 /* TabulatabsBrowserTab.m in Sources */,
-				50364B3B13BA16A80003F9A4 /* TabulatabsBrowserWindow.m in Sources */,
 				50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */,
 				50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */,
 				506AE72D13BB338600134EF3 /* Helpers.m in Sources */,

@@ -7,7 +7,6 @@
 //
 
 #import "TabChooserViewController.h"
-#import "TabulatabsBrowserWindow.h"
 #import "TabulatabsBrowserTab.h"
 #import "BrowserViewController.h"
 #import "TabChooserCell.h"
@@ -60,22 +59,20 @@
     
     tableView.rowHeight = 72;
     
-    [browser.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
-        [window.tabs enumerateObjectsUsingBlock:^(TabulatabsBrowserTab *tab, NSUInteger idx, BOOL *stop) {
-            if (tab.favIconUrl) {
-                [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
-                    tab.favIconImage = image;
-                    [tableView reloadData];
-                }];
-            }
+    [browser.tabs enumerateObjectsUsingBlock:^(TabulatabsBrowserTab *tab, NSUInteger idx, BOOL *stop) {
+        if (tab.favIconUrl) {
+            [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
+                tab.favIconImage = image;
+                [tableView reloadData];
+            }];
+        }
 
-            if (tab.pageThumbnailUrl) {
-                [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
-                    tab.pageThumbnail = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
-                    [tableView reloadData];
-                }];
-            }
-        }];
+        if (tab.pageThumbnailUrl) {
+            [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
+                tab.pageThumbnail = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
+                [tableView reloadData];
+            }];
+        }
     }];
         
 /*    CGRect scrollRect = tableView.bounds;
@@ -133,14 +130,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.searchResults count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *tabs = [self.searchResults objectAtIndex:section];
-    
-    return [tabs count];
+    return self.searchResults.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,8 +147,7 @@
         cell = [[TabChooserCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
-    NSArray *tabs = [self.searchResults objectAtIndex:indexPath.section];
-    TabulatabsBrowserTab *tab = [tabs objectAtIndex:indexPath.row];
+    TabulatabsBrowserTab *tab = [self.searchResults objectAtIndex:indexPath.row];
     
     [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
     [cell setFavIcon:tab.favIconImage];
@@ -207,8 +201,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TabulatabsBrowserWindow *window = [self.browser.windows objectAtIndex:indexPath.section];
-    TabulatabsBrowserTab *tab = [window.tabs objectAtIndex:indexPath.row];
+    TabulatabsBrowserTab *tab = [self.browser.tabs objectAtIndex:indexPath.row];
     
     BrowserViewController *browserView = [[BrowserViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
     browserView.browserTab = tab;

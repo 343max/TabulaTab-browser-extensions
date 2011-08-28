@@ -4,7 +4,13 @@
 <script src="sjcl.js"></script>
 <script>
 function decrypt(p) {
-	return sjcl.decrypt(p[0], JSON.parse(p[1]).data);
+    // {"data":"{
+    
+    if (p[1].substr(0, 10) == '{"data":"{') {
+        return sjcl.decrypt(p[0], JSON.parse(p[1]).data);
+    } else {
+        return sjcl.decrypt(p[0], p[1]);
+    }
 }
 
 </script>

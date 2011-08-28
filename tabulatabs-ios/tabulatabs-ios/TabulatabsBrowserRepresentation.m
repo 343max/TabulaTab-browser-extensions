@@ -10,7 +10,7 @@
 #import "MWURLConnection.h"
 #import "MWJavaScriptQueue.h"
 #import "NSObject+SBJson.h"
-#import "TabulatabsBrowserWindow.h"
+#import "TabulatabsBrowserTab.h"
 
 static MWJavaScriptQueue *javaScriptClientQueue;
 
@@ -18,7 +18,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 @synthesize label, iconId, browserInfoLoaded;
 @synthesize userId, clientId, encryptionPassword;
-@synthesize windows;
+@synthesize tabs;
 
 - (NSDictionary *)parseQueryString:(NSString *)query
 {
@@ -39,7 +39,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 {
     self = [super init];
     if (self) {
-        self.windows = [[NSArray alloc] init];
+        self.tabs = [[NSArray alloc] init];
         
         if (!javaScriptClientQueue) {
             javaScriptClientQueue = [[MWJavaScriptQueue alloc] initWithFile:@"iosJavaScriptIndex"];
@@ -77,7 +77,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
         
         browserInfoLoaded = [aDecoder decodeBoolForKey:@"browserInfoLoaded"];
         
-        self.windows = [aDecoder decodeObjectForKey:@"windows"];
+        self.tabs = [aDecoder decodeObjectForKey:@"tabs"];
     }
     
     return self;
@@ -131,7 +131,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     return [[encodedParameters componentsJoinedByString:@"&"] dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-- (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *))didFinishLoadingBlock
+- (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *data))didFinishLoadingBlock
 {
     /*NSLog(@"postToApi:");
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
@@ -161,11 +161,11 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     NSMutableDictionary *parameters = [self parametersForAction:@"get"];
     [parameters setObject:key forKey:@"key"];
     
-    __block TabulatabsBrowserRepresentation *browserReprensentation = self;
+    __block TabulatabsBrowserRepresentation *blockSelf = self;
     
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
         NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [browserReprensentation decryptAssynchronly:dataString didDecryptDataBlock:didFinishLoadingBlock];
+        [blockSelf decryptAssynchronly:dataString didDecryptDataBlock:didFinishLoadingBlock];
     }];
 }
 
@@ -176,7 +176,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     }];
 }
 
-- (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *))didDecryptDataBlock
+- (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *decryptedString))didDecryptDataBlock
 {
     NSString *jsonValue = [[NSArray arrayWithObjects:self.encryptionPassword, encryptedData, nil] JSONRepresentation];
     [javaScriptClientQueue executeJavaScriptAsynchronly:[NSString stringWithFormat:@"decrypt(%@);", jsonValue] executionFinished:didDecryptDataBlock];
@@ -193,42 +193,48 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     }];
 }
 
-- (void)loadWindowsAndTabs
+- (void)loadTabs;
 {
-    [self getObjectForKey:@"browserTabs" withDidFinishLoadingBlock:^(NSArray *rawWindows) {
-        self.windows = [[NSArray alloc] init];
+    NSMutableDictionary *parameters = [self parametersForAction:@"loadTabs"];
+    
+    __block TabulatabsBrowserRepresentation *blockSelf = self;
+    
+    [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *responseData) {
+        NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        NSDictionary *responseDict = [responseString JSONValue];
+        NSString *dataString = [responseDict objectForKey:@"data"];
+        NSDictionary *encryptedTabs = [dataString JSONValue];
         
-        for (NSDictionary *rawWindow in rawWindows) {
-            self.windows = [self.windows arrayByAddingObject:[[TabulatabsBrowserWindow alloc] initWithDictionary:rawWindow]];
+        NSMutableArray *newTabs = [[NSMutableArray alloc] init];
+        
+        for (id tabId in encryptedTabs) {
+            NSString *encryptedTab = [encryptedTabs objectForKey:tabId];
+            
+            [blockSelf decryptAssynchronly:encryptedTab didDecryptDataBlock:^(NSString *tabString) {
+                NSDictionary *tabDictionary = [tabString JSONValue];
+                [newTabs addObject:[[TabulatabsBrowserTab alloc] initWithDictionary:tabDictionary]];
+                
+                if (newTabs.count == encryptedTabs.count) {
+                    self.tabs = [NSArray arrayWithArray:newTabs];
+                    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self]];
+                }
+            }];
+            
         }
-
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self]];
     }];
+    
 }
 
 - (NSArray *)tabsContainingString:(NSString *)searchString
 {
-    __block NSArray *searchResults = [[NSArray alloc] init];
-    
-    [self.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
-        NSArray *tabs = [window tabsContainingString:searchString];
-        if ([tabs count] > 0) {
-            searchResults = [searchResults arrayByAddingObject:tabs];
-        }
-    }];
-    
-    return searchResults;
+    return [tabs filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TabulatabsBrowserTab *tab, NSDictionary *bindings) {
+        return [tab containsString:searchString];
+    }]];
 }
 
 - (NSArray *)allTabs
 {
-    __block NSArray *searchResults = [[NSArray alloc] init];
-    
-    [self.windows enumerateObjectsUsingBlock:^(TabulatabsBrowserWindow *window, NSUInteger idx, BOOL *stop) {
-        searchResults = [searchResults arrayByAddingObject:window.tabs];
-    }];
-    
-    return searchResults;
+    return self.tabs;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
@@ -241,7 +247,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     
     [aCoder encodeBool:self.browserInfoLoaded forKey:@"browserInfoLoaded"];
     
-    [aCoder encodeObject:self.windows forKey:@"windows"];
+    [aCoder encodeObject:self.tabs forKey:@"tabs"];
 }
 
 @end

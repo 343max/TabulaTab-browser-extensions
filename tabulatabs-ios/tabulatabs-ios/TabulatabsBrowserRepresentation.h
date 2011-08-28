@@ -20,17 +20,18 @@
 
 @property (readonly) BOOL browserInfoLoaded;
 
-@property (strong, nonatomic) NSArray *windows;
+@property (strong, nonatomic) NSArray *tabs;
 
 - (id)initWithLabel:(NSString*)l userId:(NSString*)uid clientId:(NSString*)cid encryptionPassword:(NSString*)epwd;
 - (BOOL)setRegistrationUrl:(NSString *)urlString;
 - (void)claimClient;
-- (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *))didFinishLoadingBlock;
-- (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *))didDecryptDataBlock;
+- (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *data))didFinishLoadingBlock;
+- (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *decryptedString))didDecryptDataBlock;
 - (NSData *)buildQueryStringFromParameters:(NSDictionary *)parameters;
 - (NSMutableDictionary *)parametersForAction:(NSString *)action;
 - (void)loadBrowserInfo;
-- (void)loadWindowsAndTabs;
+- (void)loadTabs;
+//- (void)loadWindowsAndTabs;
 
 - (NSArray *)tabsContainingString:(NSString *)searchString;
 - (NSArray *)allTabs;

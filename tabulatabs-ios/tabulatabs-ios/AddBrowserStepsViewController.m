@@ -70,7 +70,7 @@
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedBrowserList" object:browser]];
         
         [browser loadBrowserInfo];
-        [browser loadWindowsAndTabs];
+        [browser loadTabs];
         
     } else {
         // !!!TODO warn on incorrect urls

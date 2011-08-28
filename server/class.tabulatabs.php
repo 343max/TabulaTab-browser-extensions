@@ -97,7 +97,7 @@ class Tabulatabs {
 		$this->putValueForKey('browserTabs', $tabData);
 	}
 
-	public function getTabs() {
+	public function loadTabs() {
 		$this->getValueForKey('browserTabs');
 	}
 
