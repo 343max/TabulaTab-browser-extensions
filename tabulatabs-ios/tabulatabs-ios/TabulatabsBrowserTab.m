@@ -12,6 +12,8 @@
 
 @synthesize title, url, favIconUrl, selected;
 @synthesize shortDomain, siteTitle, pageTitle;
+@synthesize windowId;
+@synthesize index;
 @synthesize favIconImage;
 @synthesize pageThumbnailUrl;
 @synthesize pageThumbnail;
@@ -47,6 +49,9 @@
         self.pageTitle = [dictionary objectForKey:@"pageTitle"];
         self.favIconUrl = [NSURL URLWithString:[dictionary objectForKey:@"favIconUrl"]];
         self.pageThumbnailUrl = [NSURL URLWithString:[dictionary objectForKey:@"pageThumbnail"]];
+        
+        self.windowId = [[dictionary objectForKey:@"windowId"] integerValue];
+        self.index = [[dictionary objectForKey:@"index"] integerValue];
     }
     
     return self;
@@ -70,6 +75,9 @@
         pageTitle = [aDecoder decodeObjectForKey:@"pageTitle"];
         favIconUrl = [aDecoder decodeObjectForKey:@"favIconUrl"];
         pageThumbnailUrl = [aDecoder decodeObjectForKey:@"pageThumbnailUrl"];
+        
+        windowId = [aDecoder decodeIntegerForKey:@"windowId"];
+        index = [aDecoder decodeIntegerForKey:@"index"];
     }
     
     return self;
@@ -85,6 +93,9 @@
     [aCoder encodeObject:pageTitle forKey:@"pageTitle"];
     [aCoder encodeObject:favIconUrl forKey:@"favIconUrl"];
     [aCoder encodeObject:pageThumbnailUrl forKey:@"pageThumbnailUrl"];
+    
+    [aCoder encodeInteger:windowId forKey:@"windowId"];
+    [aCoder encodeInteger:index forKey:@"index"];
 }
 
 @end

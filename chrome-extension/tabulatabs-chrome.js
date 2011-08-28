@@ -26,7 +26,9 @@ function tabulatabForTab(tab) {
 		title: tab.title,
 		url: tab.url,
 		selected: tab.selected,
-		favIconUrl: tab.favIconUrl
+		favIconUrl: tab.favIconUrl,
+		windowId: tab.windowId,
+		index: tab.index
 	};
 
 	enrichWithMetaInfo(tabulatab);

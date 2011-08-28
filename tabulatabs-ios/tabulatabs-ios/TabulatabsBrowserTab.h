@@ -23,6 +23,8 @@
 @property (strong) NSURL *favIconUrl;
 @property (strong) NSURL *pageThumbnailUrl;
 @property BOOL selected;
+@property (assign) NSUInteger windowId;
+@property (assign) NSUInteger index;
 
 @property (strong) UIImage *favIconImage;
 @property (strong) UIImage *pageThumbnail;
