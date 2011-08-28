@@ -7,6 +7,8 @@ if (count($_POST) == 0) {
 	die();
 }
 
+header('Content-Type: application/json');
+
 require_once('class.tabulatabs.php');
 
 $client = new Tabulatabs($_POST['userId'], $_POST['clientId']);
@@ -32,7 +34,7 @@ function okayResponse($data = null) {
 switch($_POST['action']) {
 	case 'registerBrowser':
 		if($client->userExists()) {
-			errorResponse('User ID allready exists');
+			errorResponse('User ID already exists');
 		} else {
 			$client->registerBrowser();
 			okayResponse();
@@ -53,6 +55,17 @@ switch($_POST['action']) {
 		$client->claimClient();
 		okayResponse();
 
+		break;
+
+	case 'replaceTabs':
+		$client->dieOnInvalidUserCredentials();
+		$client->replaceTabs($_POST['tabs']);
+		okayResponse();
+		break;
+
+	case 'getTabs':
+		$client->dieOnInvalidUserCredentials();
+		$client->getTabs();
 		break;
 
 	case 'get':

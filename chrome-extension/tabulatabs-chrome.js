@@ -20,49 +20,45 @@ function unsetTabMeta(url) {
 	saveTabMeta();
 }
 
-function collectAllTabs() {
-	var windows = [];
+function tabulatabForTab(tab) {
+	var tabulatab = {
+		id: tab.id,
+		title: tab.title,
+		url: tab.url,
+		selected: tab.selected,
+		favIconUrl: tab.favIconUrl
+	};
 
-	var dump = [];
+	enrichWithMetaInfo(tabulatab);
+
+	if (tabMetaInfo[tab.url]) {
+		if (tabMetaInfo[tab.url].articleImage) {
+			tabulatab.pageThumbnail = tabMetaInfo[tab.url].articleImage;
+		} else {
+			tabulatab.pageThumbnail = tabMetaInfo[tab.url].pageThumbnail;
+		}
+	}
+
+	return tabulatab;
+}
+
+function collectAllTabs() {
+	console.log('started uploading');
+
+	var tabs = {};
 
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
 		$.each(chromeWindows, function(index, chromeWindow) {
 			if (!chromeWindow.incognito) {
-				var window = {id: chromeWindow.id, focused: chromeWindow.focused, tabs: []};
 
 				$.each(chromeWindow.tabs, function(index, chromeTab) {
-					if(!chromeTab.url.match(/^https?:\/\//)) return;
-
-					var tab = {
-						title: chromeTab.title,
-						url: chromeTab.url,
-						selected: chromeTab.selected,
-						favIconUrl: chromeTab.favIconUrl
-					};
-
-					enrichWithMetaInfo(tab);
-
-					if (tabMetaInfo[chromeTab.url]) {
-						if (tabMetaInfo[chromeTab.url].articleImage) {
-							tab.pageThumbnail = tabMetaInfo[chromeTab.url].articleImage;
-						} else {
-							tab.pageThumbnail = tabMetaInfo[chromeTab.url].pageThumbnail;
-						}
-					}
-
-					dump.push(tab);
-
-					window.tabs.push(tab);
+					
+					var tabulatab = tabulatabForTab(chromeTab);
+					tabs[tabulatab.id] = tabulatab;
 				});
-
-				if (window.tabs.length > 0) {
-					windows.push(window);
-				}
 			}
 		});
-
-		//console.dir(windows);
-		tabulatabs.setTabs(windows);
+		tabulatabs.replaceTabs(tabs);
 	});
 }
 
@@ -124,20 +120,23 @@ chrome.tabs.onCreated.addListener(function(tab) {
 });
 
 chrome.tabs.onMoved.addListener(function(tabId, moveInfo) {
+	console.log('onMoved');console.dir(moveInfo);
 	startUploadTabsTimeout();
 });
 
 chrome.tabs.onRemoved.addListener(function(tabId) {
+	console.log('onRemoved');console.dir(tabId);
 	startUploadTabsTimeout();
-	unsetTabMeta(tabId);
 });
 
 chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
+	console.log('onSelectionChanged');console.dir(selectInfo);
 	startUploadTabsTimeout();
 	captureThumbnailOfCurrentVisibleTab();
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+	console.log('onUpdated');console.dir(changeInfo);
 	startUploadTabsTimeout();
 	if (changeInfo.status == 'complete') {
 		captureThumbnailOfCurrentVisibleTab();

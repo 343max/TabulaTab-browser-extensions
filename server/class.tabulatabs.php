@@ -93,6 +93,14 @@ class Tabulatabs {
 		return in_array($queueId, array('browserTabActions'));
 	}
 
+	public function replaceTabs($tabData) {
+		$this->putValueForKey('browserTabs', $tabData);
+	}
+
+	public function getTabs() {
+		$this->getValueForKey('browserTabs');
+	}
+
 	public function getValueForKey($key) {
 		if(!$this->validReadWriteableFileId($key)) {
 			errorResponse('unkown fileId');

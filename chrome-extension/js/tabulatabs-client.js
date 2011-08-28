@@ -71,6 +71,33 @@ function TabulatabsClient(clientId) {
 		return JSON.parse(sjcl.decrypt(encryptionPassword, payload));
 	};
 
+	var uploadTabs = function(action, tabs) {
+		var encryptedTabs = {};
+
+		$.each(tabs, function(id, tab) {
+			encryptedTabs[id] = encrypt(tab);
+		});
+
+		//console.dir([tabs, encryptedTabs]);
+		
+		$.post(serverPath, {
+			'userId': userId,
+			"clientId": clientId,
+			'action': action,
+			'tabs': JSON.stringify(encryptedTabs)
+		}, function(result) {
+			console.dir(result);
+		}, 'json');
+	}
+
+	this.replaceTabs = function(tabs) {
+		uploadTabs('replaceTabs', tabs);
+	}
+
+	this.updateTabs = function(tab) {
+		uploadTabs('updateTab', tabs);
+	}
+
 	this.setTabs = function(tabs) {
 		this.putObjectForKey('browserTabs', tabs, function(response) {
 			// console.dir(response);
