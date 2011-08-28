@@ -38,7 +38,7 @@
 - (void)performSearchFor:(NSString *)searchString
 {
     if ([searchString isEqualToString:@""]) {
-        self.searchResults = [self.browser allTabs];
+        self.searchResults = [self.browser tabs];
     } else {
         self.searchResults = [self.browser tabsContainingString:searchString];
     }

@@ -225,16 +225,33 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     
 }
 
+- (NSArray *)sortTabArray:(NSArray *)unsortedTabs;
+{
+    return [unsortedTabs sortedArrayUsingComparator:^NSComparisonResult(TabulatabsBrowserTab *tab1, TabulatabsBrowserTab *tab2) {
+        if (tab1.windowId < tab2.windowId) {
+            return NSOrderedAscending;
+        } else if (tab1.windowId > tab2.windowId) {
+            return NSOrderedDescending;
+        } else if (tab1.index < tab2.index) {
+            return NSOrderedAscending;
+        } else if (tab1.index > tab2.index) {
+            return NSOrderedDescending;
+        } else {
+            return NSOrderedSame;
+        }
+    }];
+}
+
+- (void)setTabs:(NSArray *)unsortedTabs;
+{
+    tabs = [self sortTabArray:unsortedTabs];
+}
+
 - (NSArray *)tabsContainingString:(NSString *)searchString
 {
     return [tabs filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TabulatabsBrowserTab *tab, NSDictionary *bindings) {
         return [tab containsString:searchString];
     }]];
-}
-
-- (NSArray *)allTabs
-{
-    return self.tabs;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
