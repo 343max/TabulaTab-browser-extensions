@@ -15,12 +15,44 @@ function setTabMetaProperty(url, key, value) {
 	saveTabMeta();
 }
 
+function purgeUnusedThumbnails() {
+	chrome.windows.getAll({populate: true}, function(chromeWindows) {
+
+		var activeTabMetaInfo = {};
+		$.each(chromeWindows, function(index, chromeWindow) {
+			if (!chromeWindow.incognito) {
+
+				$.each(chromeWindow.tabs, function(index, chromeTab) {
+
+					if (tabMetaInfo[chromeTab.url]) {
+						activeTabMetaInfo[chromeTab.url] = tabMetaInfo[chromeTab.url];
+					}
+
+				});
+			}
+		});
+
+		console.log('Purging tab thumbs from ' + tabMetaInfo.length + ' to ' + activeTabMetaInfo.length);
+		tabMetaInfo = activeTabMetaInfo;
+		saveTabMeta();
+	});
+}
+
+purgeUnusedThumbnails();
+window.setInterval(function() {
+	purgeUnusedThumbnails();
+}, 1000 * 60);
+
 function unsetTabMeta(url) {
 	delete tabMetaInfo[url];
 	saveTabMeta();
 }
 
 function tabulatabForTab(tab) {
+	if (!tab.url.match(/^https?:\/\//)) {
+		return null;
+	}
+
 	var tabulatab = {
 		id: tab.id,
 		title: tab.title,
@@ -54,9 +86,10 @@ function collectAllTabs() {
 			if (!chromeWindow.incognito) {
 
 				$.each(chromeWindow.tabs, function(index, chromeTab) {
-					
 					var tabulatab = tabulatabForTab(chromeTab);
-					tabs[tabulatab.id] = tabulatab;
+					if (tabulatab) {
+						tabs[tabulatab.id] = tabulatab;
+					}
 				});
 			}
 		});
@@ -87,10 +120,9 @@ function resizeThumbnail(dataUrl, maxWidth, maxHeight, callback) {
 }
 
 function captureThumbnailOfCurrentVisibleTab() {
-	chrome.tabs.getSelected(null, function(tab) {
-		if(!tab.url.match(/^https?:\/\//)) return;
-		
-		chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
+	chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
+		chrome.tabs.getSelected(null, function(tab) {
+			if(!tab.url.match(/^https?:\/\//)) return;
 			resizeThumbnail(dataUrl, 256, 144, function(resizedDataUrl) {
 				setTabMetaProperty(tab.url, 'pageThumbnail', resizedDataUrl);
 			});
