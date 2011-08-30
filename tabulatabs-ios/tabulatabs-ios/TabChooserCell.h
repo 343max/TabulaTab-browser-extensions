@@ -31,5 +31,6 @@
 @property (strong) TabulatabsBrowserTab *browserTab;
 
 @property (assign, nonatomic) BOOL actionViewVisibile;
+@property (assign, nonatomic) BOOL markedAsRead;
 
 @end

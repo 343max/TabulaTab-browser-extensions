@@ -33,10 +33,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 @synthesize favIconURL;
 @synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
 @synthesize pageThumbnailView;
-
-+ (Class)layerClass {
-    return [CAGradientLayer class];
-}
+@synthesize markedAsRead;
 
 - (void)prepareForReuse
 {
@@ -59,6 +56,25 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 - (void)setActionViewVisibile:(BOOL)aActionViewVisibile;
 {
     [self setActionViewVisibile:aActionViewVisibile animated:NO];
+}
+
+- (void)setMarkedAsRead:(BOOL)aMarkedAsRead;
+{
+    markedAsRead = aMarkedAsRead;
+    
+    if (markedAsRead) {
+        self.labelView.alpha = 0.3;
+        self.favIconView.alpha = 0.3;
+        self.pageThumbnailView.alpha = 0.3;
+        tableCellLeftShadowView.alpha = 0.3;
+        tableCellRightShadowView.alpha = 0.3;
+    } else {
+        self.labelView.alpha = 1.0;
+        self.favIconView.alpha = 1.0;
+        self.pageThumbnailView.alpha = 1.0;
+        tableCellLeftShadowView.alpha = 1.0;
+        tableCellRightShadowView.alpha = 1.0;
+    }
 }
 
 - (void)hideOtherCellsActionView
@@ -88,22 +104,8 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 - (void)setupActionView
 { 
-//    GradientView* view = [[GradientView alloc] initWithFrame:self.bounds];
-//    
-//    [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
-//                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.4] CGColor]),
-//                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.1] CGColor]),
-//                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
-//                                              nil]];
-//    view.backgroundColor = [UIColor whiteColor];
-//    
-//    [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
-//                                                 [NSNumber numberWithFloat:0],
-//                                                 [NSNumber numberWithFloat:0.03],
-//                                                 [NSNumber numberWithFloat:0.4],
-//                                                 nil]];
     UIView* view = [[UIView alloc] initWithFrame:self.bounds];
-    view.backgroundColor = [UIColor colorWithRed:227.0 / 255.0 green:235.0 / 255.0 blue:1.0 alpha:1.0];
+    view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
 
     pageThumbnailView = [[UIImageView alloc] initWithFrame:view.bounds];
     pageThumbnailView.contentMode = UIViewContentModeScaleToFill;

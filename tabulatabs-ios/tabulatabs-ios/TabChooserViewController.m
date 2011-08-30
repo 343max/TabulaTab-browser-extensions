@@ -84,17 +84,8 @@
             }];
         }
     }];
-        
-/*    CGRect scrollRect = tableView.bounds;
-    scrollRect.origin.x = 0;
-    scrollRect.origin.y = self.tabSearchBar.bounds.size.height;
-    [tableView scrollRectToVisible:scrollRect animated:NO];*/
+
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
@@ -103,8 +94,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
     
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -132,8 +121,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return YES;
 }
 
 #pragma mark - Table view data source
@@ -167,6 +155,8 @@
     cell.pageThumbnailURL = tab.pageThumbnailUrl;
     
     cell.browserTab = tab;
+    
+    cell.markedAsRead = indexPath.row == 4;
     
     return cell;
 }
