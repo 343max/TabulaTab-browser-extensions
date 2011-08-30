@@ -31,10 +31,7 @@
 - (NSMutableDictionary *)parametersForAction:(NSString *)action;
 - (void)loadBrowserInfo;
 - (void)loadTabs;
-//- (void)loadWindowsAndTabs;
 
 - (NSArray *)tabsContainingString:(NSString *)searchString;
-- (NSArray *)allTabs;
-
 
 @end

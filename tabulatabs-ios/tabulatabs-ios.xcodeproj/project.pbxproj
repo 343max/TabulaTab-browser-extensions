@@ -39,8 +39,6 @@
 		506BB26113B399F200B2CE85 /* TabulatabsBrowserRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TabulatabsBrowserRepresentation.m */; };
 		507A4B4013C75E3100C2B281 /* iphone.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3E13C75E3100C2B281 /* iphone.css */; };
 		507A4B4113C75E3100C2B281 /* readability.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3F13C75E3100C2B281 /* readability.css */; };
-		507A4B4313C75E4500C2B281 /* readability.js in Sources */ = {isa = PBXBuildFile; fileRef = 507A4B4213C75E4500C2B281 /* readability.js */; };
-		507A4B4513C75F1F00C2B281 /* injectReadability.js in Sources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
 		507A4B4613C7619600C2B281 /* injectReadability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
 		507A4B4713C7619900C2B281 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4213C75E4500C2B281 /* readability.js */; };
 		507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */; };
@@ -753,8 +751,6 @@
 				50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */,
 				50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */,
 				50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */,
-				507A4B4313C75E4500C2B281 /* readability.js in Sources */,
-				507A4B4513C75F1F00C2B281 /* injectReadability.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

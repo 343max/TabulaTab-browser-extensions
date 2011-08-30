@@ -34,6 +34,18 @@
 #import "NSAttributedString+Attributes.h"
 
 
+CTTextAlignment CTTextAlignmentFromUITextAlignment(UITextAlignment alignment);
+CTLineBreakMode CTLineBreakModeFromUILineBreakMode(UILineBreakMode lineBreakMode);
+CGPoint CGPointFlipped(CGPoint point, CGRect bounds);
+CGRect CGRectFlipped(CGRect rect, CGRect bounds);
+NSRange NSRangeFromCFRange(CFRange range);
+CGRect CTLineGetTypographicBoundsAsRect(CTLineRef line, CGPoint lineOrigin);
+CGRect CTRunGetTypographicBoundsAsRect(CTRunRef run, CTLineRef line, CGPoint lineOrigin);
+BOOL CTLineContainsCharactersFromStringRange(CTLineRef line, NSRange range);
+BOOL CTRunContainsCharactersFromStringRange(CTRunRef run, NSRange range);
+
+
+
 CTTextAlignment CTTextAlignmentFromUITextAlignment(UITextAlignment alignment) {
 	switch (alignment) {
 		case UITextAlignmentLeft: return kCTLeftTextAlignment;
