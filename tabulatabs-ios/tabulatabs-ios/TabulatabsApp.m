@@ -10,11 +10,11 @@
 
 #import "BrowserChooserViewController.h"
 #import "TabulatabsBrowserRepresentation.h"
-#import "ImagePool.h"
+#import "MWImagePool.h"
 #import "Helpers.h"
 
 static TabulatabsApp* sharedTabulatabApp;
-static ImagePool *sharedImagePool;
+static MWImagePool *sharedImagePool;
 
 @implementation TabulatabsApp
 
@@ -61,10 +61,10 @@ static ImagePool *sharedImagePool;
     return sharedTabulatabApp;
 }
 
-+ (ImagePool *)sharedImagePool
++ (MWImagePool *)sharedImagePool
 {
     if (!sharedImagePool) {
-        sharedImagePool = [[ImagePool alloc] init];
+        sharedImagePool = [[MWImagePool alloc] init];
     }
     
     return sharedImagePool;

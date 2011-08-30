@@ -45,7 +45,7 @@
 		507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */; };
 		507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */; };
 		507E53AF13BBA15300CEB2A1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507E53AE13BBA15300CEB2A1 /* CoreText.framework */; };
-		507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BE13BC801200CEB2A1 /* ImagePool.m */; };
+		507E53BF13BC801300CEB2A1 /* MWImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BE13BC801200CEB2A1 /* MWImagePool.m */; };
 		5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */; };
 		5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */; };
 		5088E32513B4E48A00D12E49 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5088E31F13B4E48A00D12E49 /* libzbar.a */; };
@@ -154,8 +154,8 @@
 		507E53AA13BBA12100CEB2A1 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
 		507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
 		507E53AE13BBA15300CEB2A1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		507E53BD13BC801200CEB2A1 /* ImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePool.h; sourceTree = "<group>"; };
-		507E53BE13BC801200CEB2A1 /* ImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePool.m; sourceTree = "<group>"; };
+		507E53BD13BC801200CEB2A1 /* MWImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MWImagePool.h; sourceTree = "<group>"; };
+		507E53BE13BC801200CEB2A1 /* MWImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWImagePool.m; sourceTree = "<group>"; };
 		5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBrowserStepsViewController.h; sourceTree = "<group>"; };
 		5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBrowserStepsViewController.m; sourceTree = "<group>"; };
 		5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddBrowserStepsViewController.xib; sourceTree = "<group>"; };
@@ -475,8 +475,8 @@
 				50498F7113BB8882006EBDDA /* External Frameworks */,
 				506AE72B13BB338500134EF3 /* Helpers.m */,
 				506AE72C13BB338500134EF3 /* Helpers.h */,
-				507E53BD13BC801200CEB2A1 /* ImagePool.h */,
-				507E53BE13BC801200CEB2A1 /* ImagePool.m */,
+				507E53BD13BC801200CEB2A1 /* MWImagePool.h */,
+				507E53BE13BC801200CEB2A1 /* MWImagePool.m */,
 				5091088513B3616900938AE6 /* TabulatabsApp.h */,
 				5091088613B3616A00938AE6 /* TabulatabsApp.m */,
 				501A846D13C7282B00EE12DE /* Readability */,
@@ -744,7 +744,7 @@
 				507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */,
 				507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */,
 				507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */,
-				507E53BF13BC801300CEB2A1 /* ImagePool.m in Sources */,
+				507E53BF13BC801300CEB2A1 /* MWImagePool.m in Sources */,
 				50CE6B0013C1CDD000DA8B75 /* GradientView.m in Sources */,
 				50CDA7E213C316880079272D /* TabBarLikeButton.m in Sources */,
 				50CDA7F413C4C2470079272D /* MWTimedBlock.m in Sources */,

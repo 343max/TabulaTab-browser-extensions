@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ImagePool.h"
+#import "MWImagePool.h"
 
 @class BrowserChooserViewController;
 
@@ -17,7 +17,7 @@
 }
 
 + (TabulatabsApp *)sharedInstance;
-+ (ImagePool *)sharedImagePool;
++ (MWImagePool *)sharedImagePool;
 
 - (void)addNetworkProcess;
 - (void)finishNetworkPorcess;

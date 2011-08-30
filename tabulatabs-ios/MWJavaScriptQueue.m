@@ -8,6 +8,15 @@
 
 #import "MWJavaScriptQueue.h"
 
+typedef void (^MWJavaScriptCallback)(NSString *);
+
+@interface MWJavaScriptQueuedCommand : NSObject
+
+@property (strong) NSString *javaScriptCommand;
+@property (copy) MWJavaScriptCallback callbackBlock;
+
+@end
+
 @implementation MWJavaScriptQueue
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -53,7 +62,11 @@
 - (void)executeJavaScriptAsynchronly:(NSString *)javaScriptCommand executionFinished:(void(^)(NSString *))resultCallback
 {
     if (!loaded) {
-        [queuedCommands addObject:[NSArray arrayWithObjects:javaScriptCommand, resultCallback, nil]];
+        MWJavaScriptQueuedCommand *command = [[MWJavaScriptQueuedCommand alloc] init];
+        command.javaScriptCommand = javaScriptCommand;
+        command.callbackBlock = resultCallback;
+        
+        [queuedCommands addObject:command];
     } else {
         NSString *resultString = [self stringByEvaluatingJavaScriptFromString:javaScriptCommand];
         if (resultCallback) {
@@ -73,15 +86,18 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     loaded = YES;
-    for (NSArray *command in queuedCommands) {
-        if (command.count >= 2) {
-            [self executeJavaScriptAsynchronly:[command objectAtIndex:0] executionFinished:[command objectAtIndex:1]];
-        } else {
-            [self executeJavaScriptAsynchronly:[command objectAtIndex:0] executionFinished:nil];
-        }
+    for (MWJavaScriptQueuedCommand *command in queuedCommands) {
+        [self executeJavaScriptAsynchronly:command.javaScriptCommand executionFinished:command.callbackBlock];
     }
     
     [queuedCommands removeAllObjects];
 }
+
+@end
+
+@implementation MWJavaScriptQueuedCommand
+
+@synthesize javaScriptCommand;
+@synthesize callbackBlock;
 
 @end

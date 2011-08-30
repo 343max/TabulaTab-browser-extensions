@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ImagePool.h"
+#import "MWImagePool.h"
 #import "MWURLConnection.h"
 
-@implementation ImagePool
+@implementation MWImagePool
 
 @synthesize pool;
 

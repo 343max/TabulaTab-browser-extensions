@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ImagePool : NSObject
+@interface MWImagePool : NSObject
 
 @property (readonly, strong) NSMutableDictionary *pool;
 
