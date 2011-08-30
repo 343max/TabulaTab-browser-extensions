@@ -7,7 +7,7 @@
 //
 
 #import "TabChooserViewController.h"
-#import "TabulatabsBrowserTab.h"
+#import "TTTab.h"
 #import "BrowserViewController.h"
 #import "TabChooserCell.h"
 #import "Helpers.h"
@@ -59,28 +59,17 @@
     
     tableView.rowHeight = 72;
     
-    [browser.tabs enumerateObjectsUsingBlock:^(TabulatabsBrowserTab *tab, NSUInteger idx, BOOL *stop) {
+    [browser.tabs enumerateObjectsUsingBlock:^(TTTab *tab, NSUInteger idx, BOOL *stop) {
         if (tab.favIconUrl) {
             [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
                 tab.favIconImage = image;
-                
-                for (TabChooserCell *cell in tableView.visibleCells) {
-                    if ([tab.favIconUrl isEqual:cell.favIconURL]) {
-                        [cell setFavIcon:tab.favIconImage];
-                    }
-                }
+
             }];
         }
 
         if (tab.pageThumbnailUrl) {
             [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
-                tab.pageThumbnail = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
-                
-                for (TabChooserCell *cell in tableView.visibleCells) {
-                    if ([tab.pageThumbnailUrl isEqual:cell.pageThumbnailURL]) {
-                        [cell setPageThumbnail:tab.pageThumbnail];
-                    }
-                }
+                tab.pageThumbnailImage = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
             }];
         }
     }];
@@ -145,16 +134,9 @@
         cell = [[TabChooserCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
-    TabulatabsBrowserTab *tab = [self.searchResults objectAtIndex:indexPath.row];
+    TTTab *tab = [self.searchResults objectAtIndex:indexPath.row];
     
-    [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
-    [cell setFavIcon:tab.favIconImage];
-    [cell setPageThumbnail:tab.pageThumbnail];
-    
-    cell.favIconURL = tab.favIconUrl;
-    cell.pageThumbnailURL = tab.pageThumbnailUrl;
-    
-    cell.browserTab = tab;
+    cell.tab = tab;
     
     cell.markedAsRead = indexPath.row == 4;
     
@@ -204,7 +186,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TabulatabsBrowserTab *tab = [self.browser.tabs objectAtIndex:indexPath.row];
+    TTTab *tab = [self.browser.tabs objectAtIndex:indexPath.row];
     
     BrowserViewController *browserView = [[BrowserViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
     browserView.browserTab = tab;

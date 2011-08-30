@@ -6,9 +6,14 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TabulatabsBrowserTab.h"
+#import "TTTab.h"
 
-@implementation TabulatabsBrowserTab
+
+NSString * const TTTabFavIconChangedNotification = @"TTTabFavIconChangedNotification";
+NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailChangedNotification";
+
+
+@implementation TTTab
 
 @synthesize title, url, favIconUrl, selected;
 @synthesize shortDomain, siteTitle, pageTitle;
@@ -16,7 +21,21 @@
 @synthesize index;
 @synthesize favIconImage;
 @synthesize pageThumbnailUrl;
-@synthesize pageThumbnail;
+@synthesize pageThumbnailImage;
+
+
+- (void)setFavIconImage:(UIImage *)newFavIconImage;
+{
+    favIconImage = newFavIconImage;
+    [[NSNotificationCenter defaultCenter] postNotificationName:TTTabFavIconChangedNotification object:self];
+}
+
+- (void)setPageThumbnailImage:(UIImage *)newPageThumbnailImage;
+{
+    pageThumbnailImage = newPageThumbnailImage;
+    [[NSNotificationCenter defaultCenter] postNotificationName:TTTabPageThumbnailChangedNotification object:self];
+}
+
 
 - (id)init
 {
@@ -28,9 +47,9 @@
     return self;
 }
 
-+ (TabulatabsBrowserTab *)tabWithURL:(NSURL *)url
++ (TTTab *)tabWithURL:(NSURL *)url
 {
-    TabulatabsBrowserTab *tab = [[TabulatabsBrowserTab alloc] init];
+    TTTab *tab = [[TTTab alloc] init];
     if (tab) {
         tab.url = url;
     }

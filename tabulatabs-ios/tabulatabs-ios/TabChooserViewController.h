@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TabulatabsBrowserRepresentation.h"
+#import "TTBrowser.h"
 
 @interface TabChooserViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 @property (strong) IBOutlet UISearchBar *tabSearchBar;
 
-@property (strong) TabulatabsBrowserRepresentation *browser;
+@property (strong) TTBrowser *browser;
 @property (strong) NSArray *searchResults;
 
 @end

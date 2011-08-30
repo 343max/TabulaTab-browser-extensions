@@ -6,15 +6,15 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TabulatabsBrowserRepresentation.h"
+#import "TTBrowser.h"
 #import "MWURLConnection.h"
 #import "MWJavaScriptQueue.h"
 #import "NSObject+SBJson.h"
-#import "TabulatabsBrowserTab.h"
+#import "TTTab.h"
 
 static MWJavaScriptQueue *javaScriptClientQueue;
 
-@implementation TabulatabsBrowserRepresentation
+@implementation TTBrowser
 
 @synthesize label, iconId, browserInfoLoaded;
 @synthesize userId, clientId, encryptionPassword;
@@ -161,7 +161,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     NSMutableDictionary *parameters = [self parametersForAction:@"get"];
     [parameters setObject:key forKey:@"key"];
     
-    __block TabulatabsBrowserRepresentation *blockSelf = self;
+    __block TTBrowser *blockSelf = self;
     
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
         NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -197,7 +197,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 {
     NSMutableDictionary *parameters = [self parametersForAction:@"loadTabs"];
     
-    __block TabulatabsBrowserRepresentation *blockSelf = self;
+    __block TTBrowser *blockSelf = self;
     
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *responseData) {
         NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
@@ -212,7 +212,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
             
             [blockSelf decryptAssynchronly:encryptedTab didDecryptDataBlock:^(NSString *tabString) {
                 NSDictionary *tabDictionary = [tabString JSONValue];
-                [newTabs addObject:[[TabulatabsBrowserTab alloc] initWithDictionary:tabDictionary]];
+                [newTabs addObject:[[TTTab alloc] initWithDictionary:tabDictionary]];
                 
                 if (newTabs.count == encryptedTabs.count) {
                     self.tabs = [NSArray arrayWithArray:newTabs];
@@ -227,7 +227,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (NSArray *)sortTabArray:(NSArray *)unsortedTabs;
 {
-    return [unsortedTabs sortedArrayUsingComparator:^NSComparisonResult(TabulatabsBrowserTab *tab1, TabulatabsBrowserTab *tab2) {
+    return [unsortedTabs sortedArrayUsingComparator:^NSComparisonResult(TTTab *tab1, TTTab *tab2) {
         if (tab1.windowId < tab2.windowId) {
             return NSOrderedAscending;
         } else if (tab1.windowId > tab2.windowId) {
@@ -249,7 +249,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (NSArray *)tabsContainingString:(NSString *)searchString
 {
-    return [tabs filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TabulatabsBrowserTab *tab, NSDictionary *bindings) {
+    return [tabs filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(TTTab *tab, NSDictionary *bindings) {
         return [tab containsString:searchString];
     }]];
 }

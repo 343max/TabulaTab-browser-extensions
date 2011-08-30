@@ -6,14 +6,22 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TabChooserCell.h"
-#import "NSAttributedString+Attributes.h"
-#import "TabulatabsApp.h"
 #import <QuartzCore/QuartzCore.h>
-#import "GradientView.h"
-#import "TabBarLikeButton.h"
-#import "MWTimedBlock.h"
+
+#import "NSAttributedString+Attributes.h"
+
+#import "TabulatabsApp.h"
+
 #import "TabActionController.h"
+
+#import "TabChooserCell.h"
+
+
+
+const CGFloat kTabChooserCellBackgroundCrack = 60.0;
+const CGFloat kTabChooserCellLabelRest = 80.0;
+
+
 
 @interface TabChooserCell () {
 @private
@@ -21,24 +29,63 @@
     UIImageView *tableCellLeftShadowView;
     UIImageView *tableCellRightShadowView;
     UIButton *showPageButton;
+    
+    
+    NSURL *pageThumbnailURL;
+    UIImageView *pageThumbnailView;
+    NSURL *favIconURL;
+    UIImageView *favIconView;
+    OHAttributedLabel *labelView;
+    OHAttributedLabel *labelViewSelected;
+    
+    UIView *primaryView;
+    UIView *actionView;
 }
+
+- (void)faviconDidChange:(NSNotification *)notification;
+- (void)pageThumbnailDidChange:(NSNotification *)notification;
+
 @end
 
-const CGFloat kTabChooserCellBackgroundCrack = 60.0;
-const CGFloat kTabChooserCellLabelRest = 80.0;
+
+
 
 @implementation TabChooserCell
 
-@synthesize pageThumbnailURL;
-@synthesize favIconURL;
-@synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
-@synthesize pageThumbnailView;
+@synthesize tab;
+@synthesize actionViewVisibile;
 @synthesize markedAsRead;
 
-- (void)prepareForReuse
+- (void)setTab:(TTTab *)aTab;
 {
-    [super prepareForReuse];
-    self.actionViewVisibile = NO;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabFavIconChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabPageThumbnailChangedNotification object:nil];
+    
+    tab = aTab;
+    
+    NSString *secondaryLine = ([tab.siteTitle isEqualToString:@""] ? tab.shortDomain : tab.siteTitle);
+    NSString *mainLine = tab.title;
+    
+    NSRange secondaryLineRange = NSMakeRange(0, [secondaryLine length]);
+    NSRange mainLineRange = NSMakeRange([secondaryLine length] + 1, [mainLine length]);
+    
+    NSMutableAttributedString *labelText = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"%@\n%@", secondaryLine, mainLine]];
+    [labelText setTextColor:[UIColor darkGrayColor] range:secondaryLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Palatino-Bold" size:16.0] range:mainLineRange];
+    [labelText setFont:[UIFont fontWithName:@"Palatino" size:12.0] range:secondaryLineRange];
+    labelView.attributedText = labelText;
+    
+    NSMutableAttributedString *labelTextSelected = [NSMutableAttributedString attributedStringWithAttributedString:labelText];
+    [labelTextSelected setTextColor:[UIColor whiteColor]];
+    labelViewSelected.attributedText = labelTextSelected;
+    
+    favIconView.image = tab.favIconImage;
+    pageThumbnailView.image = tab.pageThumbnailImage;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(faviconDidChange: ) name:TTTabFavIconChangedNotification object:tab];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pageThumbnailDidChange:) name:TTTabPageThumbnailChangedNotification object:tab];
+    
+    [self setNeedsLayout];
 }
 
 - (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
@@ -63,18 +110,55 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     markedAsRead = aMarkedAsRead;
     
     if (markedAsRead) {
-        self.labelView.alpha = 0.3;
-        self.favIconView.alpha = 0.3;
-        self.pageThumbnailView.alpha = 0.3;
+        labelView.alpha = 0.3;
+        favIconView.alpha = 0.3;
+        pageThumbnailView.alpha = 0.3;
         tableCellLeftShadowView.alpha = 0.3;
         tableCellRightShadowView.alpha = 0.3;
     } else {
-        self.labelView.alpha = 1.0;
-        self.favIconView.alpha = 1.0;
-        self.pageThumbnailView.alpha = 1.0;
+        labelView.alpha = 1.0;
+        favIconView.alpha = 1.0;
+        pageThumbnailView.alpha = 1.0;
         tableCellLeftShadowView.alpha = 1.0;
         tableCellRightShadowView.alpha = 1.0;
     }
+}
+
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    [super setHighlighted:highlighted animated:animated];
+    
+    labelView.hidden = highlighted;
+    labelViewSelected.hidden = !highlighted;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    
+    labelView.hidden = selected;
+    labelViewSelected.hidden = !selected;
+}
+
+
+
+#pragma mark Lifecycle
+
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.actionViewVisibile = NO;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabFavIconChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabPageThumbnailChangedNotification object:nil];
+}
+
+- (void)dealloc;
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabFavIconChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabPageThumbnailChangedNotification object:nil];
 }
 
 - (void)hideOtherCellsActionView
@@ -93,13 +177,13 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 - (void)launchSafariAction:(id)sender
 {
     self.actionViewVisibile = NO;
-    [TabActionController launchInSafari:self.browserTab.url];
+    [TabActionController launchInSafari:self.tab.url];
 }
 
 - (void)presentInReadability:(id)sender
 {
     self.actionViewVisibile = NO;
-    [TabActionController presentWithReadabilty:self.browserTab.url inViewContoller:[TabulatabsApp sharedInstance].navigationController];
+    [TabActionController presentWithReadabilty:self.tab.url inViewContoller:[TabulatabsApp sharedInstance].navigationController];
 }
 
 - (void)setupActionView
@@ -112,7 +196,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     [view addSubview:pageThumbnailView];
 
     [self.contentView insertSubview:view atIndex:0];
-    self.actionView = view;
+    actionView = view;
 }
 
 - (void)setupPrimaryView
@@ -140,27 +224,27 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     tableCellRightShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowRight.png"]];
     [view addSubview:tableCellRightShadowView];
 
-    self.labelView = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
-    self.labelView.userInteractionEnabled = NO;
-    self.labelView.automaticallyDetectLinks = NO;
-    self.labelView.lineBreakMode = UILineBreakModeWordWrap;
-    self.labelView.opaque = NO;
-    self.labelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    labelView = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
+    labelView.userInteractionEnabled = NO;
+    labelView.automaticallyDetectLinks = NO;
+    labelView.lineBreakMode = UILineBreakModeWordWrap;
+    labelView.opaque = NO;
+    labelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
-    [view addSubview:self.labelView];
+    [view addSubview:labelView];
     
-    self.labelViewSelected = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
-    self.labelViewSelected.userInteractionEnabled = NO;
-    self.labelViewSelected.automaticallyDetectLinks = NO;
-    self.labelViewSelected.lineBreakMode = UILineBreakModeWordWrap;
-    [view addSubview:self.labelViewSelected];
+    labelViewSelected = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
+    labelViewSelected.userInteractionEnabled = NO;
+    labelViewSelected.automaticallyDetectLinks = NO;
+    labelViewSelected.lineBreakMode = UILineBreakModeWordWrap;
+    [view addSubview:labelViewSelected];
     
-    self.favIconView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    [view addSubview:self.favIconView];
+    favIconView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    [view addSubview:favIconView];
     
     [scrollView addSubview:view];
 
-    self.primaryView = view;
+    primaryView = view;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -184,11 +268,11 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     CGRect contentViewBounds = self.bounds;
     contentViewBounds.origin.x = contentViewBounds.size.width - kTabChooserCellLabelRest;
     contentViewBounds.size.width -= kTabChooserCellBackgroundCrack;
-    self.primaryView.frame = contentViewBounds;
-    self.actionView.frame = bounds;
+    primaryView.frame = contentViewBounds;
+    actionView.frame = bounds;
     
     tableCellLeftShadowView.frame = CGRectMake(-8.0, 0.0, 8.0, 72.0);
-    tableCellRightShadowView.frame = CGRectMake(self.primaryView.bounds.size.width,0.0, 8.0, 72.0);
+    tableCellRightShadowView.frame = CGRectMake(primaryView.bounds.size.width,0.0, 8.0, 72.0);
 
     if (!pageThumbnailView.image) {
         pageThumbnailView.hidden = YES;
@@ -201,59 +285,14 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     }
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
-    [self.favIconView setFrame:iconBounds];
+    [favIconView setFrame:iconBounds];
     
     CGRect labelBounds = CGRectMake(30.0, 7.0, contentViewBounds.size.width - 30.0 - 5, contentViewBounds.size.height - 8);
-    [self.labelView setFrame:labelBounds];
-    [self.labelViewSelected setFrame:labelBounds];
+    [labelView setFrame:labelBounds];
+    [labelViewSelected setFrame:labelBounds];
 }
 
-- (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName
-{
-    NSString *secondaryLine = ([siteName isEqualToString:@""] ? shortDomainName : siteName);
-    NSString *mainLine = title;
-    
-    NSRange secondaryLineRange = NSMakeRange(0, [secondaryLine length]);
-    NSRange mainLineRange = NSMakeRange([secondaryLine length] + 1, [mainLine length]);
-    
-    NSMutableAttributedString *labelText = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"%@\n%@", secondaryLine, mainLine]];
-    [labelText setTextColor:[UIColor darkGrayColor] range:secondaryLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Palatino-Bold" size:16.0] range:mainLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Palatino" size:12.0] range:secondaryLineRange];
-    self.labelView.attributedText = labelText;
-    
-    NSMutableAttributedString *labelTextSelected = [NSMutableAttributedString attributedStringWithAttributedString:labelText];
-    [labelTextSelected setTextColor:[UIColor whiteColor]];
-    self.labelViewSelected.attributedText = labelTextSelected;
-}
 
-- (void)setFavIcon:(UIImage *)favIcon
-{
-    favIconView.image = favIcon;
-    [favIconView setNeedsDisplay];
-}
-
-- (void)setPageThumbnail:(UIImage *)pageThumbnail;
-{
-    pageThumbnailView.image = pageThumbnail;
-    [self setNeedsLayout];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
-{
-    [super setHighlighted:highlighted animated:animated];
-    
-    self.labelView.hidden = highlighted;
-    self.labelViewSelected.hidden = !highlighted;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    self.labelView.hidden = selected;
-    self.labelViewSelected.hidden = !selected;
-}
 
 #pragma mark UIScrollViewDelegate
 
@@ -265,6 +304,19 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;
 {
     [self hideOtherCellsActionView];
+}
+
+
+#pragma mark Notifications
+
+- (void)faviconDidChange:(NSNotification *)notification;
+{
+    favIconView.image = tab.favIconImage;
+}
+
+- (void)pageThumbnailDidChange:(NSNotification *)notification;
+{
+    pageThumbnailView.image = tab.pageThumbnailImage;
 }
 
 @end

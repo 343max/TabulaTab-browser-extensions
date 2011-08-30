@@ -8,27 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "OHAttributedLabel.h"
-#import "TabulatabsBrowserTab.h"
+#import "TTTab.h"
 
 @interface TabChooserCell : UITableViewCell <UIScrollViewDelegate>
 
-- (void)setTitle:(NSString *)title withSiteName:(NSString *)siteName withShortDomainName:(NSString *)shortDomainName;
-- (void)setFavIcon:(UIImage *)favIconUrl;
-- (void)setPageThumbnail:(UIImage *)pageThumbnail;
 - (void)launchSafariAction:(id)sender;
+- (void)presentInReadability:(id)sender;
+
 - (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
 
-@property (strong) NSURL *pageThumbnailURL;
-@property (strong) UIImageView *pageThumbnailView;
-@property (strong) NSURL *favIconURL;
-@property (strong) UIImageView *favIconView;
-@property (strong) OHAttributedLabel *labelView;
-@property (strong) OHAttributedLabel *labelViewSelected;
-
-@property (strong) UIView *primaryView;
-@property (strong) UIView *actionView;
-
-@property (strong) TabulatabsBrowserTab *browserTab;
+@property (strong, nonatomic) TTTab *tab;
 
 @property (assign, nonatomic) BOOL actionViewVisibile;
 @property (assign, nonatomic) BOOL markedAsRead;

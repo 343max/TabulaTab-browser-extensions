@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TabulatabsBrowserTab.h"
+#import "TTTab.h"
 
 @interface BrowserViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong) IBOutlet UIWebView *mainWebView;
 @property (strong) IBOutlet UIToolbar *toolbar;
 
-@property (strong) TabulatabsBrowserTab *browserTab;
+@property (strong) TTTab *browserTab;
 
 - (IBAction)share:(id)sender;
 

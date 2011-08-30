@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TabulatabsBrowserTab : NSObject <NSCoding>
+extern NSString * const TTTabFavIconChangedNotification;
+extern NSString * const TTTabPageThumbnailChangedNotification;
+
+
+@interface TTTab : NSObject <NSCoding>
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 - (BOOL)containsString:(NSString *)searchString;
 
-+ (TabulatabsBrowserTab *)tabWithURL:(NSURL *)url;
++ (TTTab *)tabWithURL:(NSURL *)url;
 
 @property (strong) NSString *title;
 @property (strong) NSURL *url;
@@ -26,7 +30,7 @@
 @property (assign) NSUInteger windowId;
 @property (assign) NSUInteger index;
 
-@property (strong) UIImage *favIconImage;
-@property (strong) UIImage *pageThumbnail;
+@property (strong, nonatomic) UIImage *favIconImage;
+@property (strong, nonatomic) UIImage *pageThumbnailImage;
 
 @end

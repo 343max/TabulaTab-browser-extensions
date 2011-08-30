@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "TabulatabsApp.h"
 
-@interface TabulatabsBrowserRepresentation : NSObject <NSCoding>
+@interface TTBrowser : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *label;
 @property (strong, nonatomic) NSString *iconId;

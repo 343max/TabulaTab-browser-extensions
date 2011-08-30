@@ -9,7 +9,7 @@
 #import "TabulatabsApp.h"
 
 #import "BrowserChooserViewController.h"
-#import "TabulatabsBrowserRepresentation.h"
+#import "TTBrowser.h"
 #import "MWImagePool.h"
 #import "Helpers.h"
 
@@ -114,7 +114,7 @@ static MWImagePool *sharedImagePool;
     }
     */
         
-    [browserRepresenations enumerateObjectsUsingBlock:^(__strong TabulatabsBrowserRepresentation *browser, NSUInteger idx, BOOL *stop) {
+    [browserRepresenations enumerateObjectsUsingBlock:^(__strong TTBrowser *browser, NSUInteger idx, BOOL *stop) {
         [browser loadTabs];
         [browser loadBrowserInfo];
         

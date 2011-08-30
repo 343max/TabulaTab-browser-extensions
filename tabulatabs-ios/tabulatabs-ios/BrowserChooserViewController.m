@@ -7,7 +7,7 @@
 //
 
 #import "BrowserChooserViewController.h"
-#import "TabulatabsBrowserRepresentation.h"
+#import "TTBrowser.h"
 #import "TabulatabsApp.h"
 #import "AddBrowserStepsViewController.h"
 #import "TabChooserViewController.h"
@@ -120,7 +120,7 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     
     if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection)
     {
-        TabulatabsBrowserRepresentation *browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:[indexPath row]];
+        TTBrowser *browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:[indexPath row]];
         cell.textLabel.text = browser.label;
         
         if (!browser.browserInfoLoaded) {
