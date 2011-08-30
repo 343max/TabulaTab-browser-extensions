@@ -20,7 +20,6 @@
     UIScrollView *scrollView;
     UIImageView *tableCellLeftShadowView;
     UIImageView *tableCellRightShadowView;
-    UIImageView *thumbnailRightShadowView;
     UIButton *showPageButton;
 }
 @end
@@ -109,10 +108,6 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     pageThumbnailView = [[UIImageView alloc] initWithFrame:view.bounds];
     pageThumbnailView.contentMode = UIViewContentModeScaleToFill;
     [view addSubview:pageThumbnailView];
-    
-    thumbnailRightShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowRight.png"]];
-    thumbnailRightShadowView.alpha = 0.7;
-    [view addSubview:thumbnailRightShadowView];
 
     [self.contentView insertSubview:view atIndex:0];
     self.actionView = view;
@@ -134,20 +129,9 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
         
     CGRect contentViewBounds = self.bounds;
     contentViewBounds.origin.x = contentViewBounds.size.width;
-    GradientView *view = [[GradientView alloc] initWithFrame:contentViewBounds];
     
-    [(CAGradientLayer *)view.layer setColors:[NSArray arrayWithObjects:
-                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0] CGColor]),
-                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.1] CGColor]),
-                                              objc_unretainedObject([[UIColor colorWithWhite:0 alpha:0.4] CGColor]),
-                                              nil]];
+    UIView *view = [[UIView alloc] initWithFrame:contentViewBounds];
     view.backgroundColor = [UIColor whiteColor];
-    
-    [(CAGradientLayer *)view.layer setLocations:[NSArray arrayWithObjects:
-                                                 [NSNumber numberWithFloat:0.6],
-                                                 [NSNumber numberWithFloat:0.97],
-                                                 [NSNumber numberWithFloat:1],
-                                                 nil]];
     
     tableCellLeftShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowLeft.png"]];
     [view addSubview:tableCellLeftShadowView];
@@ -206,15 +190,12 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
     if (!pageThumbnailView.image) {
         pageThumbnailView.hidden = YES;
-        thumbnailRightShadowView.hidden = YES;
     } else {
         CGRect pageThumbnailFrame = bounds;
         pageThumbnailFrame.size.width = pageThumbnailFrame.size.height * (pageThumbnailView.image.size.width / pageThumbnailView.image.size.height);
         pageThumbnailView.frame = pageThumbnailFrame;
-        thumbnailRightShadowView.frame = CGRectMake(pageThumbnailFrame.size.width, 0.0, 8.0, 72.0);
 
         pageThumbnailView.hidden = NO;
-        thumbnailRightShadowView.hidden = NO;
     }
 
     CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
