@@ -18,7 +18,9 @@
 - (void)launchSafariAction:(id)sender;
 - (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
 
+@property (strong) NSURL *pageThumbnailURL;
 @property (strong) UIImageView *pageThumbnailView;
+@property (strong) NSURL *favIconURL;
 @property (strong) UIImageView *favIconView;
 @property (strong) OHAttributedLabel *labelView;
 @property (strong) OHAttributedLabel *labelViewSelected;

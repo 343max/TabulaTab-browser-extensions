@@ -25,11 +25,13 @@
 }
 @end
 
-const CGFloat kTabChooserCellBackgroundCrack = 30.0;
-const CGFloat kTabChooserCellLabelRest = 45.0;
+const CGFloat kTabChooserCellBackgroundCrack = 60.0;
+const CGFloat kTabChooserCellLabelRest = 80.0;
 
 @implementation TabChooserCell
 
+@synthesize pageThumbnailURL;
+@synthesize favIconURL;
 @synthesize labelView, labelViewSelected, favIconView, primaryView, actionView, actionViewVisibile, browserTab;
 @synthesize pageThumbnailView;
 

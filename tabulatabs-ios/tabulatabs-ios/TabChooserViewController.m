@@ -63,14 +63,24 @@
         if (tab.favIconUrl) {
             [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
                 tab.favIconImage = image;
-                [tableView reloadData];
+                
+                for (TabChooserCell *cell in tableView.visibleCells) {
+                    if ([tab.favIconUrl isEqual:cell.favIconURL]) {
+                        [cell setFavIcon:tab.favIconImage];
+                    }
+                }
             }];
         }
 
         if (tab.pageThumbnailUrl) {
             [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
                 tab.pageThumbnail = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
-                [tableView reloadData];
+                
+                for (TabChooserCell *cell in tableView.visibleCells) {
+                    if ([tab.pageThumbnailUrl isEqual:cell.pageThumbnailURL]) {
+                        [cell setPageThumbnail:tab.pageThumbnail];
+                    }
+                }
             }];
         }
     }];
@@ -152,6 +162,9 @@
     [cell setTitle:tab.pageTitle withSiteName:tab.siteTitle withShortDomainName:tab.shortDomain];
     [cell setFavIcon:tab.favIconImage];
     [cell setPageThumbnail:tab.pageThumbnail];
+    
+    cell.favIconURL = tab.favIconUrl;
+    cell.pageThumbnailURL = tab.pageThumbnailUrl;
     
     cell.browserTab = tab;
     
