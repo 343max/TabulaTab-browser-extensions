@@ -10,8 +10,7 @@
 
 @interface MWImagePool : NSObject
 
-@property (readonly, strong) NSMutableDictionary *pool;
-
 - (void)fetchImageToPool:(NSURLRequest *)imageUrlRequest imageLoadedBlock:(void(^)(UIImage *imageData))imageLoadedBlock;
+- (void)processCompleted;
 
 @end

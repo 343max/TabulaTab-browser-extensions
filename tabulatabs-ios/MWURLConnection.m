@@ -31,7 +31,6 @@
 
 - (void)start
 {
-    NSLog(@"starting connection");
     [connection start];
 }
 
@@ -49,7 +48,6 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"did finish loading");
     if (didFinishLoadingBlock) {
         didFinishLoadingBlock(self.dataReceived);
     }

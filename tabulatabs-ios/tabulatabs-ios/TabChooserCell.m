@@ -44,6 +44,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 - (void)faviconDidChange:(NSNotification *)notification;
 - (void)pageThumbnailDidChange:(NSNotification *)notification;
+- (void)layoutPageThumbnail;
 
 @end
 
@@ -272,22 +273,14 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     actionView.frame = bounds;
     
     tableCellLeftShadowView.frame = CGRectMake(-8.0, 0.0, 8.0, 72.0);
-    tableCellRightShadowView.frame = CGRectMake(primaryView.bounds.size.width,0.0, 8.0, 72.0);
+    tableCellRightShadowView.frame = CGRectMake(primaryView.bounds.size.width, 0.0, 8.0, 72.0);
 
-    if (!pageThumbnailView.image) {
-        pageThumbnailView.hidden = YES;
-    } else {
-        CGRect pageThumbnailFrame = bounds;
-        pageThumbnailFrame.size.width = pageThumbnailFrame.size.height * (pageThumbnailView.image.size.width / pageThumbnailView.image.size.height);
-        pageThumbnailView.frame = pageThumbnailFrame;
-
-        pageThumbnailView.hidden = NO;
-    }
-
-    CGRect iconBounds = CGRectMake(7.0, 7.0, 16, 16);
+    [self layoutPageThumbnail];
+    
+    CGRect iconBounds = CGRectMake(5.0, 5.0, 16, 16);
     [favIconView setFrame:iconBounds];
     
-    CGRect labelBounds = CGRectMake(30.0, 7.0, contentViewBounds.size.width - 30.0 - 5, contentViewBounds.size.height - 8);
+    CGRect labelBounds = CGRectMake(26.0, 4.0, contentViewBounds.size.width - 26.0 - 3.0, contentViewBounds.size.height - 4.0);
     [labelView setFrame:labelBounds];
     [labelViewSelected setFrame:labelBounds];
 }
@@ -311,12 +304,31 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 - (void)faviconDidChange:(NSNotification *)notification;
 {
+    NSLog(@"faviconDidChange");
     favIconView.image = tab.favIconImage;
 }
 
 - (void)pageThumbnailDidChange:(NSNotification *)notification;
 {
+    NSLog(@"pageThumbnailDidChange on Page %@", tab.shortDomain);
     pageThumbnailView.image = tab.pageThumbnailImage;
+    
+    [self layoutPageThumbnail];
+}
+
+
+#pragma mark Private Methods
+
+- (void)layoutPageThumbnail;
+{
+    if (!pageThumbnailView.image) {
+        pageThumbnailView.hidden = YES;
+    } else {
+        CGRect pageThumbnailFrame = self.bounds;
+        pageThumbnailFrame.size.width = pageThumbnailFrame.size.height * (pageThumbnailView.image.size.width / pageThumbnailView.image.size.height);
+        pageThumbnailView.frame = pageThumbnailFrame;    
+        pageThumbnailView.hidden = NO;
+    }
 }
 
 @end

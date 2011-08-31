@@ -18,7 +18,7 @@ NSString *pathInDocumentDirectory(NSString *fileName)
 
 UIImage *scaleImageToMinSize(UIImage *image, CGSize size)
 {
-    float scaleFactor = MAX(size.width / [image size].width, size.height / [image size].height);
+    float scaleFactor = MIN(size.width / [image size].width, size.height / [image size].height);
     
     if(scaleFactor >= 1) {
         scaleFactor = 1;
@@ -32,9 +32,9 @@ UIImage *scaleImageToMinSize(UIImage *image, CGSize size)
     
     [image drawInRect:imageRect];
     
-    UIImage *scaledImage;
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    NSLog(@"scaled image to: %@", NSStringFromCGSize(imageRect.size));
     
     UIGraphicsEndImageContext();
     
