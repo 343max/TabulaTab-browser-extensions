@@ -16,6 +16,7 @@ extern NSString * const TTTabPageThumbnailChangedNotification;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 - (BOOL)containsString:(NSString *)searchString;
+- (void)loadImages;
 
 + (TTTab *)tabWithURL:(NSURL *)url;
 

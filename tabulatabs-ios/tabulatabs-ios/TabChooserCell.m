@@ -64,6 +64,8 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     
     tab = aTab;
     
+    [tab loadImages];
+    
     NSString *secondaryLine = ([tab.siteTitle isEqualToString:@""] ? tab.shortDomain : tab.siteTitle);
     NSString *mainLine = tab.title;
     
@@ -304,13 +306,11 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 - (void)faviconDidChange:(NSNotification *)notification;
 {
-    NSLog(@"faviconDidChange");
     favIconView.image = tab.favIconImage;
 }
 
 - (void)pageThumbnailDidChange:(NSNotification *)notification;
 {
-    NSLog(@"pageThumbnailDidChange on Page %@", tab.shortDomain);
     pageThumbnailView.image = tab.pageThumbnailImage;
     
     [self layoutPageThumbnail];

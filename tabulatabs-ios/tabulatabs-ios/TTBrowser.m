@@ -242,6 +242,13 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     }];
 }
 
+- (void)loadImages;
+{
+    [tabs enumerateObjectsUsingBlock:^(TTTab *tab, NSUInteger idx, BOOL *stop) {
+        [tab loadImages];
+    }];
+}
+
 - (void)setTabs:(NSArray *)unsortedTabs;
 {
     tabs = [self sortTabArray:unsortedTabs];

@@ -6,6 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "TabulatabsApp.h"
+
+#import "Helpers.h"
+
 #import "TTTab.h"
 
 
@@ -54,6 +58,26 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
         tab.url = url;
     }
     return tab;
+}
+
+- (void)loadImages;
+{
+    if (self.favIconUrl && !self.favIconImage) {
+        __block TTTab *blockSelf = self;
+        
+        [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:self.favIconUrl] imageLoadedBlock:^(UIImage *image) {
+            blockSelf.favIconImage = image;
+        }];
+    }
+    
+    if (self.pageThumbnailUrl && !self.pageThumbnailImage) {
+        __block TTTab *blockSelf = self;
+        
+        [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:self.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
+            blockSelf.pageThumbnailImage = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
+        }];
+    }
+
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary

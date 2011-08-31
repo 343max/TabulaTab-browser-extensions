@@ -26,17 +26,17 @@ UIImage *scaleImageToMinSize(UIImage *image, CGSize size)
     
     float width = [image size].width * scaleFactor;
     float height = [image size].height * scaleFactor;
-    
     CGRect imageRect = CGRectMake(0, 0, width, height);
-    UIGraphicsBeginImageContext(imageRect.size);
     
-    [image drawInRect:imageRect];
+    UIImage *scaledImage;
     
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsBeginImageContext(imageRect.size); {
     
-    NSLog(@"scaled image to: %@", NSStringFromCGSize(imageRect.size));
+        [image drawInRect:imageRect];
+        
+        scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     
-    UIGraphicsEndImageContext();
+    } UIGraphicsEndImageContext();
     
     return scaledImage;
 }

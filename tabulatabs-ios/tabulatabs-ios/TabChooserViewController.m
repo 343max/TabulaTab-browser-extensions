@@ -78,21 +78,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [browser.tabs enumerateObjectsUsingBlock:^(TTTab *tab, NSUInteger idx, BOOL *stop) {
-        if (tab.favIconUrl) {
-            [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.favIconUrl] imageLoadedBlock:^(UIImage *image) {
-                tab.favIconImage = image;
-                
-            }];
-        }
-        
-        if (tab.pageThumbnailUrl) {
-            [[TabulatabsApp sharedImagePool] fetchImageToPool:[NSURLRequest requestWithURL:tab.pageThumbnailUrl] imageLoadedBlock:^(UIImage *imageData) {
-                tab.pageThumbnailImage = scaleImageToMinSize(imageData, CGSizeMake(256.0, 144.0));
-            }];
-        }
-    }];
+    [browser performSelector:@selector(loadImages) withObject:nil afterDelay:3.0];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
