@@ -46,6 +46,14 @@
     [self.tableView reloadData];
 }
 
+- (void)openPage:(TTTab *)tab;
+{
+    BrowserViewController *browserView = [[BrowserViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
+    browserView.browserTab = tab;
+    
+    [self.navigationController pushViewController:browserView animated:YES]; 
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -165,19 +173,7 @@
 }
 */
 
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TTTab *tab = [self.browser.tabs objectAtIndex:indexPath.row];
-    
-    BrowserViewController *browserView = [[BrowserViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
-    browserView.browserTab = tab;
-    
-    [self.navigationController pushViewController:browserView animated:YES]; 
-}
-
-#pragma mark SearchBarDelegate
+#pragma mark - SearchBarDelegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -192,8 +188,8 @@
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-    searchBar.text = @"";
-    [self performSearchFor:@""];
+    searchBar.text = nil;
+    [self performSearchFor:nil];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -223,7 +219,7 @@
 {
     if (scrollView == self.tableView) {
         [self.tableView.visibleCells enumerateObjectsUsingBlock:^(TabChooserCell *cell, NSUInteger idx, BOOL *stop) {
-            [cell setActionViewVisibile:NO animated:YES];
+            [cell setBackgroundViewVisible:NO animated:YES];
         }];
     }
 }

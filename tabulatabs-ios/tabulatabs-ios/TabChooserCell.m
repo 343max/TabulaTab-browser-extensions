@@ -11,8 +11,7 @@
 #import "NSAttributedString+Attributes.h"
 
 #import "TabulatabsApp.h"
-
-#import "TabActionController.h"
+#import "TabChooserViewController.h"
 
 #import "TabChooserCell.h"
 
@@ -26,6 +25,10 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 @interface TabChooserCell () {
 @private
     UIScrollView *scrollView;
+
+    UIView *primaryView;
+    UIView *backgroundView;
+
     UIImageView *tableCellLeftShadowView;
     UIImageView *tableCellRightShadowView;
     UIButton *showPageButton;
@@ -37,14 +40,14 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     UIImageView *favIconView;
     OHAttributedLabel *labelView;
     OHAttributedLabel *labelViewSelected;
-    
-    UIView *primaryView;
-    UIView *actionView;
 }
 
+- (void)openPageButtonTaped:(id)sender;
 - (void)faviconDidChange:(NSNotification *)notification;
 - (void)pageThumbnailDidChange:(NSNotification *)notification;
 - (void)layoutPageThumbnail;
+- (void)setupBackgroundView;
+- (void)setupPrimaryView;
 
 @end
 
@@ -54,7 +57,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 @implementation TabChooserCell
 
 @synthesize tab;
-@synthesize actionViewVisibile;
+@synthesize backgroundViewVisible;
 @synthesize markedAsRead;
 
 - (void)setTab:(TTTab *)aTab;
@@ -91,9 +94,9 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     [self setNeedsLayout];
 }
 
-- (void)setActionViewVisibile:(BOOL)visible animated:(BOOL)animated;
+- (void)setBackgroundViewVisible:(BOOL)visible animated:(BOOL)animated;
 {
-    actionViewVisibile = visible;
+    backgroundViewVisible = visible;
     
     CGPoint contentOffset = CGPointMake(0.0, 0.0);
     if (!visible) {
@@ -103,9 +106,9 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     [scrollView setContentOffset:contentOffset animated:animated];
 }
 
-- (void)setActionViewVisibile:(BOOL)aActionViewVisibile;
+- (void)setBackgroundViewVisible:(BOOL)aActionViewVisibile;
 {
-    [self setActionViewVisibile:aActionViewVisibile animated:NO];
+    [self setBackgroundViewVisible:aActionViewVisibile animated:NO];
 }
 
 - (void)setMarkedAsRead:(BOOL)aMarkedAsRead;
@@ -126,7 +129,6 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
         tableCellRightShadowView.alpha = 1.0;
     }
 }
-
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
@@ -149,10 +151,10 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 #pragma mark Lifecycle
 
 
-- (void)prepareForReuse
+- (void)prepareForReuse;
 {
     [super prepareForReuse];
-    self.actionViewVisibile = NO;
+    self.backgroundViewVisible = NO;
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabFavIconChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabPageThumbnailChangedNotification object:nil];
@@ -164,6 +166,23 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:TTTabPageThumbnailChangedNotification object:nil];
 }
 
+- (UIViewController *)viewController;
+{
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
+}
+
+- (void)openPageButtonTaped:(id)sender;
+{
+    id viewController = [self viewController];
+    [viewController openPage:tab];
+}
+
 - (void)hideOtherCellsActionView
 {
     NSAssert(self.superview != nil, @"SuperView of TableCell set");
@@ -172,24 +191,12 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     
     [tableview.visibleCells enumerateObjectsUsingBlock:^(TabChooserCell *cell, NSUInteger idx, BOOL *stop) {
         if (cell != self) {
-            [cell setActionViewVisibile:NO animated:YES];
+            [cell setBackgroundViewVisible:NO animated:YES];
         }
     }];
 }
 
-- (void)launchSafariAction:(id)sender
-{
-    self.actionViewVisibile = NO;
-    [TabActionController launchInSafari:self.tab.url];
-}
-
-- (void)presentInReadability:(id)sender
-{
-    self.actionViewVisibile = NO;
-    [TabActionController presentWithReadabilty:self.tab.url inViewContoller:[TabulatabsApp sharedInstance].navigationController];
-}
-
-- (void)setupActionView
+- (void)setupBackgroundView;
 { 
     UIView* view = [[UIView alloc] initWithFrame:self.bounds];
     view.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
@@ -199,10 +206,10 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     [view addSubview:pageThumbnailView];
 
     [self.contentView insertSubview:view atIndex:0];
-    actionView = view;
+    backgroundView = view;
 }
 
-- (void)setupPrimaryView
+- (void)setupPrimaryView;
 {
     scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     scrollView.pagingEnabled = YES;
@@ -222,6 +229,13 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     UIView *view = [[UIView alloc] initWithFrame:contentViewBounds];
     view.backgroundColor = [UIColor whiteColor];
     
+    UIButton *openButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    openButton.frame = view.bounds;
+    openButton.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [openButton addTarget:self action:@selector(openPageButtonTaped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [view addSubview:openButton];
+
     tableCellLeftShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowLeft.png"]];
     [view addSubview:tableCellLeftShadowView];
     tableCellRightShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowRight.png"]];
@@ -244,7 +258,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     
     favIconView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [view addSubview:favIconView];
-    
+        
     [scrollView addSubview:view];
 
     primaryView = view;
@@ -254,7 +268,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self setupActionView];
+        [self setupBackgroundView];
         [self setupPrimaryView];
     }
     return self;    
@@ -272,7 +286,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     contentViewBounds.origin.x = contentViewBounds.size.width - kTabChooserCellLabelRest;
     contentViewBounds.size.width -= kTabChooserCellBackgroundCrack;
     primaryView.frame = contentViewBounds;
-    actionView.frame = bounds;
+    backgroundView.frame = bounds;
     
     tableCellLeftShadowView.frame = CGRectMake(-8.0, 0.0, 8.0, 72.0);
     tableCellRightShadowView.frame = CGRectMake(primaryView.bounds.size.width, 0.0, 8.0, 72.0);
@@ -293,7 +307,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView;
 {
-    actionViewVisibile = (aScrollView.contentOffset.x != self.bounds.size.width);
+    backgroundViewVisible = (aScrollView.contentOffset.x != self.bounds.size.width);
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView;

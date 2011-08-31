@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTTab.h"
 #import "TTBrowser.h"
 
 @interface TabChooserViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
+
+- (void)openPage:(TTTab *)tab;
 
 @property (strong) IBOutlet UISearchBar *tabSearchBar;
 
