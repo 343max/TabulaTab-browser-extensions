@@ -1,8 +1,8 @@
 <div style="width: 300px; height: 600px">
 
-<img id="pageThumbnail" src="http://www.google.de/images/srpr/logo3w.png">
+<img id="pageThumbnail" src="" style="max-width:  120px; max-height: 120px">
 <img id="articleImage" src="" style="max-width: 120px; max-height: 120px">
-<p id="tabId"></p>
+<p id="meta"></p>
 </div>
 <script type="text/javascript">
 
@@ -13,14 +13,20 @@ try {
 if (!tabMetaInfo) tabMetaInfo = {};
 
 chrome.tabs.getSelected(null, function(tab) {
-	document.getElementById('tabId').innerText = tab.id;
+	var meta = 'tabId: ' + tab.id + '<br>';
+	meta += 'articleTitle: ' + (tabMetaInfo[tab.url].articleTitle ? tabMetaInfo[tab.url].articleTitle : '-') + '<br>';
+	meta += 'articleType: ' + (tabMetaInfo[tab.url].articleType ? tabMetaInfo[tab.url].articleType : '-') + '<br>';
+	meta += 'articleURL: ' + (tabMetaInfo[tab.url].articleURL ? tabMetaInfo[tab.url].articleURL : '-') + '<br>';
+	meta += 'siteName: ' + (tabMetaInfo[tab.url].siteName ? tabMetaInfo[tab.url].siteName : '-') + '<br>';
+	meta += 'articleDescription: ' + (tabMetaInfo[tab.url].articleDescription ? tabMetaInfo[tab.url].articleDescription : '-') + '<br>';
+
+	document.getElementById('meta').innerHTML = meta;
 
 	var pageThumbnailImg = document.getElementById('pageThumbnail');
 	var articleImageImg = document.getElementById('articleImage');
 
-
-	//pageThumbnailImg.style.display = 'none';
-	//articleImageImg.style.display = 'none';
+	pageThumbnailImg.style.display = 'none';
+	articleImageImg.style.display = 'none';
 
 	if (tabMetaInfo[tab.url]) {
 		if (tabMetaInfo[tab.url].articleImage) {
@@ -33,17 +39,5 @@ chrome.tabs.getSelected(null, function(tab) {
 		}
 	}
 });
-
-/*
-
-if (tabMetaInfo[chromeTab.id]) {
-						if (tabMetaInfo[chromeTab.id].articleImage) {
-							tab.pageThumbnail = tabMetaInfo[chromeTab.id].articleImage;
-						} else {
-							tab.pageThumbnail = tabMetaInfo[chromeTab.id].pageThumbnail;
-						}
-					}
-
- */
 
 </script>

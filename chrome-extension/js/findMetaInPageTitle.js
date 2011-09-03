@@ -1,4 +1,4 @@
-function enrichWithMetaInfo(pageInfo) {
+function findMetaInPageTitle(pageInfo) {
 
 	var getTitleSegments = function(pageInfo) {
 		var dividers = [' | ', ' « ', ' » ', ' / ', ' – ', ' - '];

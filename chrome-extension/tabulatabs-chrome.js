@@ -63,13 +63,17 @@ function tabulatabForTab(tab) {
 		index: tab.index
 	};
 
-	enrichWithMetaInfo(tabulatab);
+	findMetaInPageTitle(tabulatab);
 
 	if (tabMetaInfo[tab.url]) {
 		if (tabMetaInfo[tab.url].articleImage) {
 			tabulatab.pageThumbnail = tabMetaInfo[tab.url].articleImage;
-		} else {
+		} else if (tabMetaInfo[tab.url].pageThumbnail) {
 			tabulatab.pageThumbnail = tabMetaInfo[tab.url].pageThumbnail;
+		}
+
+		if (tabMetaInfo[tab.uri].siteName) {
+			tabulatab.siteTitle = tabMetaInfo[tab.uri].siteName;
 		}
 	}
 
@@ -180,6 +184,26 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 chrome.extension.onRequest.addListener(function(request, sender, callback) {
 	if (request.articleImage) {
 		setTabMetaProperty(sender.tab.url, 'articleImage', request.articleImage);
+	}
+
+	if (request.articleTitle) {
+		setTabMetaProperty(sender.tab.url, 'articleTitle', request.articleTitle);
+	}
+
+	if (request.articleType) {
+		setTabMetaProperty(sender.tab.url, 'articleType', request.articleType);
+	}
+
+	if (request.articleURL) {
+		setTabMetaProperty(sender.tab.url, 'articleURL', request.articleURL);
+	}
+
+	if (request.siteName) {
+		setTabMetaProperty(sender.tab.url, 'siteName', request.siteName);
+	}
+
+	if (request.articleDescription) {
+		setTabMetaProperty(sender.tab.url, 'articleDescription', request.articleDescription);
 	}
 });
 

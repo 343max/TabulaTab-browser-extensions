@@ -7,7 +7,7 @@
 		"http://*.tabulatabs.com/"
 	],
 	"content_scripts": [{
-		"js": ["js/findArticleImage.js"],
+		"js": ["js/findMetaInPage.js"],
 		"matches": ["http://*/*"]
 	}],
 	"browser_action": {

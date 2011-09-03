@@ -78,8 +78,6 @@ function TabulatabsClient(clientId) {
 			encryptedTabs[id] = encrypt(tab);
 		});
 
-		//console.dir([tabs, encryptedTabs]);
-		
 		$.post(serverPath, {
 			'userId': userId,
 			"clientId": clientId,
