@@ -72,8 +72,8 @@ function tabulatabForTab(tab) {
 			tabulatab.pageThumbnail = tabMetaInfo[tab.url].pageThumbnail;
 		}
 
-		if (tabMetaInfo[tab.uri].siteName) {
-			tabulatab.siteTitle = tabMetaInfo[tab.uri].siteName;
+		if (tabMetaInfo[tab.url].siteName) {
+			tabulatab.siteTitle = tabMetaInfo[tab.url].siteName;
 		}
 	}
 
