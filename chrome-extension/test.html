@@ -12,7 +12,17 @@
 	<script src="js/webtoolkit.sha1.js"></script>
 	<script src="js/findMetaInPageTitle.js"></script>
 	<script src="js/tabulatabs-client.js"></script>
-	<script src="tabulatabs-chrome.js"></script>
+
+	<script type="text/javascript">
+
+var tabulatabs = new TabulatabsClient('Test');
+
+var encrypted = tabulatabs.encrypt({message: 'Hello', recipient: 'world'});
+console.dir(encrypted);
+
+console.dir(tabulatabs.decrypt(encrypted));
+
+	</script>
 
 	</body>
 </html>

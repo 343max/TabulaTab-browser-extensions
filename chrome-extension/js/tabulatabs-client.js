@@ -12,18 +12,19 @@ function TabulatabsClient(clientId) {
 		}
 	};
 
-	var generatePassword = function() {
-		var c = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRSTUVWXYZ';
-		var cLength = c.length;
-
-		var passwd = '';
-
-		for(var i = 0; i < 32; i++) {
-			passwd += c[Math.floor(Math.random() * cLength)];
-		}
-
-		return passwd;
+	var generateRandomByteArray = function(length) {
+		var bytes = new Uint8Array(length);
+		window.crypto.getRandomValues(bytes);
+		return bytes;
 	};
+
+	var generateKey = function() {
+		return generateRandomByteArray(32);
+	};
+
+	var generateIv = function() {
+		return generateRandomByteArray(16);
+	}
 
 	var registerBrowser = function(userId, clientId, callback) {
 		if (!callback) callback = function(data) {};
@@ -45,14 +46,14 @@ function TabulatabsClient(clientId) {
 		}, callback, 'json');
 	};
 
-	var encryptionPassword = getOption('encryptionPassword', generatePassword());
+	var key = getOption('key', generateKey());
 	var userId = getOption('userId', null);
 	var clientId = getOption('clientId', null);
 	var registeredClients = getOption('registeredClients', []);
 
 	if (!userId | !clientId) {
 		userId = getOption('userId', randomUUID());
-		clientId = getOption('clientId', generatePassword());
+		clientId = getOption('clientId', randomUUID());
 
 		registerBrowser(userId, clientId, function() {
 			self.putObjectForKey('browserInfo', {'label': 'Chrome', 'icon': 'chromeIcon_512.png'});
@@ -60,15 +61,15 @@ function TabulatabsClient(clientId) {
 	}
 
 	var encrypt = function(payload) {
-		return sjcl.encrypt(encryptionPassword, JSON.stringify(payload));
+		iv = generateIv();
+		ic = GibberishAES.Base64.encode(GibberishAES.rawEncrypt(GibberishAES.s2a(JSON.stringify(payload)), key, iv));
+		return {iv: GibberishAES.a2h(iv), ic: ic};
 	};
 
-	var decrypt = function(payload) {
-		if(!payload) {
-			return null;
-		}
-
-		return JSON.parse(sjcl.decrypt(encryptionPassword, payload));
+	var decrypt = function(encryptedObject) {
+		var iv = GibberishAES.h2a(encryptedObject.iv);
+		var json = GibberishAES.rawDecrypt(GibberishAES.Base64.decode(encryptedObject.ic), key, iv, false);
+		return JSON.parse(json);
 	};
 
 	var uploadTabs = function(action, tabs) {
@@ -76,6 +77,7 @@ function TabulatabsClient(clientId) {
 
 		$.each(tabs, function(id, tab) {
 			encryptedTabs[id] = encrypt(tab);
+			console.log(encryptedTabs[id]);
 		});
 
 		$.post(serverPath, {
@@ -86,6 +88,16 @@ function TabulatabsClient(clientId) {
 		}, function(result) {
 			console.dir(result);
 		}, 'json');
+	}
+
+	// TODO delete me
+	this.encrypt = function(payload) {
+		return encrypt(payload);
+	}
+
+	// TODO delete me
+	this.decrypt = function(payload) {
+		return decrypt(payload);
 	}
 
 	this.replaceTabs = function(tabs) {
@@ -103,8 +115,8 @@ function TabulatabsClient(clientId) {
 	}
 
 	this.clientRegistrationUrl = function() {
-		var newClientId = generatePassword();
-		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&p=' + encryptionPassword;
+		var newClientId = randomUUID();
+		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&p=' + GibberishAES.Base64.encode(key);
 		registerClient(userId, newClientId);
 		
 		console.log(url);
@@ -141,33 +153,4 @@ function TabulatabsClient(clientId) {
 	this.getRegisteredClients = function() {
 		return registeredClients;
 	};
-
-	this.getTabs = function(callback) {
-		/* var tabs = unhosted.dav.get('openTabs.json', function(encryptedTabs) {
-			var tabs = decrypt(encryptedTabs);
-			if(!tabs) {
-				tabs = {};
-			}
-
-			callback(tabs);
-		}); */
-	};
-	
-	/*
-	this.calculateThumbFilename = function(url, width, height) {
-		return 'thumb_' + SHA1(url) + '_' + width + 'x' + height + '.json';
-	}
-
-	this.setThumbnail = function(url, width, height, thumbUrl) {
-		unhosted.dav.put(this.calculateThumbFilename(url, width, height), encrypt({src: thumbUrl}));
-	}
-
-	this.getThumbnail = function(url, width, height, callback) {
-		var decryptCallback = function(encryptedThumb) {
-			callback(decrypt(encryptedThumb));
-		}
-		
-		//return unhosted.dav.get(this.calculateThumbFilename(url, width, height), decryptCallback);
-	}
-	*/
 }
