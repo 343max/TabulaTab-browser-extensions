@@ -12,9 +12,6 @@
 
 @interface TabChooserCell : UITableViewCell <UIScrollViewDelegate>
 
-- (void)launchSafariAction:(id)sender;
-- (void)presentInReadability:(id)sender;
-
 - (void)setBackgroundViewVisible:(BOOL)visible animated:(BOOL)animated;
 
 @property (strong, nonatomic) TTTab *tab;

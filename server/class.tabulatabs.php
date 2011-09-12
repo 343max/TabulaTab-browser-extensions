@@ -112,7 +112,9 @@ class Tabulatabs {
 			errorResponse('file does not exist');
 		}
 
-		okayResponse(file_get_contents($filePath));
+		echo '{"response":"ok","data":' . file_get_contents($filePath) . '}';
+		#okayResponse(file_get_contents($filePath));
+		die();
 	}
 
 	public function putValueForKey($fileId, $data) {

@@ -39,5 +39,16 @@
 		<string>Vollkorn-Italic.ttf</string>
 		<string>Vollkorn-Regular.ttf</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>de.343max.${PRODUCT_NAME:rfc1034identifier}</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tabulatabs</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

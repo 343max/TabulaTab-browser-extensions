@@ -97,7 +97,6 @@ static MWImagePool *sharedImagePool;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     BrowserChooserViewController *viewController = [[BrowserChooserViewController alloc] initWithNibName:@"BrowserChooserViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
@@ -106,14 +105,9 @@ static MWImagePool *sharedImagePool;
     browserRepresenations = [[NSMutableArray alloc] init];
     
     [self restoreSettings];
-    /*
-    TabulatabsBrowserRepresentation *browser = [[TabulatabsBrowserRepresentation alloc] init];
-    if ([browser setRegistrationUrl:@"tabulatabs:/register?uid=3499536ECC5741E195D003624EA961F5&cid=5WnrhuKSWVzcfL13Yje48juspBKBMb3I&p=0Gz5NvgBm6BikhL0W2dI5PHvnMntdRGf"]) {
-        [browser claimClient];
-        [browserRepresenations addObject:browser];
-    }
-    */
-        
+    
+    [self application:application handleOpenURL:[NSURL URLWithString:@"tabulatabs:/register?uid=EBE8421E-9324-4258-A93B-14E33BC167D4&cid=09F4B687-DA01-47BB-BF01-AEC1B0079541&k=70f9f0f3f9dc4b7dfa0ac417aa46d2e33743e1c2c4b2c69fc836dfd307ff82d9"]];
+    
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TTBrowser *browser, NSUInteger idx, BOOL *stop) {
         [browser loadTabs];
         [browser loadBrowserInfo];
@@ -122,6 +116,24 @@ static MWImagePool *sharedImagePool;
     }];
     
     [self.window makeKeyAndVisible];
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url;
+{
+    if (!url) {
+        return NO;
+    }
+    
+    TTBrowser *newBrowser = [[TTBrowser alloc] init];
+    if ([newBrowser setRegistrationUrl:url]) {
+        [newBrowser claimClient];
+        [browserRepresenations addObject:newBrowser];
+        
+        [newBrowser loadBrowserInfo];
+        [newBrowser loadTabs];
+    }
+    
     return YES;
 }
 

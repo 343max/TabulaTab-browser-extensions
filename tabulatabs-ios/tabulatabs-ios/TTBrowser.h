@@ -16,17 +16,15 @@
 
 @property (strong, nonatomic) NSString *userId;
 @property (strong, nonatomic) NSString *clientId;
-@property (strong, nonatomic) NSString *encryptionPassword;
 
 @property (readonly) BOOL browserInfoLoaded;
 
 @property (strong, nonatomic) NSArray *tabs;
 
-- (id)initWithLabel:(NSString*)l userId:(NSString*)uid clientId:(NSString*)cid encryptionPassword:(NSString*)epwd;
-- (BOOL)setRegistrationUrl:(NSString *)urlString;
+- (BOOL)setRegistrationUrl:(NSURL *)url;
 - (void)claimClient;
 - (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *data))didFinishLoadingBlock;
-- (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *decryptedString))didDecryptDataBlock;
+- (id)decrypt:(NSDictionary *)encrypted;
 - (NSData *)buildQueryStringFromParameters:(NSDictionary *)parameters;
 - (NSMutableDictionary *)parametersForAction:(NSString *)action;
 - (void)loadBrowserInfo;

@@ -10,14 +10,26 @@
 #import "MWURLConnection.h"
 #import "MWJavaScriptQueue.h"
 #import "NSObject+SBJson.h"
+#import "NSData-hex.h"
+#import "NSData-AES.h"
+#import "NSData+Base64.h"
 #import "TTTab.h"
+
+@interface TTBrowser () {
+@private
+    NSData *encryptionKey;
+}
+
+@end
+
 
 static MWJavaScriptQueue *javaScriptClientQueue;
 
 @implementation TTBrowser
 
 @synthesize label, iconId, browserInfoLoaded;
-@synthesize userId, clientId, encryptionPassword;
+@synthesize userId;
+@synthesize clientId;
 @synthesize tabs;
 
 - (NSDictionary *)parseQueryString:(NSString *)query
@@ -49,20 +61,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     return self;
 }
 
-- (id)initWithLabel:(NSString*)l userId:(NSString*)uid clientId:(NSString*)cid encryptionPassword:(NSString*)epwd
-{
-    self = [self init];
-    
-    if (self) {
-        self.label = l;
-        self.userId = uid;
-        self.clientId = cid;
-        self.encryptionPassword = epwd;
-    }
-    
-    return self;
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [self init];
@@ -73,7 +71,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
         
         self.userId = [aDecoder decodeObjectForKey:@"userId"];
         self.clientId = [aDecoder decodeObjectForKey:@"clientId"];
-        self.encryptionPassword = [aDecoder decodeObjectForKey:@"encryptionPassword"];
+        encryptionKey = [aDecoder decodeObjectForKey:@"encryptionKey"];
         
         browserInfoLoaded = [aDecoder decodeBoolForKey:@"browserInfoLoaded"];
         
@@ -83,13 +81,11 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     return self;
 }
 
-- (BOOL)setRegistrationUrl:(NSString *)urlString
+- (BOOL)setRegistrationUrl:(NSURL *)url
 {
     browserInfoLoaded = NO;
     
     self.label = NSLocalizedString(@"Registering your browser…", @"Registering your browser…");
-    
-    NSURL *url = [NSURL URLWithString:urlString];
     
     if (![url.scheme isEqual:@"tabulatabs"]) {
         return NO;
@@ -103,9 +99,11 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
     self.userId = [query objectForKey:@"uid"];
     self.clientId = [query objectForKey:@"cid"];
-    self.encryptionPassword = [query objectForKey:@"p"];
+    NSString *hexKey = [query objectForKey:@"k"];
+    if ([hexKey length] != 64) return NO;
+    encryptionKey = [NSData dataWithHexString:hexKey];
     
-    if ((!self.userId) | (!self.clientId) | (!self.encryptionPassword))
+    if ((!self.userId) | (!self.clientId) | (!hexKey))
         return NO;
     
     return YES;
@@ -133,10 +131,10 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *data))didFinishLoadingBlock
 {
-    /*NSLog(@"postToApi:");
+    NSLog(@"postToApi:");
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
         NSLog(@"%@=%@", key, value);
-    }];*/
+    }];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://apiv0.tabulatabs.com/"]];
@@ -156,30 +154,40 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     return [[NSMutableDictionary alloc] initWithObjectsAndKeys:self.userId, @"userId", self.clientId, @"clientId", action, @"action", nil];
 }
 
-- (void)getValueForKey:(NSString *)key withDidFinishLoadingBlock:(void(^)(NSString *))didFinishLoadingBlock
+- (void)getObjectForKey:(NSString *)key withDidFinishLoadingBlock:(void(^)(id))didFinishLoadingBlock
 {
     NSMutableDictionary *parameters = [self parametersForAction:@"get"];
     [parameters setObject:key forKey:@"key"];
     
-    __block TTBrowser *blockSelf = self;
-    
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *data) {
-        NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [blockSelf decryptAssynchronly:dataString didDecryptDataBlock:didFinishLoadingBlock];
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSDictionary *response = [json JSONValue];
+        
+        if ([[response objectForKey:@"response"] isEqualToString:@"ok"]) {
+            NSLog(@"data: %@", [response objectForKey:@"data"]);
+            didFinishLoadingBlock([self decrypt:[response objectForKey:@"data"]]);
+        } else {
+            NSLog(@"something went wrong when trying to fetch object for key %@: %@", key, [response objectForKey:@"error"]);
+            return;
+            didFinishLoadingBlock(nil);
+        }
+        
     }];
 }
 
-- (void)getObjectForKey:(NSString *)key withDidFinishLoadingBlock:(void(^)(id))didFinishLoadingBlock
+- (id)decrypt:(NSDictionary *)encrypted;
 {
-    [self getValueForKey:key withDidFinishLoadingBlock:^(NSString *data) {
-        didFinishLoadingBlock([data JSONValue]);
-    }];
-}
-
-- (void)decryptAssynchronly:(NSString*)encryptedData didDecryptDataBlock:(void(^)(NSString *decryptedString))didDecryptDataBlock
-{
-    NSString *jsonValue = [[NSArray arrayWithObjects:self.encryptionPassword, encryptedData, nil] JSONRepresentation];
-    [javaScriptClientQueue executeJavaScriptAsynchronly:[NSString stringWithFormat:@"decrypt(%@);", jsonValue] executionFinished:didDecryptDataBlock];
+    NSData *iv = [NSData dataWithHexString:[encrypted objectForKey:@"iv"]];
+    NSData *encryptedData = [NSData dataFromBase64String:[encrypted objectForKey:@"ic"]];
+    
+    NSData *unencryptedData = [encryptedData AES256DecryptWithKey:encryptionKey iv:iv];
+    NSString *unencryptedJson = [[NSString alloc] initWithData:unencryptedData encoding:NSUTF8StringEncoding];
+    
+    id unencryptedObject = [unencryptedJson JSONValue];
+    if (unencryptedObject == nil) {
+        NSLog(@"JSON could not be parsed: %@", unencryptedJson);
+    }
+    return unencryptedObject;
 }
 
 - (void)loadBrowserInfo
@@ -197,8 +205,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 {
     NSMutableDictionary *parameters = [self parametersForAction:@"loadTabs"];
     
-    __block TTBrowser *blockSelf = self;
-    
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *responseData) {
         NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         NSDictionary *responseDict = [responseString JSONValue];
@@ -207,20 +213,14 @@ static MWJavaScriptQueue *javaScriptClientQueue;
         
         NSMutableArray *newTabs = [[NSMutableArray alloc] init];
         
-        for (id tabId in encryptedTabs) {
-            NSString *encryptedTab = [encryptedTabs objectForKey:tabId];
+        for (NSString* tabId in encryptedTabs) {
+            NSDictionary *encryptedTab = [encryptedTabs objectForKey:tabId];
+            NSDictionary *tabDictionary = [self decrypt:encryptedTab];
             
-            [blockSelf decryptAssynchronly:encryptedTab didDecryptDataBlock:^(NSString *tabString) {
-                NSDictionary *tabDictionary = [tabString JSONValue];
-                [newTabs addObject:[[TTTab alloc] initWithDictionary:tabDictionary]];
-                
-                if (newTabs.count == encryptedTabs.count) {
-                    self.tabs = [NSArray arrayWithArray:newTabs];
-                    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self]];
-                }
-            }];
-            
+            [newTabs addObject:[[TTTab alloc] initWithDictionary:tabDictionary]];            
         }
+        self.tabs = [NSArray arrayWithArray:newTabs];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self]];
     }];
     
 }
@@ -267,7 +267,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     [aCoder encodeObject:self.iconId forKey:@"iconId"];
     [aCoder encodeObject:self.userId forKey:@"userId"];
     [aCoder encodeObject:self.clientId forKey:@"clientId"];
-    [aCoder encodeObject:self.encryptionPassword forKey:@"encryptionPassword"];
+    [aCoder encodeObject:encryptionKey forKey:@"encryptionKey"];
     
     [aCoder encodeBool:self.browserInfoLoaded forKey:@"browserInfoLoaded"];
     

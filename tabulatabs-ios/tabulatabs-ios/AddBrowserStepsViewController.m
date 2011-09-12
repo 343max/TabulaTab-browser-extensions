@@ -57,12 +57,13 @@
     id<NSFastEnumeration> results = [info objectForKey:ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
    
+    
     for (symbol in results)
         break;
     
     TTBrowser *browser = [[TTBrowser alloc] init];
     
-    if ([browser setRegistrationUrl:symbol.data]) {
+    if ([browser setRegistrationUrl:[NSURL URLWithString:symbol.data]]) {
         [browser claimClient];
         
         [self.openerViewController dismissModalViewControllerAnimated:YES];

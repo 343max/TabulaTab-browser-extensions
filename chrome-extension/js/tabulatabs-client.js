@@ -22,6 +22,10 @@ function TabulatabsClient(clientId) {
 		return generateRandomByteArray(32);
 	};
 
+	var generateHexKey = function() {
+		return GibberishAES.a2h(generateKey());
+	}
+
 	var generateIv = function() {
 		return generateRandomByteArray(16);
 	}
@@ -46,7 +50,7 @@ function TabulatabsClient(clientId) {
 		}, callback, 'json');
 	};
 
-	var key = getOption('key', generateKey());
+	var key = GibberishAES.h2a(getOption('key', generateHexKey()));
 	var userId = getOption('userId', null);
 	var clientId = getOption('clientId', null);
 	var registeredClients = getOption('registeredClients', []);
@@ -61,8 +65,8 @@ function TabulatabsClient(clientId) {
 	}
 
 	var encrypt = function(payload) {
-		iv = generateIv();
-		ic = GibberishAES.Base64.encode(GibberishAES.rawEncrypt(GibberishAES.s2a(JSON.stringify(payload)), key, iv));
+		var iv = generateIv();
+		var ic = GibberishAES.Base64.encode(GibberishAES.rawEncrypt(GibberishAES.s2a(JSON.stringify(payload)), key, iv));
 		return {iv: GibberishAES.a2h(iv), ic: ic};
 	};
 
@@ -77,7 +81,7 @@ function TabulatabsClient(clientId) {
 
 		$.each(tabs, function(id, tab) {
 			encryptedTabs[id] = encrypt(tab);
-			console.log(encryptedTabs[id]);
+			console.log(id, encryptedTabs[id]);
 		});
 
 		$.post(serverPath, {
@@ -116,7 +120,9 @@ function TabulatabsClient(clientId) {
 
 	this.clientRegistrationUrl = function() {
 		var newClientId = randomUUID();
-		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&p=' + GibberishAES.Base64.encode(key);
+		console.dir(key);
+		console.dir(GibberishAES.a2h(key));
+		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&k=' + GibberishAES.a2h(key);
 		registerClient(userId, newClientId);
 		
 		console.log(url);
@@ -139,7 +145,7 @@ function TabulatabsClient(clientId) {
 	this.putObjectForKey = function(key, value, callback) {
 		if (!callback) callback = function(data) {};
 		
-		encryptedValue = encrypt(value);
+		encryptedValue = JSON.stringify(encrypt(value));
 
 		$.post(serverPath, {
 			'userId': userId,

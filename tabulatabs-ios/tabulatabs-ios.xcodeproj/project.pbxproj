@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		501A847013C7284100EE12DE /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A846E13C7284100EE12DE /* paper.png */; };
 		501A847313C7284A00EE12DE /* paper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A847213C7284A00EE12DE /* paper@2x.png */; };
-		50364B2E13B9E1D60003F9A4 /* Base64.js in Resources */ = {isa = PBXBuildFile; fileRef = 509108C113B36EBD00938AE6 /* Base64.js */; };
-		50364B2F13B9E1D60003F9A4 /* sjcl.js in Resources */ = {isa = PBXBuildFile; fileRef = 509108C413B36EBD00938AE6 /* sjcl.js */; };
 		50364B3713BA14880003F9A4 /* TTTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3613BA14870003F9A4 /* TTTab.m */; };
 		50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */; };
 		50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */; };
@@ -73,6 +71,9 @@
 		509108A513B3616A00938AE6 /* tabulatabs_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */; };
 		509785A814078DAB00535B55 /* cellShadowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 509785A614078DAB00535B55 /* cellShadowLeft@2x.png */; };
 		509785A914078DAB00535B55 /* cellShadowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 509785A714078DAB00535B55 /* cellShadowRight@2x.png */; };
+		509CC2FD141A52DD00E5011D /* NSData-AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 509CC2FC141A52DD00E5011D /* NSData-AES.m */; };
+		509CC300141A533400E5011D /* NSData-hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 509CC2FF141A533400E5011D /* NSData-hex.m */; };
+		509CC303141A556900E5011D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 509CC302141A556900E5011D /* NSData+Base64.m */; };
 		50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E5464D13C629DA00DC5985 /* TabActionController.m */; };
 		50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E6F66713C74033009BB757 /* ReadabilityWebView.m */; };
 		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
@@ -200,15 +201,18 @@
 		509108A013B3616A00938AE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		509108A213B3616A00938AE6 /* tabulatabs_iosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tabulatabs_iosTests.h; sourceTree = "<group>"; };
 		509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabulatabs_iosTests.m; sourceTree = "<group>"; };
-		509108C113B36EBD00938AE6 /* Base64.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Base64.js; sourceTree = "<group>"; };
 		509108C213B36EBD00938AE6 /* jquery-1.5.2.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "jquery-1.5.2.min.js"; sourceTree = "<group>"; };
 		509108C313B36EBD00938AE6 /* qrCode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = qrCode.js; sourceTree = "<group>"; };
-		509108C413B36EBD00938AE6 /* sjcl.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sjcl.js; sourceTree = "<group>"; };
-		509108C513B36EBD00938AE6 /* tabulatabs-client.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "tabulatabs-client.js"; sourceTree = "<group>"; };
 		509108C613B36EBD00938AE6 /* uuid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = uuid.js; sourceTree = "<group>"; };
 		509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = webtoolkit.sha1.js; sourceTree = "<group>"; };
 		509785A614078DAB00535B55 /* cellShadowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellShadowLeft@2x.png"; sourceTree = "<group>"; };
 		509785A714078DAB00535B55 /* cellShadowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellShadowRight@2x.png"; sourceTree = "<group>"; };
+		509CC2FB141A52DD00E5011D /* NSData-AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-AES.h"; sourceTree = "<group>"; };
+		509CC2FC141A52DD00E5011D /* NSData-AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-AES.m"; sourceTree = "<group>"; };
+		509CC2FE141A533400E5011D /* NSData-hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-hex.h"; sourceTree = "<group>"; };
+		509CC2FF141A533400E5011D /* NSData-hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-hex.m"; sourceTree = "<group>"; };
+		509CC301141A556800E5011D /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		509CC302141A556900E5011D /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		50E5464C13C629DA00DC5985 /* TabActionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabActionController.h; sourceTree = "<group>"; };
 		50E5464D13C629DA00DC5985 /* TabActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabActionController.m; sourceTree = "<group>"; };
 		50E6F66613C74033009BB757 /* ReadabilityWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadabilityWebView.h; sourceTree = "<group>"; };
@@ -338,9 +342,15 @@
 		50498F7113BB8882006EBDDA /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				509CC301141A556800E5011D /* NSData+Base64.h */,
+				509CC302141A556900E5011D /* NSData+Base64.m */,
+				509CC2FB141A52DD00E5011D /* NSData-AES.h */,
+				509CC2FC141A52DD00E5011D /* NSData-AES.m */,
 				507E53A313BB9C1D00CEB2A1 /* OHAttributedLabel */,
 				5041AD6F13B8EC6500586862 /* JSON */,
 				5088E30813B4E48A00D12E49 /* ZBarSDK */,
+				509CC2FE141A533400E5011D /* NSData-hex.h */,
+				509CC2FF141A533400E5011D /* NSData-hex.m */,
 			);
 			name = "External Frameworks";
 			sourceTree = "<group>";
@@ -518,11 +528,8 @@
 		509108C013B36EBD00938AE6 /* js */ = {
 			isa = PBXGroup;
 			children = (
-				509108C113B36EBD00938AE6 /* Base64.js */,
 				509108C213B36EBD00938AE6 /* jquery-1.5.2.min.js */,
 				509108C313B36EBD00938AE6 /* qrCode.js */,
-				509108C413B36EBD00938AE6 /* sjcl.js */,
-				509108C513B36EBD00938AE6 /* tabulatabs-client.js */,
 				509108C613B36EBD00938AE6 /* uuid.js */,
 				509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */,
 			);
@@ -638,8 +645,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50364B2E13B9E1D60003F9A4 /* Base64.js in Resources */,
-				50364B2F13B9E1D60003F9A4 /* sjcl.js in Resources */,
 				5091088113B3616900938AE6 /* InfoPlist.strings in Resources */,
 				506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */,
 				5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */,
@@ -698,7 +703,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -r ../chrome-extension/js tabulatabs-ios/htmlclient/";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -737,6 +742,9 @@
 				50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */,
 				50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */,
 				50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */,
+				509CC2FD141A52DD00E5011D /* NSData-AES.m in Sources */,
+				509CC300141A533400E5011D /* NSData-hex.m in Sources */,
+				509CC303141A556900E5011D /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

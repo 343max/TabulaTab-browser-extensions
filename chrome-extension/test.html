@@ -19,7 +19,8 @@ var tabulatabs = new TabulatabsClient('Test');
 
 var encrypted = tabulatabs.encrypt({message: 'Hello', recipient: 'world'});
 console.dir(encrypted);
-
+xxx = GibberishAES.Base64.encode(GibberishAES.Base64.decode(encrypted.ic));
+console.dir(GibberishAES.Base64.decode(encrypted.ic));
 console.dir(tabulatabs.decrypt(encrypted));
 
 	</script>
