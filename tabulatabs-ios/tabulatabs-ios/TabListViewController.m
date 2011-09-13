@@ -6,13 +6,13 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TabChooserViewController.h"
+#import "TabListViewController.h"
 #import "TTTab.h"
-#import "BrowserViewController.h"
-#import "TabChooserCell.h"
+#import "WebViewViewController.h"
+#import "TabViewCell.h"
 #import "Helpers.h"
 
-@implementation TabChooserViewController
+@implementation TabListViewController
 
 @synthesize browser;
 @synthesize searchResults;
@@ -48,7 +48,7 @@
 
 - (void)openPage:(TTTab *)tab;
 {
-    BrowserViewController *browserView = [[BrowserViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
+    WebViewViewController *browserView = [[WebViewViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
     browserView.browserTab = tab;
     
     [self.navigationController pushViewController:browserView animated:YES]; 
@@ -120,9 +120,9 @@
 {
     static NSString *CellIdentifier = @"TabCell";
     
-    TabChooserCell *cell = (TabChooserCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    TabViewCell *cell = (TabViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[TabChooserCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
+        cell = [[TabViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
     TTTab *tab = [self.searchResults objectAtIndex:indexPath.row];
@@ -218,7 +218,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if (scrollView == self.tableView) {
-        [self.tableView.visibleCells enumerateObjectsUsingBlock:^(TabChooserCell *cell, NSUInteger idx, BOOL *stop) {
+        [self.tableView.visibleCells enumerateObjectsUsingBlock:^(TabViewCell *cell, NSUInteger idx, BOOL *stop) {
             [cell setBackgroundViewVisible:NO animated:YES];
         }];
     }

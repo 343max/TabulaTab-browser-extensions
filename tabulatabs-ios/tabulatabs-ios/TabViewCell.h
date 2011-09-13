@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TTTab.h"
 
-@interface TabChooserCell : UITableViewCell <UIScrollViewDelegate>
+@interface TabViewCell : UITableViewCell <UIScrollViewDelegate>
 
 - (void)setBackgroundViewVisible:(BOOL)visible animated:(BOOL)animated;
 

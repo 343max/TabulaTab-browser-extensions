@@ -6,17 +6,17 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "BrowserChooserViewController.h"
+#import "BrowserListViewController.h"
 #import "TTBrowser.h"
 #import "TabulatabsApp.h"
 #import "AddBrowserStepsViewController.h"
-#import "TabChooserViewController.h"
+#import "TabListViewController.h"
 #import "TabActionController.h"
 
 const int BrowserChooserViewControllerBrowserSelectionSection = 0;
 const int BrowserChooserViewControllerAddBrowserSection = 1;
 
-@implementation BrowserChooserViewController
+@implementation BrowserListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -181,7 +181,7 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
         [self presentModalViewController:navigationController animated:YES];
     }
     else if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection) {
-        TabChooserViewController *tabChooser = [[TabChooserViewController alloc] initWithNibName:@"TabChooserViewController" bundle:nil];
+        TabListViewController *tabChooser = [[TabListViewController alloc] initWithNibName:@"TabChooserViewController" bundle:nil];
         tabChooser.browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:indexPath.row];
         
         [self.navigationController pushViewController:tabChooser animated:YES];

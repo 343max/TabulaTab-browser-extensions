@@ -10,7 +10,7 @@
 #import "TTTab.h"
 #import "TTBrowser.h"
 
-@interface TabChooserViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
+@interface TabListViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 - (void)openPage:(TTTab *)tab;
 

@@ -6,11 +6,11 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "BrowserViewController.h"
+#import "WebViewViewController.h"
 #import "TabulatabsApp.h"
 #import "TabActionController.h"
 
-@implementation BrowserViewController
+@implementation WebViewViewController
 
 @synthesize browserTab;
 @synthesize mainWebView, toolbar;

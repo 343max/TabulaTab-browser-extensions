@@ -10,10 +10,10 @@
 		501A847013C7284100EE12DE /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A846E13C7284100EE12DE /* paper.png */; };
 		501A847313C7284A00EE12DE /* paper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A847213C7284A00EE12DE /* paper@2x.png */; };
 		50364B3713BA14880003F9A4 /* TTTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3613BA14870003F9A4 /* TTTab.m */; };
-		50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */; };
-		50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */; };
-		50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B4213BA2C000003F9A4 /* BrowserViewController.m */; };
-		50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B4313BA2C010003F9A4 /* BrowserViewController.xib */; };
+		50364B3F13BA202D0003F9A4 /* TabListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3D13BA202C0003F9A4 /* TabListViewController.m */; };
+		50364B4013BA202D0003F9A4 /* TabListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B3E13BA202D0003F9A4 /* TabListViewController.xib */; };
+		50364B4413BA2C020003F9A4 /* WebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B4213BA2C000003F9A4 /* WebViewViewController.m */; };
+		50364B4513BA2C020003F9A4 /* WebViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B4313BA2C010003F9A4 /* WebViewViewController.xib */; };
 		5041AD8913B8EC6500586862 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD7113B8EC6500586862 /* NSObject+SBJson.m */; };
 		5041AD8A13B8EC6500586862 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD7413B8EC6500586862 /* SBJsonParser.m */; };
 		5041AD8B13B8EC6500586862 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5041AD7613B8EC6500586862 /* SBJsonStreamParser.m */; };
@@ -32,14 +32,14 @@
 		50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50537C1B13C6FCB500F9E309 /* ReadabilityViewController.m */; };
 		50537C1E13C6FCB500F9E309 /* ReadabilityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50537C1C13C6FCB500F9E309 /* ReadabilityViewController.xib */; };
 		506AE72D13BB338600134EF3 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 506AE72B13BB338500134EF3 /* Helpers.m */; };
-		506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */; };
-		506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */; };
+		506BB25513B3920800B2CE85 /* BrowserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserListViewController.m */; };
+		506BB25613B3920800B2CE85 /* BrowserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserListViewController.xib */; };
 		506BB26113B399F200B2CE85 /* TTBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TTBrowser.m */; };
 		507A4B4013C75E3100C2B281 /* iphone.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3E13C75E3100C2B281 /* iphone.css */; };
 		507A4B4113C75E3100C2B281 /* readability.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3F13C75E3100C2B281 /* readability.css */; };
 		507A4B4613C7619600C2B281 /* injectReadability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
 		507A4B4713C7619900C2B281 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4213C75E4500C2B281 /* readability.js */; };
-		507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */; };
+		507E53A613BB9C5600CEB2A1 /* TabViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A513BB9C5600CEB2A1 /* TabViewCell.m */; };
 		507E53AF13BBA15300CEB2A1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507E53AE13BBA15300CEB2A1 /* CoreText.framework */; };
 		507E53BF13BC801300CEB2A1 /* MWImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BE13BC801200CEB2A1 /* MWImagePool.m */; };
 		5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */; };
@@ -93,12 +93,12 @@
 		501A847213C7284A00EE12DE /* paper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paper@2x.png"; sourceTree = "<group>"; };
 		50364B3513BA14870003F9A4 /* TTTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTab.h; sourceTree = "<group>"; };
 		50364B3613BA14870003F9A4 /* TTTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTab.m; sourceTree = "<group>"; };
-		50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserViewController.h; sourceTree = "<group>"; };
-		50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserViewController.m; sourceTree = "<group>"; };
-		50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabChooserViewController.xib; sourceTree = "<group>"; };
-		50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserViewController.h; sourceTree = "<group>"; };
-		50364B4213BA2C000003F9A4 /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
-		50364B4313BA2C010003F9A4 /* BrowserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserViewController.xib; sourceTree = "<group>"; };
+		50364B3C13BA202C0003F9A4 /* TabListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TabListViewController.h; sourceTree = "<group>"; };
+		50364B3D13BA202C0003F9A4 /* TabListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabListViewController.m; sourceTree = "<group>"; };
+		50364B3E13BA202D0003F9A4 /* TabListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabListViewController.xib; sourceTree = "<group>"; };
+		50364B4113BA2BFF0003F9A4 /* WebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = WebViewViewController.h; sourceTree = "<group>"; };
+		50364B4213BA2C000003F9A4 /* WebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewViewController.m; sourceTree = "<group>"; };
+		50364B4313BA2C010003F9A4 /* WebViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewViewController.xib; sourceTree = "<group>"; };
 		5041AD7013B8EC6500586862 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		5041AD7113B8EC6500586862 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		5041AD7213B8EC6500586862 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -132,17 +132,17 @@
 		50537C1C13C6FCB500F9E309 /* ReadabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadabilityViewController.xib; sourceTree = "<group>"; };
 		506AE72B13BB338500134EF3 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
 		506AE72C13BB338500134EF3 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
-		506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserChooserViewController.h; sourceTree = "<group>"; };
-		506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserChooserViewController.m; sourceTree = "<group>"; };
-		506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserChooserViewController.xib; sourceTree = "<group>"; };
+		506BB25213B3920800B2CE85 /* BrowserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BrowserListViewController.h; sourceTree = "<group>"; };
+		506BB25313B3920800B2CE85 /* BrowserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserListViewController.m; sourceTree = "<group>"; };
+		506BB25413B3920800B2CE85 /* BrowserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserListViewController.xib; sourceTree = "<group>"; };
 		506BB25F13B399F200B2CE85 /* TTBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBrowser.h; sourceTree = "<group>"; };
 		506BB26013B399F200B2CE85 /* TTBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBrowser.m; sourceTree = "<group>"; };
 		507A4B3E13C75E3100C2B281 /* iphone.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = iphone.css; sourceTree = "<group>"; };
 		507A4B3F13C75E3100C2B281 /* readability.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = readability.css; sourceTree = "<group>"; };
 		507A4B4213C75E4500C2B281 /* readability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = readability.js; sourceTree = "<group>"; };
 		507A4B4413C75F1F00C2B281 /* injectReadability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectReadability.js; sourceTree = "<group>"; };
-		507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserCell.h; sourceTree = "<group>"; };
-		507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserCell.m; sourceTree = "<group>"; };
+		507E53A413BB9C5600CEB2A1 /* TabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TabViewCell.h; sourceTree = "<group>"; };
+		507E53A513BB9C5600CEB2A1 /* TabViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewCell.m; sourceTree = "<group>"; };
 		507E53AE13BBA15300CEB2A1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		507E53BD13BC801200CEB2A1 /* MWImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWImagePool.h; sourceTree = "<group>"; };
 		507E53BE13BC801200CEB2A1 /* MWImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWImagePool.m; sourceTree = "<group>"; };
@@ -284,12 +284,12 @@
 				5088E2FF13B4A4BB00D12E49 /* AddBrowserStepsViewController.h */,
 				5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */,
 				5088E30113B4A4BB00D12E49 /* AddBrowserStepsViewController.xib */,
-				506BB25213B3920800B2CE85 /* BrowserChooserViewController.h */,
-				506BB25313B3920800B2CE85 /* BrowserChooserViewController.m */,
-				506BB25413B3920800B2CE85 /* BrowserChooserViewController.xib */,
-				50364B4113BA2BFF0003F9A4 /* BrowserViewController.h */,
-				50364B4213BA2C000003F9A4 /* BrowserViewController.m */,
-				50364B4313BA2C010003F9A4 /* BrowserViewController.xib */,
+				506BB25213B3920800B2CE85 /* BrowserListViewController.h */,
+				506BB25313B3920800B2CE85 /* BrowserListViewController.m */,
+				506BB25413B3920800B2CE85 /* BrowserListViewController.xib */,
+				50364B4113BA2BFF0003F9A4 /* WebViewViewController.h */,
+				50364B4213BA2C000003F9A4 /* WebViewViewController.m */,
+				50364B4313BA2C010003F9A4 /* WebViewViewController.xib */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -503,11 +503,11 @@
 		50CDA7E913C34CF30079272D /* TabChooser */ = {
 			isa = PBXGroup;
 			children = (
-				507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */,
-				507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */,
-				50364B3C13BA202C0003F9A4 /* TabChooserViewController.h */,
-				50364B3D13BA202C0003F9A4 /* TabChooserViewController.m */,
-				50364B3E13BA202D0003F9A4 /* TabChooserViewController.xib */,
+				507E53A413BB9C5600CEB2A1 /* TabViewCell.h */,
+				507E53A513BB9C5600CEB2A1 /* TabViewCell.m */,
+				50364B3C13BA202C0003F9A4 /* TabListViewController.h */,
+				50364B3D13BA202C0003F9A4 /* TabListViewController.m */,
+				50364B3E13BA202D0003F9A4 /* TabListViewController.xib */,
 			);
 			name = TabChooser;
 			sourceTree = "<group>";
@@ -600,14 +600,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5091088113B3616900938AE6 /* InfoPlist.strings in Resources */,
-				506BB25613B3920800B2CE85 /* BrowserChooserViewController.xib in Resources */,
+				506BB25613B3920800B2CE85 /* BrowserListViewController.xib in Resources */,
 				5088E30313B4A4BB00D12E49 /* AddBrowserStepsViewController.xib in Resources */,
 				5088E32613B4E48B00D12E49 /* zbar-back.png in Resources */,
 				5088E32713B4E48B00D12E49 /* zbar-help.html in Resources */,
 				5088E32813B4E48B00D12E49 /* zbar-helpicons.png in Resources */,
 				5088E32913B4E48B00D12E49 /* zbar-samples.png in Resources */,
-				50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */,
-				50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */,
+				50364B4013BA202D0003F9A4 /* TabListViewController.xib in Resources */,
+				50364B4513BA2C020003F9A4 /* WebViewViewController.xib in Resources */,
 				50537C1E13C6FCB500F9E309 /* ReadabilityViewController.xib in Resources */,
 				501A847013C7284100EE12DE /* paper.png in Resources */,
 				501A847313C7284A00EE12DE /* paper@2x.png in Resources */,
@@ -667,7 +667,7 @@
 			files = (
 				5091088313B3616900938AE6 /* main.m in Sources */,
 				5091088713B3616A00938AE6 /* TabulatabsApp.m in Sources */,
-				506BB25513B3920800B2CE85 /* BrowserChooserViewController.m in Sources */,
+				506BB25513B3920800B2CE85 /* BrowserListViewController.m in Sources */,
 				506BB26113B399F200B2CE85 /* TTBrowser.m in Sources */,
 				5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */,
 				50F7835813B8D2B40017FB9D /* MWURLConnection.m in Sources */,
@@ -685,10 +685,10 @@
 				5041AD9313B8EC6500586862 /* SBJsonUTF8Stream.m in Sources */,
 				5041AD9413B8EC6500586862 /* SBJsonWriter.m in Sources */,
 				50364B3713BA14880003F9A4 /* TTTab.m in Sources */,
-				50364B3F13BA202D0003F9A4 /* TabChooserViewController.m in Sources */,
-				50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */,
+				50364B3F13BA202D0003F9A4 /* TabListViewController.m in Sources */,
+				50364B4413BA2C020003F9A4 /* WebViewViewController.m in Sources */,
 				506AE72D13BB338600134EF3 /* Helpers.m in Sources */,
-				507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */,
+				507E53A613BB9C5600CEB2A1 /* TabViewCell.m in Sources */,
 				507E53BF13BC801300CEB2A1 /* MWImagePool.m in Sources */,
 				50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */,
 				50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */,

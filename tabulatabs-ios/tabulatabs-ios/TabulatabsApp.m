@@ -8,7 +8,7 @@
 
 #import "TabulatabsApp.h"
 
-#import "BrowserChooserViewController.h"
+#import "BrowserListViewController.h"
 #import "TTBrowser.h"
 #import "MWImagePool.h"
 #import "Helpers.h"
@@ -98,7 +98,7 @@ static MWImagePool *sharedImagePool;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    BrowserChooserViewController *viewController = [[BrowserChooserViewController alloc] initWithNibName:@"BrowserChooserViewController" bundle:nil];
+    BrowserListViewController *viewController = [[BrowserListViewController alloc] initWithNibName:@"BrowserChooserViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.window.rootViewController = self.navigationController;
     

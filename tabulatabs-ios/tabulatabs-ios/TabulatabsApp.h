@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MWImagePool.h"
 
-@class BrowserChooserViewController;
+@class BrowserListViewController;
 
 @interface TabulatabsApp : UIResponder <UIApplicationDelegate>
 {

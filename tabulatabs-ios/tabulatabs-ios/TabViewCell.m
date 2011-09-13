@@ -9,9 +9,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "TabulatabsApp.h"
-#import "TabChooserViewController.h"
+#import "TabListViewController.h"
 
-#import "TabChooserCell.h"
+#import "TabViewCell.h"
 
 
 
@@ -20,7 +20,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 
 
-@interface TabChooserCell () {
+@interface TabViewCell () {
 @private
     UIScrollView *scrollView;
 
@@ -52,7 +52,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 
 
-@implementation TabChooserCell
+@implementation TabViewCell
 
 @synthesize tab;
 @synthesize backgroundViewVisible;
@@ -170,7 +170,7 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     
     UITableView *tableview = (UITableView *)self.superview;
     
-    [tableview.visibleCells enumerateObjectsUsingBlock:^(TabChooserCell *cell, NSUInteger idx, BOOL *stop) {
+    [tableview.visibleCells enumerateObjectsUsingBlock:^(TabViewCell *cell, NSUInteger idx, BOOL *stop) {
         if (cell != self) {
             [cell setBackgroundViewVisible:NO animated:YES];
         }

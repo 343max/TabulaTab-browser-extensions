@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TTTab.h"
 
-@interface BrowserViewController : UIViewController <UIWebViewDelegate>
+@interface WebViewViewController : UIViewController <UIWebViewDelegate>
 
 @property (strong) IBOutlet UIWebView *mainWebView;
 @property (strong) IBOutlet UIToolbar *toolbar;
