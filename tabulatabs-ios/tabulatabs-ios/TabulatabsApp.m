@@ -132,6 +132,7 @@ static MWImagePool *sharedImagePool;
         
         [newBrowser loadBrowserInfo];
         [newBrowser loadTabs];
+        [self saveSettings];
     }
     
     return YES;

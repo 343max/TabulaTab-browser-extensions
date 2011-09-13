@@ -102,7 +102,11 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
 
 - (BOOL)containsString:(NSString *)searchString
 {
-    return ([self.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) | ([self.shortDomain rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound);
+    if (searchString) {
+        return ([self.title rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound) | ([self.shortDomain rangeOfString:searchString options:NSCaseInsensitiveSearch].location != NSNotFound);
+    } else {
+        return YES;
+    }
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

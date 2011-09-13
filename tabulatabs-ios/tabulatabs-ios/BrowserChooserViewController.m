@@ -31,10 +31,7 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
@@ -44,15 +41,6 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"updatedBrowserList" object:nil];
-
-    //[TabActionController presentWithReadabilty:[TabulatabsBrowserTab tabWithURL:[NSURL URLWithString:@"http://thedailywtf.com/Articles/Supported-Image-Formats,-The-Dreaded-Zebra,-and-The-Unfix.aspx"]] inViewContoller:self.navigationController];
-    //[TabActionController presentWithReadabilty:[NSURL URLWithString:@"http://www.spiegel.de/politik/ausland/0,1518,773211,00.html"] inViewContoller:self.navigationController];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
@@ -60,9 +48,6 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
     [super viewDidUnload];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
-    
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
