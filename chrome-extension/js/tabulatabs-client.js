@@ -4,9 +4,14 @@ function TabulatabsClient(clientId) {
 	var self = this;
 
 	var getOption = function(varName, defaultValue) {
+
 		if (localStorage.getItem(varName)) {
 			return localStorage.getItem(varName);
 		} else {
+			if (typeof defaultValue == 'function') {
+				defaultValue = defaultValue();
+			}
+			
 			if(defaultValue) localStorage.setItem(varName, defaultValue);
 			return defaultValue;
 		}
@@ -23,7 +28,9 @@ function TabulatabsClient(clientId) {
 	};
 
 	var generateHexKey = function() {
-		return GibberishAES.a2h(generateKey());
+		var key = GibberishAES.a2h(generateKey());
+		console.log('new hex key: ' + key);
+		return key;
 	}
 
 	var generateIv = function() {
@@ -50,7 +57,7 @@ function TabulatabsClient(clientId) {
 		}, callback, 'json');
 	};
 
-	var key = GibberishAES.h2a(getOption('key', generateHexKey()));
+	var key = GibberishAES.h2a(getOption('key', generateHexKey));
 	var userId = getOption('userId', null);
 	var clientId = getOption('clientId', null);
 	var registeredClients = getOption('registeredClients', []);
@@ -66,7 +73,7 @@ function TabulatabsClient(clientId) {
 
 	var encrypt = function(payload) {
 		var iv = generateIv();
-		var ic = GibberishAES.Base64.encode(GibberishAES.rawEncrypt(GibberishAES.s2a(JSON.stringify(payload)), key, iv));
+		var ic = GibberishAES.Base64.encode(GibberishAES.rawEncrypt(GibberishAES.s2a(JSON.stringify(payload)), key, iv), false);
 		return {iv: GibberishAES.a2h(iv), ic: ic};
 	};
 
@@ -81,7 +88,6 @@ function TabulatabsClient(clientId) {
 
 		$.each(tabs, function(id, tab) {
 			encryptedTabs[id] = encrypt(tab);
-			console.log(id, encryptedTabs[id]);
 		});
 
 		$.post(serverPath, {
@@ -120,8 +126,6 @@ function TabulatabsClient(clientId) {
 
 	this.clientRegistrationUrl = function() {
 		var newClientId = randomUUID();
-		console.dir(key);
-		console.dir(GibberishAES.a2h(key));
 		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&k=' + GibberishAES.a2h(key);
 		registerClient(userId, newClientId);
 		
@@ -137,8 +141,8 @@ function TabulatabsClient(clientId) {
 			"clientId": clientId,
 			'action': 'get',
 			'key': key
-		}, function(data) {
-			console.dir(data);
+		}, function(response) {
+			callback(decrypt(response.data));
 		}, 'json');
 	}
 

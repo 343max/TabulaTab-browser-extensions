@@ -77,7 +77,6 @@
 		50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E5464D13C629DA00DC5985 /* TabActionController.m */; };
 		50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E6F66713C74033009BB757 /* ReadabilityWebView.m */; };
 		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
-		50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */ = {isa = PBXBuildFile; fileRef = 50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */; };
 		50F7835813B8D2B40017FB9D /* MWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F7835713B8D2B40017FB9D /* MWURLConnection.m */; };
 /* End PBXBuildFile section */
 
@@ -201,10 +200,6 @@
 		509108A013B3616A00938AE6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		509108A213B3616A00938AE6 /* tabulatabs_iosTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tabulatabs_iosTests.h; sourceTree = "<group>"; };
 		509108A413B3616A00938AE6 /* tabulatabs_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = tabulatabs_iosTests.m; sourceTree = "<group>"; };
-		509108C213B36EBD00938AE6 /* jquery-1.5.2.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "jquery-1.5.2.min.js"; sourceTree = "<group>"; };
-		509108C313B36EBD00938AE6 /* qrCode.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = qrCode.js; sourceTree = "<group>"; };
-		509108C613B36EBD00938AE6 /* uuid.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = uuid.js; sourceTree = "<group>"; };
-		509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = webtoolkit.sha1.js; sourceTree = "<group>"; };
 		509785A614078DAB00535B55 /* cellShadowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellShadowLeft@2x.png"; sourceTree = "<group>"; };
 		509785A714078DAB00535B55 /* cellShadowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cellShadowRight@2x.png"; sourceTree = "<group>"; };
 		509CC2FB141A52DD00E5011D /* NSData-AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-AES.h"; sourceTree = "<group>"; };
@@ -219,7 +214,6 @@
 		50E6F66713C74033009BB757 /* ReadabilityWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadabilityWebView.m; sourceTree = "<group>"; };
 		50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWJavaScriptQueue.h; path = ../MWJavaScriptQueue.h; sourceTree = "<group>"; };
 		50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWJavaScriptQueue.m; path = ../MWJavaScriptQueue.m; sourceTree = "<group>"; };
-		50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = iosJavaScriptIndex.html; sourceTree = "<group>"; };
 		50F7835613B8D2B40017FB9D /* MWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWURLConnection.h; path = ../MWURLConnection.h; sourceTree = "<group>"; };
 		50F7835713B8D2B40017FB9D /* MWURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWURLConnection.m; path = ../MWURLConnection.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -488,12 +482,10 @@
 			isa = PBXGroup;
 			children = (
 				509785A414078CA700535B55 /* Images */,
-				509108AE13B36DD300938AE6 /* htmlclient */,
 				5091087E13B3616900938AE6 /* tabulatabs-ios-Info.plist */,
 				5091087F13B3616900938AE6 /* InfoPlist.strings */,
 				5091088213B3616900938AE6 /* main.m */,
 				5091088413B3616900938AE6 /* tabulatabs-ios-Prefix.pch */,
-				50E70B8113B8E74D008B9B95 /* iosJavaScriptIndex.html */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -515,26 +507,6 @@
 				5091089F13B3616A00938AE6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		509108AE13B36DD300938AE6 /* htmlclient */ = {
-			isa = PBXGroup;
-			children = (
-				509108C013B36EBD00938AE6 /* js */,
-			);
-			path = htmlclient;
-			sourceTree = "<group>";
-		};
-		509108C013B36EBD00938AE6 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				509108C213B36EBD00938AE6 /* jquery-1.5.2.min.js */,
-				509108C313B36EBD00938AE6 /* qrCode.js */,
-				509108C613B36EBD00938AE6 /* uuid.js */,
-				509108C713B36EBD00938AE6 /* webtoolkit.sha1.js */,
-			);
-			name = js;
-			path = "../../../chrome-extension/js";
 			sourceTree = "<group>";
 		};
 		509785A414078CA700535B55 /* Images */ = {
@@ -652,7 +624,6 @@
 				5088E32713B4E48B00D12E49 /* zbar-help.html in Resources */,
 				5088E32813B4E48B00D12E49 /* zbar-helpicons.png in Resources */,
 				5088E32913B4E48B00D12E49 /* zbar-samples.png in Resources */,
-				50E70B8213B8E74D008B9B95 /* iosJavaScriptIndex.html in Resources */,
 				50364B4013BA202D0003F9A4 /* TabChooserViewController.xib in Resources */,
 				50364B4513BA2C020003F9A4 /* BrowserViewController.xib in Resources */,
 				50537C1E13C6FCB500F9E309 /* ReadabilityViewController.xib in Resources */,

@@ -106,7 +106,7 @@ static MWImagePool *sharedImagePool;
     
     [self restoreSettings];
     
-    [self application:application handleOpenURL:[NSURL URLWithString:@"tabulatabs:/register?uid=EBE8421E-9324-4258-A93B-14E33BC167D4&cid=09F4B687-DA01-47BB-BF01-AEC1B0079541&k=70f9f0f3f9dc4b7dfa0ac417aa46d2e33743e1c2c4b2c69fc836dfd307ff82d9"]];
+    //[self application:application handleOpenURL:[NSURL URLWithString:@"tabulatabs:/register?uid=918DB60F-E701-46B2-ACE9-420D9D8781B6&cid=E92DBA6C-0F57-41C1-9FF3-57744CEBAADB&k=086204eed774e9ebcb5ee41332bbe5a8766506df09f83bc4d3d2e05c61b35708"]];
     
     [browserRepresenations enumerateObjectsUsingBlock:^(__strong TTBrowser *browser, NSUInteger idx, BOOL *stop) {
         [browser loadTabs];

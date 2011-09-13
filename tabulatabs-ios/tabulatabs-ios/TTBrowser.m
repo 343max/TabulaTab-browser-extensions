@@ -208,8 +208,7 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     [self postToApi:parameters withDidFinishLoadingBlock:^(NSData *responseData) {
         NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         NSDictionary *responseDict = [responseString JSONValue];
-        NSString *dataString = [responseDict objectForKey:@"data"];
-        NSDictionary *encryptedTabs = [dataString JSONValue];
+        NSDictionary *encryptedTabs = [responseDict objectForKey:@"data"];
         
         NSMutableArray *newTabs = [[NSMutableArray alloc] init];
         

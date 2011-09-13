@@ -854,6 +854,11 @@ var GibberishAES = (function(){
                     b64 += '=';
                 }
             }
+
+			if (withBreaks === false) {
+				return b64;
+			}
+
             // OpenSSL is super particular about line breaks
             broken_b64 = b64.slice(0, 64) + '\n';
             for (i = 1; i < (Math.ceil(b64.length / 64)); i++) {
