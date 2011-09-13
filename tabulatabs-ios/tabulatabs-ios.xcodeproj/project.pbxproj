@@ -40,8 +40,6 @@
 		507A4B4613C7619600C2B281 /* injectReadability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
 		507A4B4713C7619900C2B281 /* readability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4213C75E4500C2B281 /* readability.js */; };
 		507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */; };
-		507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */; };
-		507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */; };
 		507E53AF13BBA15300CEB2A1 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 507E53AE13BBA15300CEB2A1 /* CoreText.framework */; };
 		507E53BF13BC801300CEB2A1 /* MWImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E53BE13BC801200CEB2A1 /* MWImagePool.m */; };
 		5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5088E30013B4A4BB00D12E49 /* AddBrowserStepsViewController.m */; };
@@ -145,10 +143,6 @@
 		507A4B4413C75F1F00C2B281 /* injectReadability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectReadability.js; sourceTree = "<group>"; };
 		507E53A413BB9C5600CEB2A1 /* TabChooserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabChooserCell.h; sourceTree = "<group>"; };
 		507E53A513BB9C5600CEB2A1 /* TabChooserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabChooserCell.m; sourceTree = "<group>"; };
-		507E53A813BBA12100CEB2A1 /* NSAttributedString+Attributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Attributes.h"; sourceTree = "<group>"; };
-		507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Attributes.m"; sourceTree = "<group>"; };
-		507E53AA13BBA12100CEB2A1 /* OHAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OHAttributedLabel.h; sourceTree = "<group>"; };
-		507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OHAttributedLabel.m; sourceTree = "<group>"; };
 		507E53AE13BBA15300CEB2A1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		507E53BD13BC801200CEB2A1 /* MWImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWImagePool.h; sourceTree = "<group>"; };
 		507E53BE13BC801200CEB2A1 /* MWImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWImagePool.m; sourceTree = "<group>"; };
@@ -340,24 +334,12 @@
 				509CC302141A556900E5011D /* NSData+Base64.m */,
 				509CC2FB141A52DD00E5011D /* NSData-AES.h */,
 				509CC2FC141A52DD00E5011D /* NSData-AES.m */,
-				507E53A313BB9C1D00CEB2A1 /* OHAttributedLabel */,
 				5041AD6F13B8EC6500586862 /* JSON */,
 				5088E30813B4E48A00D12E49 /* ZBarSDK */,
 				509CC2FE141A533400E5011D /* NSData-hex.h */,
 				509CC2FF141A533400E5011D /* NSData-hex.m */,
 			);
 			name = "External Frameworks";
-			sourceTree = "<group>";
-		};
-		507E53A313BB9C1D00CEB2A1 /* OHAttributedLabel */ = {
-			isa = PBXGroup;
-			children = (
-				507E53A813BBA12100CEB2A1 /* NSAttributedString+Attributes.h */,
-				507E53A913BBA12100CEB2A1 /* NSAttributedString+Attributes.m */,
-				507E53AA13BBA12100CEB2A1 /* OHAttributedLabel.h */,
-				507E53AB13BBA12100CEB2A1 /* OHAttributedLabel.m */,
-			);
-			name = OHAttributedLabel;
 			sourceTree = "<group>";
 		};
 		5088E30813B4E48A00D12E49 /* ZBarSDK */ = {
@@ -707,8 +689,6 @@
 				50364B4413BA2C020003F9A4 /* BrowserViewController.m in Sources */,
 				506AE72D13BB338600134EF3 /* Helpers.m in Sources */,
 				507E53A613BB9C5600CEB2A1 /* TabChooserCell.m in Sources */,
-				507E53AC13BBA12100CEB2A1 /* NSAttributedString+Attributes.m in Sources */,
-				507E53AD13BBA12100CEB2A1 /* OHAttributedLabel.m in Sources */,
 				507E53BF13BC801300CEB2A1 /* MWImagePool.m in Sources */,
 				50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */,
 				50537C1D13C6FCB500F9E309 /* ReadabilityViewController.m in Sources */,

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OHAttributedLabel.h"
 #import "TTTab.h"
 
 @interface TabChooserCell : UITableViewCell <UIScrollViewDelegate>

@@ -8,8 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "NSAttributedString+Attributes.h"
-
 #import "TabulatabsApp.h"
 #import "TabChooserViewController.h"
 
@@ -38,8 +36,8 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     UIImageView *pageThumbnailView;
     NSURL *favIconURL;
     UIImageView *favIconView;
-    OHAttributedLabel *labelView;
-    OHAttributedLabel *labelViewSelected;
+    UILabel *siteNameLabel;
+    UILabel *articleTitleLabel;
 }
 
 - (void)openPageButtonTaped:(id)sender;
@@ -69,22 +67,9 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     
     [tab loadImages];
     
-    NSString *secondaryLine = ([tab.siteTitle isEqualToString:@""] ? tab.shortDomain : tab.siteTitle);
-    NSString *mainLine = tab.title;
-    
-    NSRange secondaryLineRange = NSMakeRange(0, [secondaryLine length]);
-    NSRange mainLineRange = NSMakeRange([secondaryLine length] + 1, [mainLine length]);
-    
-    NSMutableAttributedString *labelText = [NSMutableAttributedString attributedStringWithString:[NSString stringWithFormat:@"%@\n%@", secondaryLine, mainLine]];
-    [labelText setTextColor:[UIColor darkGrayColor] range:secondaryLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Palatino-Bold" size:16.0] range:mainLineRange];
-    [labelText setFont:[UIFont fontWithName:@"Palatino" size:12.0] range:secondaryLineRange];
-    labelView.attributedText = labelText;
-    
-    NSMutableAttributedString *labelTextSelected = [NSMutableAttributedString attributedStringWithAttributedString:labelText];
-    [labelTextSelected setTextColor:[UIColor whiteColor]];
-    labelViewSelected.attributedText = labelTextSelected;
-    
+    siteNameLabel.text = ([tab.siteTitle isEqualToString:@""] ? tab.shortDomain : tab.siteTitle);
+    articleTitleLabel.text = tab.title;
+        
     favIconView.image = tab.favIconImage;
     pageThumbnailView.image = tab.pageThumbnailImage;
     
@@ -116,13 +101,15 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     markedAsRead = aMarkedAsRead;
     
     if (markedAsRead) {
-        labelView.alpha = 0.3;
+        siteNameLabel.alpha = 0.3;
+        articleTitleLabel.alpha = 0.3;
         favIconView.alpha = 0.3;
         pageThumbnailView.alpha = 0.3;
         tableCellLeftShadowView.alpha = 0.3;
         tableCellRightShadowView.alpha = 0.3;
     } else {
-        labelView.alpha = 1.0;
+        siteNameLabel.alpha = 1.0;
+        articleTitleLabel.alpha = 1.0;
         favIconView.alpha = 1.0;
         pageThumbnailView.alpha = 1.0;
         tableCellLeftShadowView.alpha = 1.0;
@@ -133,17 +120,11 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setHighlighted:highlighted animated:animated];
-    
-    labelView.hidden = highlighted;
-    labelViewSelected.hidden = !highlighted;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
-    labelView.hidden = selected;
-    labelViewSelected.hidden = !selected;
 }
 
 
@@ -240,21 +221,19 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     [view addSubview:tableCellLeftShadowView];
     tableCellRightShadowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cellShadowRight.png"]];
     [view addSubview:tableCellRightShadowView];
-
-    labelView = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
-    labelView.userInteractionEnabled = NO;
-    labelView.automaticallyDetectLinks = NO;
-    labelView.lineBreakMode = UILineBreakModeWordWrap;
-    labelView.opaque = NO;
-    labelView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     
-    [view addSubview:labelView];
+    siteNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    siteNameLabel.textColor = [UIColor darkGrayColor];
+    siteNameLabel.font = [UIFont fontWithName:@"Palatino" size:12.0];
+    //siteNameLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    [view addSubview:siteNameLabel];
     
-    labelViewSelected = [[OHAttributedLabel alloc] initWithFrame:CGRectZero];
-    labelViewSelected.userInteractionEnabled = NO;
-    labelViewSelected.automaticallyDetectLinks = NO;
-    labelViewSelected.lineBreakMode = UILineBreakModeWordWrap;
-    [view addSubview:labelViewSelected];
+    articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    //articleTitleLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+    articleTitleLabel.lineBreakMode = UILineBreakModeTailTruncation;
+    articleTitleLabel.numberOfLines = 0;
+    articleTitleLabel.font = [UIFont fontWithName:@"Palatino" size:16.0];
+    [view addSubview:articleTitleLabel];
     
     favIconView = [[UIImageView alloc] initWithFrame:CGRectZero];
     [view addSubview:favIconView];
@@ -296,9 +275,8 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     CGRect iconBounds = CGRectMake(5.0, 5.0, 16, 16);
     [favIconView setFrame:iconBounds];
     
-    CGRect labelBounds = CGRectMake(26.0, 4.0, contentViewBounds.size.width - 26.0 - 3.0, contentViewBounds.size.height - 4.0);
-    [labelView setFrame:labelBounds];
-    [labelViewSelected setFrame:labelBounds];
+    siteNameLabel.frame = CGRectMake(26.0, 6.0, contentViewBounds.size.width - 26.0 - 3.0, 16.0);
+    articleTitleLabel.frame = CGRectMake(26.0, 22.0, contentViewBounds.size.width - 26.0 - 3.0, 40.0);
 }
 
 

@@ -131,10 +131,10 @@ static MWJavaScriptQueue *javaScriptClientQueue;
 
 - (void)postToApi:(NSDictionary *)parameters withDidFinishLoadingBlock:(void(^)(NSData *data))didFinishLoadingBlock
 {
-    NSLog(@"postToApi:");
-    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
-        NSLog(@"%@=%@", key, value);
-    }];
+//    NSLog(@"postToApi:");
+//    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+//        NSLog(@"%@=%@", key, value);
+//    }];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://apiv0.tabulatabs.com/"]];
@@ -164,7 +164,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
         NSDictionary *response = [json JSONValue];
         
         if ([[response objectForKey:@"response"] isEqualToString:@"ok"]) {
-            NSLog(@"data: %@", [response objectForKey:@"data"]);
             didFinishLoadingBlock([self decrypt:[response objectForKey:@"data"]]);
         } else {
             NSLog(@"something went wrong when trying to fetch object for key %@: %@", key, [response objectForKey:@"error"]);
