@@ -12,6 +12,13 @@
 #import "TabViewCell.h"
 #import "Helpers.h"
 
+@interface TabListViewController ()
+
+- (void) tabsLoaded;
+
+@end
+
+
 @implementation TabListViewController
 
 @synthesize browser;
@@ -60,7 +67,7 @@
 {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"updatedTabList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabsLoaded) name:@"updatedTabList" object:nil];
 
     self.title = self.browser.label;
     UITableView *tableView = self.tableView;
@@ -70,7 +77,6 @@
 
 - (void)viewDidUnload
 {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self.tableView];
     
     [super viewDidUnload];
@@ -89,20 +95,19 @@
     [browser performSelector:@selector(loadImages) withObject:nil afterDelay:3.0];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
 }
+
+
+#pragma mark PullToRefreshTableViewController
+
+- (void)reloadTableViewDataSource;
+{
+    [self.browser loadTabs];
+}
+
 
 #pragma mark - Table view data source
 
@@ -205,6 +210,7 @@
     searchBar.showsCancelButton = NO;
 }
 
+
 #pragma mark SearchViewDelegate
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -212,6 +218,7 @@
     [self performSearchFor:searchString];
     return YES;
 }
+
 
 #pragma mark ScrollViewDelegate
 
@@ -222,6 +229,16 @@
             [cell setBackgroundViewVisible:NO animated:YES];
         }];
     }
+}
+
+
+#pragma mark Private Methods
+
+- (void)tabsLoaded;
+{
+    [refreshHeaderView setCurrentDate];
+    [self dataSourceDidFinishLoadingNewData];
+    [self.tableView reloadData];
 }
 
 @end

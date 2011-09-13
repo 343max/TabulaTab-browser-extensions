@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		501A847013C7284100EE12DE /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A846E13C7284100EE12DE /* paper.png */; };
 		501A847313C7284A00EE12DE /* paper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 501A847213C7284A00EE12DE /* paper@2x.png */; };
+		5021BCF9141FB7CD009054DE /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5021BCF8141FB7CD009054DE /* EGORefreshTableHeaderView.m */; };
+		5021BCFD141FB812009054DE /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5021BCFC141FB812009054DE /* PullToRefreshTableViewController.m */; };
+		5021BD03141FB93C009054DE /* blackArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5021BCFF141FB93C009054DE /* blackArrow.png */; };
+		5021BD04141FB93C009054DE /* blueArrow_new.png in Resources */ = {isa = PBXBuildFile; fileRef = 5021BD00141FB93C009054DE /* blueArrow_new.png */; };
+		5021BD05141FB93C009054DE /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5021BD01141FB93C009054DE /* blueArrow.png */; };
+		5021BD06141FB93C009054DE /* whiteArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 5021BD02141FB93C009054DE /* whiteArrow.png */; };
 		50364B3713BA14880003F9A4 /* TTTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3613BA14870003F9A4 /* TTTab.m */; };
 		50364B3F13BA202D0003F9A4 /* TabListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50364B3D13BA202C0003F9A4 /* TabListViewController.m */; };
 		50364B4013BA202D0003F9A4 /* TabListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50364B3E13BA202D0003F9A4 /* TabListViewController.xib */; };
@@ -91,12 +97,20 @@
 /* Begin PBXFileReference section */
 		501A846E13C7284100EE12DE /* paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paper.png; sourceTree = "<group>"; };
 		501A847213C7284A00EE12DE /* paper@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paper@2x.png"; sourceTree = "<group>"; };
+		5021BCF7141FB7CD009054DE /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		5021BCF8141FB7CD009054DE /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		5021BCFB141FB812009054DE /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
+		5021BCFC141FB812009054DE /* PullToRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableViewController.m; sourceTree = "<group>"; };
+		5021BCFF141FB93C009054DE /* blackArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackArrow.png; sourceTree = "<group>"; };
+		5021BD00141FB93C009054DE /* blueArrow_new.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow_new.png; sourceTree = "<group>"; };
+		5021BD01141FB93C009054DE /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
+		5021BD02141FB93C009054DE /* whiteArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteArrow.png; sourceTree = "<group>"; };
 		50364B3513BA14870003F9A4 /* TTTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTab.h; sourceTree = "<group>"; };
 		50364B3613BA14870003F9A4 /* TTTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTab.m; sourceTree = "<group>"; };
-		50364B3C13BA202C0003F9A4 /* TabListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TabListViewController.h; sourceTree = "<group>"; };
+		50364B3C13BA202C0003F9A4 /* TabListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabListViewController.h; sourceTree = "<group>"; };
 		50364B3D13BA202C0003F9A4 /* TabListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabListViewController.m; sourceTree = "<group>"; };
 		50364B3E13BA202D0003F9A4 /* TabListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TabListViewController.xib; sourceTree = "<group>"; };
-		50364B4113BA2BFF0003F9A4 /* WebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = WebViewViewController.h; sourceTree = "<group>"; };
+		50364B4113BA2BFF0003F9A4 /* WebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewViewController.h; sourceTree = "<group>"; };
 		50364B4213BA2C000003F9A4 /* WebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewViewController.m; sourceTree = "<group>"; };
 		50364B4313BA2C010003F9A4 /* WebViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewViewController.xib; sourceTree = "<group>"; };
 		5041AD7013B8EC6500586862 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
@@ -132,7 +146,7 @@
 		50537C1C13C6FCB500F9E309 /* ReadabilityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReadabilityViewController.xib; sourceTree = "<group>"; };
 		506AE72B13BB338500134EF3 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
 		506AE72C13BB338500134EF3 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
-		506BB25213B3920800B2CE85 /* BrowserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BrowserListViewController.h; sourceTree = "<group>"; };
+		506BB25213B3920800B2CE85 /* BrowserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserListViewController.h; sourceTree = "<group>"; };
 		506BB25313B3920800B2CE85 /* BrowserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserListViewController.m; sourceTree = "<group>"; };
 		506BB25413B3920800B2CE85 /* BrowserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserListViewController.xib; sourceTree = "<group>"; };
 		506BB25F13B399F200B2CE85 /* TTBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBrowser.h; sourceTree = "<group>"; };
@@ -141,7 +155,7 @@
 		507A4B3F13C75E3100C2B281 /* readability.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = readability.css; sourceTree = "<group>"; };
 		507A4B4213C75E4500C2B281 /* readability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = readability.js; sourceTree = "<group>"; };
 		507A4B4413C75F1F00C2B281 /* injectReadability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = injectReadability.js; sourceTree = "<group>"; };
-		507E53A413BB9C5600CEB2A1 /* TabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TabViewCell.h; sourceTree = "<group>"; };
+		507E53A413BB9C5600CEB2A1 /* TabViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewCell.h; sourceTree = "<group>"; };
 		507E53A513BB9C5600CEB2A1 /* TabViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewCell.m; sourceTree = "<group>"; };
 		507E53AE13BBA15300CEB2A1 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		507E53BD13BC801200CEB2A1 /* MWImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWImagePool.h; sourceTree = "<group>"; };
@@ -265,6 +279,21 @@
 			name = Readability;
 			sourceTree = "<group>";
 		};
+		5021BCFE141FB8C0009054DE /* EGOTableViewPullRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				5021BCFF141FB93C009054DE /* blackArrow.png */,
+				5021BD00141FB93C009054DE /* blueArrow_new.png */,
+				5021BD01141FB93C009054DE /* blueArrow.png */,
+				5021BD02141FB93C009054DE /* whiteArrow.png */,
+				5021BCF7141FB7CD009054DE /* EGORefreshTableHeaderView.h */,
+				5021BCF8141FB7CD009054DE /* EGORefreshTableHeaderView.m */,
+				5021BCFB141FB812009054DE /* PullToRefreshTableViewController.h */,
+				5021BCFC141FB812009054DE /* PullToRefreshTableViewController.m */,
+			);
+			name = EGOTableViewPullRefresh;
+			sourceTree = "<group>";
+		};
 		50364B3813BA14930003F9A4 /* Tabulatabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +359,7 @@
 		50498F7113BB8882006EBDDA /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5021BCFE141FB8C0009054DE /* EGOTableViewPullRefresh */,
 				509CC301141A556800E5011D /* NSData+Base64.h */,
 				509CC302141A556900E5011D /* NSData+Base64.m */,
 				509CC2FB141A52DD00E5011D /* NSData-AES.h */,
@@ -617,6 +647,10 @@
 				507A4B4613C7619600C2B281 /* injectReadability.js in Resources */,
 				509785A814078DAB00535B55 /* cellShadowLeft@2x.png in Resources */,
 				509785A914078DAB00535B55 /* cellShadowRight@2x.png in Resources */,
+				5021BD03141FB93C009054DE /* blackArrow.png in Resources */,
+				5021BD04141FB93C009054DE /* blueArrow_new.png in Resources */,
+				5021BD05141FB93C009054DE /* blueArrow.png in Resources */,
+				5021BD06141FB93C009054DE /* whiteArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +730,8 @@
 				509CC2FD141A52DD00E5011D /* NSData-AES.m in Sources */,
 				509CC300141A533400E5011D /* NSData-hex.m in Sources */,
 				509CC303141A556900E5011D /* NSData+Base64.m in Sources */,
+				5021BCF9141FB7CD009054DE /* EGORefreshTableHeaderView.m in Sources */,
+				5021BCFD141FB812009054DE /* PullToRefreshTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

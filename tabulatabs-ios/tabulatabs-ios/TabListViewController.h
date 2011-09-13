@@ -10,7 +10,9 @@
 #import "TTTab.h"
 #import "TTBrowser.h"
 
-@interface TabListViewController : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
+#import "PullToRefreshTableViewController.h"
+
+@interface TabListViewController : PullToRefreshTableViewController <UISearchDisplayDelegate, UISearchBarDelegate, UIScrollViewDelegate>
 
 - (void)openPage:(TTTab *)tab;
 
