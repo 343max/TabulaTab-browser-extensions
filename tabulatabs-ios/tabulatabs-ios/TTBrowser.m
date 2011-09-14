@@ -210,15 +210,18 @@ static MWJavaScriptQueue *javaScriptClientQueue;
         NSDictionary *encryptedTabs = [responseDict objectForKey:@"data"];
         
         NSMutableArray *newTabs = [[NSMutableArray alloc] init];
-        
+                
         for (NSString* tabId in encryptedTabs) {
             NSDictionary *encryptedTab = [encryptedTabs objectForKey:tabId];
             NSDictionary *tabDictionary = [self decrypt:encryptedTab];
             
             [newTabs addObject:[[TTTab alloc] initWithDictionary:tabDictionary]];            
         }
+        
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:self.tabs forKey:@"oldTabs"];
+        
         self.tabs = [NSArray arrayWithArray:newTabs];
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"updatedTabList" object:self userInfo:userInfo]];
     }];
     
 }

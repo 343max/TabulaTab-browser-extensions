@@ -18,8 +18,6 @@ extern NSString * const TTTabPageThumbnailChangedNotification;
 - (BOOL)containsString:(NSString *)searchString;
 - (void)loadImages;
 
-+ (TTTab *)tabWithURL:(NSURL *)url;
-
 @property (strong) NSString *title;
 @property (strong) NSURL *url;
 @property (strong) NSString *shortDomain;
@@ -29,6 +27,7 @@ extern NSString * const TTTabPageThumbnailChangedNotification;
 @property (strong) NSURL *pageThumbnailUrl;
 @property BOOL selected;
 @property (assign) NSUInteger windowId;
+@property (assign) NSUInteger tabId;
 @property (assign) NSUInteger index;
 
 @property (strong, nonatomic) UIImage *favIconImage;

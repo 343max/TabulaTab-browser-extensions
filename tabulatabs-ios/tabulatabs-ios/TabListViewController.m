@@ -12,9 +12,11 @@
 #import "TabViewCell.h"
 #import "Helpers.h"
 
-@interface TabListViewController ()
+@interface TabListViewController () {
+    NSString *searchString;
+}
 
-- (void) tabsLoaded;
+- (void)tabsLoaded:(NSNotification *)notification;
 
 @end
 
@@ -42,15 +44,19 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)performSearchFor:(NSString *)searchString
+- (void)performSearchFor:(NSString *)aSearchString
 {
-    if ([searchString isEqualToString:@""]) {
+    searchString = aSearchString;
+    
+    if (searchString == @"") {
+        searchString = nil;
+    }
+    
+    if (!searchString) {
         self.searchResults = [self.browser tabs];
     } else {
         self.searchResults = [self.browser tabsContainingString:searchString];
     }
-    
-    [self.tableView reloadData];
 }
 
 - (void)openPage:(TTTab *)tab;
@@ -67,12 +73,12 @@
 {
     [super viewDidLoad];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabsLoaded) name:@"updatedTabList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabsLoaded:) name:@"updatedTabList" object:nil];
 
-    self.title = self.browser.label;
-    UITableView *tableView = self.tableView;
+    searchString = nil;
     
-    tableView.rowHeight = 72;
+    self.title = self.browser.label;
+    self.tableView.rowHeight = 72;
 }
 
 - (void)viewDidUnload
@@ -85,7 +91,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tabSearchBar.text = @"";
-    [self performSearchFor:@""];
+    [self performSearchFor:nil];
     [super viewWillAppear:animated];
 }
 
@@ -188,6 +194,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self performSearchFor:searchText];
+    [self.tableView reloadData];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -195,6 +202,7 @@
     [searchBar resignFirstResponder];
     searchBar.text = nil;
     [self performSearchFor:nil];
+    [self.tableView reloadData];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -213,9 +221,10 @@
 
 #pragma mark SearchViewDelegate
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)aSearchString
 {
-    [self performSearchFor:searchString];
+    [self performSearchFor:aSearchString];
+    [self.tableView reloadData];
     return YES;
 }
 
@@ -234,11 +243,38 @@
 
 #pragma mark Private Methods
 
-- (void)tabsLoaded;
+- (void)tabsLoaded:(NSNotification *)notification;
 {
     [refreshHeaderView setCurrentDate];
     [self dataSourceDidFinishLoadingNewData];
-    [self.tableView reloadData];
+    
+    NSArray *oldTabs = self.searchResults;
+    [self performSearchFor:searchString];
+    NSArray *newTabs = self.searchResults;
+    
+    [self.tableView beginUpdates];
+    
+    // removing old tabs
+    [oldTabs enumerateObjectsUsingBlock:^(TTTab *oldTab, NSUInteger idx, BOOL *stop) {
+        NSIndexSet *indexSet = [newTabs indexesOfObjectsPassingTest:^BOOL(TTTab *newTab, NSUInteger idx, BOOL *stop) {
+            return oldTab.tabId == newTab.tabId; 
+        }];
+        if (indexSet.count == 0) {
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }];
+    
+    // adding new tabs
+    [newTabs enumerateObjectsUsingBlock:^(TTTab *newTab, NSUInteger idx, BOOL *stop) {
+        NSIndexSet *indexSet = [oldTabs indexesOfObjectsPassingTest:^BOOL(TTTab *oldTab, NSUInteger idx, BOOL *stop) {
+            return oldTab.tabId == newTab.tabId; 
+        }];
+        if (indexSet.count == 0) {
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }];
+
+    [self.tableView endUpdates];
 }
 
 @end

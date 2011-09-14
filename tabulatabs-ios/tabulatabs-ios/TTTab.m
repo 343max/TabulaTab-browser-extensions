@@ -23,6 +23,7 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
 @synthesize shortDomain, siteTitle, pageTitle;
 @synthesize windowId;
 @synthesize index;
+@synthesize tabId;
 @synthesize favIconImage;
 @synthesize pageThumbnailUrl;
 @synthesize pageThumbnailImage;
@@ -40,7 +41,6 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
     [[NSNotificationCenter defaultCenter] postNotificationName:TTTabPageThumbnailChangedNotification object:self];
 }
 
-
 - (id)init
 {
     self = [super init];
@@ -51,13 +51,9 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
     return self;
 }
 
-+ (TTTab *)tabWithURL:(NSURL *)url
+- (NSString *)description;
 {
-    TTTab *tab = [[TTTab alloc] init];
-    if (tab) {
-        tab.url = url;
-    }
-    return tab;
+    return [NSString stringWithFormat:@"%@ - %@", self.pageTitle, self.url.absoluteString];
 }
 
 - (void)loadImages;
@@ -95,6 +91,7 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
         
         self.windowId = [[dictionary objectForKey:@"windowId"] integerValue];
         self.index = [[dictionary objectForKey:@"index"] integerValue];
+        self.tabId = [[dictionary objectForKey:@"id"] integerValue];
     }
     
     return self;
@@ -125,6 +122,7 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
         
         windowId = [aDecoder decodeIntegerForKey:@"windowId"];
         index = [aDecoder decodeIntegerForKey:@"index"];
+        tabId = [aDecoder decodeIntegerForKey:@"tabId"];
     }
     
     return self;
@@ -143,6 +141,7 @@ NSString * const TTTabPageThumbnailChangedNotification = @"TTTabPageThumbnailCha
     
     [aCoder encodeInteger:windowId forKey:@"windowId"];
     [aCoder encodeInteger:index forKey:@"index"];
+    [aCoder encodeInteger:tabId forKey:@"tabId"];
 }
 
 @end
