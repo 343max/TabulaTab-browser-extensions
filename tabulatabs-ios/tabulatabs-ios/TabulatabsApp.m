@@ -98,7 +98,7 @@ static MWImagePool *sharedImagePool;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    BrowserListViewController *viewController = [[BrowserListViewController alloc] initWithNibName:@"BrowserChooserViewController" bundle:nil];
+    BrowserListViewController *viewController = [[BrowserListViewController alloc] initWithNibName:@"BrowserListViewController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     self.window.rootViewController = self.navigationController;
     

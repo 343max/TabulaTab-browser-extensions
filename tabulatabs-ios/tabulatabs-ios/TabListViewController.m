@@ -61,7 +61,7 @@
 
 - (void)openPage:(TTTab *)tab;
 {
-    WebViewViewController *browserView = [[WebViewViewController alloc] initWithNibName:@"BrowserViewController" bundle:nil];
+    WebViewViewController *browserView = [[WebViewViewController alloc] initWithNibName:@"WebViewViewController" bundle:nil];
     browserView.browserTab = tab;
     
     [self.navigationController pushViewController:browserView animated:YES]; 

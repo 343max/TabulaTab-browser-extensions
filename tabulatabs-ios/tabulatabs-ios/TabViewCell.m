@@ -255,6 +255,8 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
 
 - (void)layoutSubviews
 {
+    self.backgroundViewVisible = self.backgroundViewVisible;
+    
     [super layoutSubviews];
     
     CGRect bounds = self.bounds;

@@ -181,7 +181,7 @@ const int BrowserChooserViewControllerAddBrowserSection = 1;
         [self presentModalViewController:navigationController animated:YES];
     }
     else if (indexPath.section == BrowserChooserViewControllerBrowserSelectionSection) {
-        TabListViewController *tabChooser = [[TabListViewController alloc] initWithNibName:@"TabChooserViewController" bundle:nil];
+        TabListViewController *tabChooser = [[TabListViewController alloc] initWithNibName:@"TabListViewController" bundle:nil];
         tabChooser.browser = [[TabulatabsApp sharedInstance].browserRepresenations objectAtIndex:indexPath.row];
         
         [self.navigationController pushViewController:tabChooser animated:YES];
