@@ -140,8 +140,6 @@
     
     cell.tab = tab;
     
-    cell.markedAsRead = indexPath.row == 4;
-    
     return cell;
 }
 

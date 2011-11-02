@@ -275,8 +275,8 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     CGRect iconBounds = CGRectMake(5.0, 5.0, 16, 16);
     [favIconView setFrame:iconBounds];
     
-    siteNameLabel.frame = CGRectMake(26.0, 6.0, contentViewBounds.size.width - 26.0 - 3.0, 16.0);
-    articleTitleLabel.frame = CGRectMake(26.0, 22.0, contentViewBounds.size.width - 26.0 - 3.0, 40.0);
+    siteNameLabel.frame = CGRectMake(26.0, 6.0, contentViewBounds.size.width - 26.0 - 9.0, 16.0);
+    articleTitleLabel.frame = CGRectMake(26.0, 22.0, contentViewBounds.size.width - 26.0 - 9.0, 40.0);
 }
 
 
