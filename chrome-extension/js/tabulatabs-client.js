@@ -1,3 +1,5 @@
+tabulatabsDocumentVersion = 1;
+
 function TabulatabsClient(clientId) {
 	var serverPath = 'http://apiv0.tabulatabs.com/';
 
@@ -148,15 +150,17 @@ function TabulatabsClient(clientId) {
 
 	this.putObjectForKey = function(key, value, callback) {
 		if (!callback) callback = function(data) {};
-		
-		encryptedValue = JSON.stringify(encrypt(value));
+
+		var encryptedValue = encrypt(value);
+		encryptedValue.documentVersion = tabulatabsDocumentVersion;
+		var encryptedJson = JSON.stringify(encryptedValue);
 
 		$.post(serverPath, {
 			'userId': userId,
 			"clientId": clientId,
 			'action': 'put',
 			'key': key,
-			'value': encryptedValue
+			'value': encryptedJson
 		}, callback, 'json');
 	};
 	
