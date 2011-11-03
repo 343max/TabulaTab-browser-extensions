@@ -23,8 +23,6 @@
 @end
 
 
-static MWJavaScriptQueue *javaScriptClientQueue;
-
 @implementation TTBrowser
 
 @synthesize label, iconId, browserInfoLoaded;
@@ -52,10 +50,6 @@ static MWJavaScriptQueue *javaScriptClientQueue;
     self = [super init];
     if (self) {
         self.tabs = [[NSArray alloc] init];
-        
-        if (!javaScriptClientQueue) {
-            javaScriptClientQueue = [[MWJavaScriptQueue alloc] initWithFile:@"iosJavaScriptIndex"];
-        }
     }
     
     return self;
