@@ -9,14 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface MWURLConnection : NSObject <NSURLConnectionDataDelegate, NSURLConnectionDelegate>
-{
-    NSURLConnection *connection;
-    void(^didFinishLoadingBlock)(NSData *);
-}
 
 @property (strong) NSMutableData *dataReceived;
+@property (copy, nonatomic) void(^didFinishLoadingBlock)(NSData *);
 
-- (void)setDidFinishLoadingBlock:(void(^)(NSData *))dflb;
 - (id)initWithRequest:(NSURLRequest *)request;
 - (void)start;
 - (void)cancel;

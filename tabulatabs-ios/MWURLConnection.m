@@ -8,22 +8,34 @@
 
 #import "MWURLConnection.h"
 
+
+//{
+//    NSURLConnection *connection;
+//    void(^didFinishLoadingBlock)(NSData *);
+//}
+
+
+@interface MWURLConnection ()
+
+@property (strong) NSURLRequest *request;
+@property (strong) NSURLConnection *connection;
+
+@end
+
+
 @implementation MWURLConnection
 
 @synthesize dataReceived;
+@synthesize request, connection, didFinishLoadingBlock;
 
-- (void)setDidFinishLoadingBlock:(void(^)(NSData *))aDidFinishLoadingBlock
-{
-    didFinishLoadingBlock = aDidFinishLoadingBlock;
-}
-
-- (id)initWithRequest:(NSURLRequest *)request
+- (id)initWithRequest:(NSURLRequest *)aRequest
 {
     self = [super init];
     
     if (self) {
+        self.request = aRequest;
         self.dataReceived = [[NSMutableData alloc] init];
-        connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+        self.connection = [[NSURLConnection alloc] initWithRequest:aRequest delegate:self startImmediately:NO];
     }
     
     return self;
@@ -31,12 +43,12 @@
 
 - (void)start
 {
-    [connection start];
+    [self.connection start];
 }
 
 - (void)cancel
 {
-    [connection cancel];
+    [self.connection cancel];
 }
 
 #pragma mark NSURLConnectionDataDelegate
@@ -48,8 +60,8 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    if (didFinishLoadingBlock) {
-        didFinishLoadingBlock(self.dataReceived);
+    if (self.didFinishLoadingBlock) {
+        self.didFinishLoadingBlock(self.dataReceived);
     }
 }
 
