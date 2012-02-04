@@ -225,17 +225,16 @@ const CGFloat kTabChooserCellLabelRest = 80.0;
     siteNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     siteNameLabel.textColor = [UIColor darkGrayColor];
     siteNameLabel.font = [UIFont fontWithName:@"Palatino" size:12.0];
-    //siteNameLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     [view addSubview:siteNameLabel];
     
     articleTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    //articleTitleLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
     articleTitleLabel.lineBreakMode = UILineBreakModeTailTruncation;
     articleTitleLabel.numberOfLines = 0;
     articleTitleLabel.font = [UIFont fontWithName:@"Palatino" size:16.0];
     [view addSubview:articleTitleLabel];
     
     favIconView = [[UIImageView alloc] initWithFrame:CGRectZero];
+    favIconView.backgroundColor = [UIColor whiteColor];
     [view addSubview:favIconView];
         
     [scrollView addSubview:view];

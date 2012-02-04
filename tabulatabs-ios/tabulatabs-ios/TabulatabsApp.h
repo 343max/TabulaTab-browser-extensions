@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MWImagePool.h"
 
+#define appDelegate ((TabulatabsApp *)[[UIApplication sharedApplication] delegate])
+
 @class BrowserListViewController;
 
 @interface TabulatabsApp : UIResponder <UIApplicationDelegate>

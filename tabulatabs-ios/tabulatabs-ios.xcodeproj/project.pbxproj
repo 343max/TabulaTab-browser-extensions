@@ -824,7 +824,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tabulatabs-ios/tabulatabs-ios-Prefix.pch";
 				INFOPLIST_FILE = "tabulatabs-ios/tabulatabs-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tabulatabs-ios/ZBarSDK\"",
@@ -840,7 +840,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tabulatabs-ios/tabulatabs-ios-Prefix.pch";
 				INFOPLIST_FILE = "tabulatabs-ios/tabulatabs-ios-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tabulatabs-ios/ZBarSDK\"",

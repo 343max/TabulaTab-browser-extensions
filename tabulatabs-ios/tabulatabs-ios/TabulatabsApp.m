@@ -40,12 +40,14 @@ static MWImagePool *sharedImagePool;
 
 - (void)addNetworkProcess
 {
+    NSLog(@"started network connection");
     networkProcessCount += 1;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)finishNetworkPorcess
 {
+    NSLog(@"finished network connection");
     networkProcessCount -= 1;
     if (networkProcessCount < 0) {
         NSLog(@"negative network process count");
