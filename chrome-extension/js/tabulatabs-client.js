@@ -1,9 +1,23 @@
 tabulatabsDocumentVersion = 1;
 
 function TabulatabsClient(clientId) {
-	var serverPath = 'http://apiv0.tabulatabs.com/';
+	var serverPath = 'https://tabulatabs.heroku.com/';
 
 	var self = this;
+
+	this.browser = {
+		register: function(password, callback) {
+			$.post(serverPath + 'browsers.json', JSON.stringify({password: password}), callback);
+		},
+		info: function(username, password, callback) {
+			$.ajax(serverPath + 'browsers.json', {
+				type: 'GET',
+				username: username,
+				password: password,
+				success: function(r) { callback(r[0]); }
+			});
+		}
+	}
 
 	var getOption = function(varName, defaultValue) {
 

@@ -2,26 +2,56 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<title>Untitled Document</title>
+		<title>Tabulatabs js client test</title>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.2.0.css" >
+		<script src="js/uuid.js"></script>
+		<script src="js/gibberish-aes.js"></script>
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script src="js/webtoolkit.sha1.js"></script>
+		<script src="js/findMetaInPageTitle.js"></script>
+		<script src="js/tabulatabs-client.js"></script>
+		<script src="js/qunit-1.2.0.js"></script>
 	</head>
 	<body>
 
-	<script src="js/uuid.js"></script>
-	<script src="js/gibberish-aes.js"></script>
-	<script src="js/jquery-1.7.1.min.js"></script>
-	<script src="js/webtoolkit.sha1.js"></script>
-	<script src="js/findMetaInPageTitle.js"></script>
-	<script src="js/tabulatabs-client.js"></script>
+
+  <h1 id="qunit-header">Tabulatabs JS Client</h1>
+  <h2 id="qunit-banner"></h2>
+  <ol id="qunit-tests"></ol>
+<script>
+test("cross domain connection, server responding", function() {
+	stop();
+	$.get('https://tabulatabs.heroku.com/hello.json', function(r) {
+		equal(r.greeted, 'world', 'get response test to json controller');
+		start();
+	});
+});
+
+asyncTest("browser", 2, function() {
+	var client = new TabulatabsClient('Unit Test');
+	var password = '12345678901234567890123456789012';
+	client.browser.register(password, function(register_result) {
+		ok(register_result.username != '', 'Created a new browser instance');
+
+		client.browser.info(register_result.username, password, function(info_result) {
+			ok('b_' + info_result.id == register_result.username, 'Got correct browser info');
+			start();
+		});
+	});
+});
+
+</script>
 
 	<script type="text/javascript">
 
-var tabulatabs = new TabulatabsClient('Test');
 
-var encrypted = tabulatabs.encrypt({message: 'Hello', recipient: 'world'});
-console.dir(encrypted);
-xxx = GibberishAES.Base64.encode(GibberishAES.Base64.decode(encrypted.ic));
-console.dir(GibberishAES.Base64.decode(encrypted.ic));
-console.dir(tabulatabs.decrypt(encrypted));
+// var tabulatabs = new TabulatabsClient('Test');
+// 
+// var encrypted = tabulatabs.encrypt({message: 'Hello', recipient: 'world'});
+// console.dir(encrypted);
+// xxx = GibberishAES.Base64.encode(GibberishAES.Base64.decode(encrypted.ic));
+// console.dir(GibberishAES.Base64.decode(encrypted.ic));
+// console.dir(tabulatabs.decrypt(encrypted));
 
 	</script>
 
