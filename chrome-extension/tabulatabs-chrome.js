@@ -1,4 +1,4 @@
-var tabulatabs = new TabulatabsClient('Chrome');
+var tabulatabs = new Tabulatabs('Chrome');
 var tabMetaInfo;
 try {
 	tabMetaInfo = JSON.parse(localStorage.getItem('tabMetaInfo'));
@@ -54,11 +54,11 @@ function tabulatabForTab(tab) {
 	}
 
 	var tabulatab = {
-		id: tab.id,
+		identifier: tab.id,
 		title: tab.title,
 		url: tab.url,
 		selected: tab.selected,
-		favIconUrl: tab.favIconUrl,
+		favIconURL: tab.favIconURL,
 		windowId: tab.windowId,
 		index: tab.index
 	};

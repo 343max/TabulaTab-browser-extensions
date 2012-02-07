@@ -27,18 +27,140 @@ test("cross domain connection, server responding", function() {
 	});
 });
 
-asyncTest("browser", 2, function() {
-	var client = new TabulatabsClient('Unit Test');
-	var password = '12345678901234567890123456789012';
-	client.browser.register(password, function(register_result) {
-		ok(register_result.username != '', 'Created a new browser instance');
+test("encryption", function() {
+	var encryption = new TabulatabsEncryption();
+	encryption.key = encryption.generateHexKey();
+	equal(encryption.decrypt(encryption.encrypt('hello')), 'hello', "Encryption is working");
+});
 
-		client.browser.info(register_result.username, password, function(info_result) {
-			ok('b_' + info_result.id == register_result.username, 'Got correct browser info');
+var encryption = new TabulatabsEncryption();
+encryption.key = encryption.generateHexKey();
+
+function testBrowser() {
+	var browser = new TabulatabsBrowser(encryption);
+	browser.useragent = 'Unit Test Browser';
+	browser.label = 'Unit Testing Fake Browser';
+	browser.description = 'If you can see this there is some kind of bug';
+	browser.iconURL = 'chrome.png';
+	return browser;
+}
+
+test("browser", function() {
+	stop();
+
+	var browser = testBrowser();
+
+	var password = '12345678901234567890123456789012';
+	browser.register(password, function(registration_result) {
+		ok(browser.username, 'Registered a username');
+
+		var loadedBrowser = new TabulatabsBrowser(encryption);
+
+		loadedBrowser.username = browser.username;
+		loadedBrowser.password = browser.password;
+
+		loadedBrowser.load(function(loading_result) {
+			equal(browser.useragent, loadedBrowser.useragent, 'Useragent correctly saved');
+			equal(browser.label, loadedBrowser.label, 'Label correctly saved');
+			equal(browser.description, loadedBrowser.description, 'Description correctly saved');
+			equal(browser.iconURL, loadedBrowser.iconURL, 'iconURL saved correctly');
+
 			start();
 		});
 	});
 });
+
+test('clients / tabs', function() {
+	stop();
+	
+	var browser = testBrowser();
+
+	var password = '12345678901234567890123456789012';
+	var claimingClientPassword = '12345678901234567890123456789012';
+	var permanentClientPassword = '1234567890123456789012-permanent';
+
+	browser.register(password, function(registration_result) {
+		var client = new TabulatabsClient(encryption);
+		var unclaimedClient = new TabulatabsClient(encryption);
+
+		unclaimedClient.registerWithBrowser(browser, claimingClientPassword, function(registration_result) {
+			ok(unclaimedClient.username != '', 'Successfully registered a client - will never claim it');
+
+			client.registerWithBrowser(browser, claimingClientPassword, function () {
+				ok(client.username != '', 'Successfully registered a client - will claim it');
+				client.useragent = 'Unit Test Client';
+				client.label = 'Fake Unit Test Client';
+				client.description = 'If you can see this there was some kind of bug';
+				client.iconURL = 'iphone.png';
+
+				client.claim(claimingClientPassword, permanentClientPassword, function(claiming_result) {
+					ok(client.password != '', 'Successfully claimed a client');
+
+					browser.loadClients(function(loadClientsResult) {
+						equal(browser.clients.length, 1, 'returns exactly one registered client');
+						
+						equal(client.useragent, browser.clients[0].useragent, 'Useragent correctly saved');
+						equal(client.label, browser.clients[0].label, 'Label correctly saved');
+						equal(client.description, browser.clients[0].description, 'Description correctly saved');
+						equal(client.iconURL, browser.clients[0].iconURL, 'iconURL saved correctly');
+
+						var tab1 = new TabulatabsTab({identifier: 'id1', title: 'title', URL: 'http://tabulatabs.com/', selected: true, favIconURL: 'favicon.ico', windowId: 'wid2', index: 3, pageColors: ['red', 'green', 'blue']});
+						var tab2 = new TabulatabsTab({identifier: 'id2', title: 'title2', URL: 'http://tabulatabs.com/2', selected: true, favIconURL: 'favicon2.ico', windowId: 'wid2', index: 4});
+						
+						var tabs = [tab1, tab2];
+
+						browser.saveTabs(tabs, function(savingTabsResult) {
+							equal(savingTabsResult, true, 'Tabs saved successfully');
+
+							client.loadTabs(function() {
+								equal(client.tabs.length, 2, 'correct number of tabs loaded');
+
+								equal(client.tabs[0].identifier, tab1.identifier, 'save identifier correctly');
+								equal(client.tabs[0].title, tab1.title, 'save title correctly');
+								equal(client.tabs[0].url, tab1.url, 'save url correctly');
+								equal(client.tabs[0].selected, tab1.selected, 'save selected correctly');
+								equal(client.tabs[0].favIconURL, tab1.favIconURL, 'save favIconURL correctly');
+								equal(client.tabs[0].windowId, tab1.windowId, 'save windowId correctly');
+								equal(client.tabs[0].index, tab1.index, 'save index correctly');
+								equal(client.tabs[0].pageColors.length, tab1.pageColors.length, 'save pageColors correctly');
+
+								console.dir(client.tabs);
+								start();
+							});
+
+						});
+					});
+				});
+			})
+		})
+	});
+});
+
+//asyncTest("browser", 4, function() {
+//	stop();
+//
+//	var client = new TabulatabsClient('Unit Test');
+//	var password = '12345678901234567890123456789012';
+//	var claimingClientPassword = '12345678901234567890123456789012';
+//	var permanentClientPassword = '1234567890123456789012-permanent';
+//
+//	client.browser.register(password, function(register_result) {
+//		client.browser.client.register(register_result.username, password, claimingClientPassword, function(client_registration_result) {
+//			ok(client_registration_result.username != '', 'registered client has username');
+//
+//			client.browser.client.claim(client_registration_result.username, claimingClientPassword, permanentClientPassword, function(client_claiming_result) {
+//				ok(client_claiming_result.success, 'Successfully claimed a client');
+//
+//				client.browser.client.list(register_result.username, password, function(client_list_result) {
+//					equal(client_list_result.length, 1, 'should return the correct number of registered clients');
+//
+//					console.dir(client_list_result);
+//				});
+//				start();
+//			});
+//		});
+//	});
+//});
 
 </script>
 
