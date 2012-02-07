@@ -26,6 +26,10 @@ function TabulatabsEncryption(key) {
 		return key;
 	}
 
+	if (!this.key) {
+		this.key = this.generateHexKey();
+	}
+
 	this.encrypt = function(payload) {
 		var iv = this.forcedIv || generateIv();
 		var ic = GibberishAES.Base64.encode(GibberishAES.rawEncrypt(GibberishAES.s2a(JSON.stringify(payload)), this.key, iv), false);
@@ -168,6 +172,12 @@ function TabulatabsClient(encryption) {
 
 	this.tabs = [];
 
+	this.claimingPassword = '';
+
+	this.registrationURL = function() {
+		return 'tabulatabs://registerClient?username=' + this.username + '&password=' + this.claimingPassword + '&key=' + encryption.key;
+	}
+
 	this.registerWithBrowser = function(browser, claimingPassword, callback) {
 		if (!callback) callback = function() {};
 
@@ -177,6 +187,7 @@ function TabulatabsClient(encryption) {
 			password: browser.password,
 			data: JSON.stringify({password: claimingPassword}),
 			success: function(result) {
+				self.claimingPassword = claimingPassword;
 				self.username = result.username;
 				
 				callback(result);
@@ -247,45 +258,20 @@ function TabulatabsTab(data) {
 	}
 }
 
-function Tabulatabs(clientId) {
+function thisBrowser() {
+	var encryption = new TabulatabsEncryption(localStorage.getItem('key'));
+	localStorage.setItem('key', encryption.key);
 
-	var self = this;
+	var browser = new TabulatabsBrowser(encryption);
+	browser.username = localStorage.getItem('username');
+	browser.password = localStorage.getItem('password');
 
-	var getOption = function(varName, defaultValue) {
-
-		if (localStorage.getItem(varName)) {
-			return localStorage.getItem(varName);
-		} else {
-			if (typeof defaultValue == 'function') {
-				defaultValue = defaultValue();
-			}
-			
-			if(defaultValue) localStorage.setItem(varName, defaultValue);
-			return defaultValue;
-		}
-	};
-
-	var key = GibberishAES.h2a(getOption('key', generateHexKey));
-	var userId = getOption('userId', null);
-	var clientId = getOption('clientId', null);
-	var registeredClients = getOption('registeredClients', []);
-
-	if (!userId | !clientId) {
-		userId = getOption('userId', randomUUID());
-		clientId = getOption('clientId', randomUUID());
-
-		registerBrowser(userId, clientId, function() {
-			self.putObjectForKey('browserInfo', {'label': 'Chrome', 'icon': 'chromeIcon_512.png'});
+	if (!browser.username) {
+		browser.register(encryption.generateHexKey(), function(result) {
+			localStorage.setItem('username', browser.username);
+			localStorage.setItem('password', browser.password);
 		});
 	}
 
-	this.clientRegistrationUrl = function() {
-		var newClientId = randomUUID();
-		var url = 'tabulatabs:/register?uid=' + userId + '&cid=' + newClientId + '&k=' + GibberishAES.a2h(key);
-		registerClient(userId, newClientId);
-		
-		console.log(url);
-		return url;
-	}
-
+	return browser;
 }
