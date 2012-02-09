@@ -36,7 +36,7 @@ function findMetaInPageTitle(pageInfo) {
 	pageInfo.pageTitle = pageInfo.title;
 	pageInfo.siteTitle = '';
 
-	var fullDomain = pageInfo.url.replace(/^https?:\/\//, '').replace(/\/.*/, '');
+	var fullDomain = pageInfo.URL.replace(/^https?:\/\//, '').replace(/\/.*/, '');
 	var shortDomain = fullDomain.replace(/^(www|m)\./, '');
 	var trunkDomain = shortDomain.replace(/\.[^\.]+$/, '');
 

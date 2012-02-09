@@ -1,5 +1,19 @@
-var tabulatabs = new Tabulatabs('Chrome');
-
 $().ready(function() {
-	drawQrCode(tabulatabs.clientRegistrationUrl(), 1, $('#qrCode')[0]);
+    var client = thisBrowser().newClient();
+
+    client.registerWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
+        drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
+    })
 });
+
+function loadTabs() {
+    var client = thisBrowser().newClient();
+
+    client.registerWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
+       client.claim(client.claimingPassword, thisBrowser().encryption.generatePassword(), function() {
+          client.loadTabs(function() {
+             console.dir(client.tabs);
+          });
+       });
+    });
+}

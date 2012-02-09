@@ -1,7 +1,7 @@
 tabulatabsDocumentVersion = 1;
 
 var tabulatabsServerPath = 'https://tabulatabs.heroku.com/';
-//var tabulatabsServerPath = 'htt://localhost:3000/';
+//var tabulatabsServerPath = 'http://localhost:3000/';
 
 function TabulatabsEncryption(key) {
 	this.key = key;
@@ -25,6 +25,10 @@ function TabulatabsEncryption(key) {
 		var key = GibberishAES.a2h(generateKey());
 		return key;
 	}
+            
+    this.generatePassword = function() {
+        return this.generateHexKey().substr(0, 32);
+    }
 
 	if (!this.key) {
 		this.key = this.generateHexKey();
@@ -45,7 +49,7 @@ function TabulatabsEncryption(key) {
 
 function TabulatabsBrowser(encryption) {
 	var self = this;
-	var encryption = encryption;
+	this.encryption = encryption;
 	this.useragent = '';
 	this.label = '';
 	this.description = '';
@@ -155,6 +159,10 @@ function TabulatabsBrowser(encryption) {
 			}
 		});
 	}
+
+    this.newClient = function() {
+        return new TabulatabsClient(encryption);
+    }
 }
 
 function TabulatabsClient(encryption) {
@@ -267,7 +275,7 @@ function thisBrowser() {
 	browser.password = localStorage.getItem('password');
 
 	if (!browser.username) {
-		browser.register(encryption.generateHexKey(), function(result) {
+		browser.register(encryption.generatePassword(), function(result) {
 			localStorage.setItem('username', browser.username);
 			localStorage.setItem('password', browser.password);
 		});

@@ -1,4 +1,3 @@
-var tabulatabs = new Tabulatabs('Chrome');
 var tabMetaInfo;
 try {
 	tabMetaInfo = JSON.parse(localStorage.getItem('tabMetaInfo'));
@@ -12,36 +11,9 @@ function saveTabMeta() {
 function setTabMetaProperty(url, key, value) {
 	if (!tabMetaInfo[url]) tabMetaInfo[url] = {};
 	tabMetaInfo[url][key] = value;
+    console.log('tabMetaInfo.length: ' + Object.keys(tabMetaInfo).length);
 	saveTabMeta();
 }
-
-function purgeUnusedThumbnails() {
-	chrome.windows.getAll({populate: true}, function(chromeWindows) {
-
-		var activeTabMetaInfo = {};
-		$.each(chromeWindows, function(index, chromeWindow) {
-			if (!chromeWindow.incognito) {
-
-				$.each(chromeWindow.tabs, function(index, chromeTab) {
-
-					if (tabMetaInfo[chromeTab.url]) {
-						activeTabMetaInfo[chromeTab.url] = tabMetaInfo[chromeTab.url];
-					}
-
-				});
-			}
-		});
-
-		console.log('Purging tab thumbs from ' + tabMetaInfo.length + ' to ' + activeTabMetaInfo.length);
-		tabMetaInfo = activeTabMetaInfo;
-		saveTabMeta();
-	});
-}
-
-purgeUnusedThumbnails();
-window.setInterval(function() {
-	purgeUnusedThumbnails();
-}, 1000 * 60);
 
 function unsetTabMeta(url) {
 	delete tabMetaInfo[url];
@@ -56,11 +28,12 @@ function tabulatabForTab(tab) {
 	var tabulatab = {
 		identifier: tab.id,
 		title: tab.title,
-		url: tab.url,
+		URL: tab.url,
 		selected: tab.selected,
-		favIconURL: tab.favIconURL,
+		favIconURL: tab.favIconUrl,
 		windowId: tab.windowId,
-		index: tab.index
+		index: tab.index,
+        pageColors: []
 	};
 
 	findMetaInPageTitle(tabulatab);
@@ -68,8 +41,6 @@ function tabulatabForTab(tab) {
 	if (tabMetaInfo[tab.url]) {
 		if (tabMetaInfo[tab.url].articleImage) {
 			tabulatab.pageThumbnail = tabMetaInfo[tab.url].articleImage;
-		} else if (tabMetaInfo[tab.url].pageThumbnail) {
-			tabulatab.pageThumbnail = tabMetaInfo[tab.url].pageThumbnail;
 		}
 
 		if (tabMetaInfo[tab.url].siteName) {
@@ -83,7 +54,7 @@ function tabulatabForTab(tab) {
 function collectAllTabs() {
 	console.log('started uploading');
 
-	var tabs = {};
+	var tabs = [];
 
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
 		$.each(chromeWindows, function(index, chromeWindow) {
@@ -92,45 +63,14 @@ function collectAllTabs() {
 				$.each(chromeWindow.tabs, function(index, chromeTab) {
 					var tabulatab = tabulatabForTab(chromeTab);
 					if (tabulatab) {
-						tabs[tabulatab.id] = tabulatab;
+						tabs.push(tabulatab);
 					}
 				});
 			}
 		});
-		tabulatabs.replaceTabs(tabs);
-	});
-}
-
-function resizeThumbnail(dataUrl, maxWidth, maxHeight, callback) {
-	var img = new Image();
-
-	var canvas = document.createElement('canvas');
-	canvas.setAttribute('width', maxWidth);
-	canvas.setAttribute('height', maxHeight);
-
-	var context = canvas.getContext('2d');
-
-	img.onload = function() {
-		var height = maxHeight;
-		var width = img.width * (height / img.height);
-
-		context.drawImage(img, 0, 0, width, height);
-
-		$('body').append(canvas);
-		callback(canvas.toDataURL('image/jpeg'));
-	}
-
-	img.src = dataUrl;
-}
-
-function captureThumbnailOfCurrentVisibleTab() {
-	chrome.tabs.captureVisibleTab(null, {format: 'png'}, function(dataUrl) {
-		chrome.tabs.getSelected(null, function(tab) {
-			if(!tab.url.match(/^https?:\/\//)) return;
-			resizeThumbnail(dataUrl, 256, 144, function(resizedDataUrl) {
-				setTabMetaProperty(tab.url, 'pageThumbnail', resizedDataUrl);
-			});
-		});
+        thisBrowser().saveTabs(tabs, function() {
+            console.log('saved tabs');
+        })
 	});
 }
 
@@ -158,27 +98,23 @@ chrome.tabs.onCreated.addListener(function(tab) {
 });
 
 chrome.tabs.onMoved.addListener(function(tabId, moveInfo) {
-	console.log('onMoved');console.dir(moveInfo);
+//	console.log('onMoved');console.dir(moveInfo);
 	startUploadTabsTimeout();
 });
 
 chrome.tabs.onRemoved.addListener(function(tabId) {
-	console.log('onRemoved');console.dir(tabId);
+//	console.log('onRemoved');console.dir(tabId);
 	startUploadTabsTimeout();
 });
 
 chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
-	console.log('onSelectionChanged');console.dir(selectInfo);
+//	console.log('onSelectionChanged');console.dir(selectInfo);
 	startUploadTabsTimeout();
-	captureThumbnailOfCurrentVisibleTab();
 });
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
-	console.log('onUpdated');console.dir(changeInfo);
+//	console.log('onUpdated');console.dir(changeInfo);
 	startUploadTabsTimeout();
-	if (changeInfo.status == 'complete') {
-		captureThumbnailOfCurrentVisibleTab();
-	}
 });
 
 chrome.extension.onRequest.addListener(function(request, sender, callback) {
@@ -232,6 +168,9 @@ function openOptions(firstTime) {
 	});
 }
 
-if(!tabulatabs.getRegisteredClients().length == 0) {
-	openOptions(true);
-}
+if(thisBrowser().loadClients(function() {
+    console.dir(['registeredClients', thisBrowser().clients]);
+    if (thisBrowser().clients.length == 0) {
+        openOptions(true);
+    }
+}));
