@@ -266,20 +266,23 @@ function TabulatabsTab(data) {
 	}
 }
 
+var _tabulatabsCurrentBrowser = null;
+
 function thisBrowser() {
-	var encryption = new TabulatabsEncryption(localStorage.getItem('key'));
-	localStorage.setItem('key', encryption.key);
+    if (!_tabulatabsCurrentBrowser) {
+        var encryption = new TabulatabsEncryption(localStorage.getItem('key'));
+        localStorage.setItem('key', encryption.key);
 
-	var browser = new TabulatabsBrowser(encryption);
-	browser.username = localStorage.getItem('username');
-	browser.password = localStorage.getItem('password');
+        _tabulatabsCurrentBrowser = new TabulatabsBrowser(encryption);
+        _tabulatabsCurrentBrowser.username = localStorage.getItem('username');
+        _tabulatabsCurrentBrowser.password = localStorage.getItem('password');
 
-	if (!browser.username) {
-		browser.register(encryption.generatePassword(), function(result) {
-			localStorage.setItem('username', browser.username);
-			localStorage.setItem('password', browser.password);
-		});
-	}
-
-	return browser;
+        if (!_tabulatabsCurrentBrowser.username) {
+            _tabulatabsCurrentBrowser.register(encryption.generatePassword(), function(result) {
+                localStorage.setItem('username', _tabulatabsCurrentBrowser.username);
+                localStorage.setItem('password', _tabulatabsCurrentBrowser.password);
+            });
+        }
+    }
+	return _tabulatabsCurrentBrowser;
 }
