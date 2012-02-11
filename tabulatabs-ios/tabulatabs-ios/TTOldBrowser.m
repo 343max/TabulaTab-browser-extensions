@@ -6,7 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "TTBrowser.h"
+#import "TTOldBrowser.h"
 #import "MWURLConnection.h"
 #import "MWJavaScriptQueue.h"
 #import "NSObject+SBJson.h"
@@ -15,20 +15,20 @@
 #import "NSData+Base64.h"
 #import "TTTab.h"
 
-@interface TTBrowser () {
-@private
-    NSData *encryptionKey;
-}
+@interface TTOldBrowser ()
+
+@property (strong) NSData *encryptionKey;
 
 @end
 
 
-@implementation TTBrowser
+@implementation TTOldBrowser
 
 @synthesize label, iconId, browserInfoLoaded;
 @synthesize userId;
 @synthesize clientId;
 @synthesize tabs;
+@synthesize encryptionKey;
 
 - (NSDictionary *)parseQueryString:(NSString *)query
 {
@@ -65,7 +65,7 @@
         
         self.userId = [aDecoder decodeObjectForKey:@"userId"];
         self.clientId = [aDecoder decodeObjectForKey:@"clientId"];
-        encryptionKey = [aDecoder decodeObjectForKey:@"encryptionKey"];
+        self.encryptionKey = [aDecoder decodeObjectForKey:@"encryptionKey"];
         
         browserInfoLoaded = [aDecoder decodeBoolForKey:@"browserInfoLoaded"];
         
@@ -95,7 +95,7 @@
     self.clientId = [query objectForKey:@"cid"];
     NSString *hexKey = [query objectForKey:@"k"];
     if ([hexKey length] != 64) return NO;
-    encryptionKey = [NSData dataWithHexString:hexKey];
+    self.encryptionKey = [NSData dataWithHexString:hexKey];
     
     if ((!self.userId) | (!self.clientId) | (!hexKey))
         return NO;
@@ -173,7 +173,7 @@
     NSData *iv = [NSData dataWithHexString:[encrypted objectForKey:@"iv"]];
     NSData *encryptedData = [NSData dataFromBase64String:[encrypted objectForKey:@"ic"]];
     
-    NSData *unencryptedData = [encryptedData AES256DecryptWithKey:encryptionKey iv:iv];
+    NSData *unencryptedData = [encryptedData AES256DecryptWithKey:self.encryptionKey iv:iv];
     NSString *unencryptedJson = [[NSString alloc] initWithData:unencryptedData encoding:NSUTF8StringEncoding];
     
     id unencryptedObject = [unencryptedJson JSONValue];
@@ -262,7 +262,7 @@
     [aCoder encodeObject:self.iconId forKey:@"iconId"];
     [aCoder encodeObject:self.userId forKey:@"userId"];
     [aCoder encodeObject:self.clientId forKey:@"clientId"];
-    [aCoder encodeObject:encryptionKey forKey:@"encryptionKey"];
+    [aCoder encodeObject:self.encryptionKey forKey:@"encryptionKey"];
     
     [aCoder encodeBool:self.browserInfoLoaded forKey:@"browserInfoLoaded"];
     

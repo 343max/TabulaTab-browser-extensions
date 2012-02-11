@@ -40,7 +40,7 @@
 		506AE72D13BB338600134EF3 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 506AE72B13BB338500134EF3 /* Helpers.m */; };
 		506BB25513B3920800B2CE85 /* BrowserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB25313B3920800B2CE85 /* BrowserListViewController.m */; };
 		506BB25613B3920800B2CE85 /* BrowserListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506BB25413B3920800B2CE85 /* BrowserListViewController.xib */; };
-		506BB26113B399F200B2CE85 /* TTBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TTBrowser.m */; };
+		506BB26113B399F200B2CE85 /* TTOldBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 506BB26013B399F200B2CE85 /* TTOldBrowser.m */; };
 		507A4B4013C75E3100C2B281 /* iphone.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3E13C75E3100C2B281 /* iphone.css */; };
 		507A4B4113C75E3100C2B281 /* readability.css in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B3F13C75E3100C2B281 /* readability.css */; };
 		507A4B4613C7619600C2B281 /* injectReadability.js in Resources */ = {isa = PBXBuildFile; fileRef = 507A4B4413C75F1F00C2B281 /* injectReadability.js */; };
@@ -80,8 +80,11 @@
 		509CC303141A556900E5011D /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 509CC302141A556900E5011D /* NSData+Base64.m */; };
 		50E5464E13C629DA00DC5985 /* TabActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E5464D13C629DA00DC5985 /* TabActionController.m */; };
 		50E6F66813C74034009BB757 /* ReadabilityWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E6F66713C74033009BB757 /* ReadabilityWebView.m */; };
-		50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */; };
-		50F7835813B8D2B40017FB9D /* MWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 50F7835713B8D2B40017FB9D /* MWURLConnection.m */; };
+		50EA11E014E567CF00F687E9 /* TTRestfulController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA11DF14E567CF00F687E9 /* TTRestfulController.m */; };
+		50EA11E914E569D700F687E9 /* TTEncryptedRestfulController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA11E814E569D700F687E9 /* TTEncryptedRestfulController.m */; };
+		50EA11EC14E569EE00F687E9 /* TTBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA11EB14E569EE00F687E9 /* TTBrowserController.m */; };
+		50EA11F314E588EA00F687E9 /* MWURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA11F214E588EA00F687E9 /* MWURLConnection.m */; };
+		50EA11F614E6753C00F687E9 /* MWJavaScriptQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA11F514E6753C00F687E9 /* MWJavaScriptQueue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,8 +152,8 @@
 		506BB25213B3920800B2CE85 /* BrowserListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserListViewController.h; sourceTree = "<group>"; };
 		506BB25313B3920800B2CE85 /* BrowserListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserListViewController.m; sourceTree = "<group>"; };
 		506BB25413B3920800B2CE85 /* BrowserListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserListViewController.xib; sourceTree = "<group>"; };
-		506BB25F13B399F200B2CE85 /* TTBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBrowser.h; sourceTree = "<group>"; };
-		506BB26013B399F200B2CE85 /* TTBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBrowser.m; sourceTree = "<group>"; };
+		506BB25F13B399F200B2CE85 /* TTOldBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTOldBrowser.h; sourceTree = "<group>"; };
+		506BB26013B399F200B2CE85 /* TTOldBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTOldBrowser.m; sourceTree = "<group>"; };
 		507A4B3E13C75E3100C2B281 /* iphone.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = iphone.css; sourceTree = "<group>"; };
 		507A4B3F13C75E3100C2B281 /* readability.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = readability.css; sourceTree = "<group>"; };
 		507A4B4213C75E4500C2B281 /* readability.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = readability.js; sourceTree = "<group>"; };
@@ -220,10 +223,16 @@
 		50E5464D13C629DA00DC5985 /* TabActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabActionController.m; sourceTree = "<group>"; };
 		50E6F66613C74033009BB757 /* ReadabilityWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReadabilityWebView.h; sourceTree = "<group>"; };
 		50E6F66713C74033009BB757 /* ReadabilityWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReadabilityWebView.m; sourceTree = "<group>"; };
-		50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWJavaScriptQueue.h; path = ../MWJavaScriptQueue.h; sourceTree = "<group>"; };
-		50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWJavaScriptQueue.m; path = ../MWJavaScriptQueue.m; sourceTree = "<group>"; };
-		50F7835613B8D2B40017FB9D /* MWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWURLConnection.h; path = ../MWURLConnection.h; sourceTree = "<group>"; };
-		50F7835713B8D2B40017FB9D /* MWURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWURLConnection.m; path = ../MWURLConnection.m; sourceTree = "<group>"; };
+		50EA11DE14E567CF00F687E9 /* TTRestfulController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRestfulController.h; sourceTree = "<group>"; };
+		50EA11DF14E567CF00F687E9 /* TTRestfulController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRestfulController.m; sourceTree = "<group>"; };
+		50EA11E714E569D700F687E9 /* TTEncryptedRestfulController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTEncryptedRestfulController.h; sourceTree = "<group>"; };
+		50EA11E814E569D700F687E9 /* TTEncryptedRestfulController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTEncryptedRestfulController.m; sourceTree = "<group>"; };
+		50EA11EA14E569EE00F687E9 /* TTBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBrowserController.h; sourceTree = "<group>"; };
+		50EA11EB14E569EE00F687E9 /* TTBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBrowserController.m; sourceTree = "<group>"; };
+		50EA11F114E588EA00F687E9 /* MWURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWURLConnection.h; sourceTree = "<group>"; };
+		50EA11F214E588EA00F687E9 /* MWURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWURLConnection.m; sourceTree = "<group>"; };
+		50EA11F414E6753C00F687E9 /* MWJavaScriptQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWJavaScriptQueue.h; sourceTree = "<group>"; };
+		50EA11F514E6753C00F687E9 /* MWJavaScriptQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWJavaScriptQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,12 +306,18 @@
 		50364B3813BA14930003F9A4 /* Tabulatabs */ = {
 			isa = PBXGroup;
 			children = (
-				506BB25F13B399F200B2CE85 /* TTBrowser.h */,
-				506BB26013B399F200B2CE85 /* TTBrowser.m */,
+				506BB25F13B399F200B2CE85 /* TTOldBrowser.h */,
+				506BB26013B399F200B2CE85 /* TTOldBrowser.m */,
 				50364B3513BA14870003F9A4 /* TTTab.h */,
 				50364B3613BA14870003F9A4 /* TTTab.m */,
 				50E5464C13C629DA00DC5985 /* TabActionController.h */,
 				50E5464D13C629DA00DC5985 /* TabActionController.m */,
+				50EA11DE14E567CF00F687E9 /* TTRestfulController.h */,
+				50EA11DF14E567CF00F687E9 /* TTRestfulController.m */,
+				50EA11E714E569D700F687E9 /* TTEncryptedRestfulController.h */,
+				50EA11E814E569D700F687E9 /* TTEncryptedRestfulController.m */,
+				50EA11EA14E569EE00F687E9 /* TTBrowserController.h */,
+				50EA11EB14E569EE00F687E9 /* TTBrowserController.m */,
 			);
 			name = Tabulatabs;
 			sourceTree = "<group>";
@@ -545,10 +560,10 @@
 		50E3CBDA140D719200B87BAE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				50F7835613B8D2B40017FB9D /* MWURLConnection.h */,
-				50F7835713B8D2B40017FB9D /* MWURLConnection.m */,
-				50E70B7D13B8E1E3008B9B95 /* MWJavaScriptQueue.h */,
-				50E70B7E13B8E1E3008B9B95 /* MWJavaScriptQueue.m */,
+				50EA11F414E6753C00F687E9 /* MWJavaScriptQueue.h */,
+				50EA11F514E6753C00F687E9 /* MWJavaScriptQueue.m */,
+				50EA11F114E588EA00F687E9 /* MWURLConnection.h */,
+				50EA11F214E588EA00F687E9 /* MWURLConnection.m */,
 				506AE72B13BB338500134EF3 /* Helpers.m */,
 				506AE72C13BB338500134EF3 /* Helpers.h */,
 				507E53BD13BC801200CEB2A1 /* MWImagePool.h */,
@@ -702,10 +717,8 @@
 				5091088313B3616900938AE6 /* main.m in Sources */,
 				5091088713B3616A00938AE6 /* TabulatabsApp.m in Sources */,
 				506BB25513B3920800B2CE85 /* BrowserListViewController.m in Sources */,
-				506BB26113B399F200B2CE85 /* TTBrowser.m in Sources */,
+				506BB26113B399F200B2CE85 /* TTOldBrowser.m in Sources */,
 				5088E30213B4A4BB00D12E49 /* AddBrowserStepsViewController.m in Sources */,
-				50F7835813B8D2B40017FB9D /* MWURLConnection.m in Sources */,
-				50E70B7F13B8E1E3008B9B95 /* MWJavaScriptQueue.m in Sources */,
 				5041AD8913B8EC6500586862 /* NSObject+SBJson.m in Sources */,
 				5041AD8A13B8EC6500586862 /* SBJsonParser.m in Sources */,
 				5041AD8B13B8EC6500586862 /* SBJsonStreamParser.m in Sources */,
@@ -732,6 +745,11 @@
 				509CC303141A556900E5011D /* NSData+Base64.m in Sources */,
 				5021BCF9141FB7CD009054DE /* EGORefreshTableHeaderView.m in Sources */,
 				5021BCFD141FB812009054DE /* PullToRefreshTableViewController.m in Sources */,
+				50EA11E014E567CF00F687E9 /* TTRestfulController.m in Sources */,
+				50EA11E914E569D700F687E9 /* TTEncryptedRestfulController.m in Sources */,
+				50EA11EC14E569EE00F687E9 /* TTBrowserController.m in Sources */,
+				50EA11F314E588EA00F687E9 /* MWURLConnection.m in Sources */,
+				50EA11F614E6753C00F687E9 /* MWJavaScriptQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

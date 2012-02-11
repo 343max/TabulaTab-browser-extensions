@@ -9,7 +9,7 @@
 #import "TabulatabsApp.h"
 
 #import "BrowserListViewController.h"
-#import "TTBrowser.h"
+#import "TTOldBrowser.h"
 #import "MWImagePool.h"
 #import "Helpers.h"
 
@@ -110,7 +110,7 @@ static MWImagePool *sharedImagePool;
     
     //[self application:application handleOpenURL:[NSURL URLWithString:@"tabulatabs:/register?uid=918DB60F-E701-46B2-ACE9-420D9D8781B6&cid=E92DBA6C-0F57-41C1-9FF3-57744CEBAADB&k=086204eed774e9ebcb5ee41332bbe5a8766506df09f83bc4d3d2e05c61b35708"]];
     
-    [browserRepresenations enumerateObjectsUsingBlock:^(__strong TTBrowser *browser, NSUInteger idx, BOOL *stop) {
+    [browserRepresenations enumerateObjectsUsingBlock:^(__strong TTOldBrowser *browser, NSUInteger idx, BOOL *stop) {
         [browser loadTabs];
         [browser loadBrowserInfo];
         
@@ -127,7 +127,7 @@ static MWImagePool *sharedImagePool;
         return NO;
     }
     
-    TTBrowser *newBrowser = [[TTBrowser alloc] init];
+    TTOldBrowser *newBrowser = [[TTOldBrowser alloc] init];
     if ([newBrowser setRegistrationUrl:url]) {
         [newBrowser claimClient];
         [browserRepresenations addObject:newBrowser];

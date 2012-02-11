@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TTTab.h"
-#import "TTBrowser.h"
+#import "TTOldBrowser.h"
 
 #import "PullToRefreshTableViewController.h"
 
@@ -18,7 +18,7 @@
 
 @property (strong) IBOutlet UISearchBar *tabSearchBar;
 
-@property (strong) TTBrowser *browser;
+@property (strong) TTOldBrowser *browser;
 @property (strong) NSArray *searchResults;
 
 @end

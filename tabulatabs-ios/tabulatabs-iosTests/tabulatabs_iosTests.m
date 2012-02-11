@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import "TTBrowserController.h"
+
 #import "tabulatabs_iosTests.h"
 
 @implementation tabulatabs_iosTests
@@ -24,9 +26,20 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testEncryption;
 {
-    STFail(@"Unit tests are not implemented yet in tabulatabs-iosTests");
+    NSString *keyString = @"secretsecretsecretsecretsecretAA";
+    NSString *ivString = @"iviviviviviviviv";
+
+    TTBrowserController *browser = [[TTBrowserController alloc] initWithEncryptionKey:[keyString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSDictionary *payload = [NSDictionary dictionaryWithObject:@"World!" forKey:@"hello"];
+    
+    NSDictionary *encryptedData = [browser encrypt:payload iv:[ivString dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSDictionary *decryptedPayload = [browser decrypt:encryptedData];
+    
+    STAssertEquals([decryptedPayload objectForKey:@"hello"], @"World!", @"encryption/decryption did work");
 }
 
 @end

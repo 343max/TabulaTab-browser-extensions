@@ -9,7 +9,7 @@
 #import "AddBrowserStepsViewController.h"
 #import "ZBarSDK.h"
 #import "TabulatabsApp.h"
-#import "TTBrowser.h"
+#import "TTOldBrowser.h"
 
 @implementation AddBrowserStepsViewController
 
@@ -61,7 +61,7 @@
     for (symbol in results)
         break;
     
-    TTBrowser *browser = [[TTBrowser alloc] init];
+    TTOldBrowser *browser = [[TTOldBrowser alloc] init];
     
     if ([browser setRegistrationUrl:[NSURL URLWithString:symbol.data]]) {
         [browser claimClient];
