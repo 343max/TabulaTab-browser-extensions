@@ -183,7 +183,7 @@ function TabulatabsClient(encryption) {
 	this.claimingPassword = '';
 
 	this.registrationURL = function() {
-		return 'tabulatabs://registerClient?username=' + this.username + '&password=' + this.claimingPassword + '&key=' + encryption.key;
+		return 'tabulatabs://client/claim/' + [this.username, this.claimingPassword + encryption.key].join('/');
 	}
 
 	this.create = function(username, password, claimingPassword, callback) {
