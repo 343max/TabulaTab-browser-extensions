@@ -123,6 +123,8 @@ test('clients / tabs', function() {
 								equal(client.tabs[0].index, tab1.index, 'save index correctly');
 								equal(client.tabs[0].pageColors.length, tab1.pageColors.length, 'save pageColors correctly');
 
+								equal(client.tabs[1].identifier, tab2.identifier, 'saved identifier on second tab correctly');
+
 								console.dir(client.tabs);
 								start();
 							});
