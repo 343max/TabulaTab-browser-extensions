@@ -186,21 +186,25 @@ function TabulatabsClient(encryption) {
 		return 'tabulatabs://registerClient?username=' + this.username + '&password=' + this.claimingPassword + '&key=' + encryption.key;
 	}
 
-	this.registerWithBrowser = function(browser, claimingPassword, callback) {
+	this.create = function(username, password, claimingPassword, callback) {
 		if (!callback) callback = function() {};
 
 		$.ajax(tabulatabsServerPath + 'browsers/clients.json', {
 			type: 'POST',
-			username: browser.username,
-			password: browser.password,
+			username: username,
+			password: password,
 			data: JSON.stringify({password: claimingPassword}),
 			success: function(result) {
 				self.claimingPassword = claimingPassword;
 				self.username = result.username;
-				
+
 				callback(result);
 			}
 		});
+	}
+
+	this.createWithBrowser = function(browser, claimingPassword, callback) {
+		self.create(browser.username, browser.password, claimingPassword, callback);
 	};
 
 	this.claim = function(claimingPassword, permanentPassword, callback)  {

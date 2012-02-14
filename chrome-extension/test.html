@@ -82,10 +82,10 @@ test('clients / tabs', function() {
 		var client = new TabulatabsClient(encryption);
 		var unclaimedClient = new TabulatabsClient(encryption);
 
-		unclaimedClient.registerWithBrowser(browser, claimingClientPassword, function(registration_result) {
+		unclaimedClient.createWithBrowser(browser, claimingClientPassword, function(registration_result) {
 			ok(unclaimedClient.username != '', 'Successfully registered a client - will never claim it');
 
-			client.registerWithBrowser(browser, claimingClientPassword, function () {
+			client.createWithBrowser(browser, claimingClientPassword, function () {
 				ok(client.username != '', 'Successfully registered a client - will claim it');
 				client.useragent = 'Unit Test Client';
 				client.label = 'Fake Unit Test Client';
