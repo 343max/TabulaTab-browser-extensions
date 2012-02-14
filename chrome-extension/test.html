@@ -109,7 +109,7 @@ test('clients / tabs', function() {
 						var tabs = [tab1, tab2];
 
 						browser.saveTabs(tabs, function(savingTabsResult) {
-							equal(savingTabsResult, true, 'Tabs saved successfully');
+							equal(savingTabsResult.success, true, 'Tabs saved successfully');
 
 							client.loadTabs(function() {
 								equal(client.tabs.length, 2, 'correct number of tabs loaded');
