@@ -3,6 +3,13 @@ tabulatabsDocumentVersion = 1;
 var tabulatabsServerPath = 'https://tabulatabs.heroku.com/';
 //var tabulatabsServerPath = 'http://localhost:3000/';
 
+var tabulatabsFixChromeAuthentifiaction = function(jqXHR, settings) {
+	if (settings.username) {
+		jqXHR.setRequestHeader('Authorization', 'Basic ' + base64_encode(settings.username + ':' + settings.password) + '==');
+	}
+};
+
+
 function TabulatabsEncryption(key) {
 	this.key = key;
 	this.forcedIv = null;
@@ -82,6 +89,7 @@ function TabulatabsBrowser(encryption) {
 			type: 'GET',
 			username: username,
 			password: password,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				result.payload = encryption.decrypt(result);
 				delete(result.iv);
@@ -93,6 +101,9 @@ function TabulatabsBrowser(encryption) {
 				self.iconURL = result.payload.iconURL;
 
 				callback(result);
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.dir([jqXHR, textStatus, errorThrown]);
 			}
 		});
 	}
@@ -112,6 +123,7 @@ function TabulatabsBrowser(encryption) {
 			type: 'GET',
 			username: self.username,
 			password: self.password,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				self.clients = [];
 
@@ -153,6 +165,7 @@ function TabulatabsBrowser(encryption) {
 			type: 'POST',
 			username: self.username,
 			password: self.password,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			data: JSON.stringify(encryptedTabs),
 			success: function(result) {
 				callback(result);
@@ -193,6 +206,7 @@ function TabulatabsClient(encryption) {
 			type: 'POST',
 			username: username,
 			password: password,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			data: JSON.stringify({password: claimingPassword}),
 			success: function(result) {
 				self.claimingPassword = claimingPassword;
@@ -217,6 +231,7 @@ function TabulatabsClient(encryption) {
 			type: 'PUT',
 			username: self.username,
 			password: claimingPassword,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			data: JSON.stringify(payload),
 			success: function(result) {
 				self.password = permanentPassword;
@@ -230,6 +245,7 @@ function TabulatabsClient(encryption) {
 			type: 'GET',
 			username: self.username,
 			password: self.password,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				tabs = [];
 

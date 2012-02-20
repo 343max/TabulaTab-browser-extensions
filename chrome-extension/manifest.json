@@ -3,8 +3,10 @@
 	"version": "0.1",
 	"description": "Access your Browser tabs from everywhere",
 	"permissions": [
-		"tabs", "http://*/", "https://*/",
-		"https://tabulatabs.heroku.com/"
+		"tabs",
+		"https://tabulatabs.heroku.com/",
+		"http://localhost:3000/",
+		"chrome://favicon/"
 	],
 	"content_scripts": [{
 		"js": ["js/findMetaInPage.js"],

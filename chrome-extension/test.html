@@ -4,6 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 		<title>Tabulatabs js client test</title>
 		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.2.0.css" >
+		<script src="js/base64.js"></script>
 		<script src="js/gibberish-aes.js"></script>
 		<script src="js/jquery-1.7.1.min.js"></script>
 		<script src="js/webtoolkit.sha1.js"></script>
@@ -19,11 +20,40 @@
   <ol id="qunit-tests"></ol>
 <script>
 test("cross domain connection, server responding", function() {
-	stop();
-	$.get('https://tabulatabs.heroku.com/hello.json', function(r) {
-		equal(r.greeted, 'world', 'get response test to json controller');
+	stop(3);
+
+	$.get(tabulatabsServerPath + 'hello/hello.json', function(r) {
+		equal(r.greeted, 'Hello World!', 'get response test to json controller');
 		start();
 	});
+
+	$.ajax(tabulatabsServerPath + 'hello/hello_secure.json', {
+		type: 'GET',
+		username: 'Tester',
+		password: 'greets',
+		beforeSend: function(jqXHR, settings) {
+			if (settings.username) {
+				jqXHR.setRequestHeader('Authorization', 'Basic ' + base64_encode(settings.username + ':' + settings.password) + '==');
+			}
+		},
+		success: function(r) {
+			equal(r.greeted, 'Hello Tester!', 'authentification is working');
+			start();
+		}
+	});
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('get', tabulatabsServerPath + 'hello/hello_secure.json');
+	xhr.setRequestHeader('Authorization', 'Basic ' + base64_encode('Tester' + ':' + 'greets') + '==');
+	xhr.onreadystatechange = function(e){
+		if(xhr.readyState != 4)
+			return;
+
+		var o = JSON.parse(xhr.responseText);
+		equal(o.greeted, 'Hello Tester!', 'custom XHR request working');
+		start();
+	};
+	xhr.send(null);
 });
 
 test("encryption", function() {
@@ -125,7 +155,6 @@ test('clients / tabs', function() {
 
 								equal(client.tabs[1].identifier, tab2.identifier, 'saved identifier on second tab correctly');
 
-								console.dir(client.tabs);
 								start();
 							});
 

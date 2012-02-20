@@ -2,6 +2,7 @@ $().ready(function() {
     var client = thisBrowser().newClient();
 
     client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
+		console.log(client.registrationURL());
         drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
     })
 });
