@@ -3,18 +3,7 @@ $().ready(function() {
 
     client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
 		console.log(client.registrationURL());
+		console.log(JSON.stringify(client.encryption.encrypt({message: 'Hello', recipient: 'world'})));
         drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
     })
 });
-
-function loadTabs() {
-    var client = thisBrowser().newClient();
-
-    client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
-       client.claim(client.claimingPassword, thisBrowser().encryption.generatePassword(), function() {
-          client.loadTabs(function() {
-             console.dir(client.tabs);
-          });
-       });
-    });
-}
