@@ -124,6 +124,7 @@ test('clients / tabs', function() {
 
 				client.claim(claimingClientPassword, permanentClientPassword, function(claiming_result) {
 					ok(client.password != '', 'Successfully claimed a client');
+					ok(client.id != 0, 'returned the id of the just claimed client');
 
 					browser.loadClients(function(loadClientsResult) {
 						equal(browser.clients.length, 1, 'returns exactly one registered client');
@@ -132,6 +133,7 @@ test('clients / tabs', function() {
 						equal(client.label, browser.clients[0].label, 'Label correctly saved');
 						equal(client.description, browser.clients[0].description, 'Description correctly saved');
 						equal(client.iconURL, browser.clients[0].iconURL, 'iconURL saved correctly');
+						equal(client.id, browser.clients[0].id, 'id saved correctly');
 
 						var tab1 = new TabulatabsTab({identifier: 'id1', title: 'title', URL: 'http://tabulatabs.com/', selected: true, favIconURL: 'favicon.ico', windowId: 'wid2', index: 3, pageColors: ['red', 'green', 'blue']});
 						var tab2 = new TabulatabsTab({identifier: 'id2', title: 'title2', URL: 'http://tabulatabs.com/2', selected: true, favIconURL: 'favicon2.ico', windowId: 'wid2', index: 4});
@@ -155,7 +157,14 @@ test('clients / tabs', function() {
 
 								equal(client.tabs[1].identifier, tab2.identifier, 'saved identifier on second tab correctly');
 
-								start();
+								browser.destroyClient(client, function(destroyClientResult) {
+									ok(destroyClientResult.success, 'got invalid response');
+
+									browser.loadClients(function(loadClientsResult) {
+										equal(browser.clients.length, 0, 'client was not destroyed');
+										start();
+									});
+								});
 							});
 
 						});

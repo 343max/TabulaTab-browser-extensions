@@ -142,6 +142,7 @@ function TabulatabsBrowser(encryption) {
 
 						client = new TabulatabsClient();
 
+						client.id = data.id;
 						client.useragent = data.useragent;
 						client.label = data.payload.label;
 						client.description = data.payload.description;
@@ -153,6 +154,20 @@ function TabulatabsBrowser(encryption) {
 
 				callback(result);
 			}
+		});
+	}
+
+	this.destroyClient = function(client, callback) {
+		console.dir(client);
+
+		if (!callback) callback = function() {};
+
+		$.ajax(tabulatabsServerPath + 'browsers/clients/' + client.id + '.json', {
+			type: 'DELETE',
+			username: self.username,
+			password: self.password,
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
+			success: callback
 		});
 	}
 
@@ -189,7 +204,9 @@ function TabulatabsClient(encryption) {
 	var self = this;
 
 	this.encryption = encryption;
-	
+
+	this.id = 0;
+
 	this.username = '';
 	this.password = '';
 
@@ -243,6 +260,7 @@ function TabulatabsClient(encryption) {
 			data: JSON.stringify(payload),
 			success: function(result) {
 				self.password = permanentPassword;
+				self.id = result.id;
 				callback(result);
 			}
 		});
