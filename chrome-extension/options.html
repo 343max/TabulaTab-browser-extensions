@@ -12,11 +12,25 @@
 	<script src="js/tabulatabs-browser.js"></script>
 	<script src="js/qrCode.js"></script>
 	<script src="options.js"></script>
+	<style>
+
+#qrCode {
+	margin: 20px;
+	float: left;
+}
+
+ul#clients li {
+	list-style-type: none;
+	min-height: 28px;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+	</style>
 </head>
 <body>
 
 <canvas width="360" height="360" id="qrCode"></canvas>
-<span id="url" style="display: none;"></span>
 <div class="clients">
 	<h2>Currently registered clients:</h2>
 	<ul id="clients">

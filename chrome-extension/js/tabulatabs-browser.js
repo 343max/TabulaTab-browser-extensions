@@ -96,8 +96,6 @@ function TabulatabsBrowser(encryption) {
 	}
 
 	this.destroyClient = function(client, callback) {
-		console.dir(client);
-
 		if (!callback) callback = function() {};
 
 		$.ajax(tabulatabsServerPath + 'browsers/clients/' + client.id + '.json', {
