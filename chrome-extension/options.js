@@ -1,3 +1,8 @@
+
+function registeredClients() {
+	
+}
+
 $().ready(function() {
     var client = thisBrowser().newClient();
 
