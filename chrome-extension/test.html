@@ -67,7 +67,7 @@ encryption.key = encryption.generateHexKey();
 
 function testBrowser() {
 	var browser = new TabulatabsBrowser(encryption);
-	browser.useragent = 'Unit Test Browser';
+	browser.useragent = 'Test - JavaScript Test Browser - ' + navigator.userAgent;
 	browser.label = 'Unit Testing Fake Browser';
 	browser.description = 'If you can see this there is some kind of bug';
 	browser.iconURL = 'chrome.png';

@@ -78,8 +78,9 @@ function TabulatabsBrowser(encryption) {
 
 		this.password = password;
 
-		var payload = encryption.encrypt({useragent: this.useragent, label: this.label, description: this.description, iconURL: this.iconURL});
+		var payload = encryption.encrypt({label: this.label, description: this.description, iconURL: this.iconURL});
 		payload.password = password;
+		payload.useragent = this.useragent;
 
 		$.post(tabulatabsServerPath + 'browsers.json', JSON.stringify(payload), function(result) {
 			self.username = result.username;
@@ -101,7 +102,7 @@ function TabulatabsBrowser(encryption) {
 				delete(result.iv);
 				delete(result.ic);
 
-				self.useragent = result.payload.useragent;
+				self.useragent = result.useragent;
 				self.label = result.payload.label;
 				self.description = result.payload.description;
 				self.iconURL = result.payload.iconURL;
@@ -141,7 +142,7 @@ function TabulatabsBrowser(encryption) {
 
 						client = new TabulatabsClient();
 
-						client.useragent = data.payload.useragent;
+						client.useragent = data.useragent;
 						client.label = data.payload.label;
 						client.description = data.payload.description;
 						client.iconURL = data.payload.iconURL;
@@ -230,8 +231,9 @@ function TabulatabsClient(encryption) {
 	this.claim = function(claimingPassword, permanentPassword, callback)  {
 		if (!callback) callback = function() {};
 
-		var payload = this.encryption.encrypt({useragent: self.useragent, label: self.label, description: self.description, iconURL: self.iconURL});
+		var payload = this.encryption.encrypt({label: self.label, description: self.description, iconURL: self.iconURL});
 		payload.password = permanentPassword;
+		payload.useragent = self.useragent;
 
 		$.ajax(tabulatabsServerPath + 'browsers/clients/claim.json', {
 			type: 'PUT',
@@ -304,6 +306,10 @@ function thisBrowser() {
         _tabulatabsCurrentBrowser.password = localStorage.getItem('password');
 
         if (!_tabulatabsCurrentBrowser.username) {
+			_tabulatabsCurrentBrowser.useragent = navigator.userAgent;
+			_tabulatabsCurrentBrowser.label = 'Chrome';
+			_tabulatabsCurrentBrowser.description = 'Your desktop Browser';
+
             _tabulatabsCurrentBrowser.register(encryption.generatePassword(), function(result) {
                 localStorage.setItem('username', _tabulatabsCurrentBrowser.username);
                 localStorage.setItem('password', _tabulatabsCurrentBrowser.password);
