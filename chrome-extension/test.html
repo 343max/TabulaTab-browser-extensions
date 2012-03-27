@@ -84,6 +84,7 @@ test("browser", function() {
 	var password = browser.encryption.generatePassword();
 	browser.register(password, function(registration_result) {
 		ok(browser.username, 'Registered a username');
+		ok(browser.id != 0, 'got an id');
 
 		var loadedBrowser = new TabulatabsBrowser(encryption);
 
@@ -95,6 +96,7 @@ test("browser", function() {
 			equal(browser.label, loadedBrowser.label, 'Label correctly saved');
 			equal(browser.description, loadedBrowser.description, 'Description correctly saved');
 			equal(browser.iconURL, loadedBrowser.iconURL, 'iconURL saved correctly');
+			equal(browser.id, loadedBrowser.id, 'id returned correctly');
 
 			start();
 		});

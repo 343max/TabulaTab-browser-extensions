@@ -5,6 +5,7 @@ function TabulatabsBrowser(encryption) {
 	this.label = '';
 	this.description = '';
 	this.iconURL = '';
+	this.id = 0;
 
 	this.username = null;
 	this.password = null;
@@ -22,6 +23,7 @@ function TabulatabsBrowser(encryption) {
 
 		$.post(tabulatabsServerPath + 'browsers.json', JSON.stringify(payload), function(result) {
 			self.username = result.username;
+			self.id = result.id;
 
 			callback(result);
 		});
@@ -40,6 +42,7 @@ function TabulatabsBrowser(encryption) {
 				delete(result.iv);
 				delete(result.ic);
 
+				self.id = result.id;
 				self.useragent = result.useragent;
 				self.label = result.payload.label;
 				self.description = result.payload.description;
