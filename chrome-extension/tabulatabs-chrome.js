@@ -8,6 +8,11 @@ function saveTabMeta() {
 	localStorage.setItem('tabMetaInfo', JSON.stringify(tabMetaInfo));
 }
 
+function getTabMetaProperty(url, key) {
+	if (!tabMetaInfo[url]) return null;
+	return tabMetaInfo[url][key];
+}
+
 function setTabMetaProperty(url, key, value) {
 	if (!tabMetaInfo[url]) tabMetaInfo[url] = {};
 	tabMetaInfo[url][key] = value;
@@ -33,8 +38,11 @@ function tabulatabForTab(tab) {
 		favIconURL: tab.favIconUrl,
 		windowId: tab.windowId,
 		index: tab.index,
-        pageColors: []
+		dominantColor: getTabMetaProperty(tab.url, 'dominantColor'),
+		colorPalette: getTabMetaProperty(tab.url, 'colorPalette')
 	};
+
+	console.dir(tabulatab);
 
 	findMetaInPageTitle(tabulatab);
 
@@ -114,6 +122,20 @@ chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 //	console.log('onUpdated');console.dir(changeInfo);
+
+	chrome.tabs.get(tabId, function(tab) {
+		if (tab.favIconUrl) {
+			var img = document.createElement('img');
+
+			img.addEventListener('load', function() {
+				var dominantColor = getDominantColor(this);
+				setTabMetaProperty(tab.url, 'dominantColor', [dominantColor.r, dominantColor.g, dominantColor.b]);
+				setTabMetaProperty(tab.url, 'colorPalette', createPalette(this, 5));
+			});
+			img.src = tab.favIconUrl;
+		}
+	});
+
 	startUploadTabsTimeout();
 });
 
