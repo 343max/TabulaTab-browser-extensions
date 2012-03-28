@@ -98,7 +98,22 @@ test("browser", function() {
 			equal(browser.iconURL, loadedBrowser.iconURL, 'iconURL saved correctly');
 			equal(browser.id, loadedBrowser.id, 'id returned correctly');
 
-			start();
+			loadedBrowser.label = 'new label';
+			loadedBrowser.description = 'new description';
+			loadedBrowser.iconURL = 'differenticon.png';
+			loadedBrowser.update(function(result) {
+				var reloadedBrowser = new TabulatabsBrowser(encryption);
+				reloadedBrowser.username = browser.username;
+				reloadedBrowser.password = browser.password;
+
+				reloadedBrowser.load(function(reloading_result) {
+					equal(reloadedBrowser.label, loadedBrowser.label, 'Label correctly saved');
+					equal(reloadedBrowser.description, loadedBrowser.description, 'Description correctly saved');
+					equal(reloadedBrowser.iconURL, loadedBrowser.iconURL, 'iconURL saved correctly');
+
+					start();
+				});
+			})
 		});
 	});
 });

@@ -28,6 +28,15 @@ function registeredClients() {
 	});
 }
 
+function prefillProperties() {
+	var browser = thisBrowser();
+	browser.load(function() {
+		$('#label').val(browser.label);
+		$('#description').val(browser.description);
+		$('#save').attr("disabled", null);
+	})
+}
+
 $().ready(function() {
     var client = thisBrowser().newClient();
 
@@ -37,5 +46,19 @@ $().ready(function() {
         drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
     });
 
+    prefillProperties();
 	registeredClients();
+
+	$('#propertiesForm').bind('submit', function() {
+		var browser = thisBrowser();
+
+		browser.label = $('#label').val();
+		browser.description = $('#description').val();
+		$('#save').attr('disabled', 'disabled');
+		browser.update(function() {
+			$('#save').attr("disabled", null);
+		});
+
+		return false;
+	});
 });

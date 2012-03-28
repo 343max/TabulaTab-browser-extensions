@@ -29,6 +29,23 @@ function TabulatabsBrowser(encryption) {
 		});
 	}
 
+	this.update = function(callback) {
+		if (!callback) callback = function() {};
+		
+		var payload = encryption.encrypt({label: this.label, description: this.description, iconURL: this.iconURL});
+
+		$.ajax(tabulatabsServerPath + 'browsers/update.json', {
+			type: 'POST',
+			username: self.username,
+			password: self.password,
+			data: JSON.stringify(payload),
+			beforeSend: tabulatabsFixChromeAuthentifiaction,
+			success: function(result) {
+				callback(result);
+			}
+		});
+	}
+
 	var _load = function(username, password, callback) {
 		if (!callback) callback = function() {};
 
@@ -153,7 +170,7 @@ function thisBrowser() {
         if (!_tabulatabsCurrentBrowser.username) {
 			_tabulatabsCurrentBrowser.useragent = navigator.userAgent;
 			_tabulatabsCurrentBrowser.label = 'Chrome';
-			_tabulatabsCurrentBrowser.description = 'Your desktop Browser';
+			_tabulatabsCurrentBrowser.description = '';
 
             _tabulatabsCurrentBrowser.register(encryption.generatePassword(), function(result) {
                 localStorage.setItem('username', _tabulatabsCurrentBrowser.username);
