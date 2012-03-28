@@ -42,8 +42,6 @@ function tabulatabForTab(tab) {
 		colorPalette: getTabMetaProperty(tab.url, 'colorPalette')
 	};
 
-	console.dir(tabulatab);
-
 	findMetaInPageTitle(tabulatab);
 
 	if (tabMetaInfo[tab.url]) {
@@ -125,6 +123,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 
 	chrome.tabs.get(tabId, function(tab) {
 		if (tab.favIconUrl) {
+			var favIconUrl = 'chrome://favicon/' + tab.url;
 			var img = document.createElement('img');
 
 			img.addEventListener('load', function() {
@@ -132,7 +131,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 				setTabMetaProperty(tab.url, 'dominantColor', [dominantColor.r, dominantColor.g, dominantColor.b]);
 				setTabMetaProperty(tab.url, 'colorPalette', createPalette(this, 5));
 			});
-			img.src = tab.favIconUrl;
+			img.src = favIconUrl;
 		}
 	});
 
