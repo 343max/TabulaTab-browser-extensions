@@ -108,7 +108,6 @@ function TabulatabsTab(data) {
 	this.windowId = '';
 	this.index = 0;
 	this.colorPalette = [];
-	this.dominantColor = null;
 	this.pageTitle = '';
 	this.shortDomain = '';
 	this.siteTitle = '';
@@ -123,7 +122,6 @@ function TabulatabsTab(data) {
 		this.windowId = data.windowId;
 		this.index = data.index;
 		this.colorPalette = data.colorPalette;
-		this.dominantColor = data.dominantColor;
 		this.pageTitle = data.pageTitle;
 		this.shortDomain = data.shortDomain;
 		this.siteTitle = data.siteTitle;

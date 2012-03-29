@@ -6,7 +6,6 @@
 		"tabs",
 		"https://tabulatabs.heroku.com/",
 		"http://tabulatabs.heroku.com/",
-		"http://localhost:3000/",
 		"chrome://favicon/"
 	],
 	"content_scripts": [{

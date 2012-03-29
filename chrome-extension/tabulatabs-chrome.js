@@ -38,7 +38,6 @@ function tabulatabForTab(tab) {
 		favIconURL: tab.favIconUrl,
 		windowId: tab.windowId,
 		index: tab.index,
-		dominantColor: getTabMetaProperty(tab.url, 'dominantColor'),
 		colorPalette: getTabMetaProperty(tab.url, 'colorPalette')
 	};
 
@@ -123,15 +122,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 
 	chrome.tabs.get(tabId, function(tab) {
 		if (tab.favIconUrl) {
-			var favIconUrl = 'chrome://favicon/' + tab.url;
-			var img = document.createElement('img');
+			imageColors('chrome://favicon/' + tab.url, function(colors, totalPixelCount) {
+				var colorPalette = [];
+				for(var i = 0; i < Math.min(5, colors.length); i++) {
+					colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
+				}
 
-			img.addEventListener('load', function() {
-				var dominantColor = getDominantColor(this);
-				setTabMetaProperty(tab.url, 'dominantColor', [dominantColor.r, dominantColor.g, dominantColor.b]);
-				setTabMetaProperty(tab.url, 'colorPalette', createPalette(this, 5));
+				setTabMetaProperty(tab.url, 'colorPalette', colorPalette);
 			});
-			img.src = favIconUrl;
 		}
 	});
 
