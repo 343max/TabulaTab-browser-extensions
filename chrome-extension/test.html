@@ -153,6 +153,8 @@ test('clients / tabs', function() {
 						equal(client.description, browser.clients[0].description, 'Description correctly saved');
 						equal(client.iconURL, browser.clients[0].iconURL, 'iconURL saved correctly');
 						equal(client.id, browser.clients[0].id, 'id saved correctly');
+						ok(browser.clients[0].accessedAt != null, 'accessed_at is not null');
+						equal(browser.clients[0].accessedAt.getHours(), (new Date()).getHours(), 'accessedAt date returned correctly');
 
 						var tab1 = new TabulatabsTab({identifier: 'id1', title: 'title', URL: 'http://tabulatabs.com/', selected: true, favIconURL: 'favicon.ico', windowId: 'wid2', index: 3, colorPalette: ['red', 'green', 'blue']});
 						var tab2 = new TabulatabsTab({identifier: 'id2', title: 'title2', URL: 'http://tabulatabs.com/2', selected: true, favIconURL: 'favicon2.ico', windowId: 'wid2', index: 4, colorPalette: ['red', 'green', 'blue']});

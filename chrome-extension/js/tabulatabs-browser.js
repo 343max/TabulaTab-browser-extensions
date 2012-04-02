@@ -105,6 +105,9 @@ function TabulatabsBrowser(encryption) {
 						client.label = data.payload.label;
 						client.description = data.payload.description;
 						client.iconURL = data.payload.iconURL;
+						if (data.accessed_at) {
+							client.accessedAt = new Date(data.accessed_at);
+						}
 
 						self.clients.push(client);
 					});

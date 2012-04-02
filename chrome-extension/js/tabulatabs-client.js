@@ -23,6 +23,7 @@ function TabulatabsClient(encryption) {
 	this.label = '';
 	this.description = '';
 	this.iconURL = '';
+	this.accessedAt = null;
 
 	this.tabs = [];
 

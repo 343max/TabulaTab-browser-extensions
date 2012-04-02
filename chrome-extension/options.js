@@ -9,6 +9,14 @@ function registeredClients() {
 			$.each(browser.clients, function(i, client){
 				var li = $('<li>').text(client.label);
 				li.css('background-image', 'url(' + client.iconURL + ')');
+
+				var a = moment(client.accessedAt);
+
+				if (a) {
+					var accessedAt = $('<span>').addClass("accessedAt").text('last seen ' + a.fromNow());
+					li.append(accessedAt);
+				};
+
 				var deleteLink = $('<a>').text('Delete').addClass('delete');
 				deleteLink.click(function() {
 					if (window.confirm('Are you sure you want to revoke access for the client "' + client.label + '"?' + "\n\n" + 'This device wont be able to access the tablist of this browser anymore.')) {
