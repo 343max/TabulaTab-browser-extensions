@@ -154,8 +154,8 @@ test('clients / tabs', function() {
 						equal(client.iconURL, browser.clients[0].iconURL, 'iconURL saved correctly');
 						equal(client.id, browser.clients[0].id, 'id saved correctly');
 
-						var tab1 = new TabulatabsTab({identifier: 'id1', title: 'title', URL: 'http://tabulatabs.com/', selected: true, favIconURL: 'favicon.ico', windowId: 'wid2', index: 3, colorPalette: ['red', 'green', 'blue'], dominantColor: [255, 255, 0]});
-						var tab2 = new TabulatabsTab({identifier: 'id2', title: 'title2', URL: 'http://tabulatabs.com/2', selected: true, favIconURL: 'favicon2.ico', windowId: 'wid2', index: 4, colorPalette: ['red', 'green', 'blue'], dominantColor: [255, 255, 0]});
+						var tab1 = new TabulatabsTab({identifier: 'id1', title: 'title', URL: 'http://tabulatabs.com/', selected: true, favIconURL: 'favicon.ico', windowId: 'wid2', index: 3, colorPalette: ['red', 'green', 'blue']});
+						var tab2 = new TabulatabsTab({identifier: 'id2', title: 'title2', URL: 'http://tabulatabs.com/2', selected: true, favIconURL: 'favicon2.ico', windowId: 'wid2', index: 4, colorPalette: ['red', 'green', 'blue']});
 						
 						var tabs = [tab1, tab2];
 
@@ -173,9 +173,6 @@ test('clients / tabs', function() {
 								equal(client.tabs[0].windowId, tab1.windowId, 'save windowId correctly');
 								equal(client.tabs[0].index, tab1.index, 'save index correctly');
 								equal(client.tabs[0].colorPalette.length, tab1.colorPalette.length, 'save pageColors correctly');
-								equal(client.tabs[0].dominantColor[0], tab1.dominantColor[0], 'dominantColor red saved correctly');
-								equal(client.tabs[0].dominantColor[1], tab1.dominantColor[1], 'dominantColor green saved correctly');
-								equal(client.tabs[0].dominantColor[2], tab1.dominantColor[2], 'dominantColor blue saved correctly');
 
 								equal(client.tabs[1].identifier, tab2.identifier, 'saved identifier on second tab correctly');
 
