@@ -59,6 +59,8 @@ function tabulatabForTab(tab) {
 function collectAllTabs() {
 	console.log('started uploading');
 
+	chrome.browserAction.setIcon({path: 'chasingArrows.gif'});
+
 	var tabs = [];
 
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
@@ -75,6 +77,7 @@ function collectAllTabs() {
 		});
         thisBrowser().saveTabs(tabs, function() {
             console.log('saved tabs');
+			chrome.browserAction.setIcon({path: 'icon.png'});
             
             $.each(chrome.extension.getViews(), function(index, view) {
             	console.dir(view.document);
