@@ -25,6 +25,15 @@ function unsetTabMeta(url) {
 	saveTabMeta();
 }
 
+function iconAnimation(path, imageCount) {
+	var i = 0;
+	return window.setInterval(function() {
+		i++;
+		if(i > imageCount) i = 1;
+		chrome.browserAction.setIcon({path: path + '/' + i + '.png'});
+	}, 50);
+}
+
 function tabulatabForTab(tab) {
 	if (!tab.url.match(/^https?:\/\//)) {
 		return null;
@@ -59,7 +68,7 @@ function tabulatabForTab(tab) {
 function collectAllTabs() {
 	console.log('started uploading');
 
-	chrome.browserAction.setIcon({path: 'chasingArrows.gif'});
+	var animation = iconAnimation('chasingArrows', 8);
 
 	var tabs = [];
 
@@ -77,6 +86,7 @@ function collectAllTabs() {
 		});
         thisBrowser().saveTabs(tabs, function() {
             console.log('saved tabs');
+            window.clearTimeout(animation);
 			chrome.browserAction.setIcon({path: 'icon.png'});
             
             $.each(chrome.extension.getViews(), function(index, view) {
