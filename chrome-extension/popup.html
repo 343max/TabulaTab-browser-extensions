@@ -1,43 +1,50 @@
-<div style="width: 300px; height: 600px">
+<html>
+<head>
+	<style>
 
-<img id="pageThumbnail" src="" style="max-width:  120px; max-height: 120px">
-<img id="articleImage" src="" style="max-width: 120px; max-height: 120px">
-<p id="meta"></p>
-</div>
-<script type="text/javascript">
+p#progress {
+	padding-left: 20px;
+}
 
-var tabMetaInfo;
-try {
-	tabMetaInfo = JSON.parse(localStorage.getItem('tabMetaInfo'));
-} catch(e) {}
-if (!tabMetaInfo) tabMetaInfo = {};
+p#progress.inprogress {
+	background-image: url(ajax-loader.gif);
+	background-position: 0% 50%;
+	background-repeat: no-repeat;
+}
 
-chrome.tabs.getSelected(null, function(tab) {
-	var meta = 'tabId: ' + tab.id + '<br>';
-	meta += 'articleTitle: ' + (tabMetaInfo[tab.url].articleTitle ? tabMetaInfo[tab.url].articleTitle : '-') + '<br>';
-	meta += 'articleType: ' + (tabMetaInfo[tab.url].articleType ? tabMetaInfo[tab.url].articleType : '-') + '<br>';
-	meta += 'articleURL: ' + (tabMetaInfo[tab.url].articleURL ? tabMetaInfo[tab.url].articleURL : '-') + '<br>';
-	meta += 'siteName: ' + (tabMetaInfo[tab.url].siteName ? tabMetaInfo[tab.url].siteName : '-') + '<br>';
-	meta += 'articleDescription: ' + (tabMetaInfo[tab.url].articleDescription ? tabMetaInfo[tab.url].articleDescription : '-') + '<br>';
+p#options {
+	color: #3079c4;
+	text-decoration: underline;
+	cursor: pointer;
+}
 
-	document.getElementById('meta').innerHTML = meta;
+	</style>
+	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript">
 
-	var pageThumbnailImg = document.getElementById('pageThumbnail');
-	var articleImageImg = document.getElementById('articleImage');
+document.onTabsSaved = function() {
+	$('#progress').text('Synchronization complete').removeClass('inprogress');
 
-	pageThumbnailImg.style.display = 'none';
-	articleImageImg.style.display = 'none';
+	window.setTimeout(function() {
+		window.close();
+	}, 10000);
+}
 
-	if (tabMetaInfo[tab.url]) {
-		if (tabMetaInfo[tab.url].articleImage) {
-			articleImageImg.src = tabMetaInfo[tab.url].articleImage;
-			articleImageImg.display = 'block';
-		}
-		if (tabMetaInfo[tab.url].pageThumbnail) {
-			pageThumbnailImg.src = tabMetaInfo[tab.url].pageThumbnail;
-			pageThumbnailImg.display = 'block';
-		}
-	}
+$().ready(function() {
+	$('p#options').click(function() {
+		chrome.extension.getBackgroundPage().openOptions(false);
+		window.close();
+	}).blur();
+
+	chrome.extension.getBackgroundPage().collectAllTabs();
 });
 
-</script>
+	</script>
+</head>
+<body>
+<div id="content" style="width: 200px; height: 60px">
+<p id="progress" class="inprogress">Synchronizing tabs</p>
+<p id="options">Options / Add iPhone</p>
+</div>
+</body>
+</html>

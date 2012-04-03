@@ -75,6 +75,13 @@ function collectAllTabs() {
 		});
         thisBrowser().saveTabs(tabs, function() {
             console.log('saved tabs');
+            
+            $.each(chrome.extension.getViews(), function(index, view) {
+            	console.dir(view.document);
+            	if (view.document.onTabsSaved) {
+            		view.document.onTabsSaved();
+            	}
+            });
         })
 	});
 }

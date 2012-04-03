@@ -50,7 +50,7 @@ $().ready(function() {
 
     client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
 		console.log(client.registrationURL());
-		console.log(JSON.stringify(client.encryption.encrypt({message: 'Hello', recipient: 'world'})));
+		console.log(document.location.href);
         drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
     });
 
