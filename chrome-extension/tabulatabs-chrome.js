@@ -1,28 +1,28 @@
-var tabMetaInfo;
+var pageMetaInfo;
 try {
-	tabMetaInfo = JSON.parse(localStorage.getItem('tabMetaInfo'));
+	pageMetaInfo = JSON.parse(localStorage.getItem('pageMetaInfo'));
 } catch(e) {}
-if (!tabMetaInfo) tabMetaInfo = {};
+if (!pageMetaInfo) pageMetaInfo = {};
 
-function saveTabMeta() {
-	localStorage.setItem('tabMetaInfo', JSON.stringify(tabMetaInfo));
+function savePageMeta() {
+	localStorage.setItem('pageMetaInfo', JSON.stringify(pageMetaInfo));
 }
 
-function getTabMetaProperty(url, key) {
-	if (!tabMetaInfo[url]) return null;
-	return tabMetaInfo[url][key];
+function getPageMetaProperty(url, key) {
+	if (!pageMetaInfo[url]) return null;
+	return pageMetaInfo[url][key];
 }
 
-function setTabMetaProperty(url, key, value) {
-	if (!tabMetaInfo[url]) tabMetaInfo[url] = {};
-	tabMetaInfo[url][key] = value;
-    console.log('tabMetaInfo.length: ' + Object.keys(tabMetaInfo).length);
-	saveTabMeta();
+function setPageMetaProperty(url, key, value) {
+	if (!pageMetaInfo[url]) pageMetaInfo[url] = {};
+	pageMetaInfo[url][key] = value;
+    console.log('pageMetaInfo.length: ' + Object.keys(pageMetaInfo).length);
+	savePageMeta();
 }
 
-function unsetTabMeta(url) {
-	delete tabMetaInfo[url];
-	saveTabMeta();
+function deletePageMeta(url) {
+	delete pageMetaInfo[url];
+	savePageMeta();
 }
 
 function iconAnimation(path, imageCount) {
@@ -47,20 +47,15 @@ function tabulatabForTab(tab) {
 		favIconURL: tab.favIconUrl,
 		windowId: tab.windowId,
 		index: tab.index,
-		colorPalette: getTabMetaProperty(tab.url, 'colorPalette')
+		colorPalette: getPageMetaProperty(tab.url, 'colorPalette')
 	};
 
 	findMetaInPageTitle(tabulatab);
 
-	if (tabMetaInfo[tab.url]) {
-		if (tabMetaInfo[tab.url].articleImage) {
-			tabulatab.pageThumbnail = tabMetaInfo[tab.url].articleImage;
-		}
-
-		if (tabMetaInfo[tab.url].siteName) {
-			tabulatab.siteTitle = tabMetaInfo[tab.url].siteName;
-		}
-	}
+	chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
+		$.extend(tabulatab, collection);
+		console.dir([tabulatab, collection]);
+	})
 
 	return tabulatab;
 }
@@ -84,18 +79,19 @@ function collectAllTabs() {
 				});
 			}
 		});
-        thisBrowser().saveTabs(tabs, function() {
-            console.log('saved tabs');
-            window.clearTimeout(animation);
-			chrome.browserAction.setIcon({path: 'icon.png'});
-            
-            $.each(chrome.extension.getViews(), function(index, view) {
-            	console.dir(view.document);
-            	if (view.document.onTabsSaved) {
-            		view.document.onTabsSaved();
-            	}
-            });
-        })
+		window.setTimeout(function() {
+	        thisBrowser().saveTabs(tabs, function() {
+	            console.log('saved tabs');
+	            window.clearTimeout(animation);
+				chrome.browserAction.setIcon({path: 'icon.png'});
+	            
+	            $.each(chrome.extension.getViews(), function(index, view) {
+	            	if (view.document.onTabsSaved) {
+	            		view.document.onTabsSaved();
+	            	}
+	            });
+	        });
+		}, 2000);
 	});
 }
 
@@ -148,38 +144,12 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 					colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
 				}
 
-				setTabMetaProperty(tab.url, 'colorPalette', colorPalette);
+				setPageMetaProperty(tab.url, 'colorPalette', colorPalette);
 			});
 		}
 	});
 
 	startUploadTabsTimeout();
-});
-
-chrome.extension.onRequest.addListener(function(request, sender, callback) {
-	if (request.articleImage) {
-		setTabMetaProperty(sender.tab.url, 'articleImage', request.articleImage);
-	}
-
-	if (request.articleTitle) {
-		setTabMetaProperty(sender.tab.url, 'articleTitle', request.articleTitle);
-	}
-
-	if (request.articleType) {
-		setTabMetaProperty(sender.tab.url, 'articleType', request.articleType);
-	}
-
-	if (request.articleURL) {
-		setTabMetaProperty(sender.tab.url, 'articleURL', request.articleURL);
-	}
-
-	if (request.siteName) {
-		setTabMetaProperty(sender.tab.url, 'siteName', request.siteName);
-	}
-
-	if (request.articleDescription) {
-		setTabMetaProperty(sender.tab.url, 'articleDescription', request.articleDescription);
-	}
 });
 
 startUploadTabsTimeout();
