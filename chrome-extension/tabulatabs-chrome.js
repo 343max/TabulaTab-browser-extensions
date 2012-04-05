@@ -54,7 +54,6 @@ function tabulatabForTab(tab) {
 
 	chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
 		$.extend(tabulatab, collection);
-		console.dir([tabulatab, collection]);
 	})
 
 	return tabulatab;
@@ -90,6 +89,9 @@ function collectAllTabs() {
 	            		view.document.onTabsSaved();
 	            	}
 	            });
+	        }, function() {
+	            window.clearTimeout(animation);
+				chrome.browserAction.setIcon({path: 'icon.png'});	        	
 	        });
 		}, 2000);
 	});
@@ -178,7 +180,6 @@ function openOptions(firstTime) {
 }
 
 if(thisBrowser().loadClients(function() {
-    console.dir(['registeredClients', thisBrowser().clients]);
     if (thisBrowser().clients.length == 0) {
         openOptions(true);
     }

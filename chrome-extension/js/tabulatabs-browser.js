@@ -130,8 +130,9 @@ function TabulatabsBrowser(encryption) {
 		});
 	}
 
-	this.saveTabs = function(tabs, callback) {
+	this.saveTabs = function(tabs, callback, errorCallback) {
 		if (!callback) callback = function() {};
+		if (!errorCallback) errorCallback = function() {};
 
 		var encryptedTabs = [];
 
@@ -150,7 +151,8 @@ function TabulatabsBrowser(encryption) {
 			data: JSON.stringify(encryptedTabs),
 			success: function(result) {
 				callback(result);
-			}
+			},
+			error: errorCallback
 		});
 	}
 
