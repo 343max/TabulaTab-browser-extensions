@@ -50,8 +50,8 @@ $().ready(function() {
 
     client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
 		console.log(client.registrationURL());
-		console.log(document.location.href);
         drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
+        $('#sendRegistrationMail').show().attr('href', 'mailto:?body=' + escape(client.registrationURL()));
     });
 
     prefillProperties();
