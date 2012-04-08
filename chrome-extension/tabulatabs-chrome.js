@@ -106,7 +106,7 @@ function startUploadTabsTimeout() {
 	uploadTabTimout = window.setTimeout(function() {
 		collectAllTabs();
 		uploadTabTimout = null;
-	}, 7000);
+	}, 90000);
 
 }
 
@@ -179,7 +179,9 @@ function openOptions(firstTime) {
 	});
 }
 
-if(thisBrowser().loadClients(function() {
+if(thisBrowser(function() {
+	openOptions(true);
+}).loadClients(function() {
     if (thisBrowser().clients.length == 0) {
         openOptions(true);
     }
