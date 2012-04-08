@@ -163,7 +163,7 @@ function TabulatabsBrowser(encryption) {
 
 var _tabulatabsCurrentBrowser = null;
 
-function thisBrowser() {
+function thisBrowser(browserRegisteredCallback) {
     if (!_tabulatabsCurrentBrowser) {
         var encryption = new TabulatabsEncryption(localStorage.getItem('key'));
         localStorage.setItem('key', encryption.hexKey());
@@ -180,6 +180,10 @@ function thisBrowser() {
             _tabulatabsCurrentBrowser.register(encryption.generatePassword(), function(result) {
                 localStorage.setItem('username', _tabulatabsCurrentBrowser.username);
                 localStorage.setItem('password', _tabulatabsCurrentBrowser.password);
+
+                if (browserRegisteredCallback) {
+                	browserRegisteredCallback();
+                };
             });
         }
     }
