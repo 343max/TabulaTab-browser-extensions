@@ -67,14 +67,14 @@
 				}
 
 				var debug = function(image, message, color) {
-
 					if (message) {
 						image.setAttribute('title', message);
 						console.log(message + ' ' + image.src);
 					}
 
 					if (!color) color = 'red';
-					image.style.border = '3px solid ' + color + ' !important';
+					image.setAttribute('style', 'border: 3px solid ' + color);
+					console.dir(image.style);
 				}
 
 				debug = function() {};
@@ -96,7 +96,7 @@
 					}
 
 					if (image.y > window.innerHeight || image.x > window.innerWidth) {
-						debug(image, 'outside of visible area');
+						debug(image, 'outside of visible area: ' + [image.x, image.y, window.innerWidth, window.innerHeight].join(', ') );
 						continue;
 					}
 
@@ -170,7 +170,7 @@
 		},
 
 		// site name
-		function() {
+		function(collection) {
 			var siteTitle = getMetaTagContentByProperty('og:site_name');
 			
 			if (siteTitle) {
@@ -179,7 +179,7 @@
 		},
 
 		// description
-		function() {
+		function(collection) {
 			var description = getMetaTagContentByProperty('og:description');
 			if (!description) description = getMetaTagContentByName('DC.description');
 
@@ -198,7 +198,6 @@
 				methods[i](collection);
 			};
 
-			console.dir(collection);
 			callback(collection);			
 		};
 	});
