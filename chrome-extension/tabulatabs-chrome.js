@@ -1,30 +1,3 @@
-var pageMetaInfo;
-try {
-	pageMetaInfo = JSON.parse(localStorage.getItem('pageMetaInfo'));
-} catch(e) {}
-if (!pageMetaInfo) pageMetaInfo = {};
-
-function savePageMeta() {
-	localStorage.setItem('pageMetaInfo', JSON.stringify(pageMetaInfo));
-}
-
-function getPageMetaProperty(url, key) {
-	if (!pageMetaInfo[url]) return null;
-	return pageMetaInfo[url][key];
-}
-
-function setPageMetaProperty(url, key, value) {
-	if (!pageMetaInfo[url]) pageMetaInfo[url] = {};
-	pageMetaInfo[url][key] = value;
-    console.log('pageMetaInfo.length: ' + Object.keys(pageMetaInfo).length);
-	savePageMeta();
-}
-
-function deletePageMeta(url) {
-	delete pageMetaInfo[url];
-	savePageMeta();
-}
-
 function iconAnimation(path, imageCount) {
 	var i = 0;
 	return window.setInterval(function() {
@@ -46,11 +19,21 @@ function tabulatabForTab(tab) {
 		selected: tab.selected,
 		favIconURL: tab.favIconUrl,
 		windowId: tab.windowId,
-		index: tab.index,
-		colorPalette: getPageMetaProperty(tab.url, 'colorPalette')
+		index: tab.index
 	};
 
 	findMetaInPageTitle(tabulatab);
+
+	if (tab.favIconUrl) {
+		imageColors('chrome://favicon/' + tab.url, function(colors, totalPixelCount) {
+			var colorPalette = [];
+			for(var i = 0; i < Math.min(5, colors.length); i++) {
+				colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
+			}
+
+			tabulatab.colorPalette = colorPalette;
+		});
+	}
 
 	chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
 		$.extend(tabulatab, collection);
@@ -60,8 +43,6 @@ function tabulatabForTab(tab) {
 }
 
 function collectAllTabs() {
-	console.log('started uploading');
-
 	var animation = iconAnimation('chasingArrows', 8);
 
 	var tabs = [];
@@ -80,7 +61,6 @@ function collectAllTabs() {
 		});
 		window.setTimeout(function() {
 	        thisBrowser().saveTabs(tabs, function() {
-	            console.log('saved tabs');
 	            window.clearTimeout(animation);
 				chrome.browserAction.setIcon({path: 'icon.png'});
 	            
@@ -93,7 +73,7 @@ function collectAllTabs() {
 	            window.clearTimeout(animation);
 				chrome.browserAction.setIcon({path: 'icon.png'});	        	
 	        });
-		}, 2000);
+		}, 1500);
 	});
 }
 
@@ -137,20 +117,6 @@ chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 //	console.log('onUpdated');console.dir(changeInfo);
-
-	chrome.tabs.get(tabId, function(tab) {
-		if (tab.favIconUrl) {
-			imageColors('chrome://favicon/' + tab.url, function(colors, totalPixelCount) {
-				var colorPalette = [];
-				for(var i = 0; i < Math.min(5, colors.length); i++) {
-					colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
-				}
-
-				setPageMetaProperty(tab.url, 'colorPalette', colorPalette);
-			});
-		}
-	});
-
 	startUploadTabsTimeout();
 });
 
