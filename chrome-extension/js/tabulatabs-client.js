@@ -107,6 +107,7 @@ function TabulatabsTab(data) {
 	this.selected = false;
 	this.favIconURL = '';
 	this.windowId = '';
+	this.windowFocused = false;
 	this.index = 0;
 	this.colorPalette = [];
 	this.pageTitle = '';
@@ -121,6 +122,7 @@ function TabulatabsTab(data) {
 		this.selected = data.selected;
 		this.favIconURL = data.favIconURL;
 		this.windowId = data.windowId;
+		this.windowFocused = data.windowFocused;
 		this.index = data.index;
 		this.colorPalette = data.colorPalette;
 		this.pageTitle = data.pageTitle;

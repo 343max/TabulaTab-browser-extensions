@@ -19,6 +19,7 @@ function tabulatabForTab(tab) {
 		selected: tab.selected,
 		favIconURL: tab.favIconUrl,
 		windowId: tab.windowId,
+		windowFocused: false,
 		index: tab.index
 	};
 
@@ -49,11 +50,12 @@ function collectAllTabs() {
 
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
 		$.each(chromeWindows, function(index, chromeWindow) {
-			if (!chromeWindow.incognito) {
-
+			if (!chromeWindow.incognito && chromeWindow.type == 'normal') {
 				$.each(chromeWindow.tabs, function(index, chromeTab) {
 					var tabulatab = tabulatabForTab(chromeTab);
 					if (tabulatab) {
+						tabulatab.windowFocused = chromeWindow.focused;
+						console.dir(tabulatab);
 						tabs.push(tabulatab);
 					}
 				});
