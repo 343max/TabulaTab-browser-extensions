@@ -6,7 +6,9 @@
 		"tabs",
 		"https://tabulatabs.heroku.com/",
 		"http://tabulatabs.heroku.com/",
-		"chrome://favicon/"
+		"chrome://favicon/",
+		"http://*/*",
+		"https://*/*"
 	],
 	"content_scripts": [{
 		"js": ["js/findMetaInPage.js"],

@@ -37,8 +37,17 @@ function tabulatabForTab(tab) {
 	}
 
 	chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
-		$.extend(tabulatab, collection);
-	})
+		if (collection == undefined) {
+			// try injecting the javascript if it was not injected during the loading of the page
+			chrome.tabs.executeScript(tab.id, {file: "js/findMetaInPage.js"}, function() {
+				chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
+					$.extend(tabulatab, collection);
+				});
+			});
+		} else {
+			$.extend(tabulatab, collection);
+		}
+	});
 
 	return tabulatab;
 }
@@ -55,7 +64,6 @@ function collectAllTabs() {
 					var tabulatab = tabulatabForTab(chromeTab);
 					if (tabulatab) {
 						tabulatab.windowFocused = chromeWindow.focused;
-						console.dir(tabulatab);
 						tabs.push(tabulatab);
 					}
 				});

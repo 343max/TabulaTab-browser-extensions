@@ -187,7 +187,6 @@
 				collection.articleDescription = description;
 			};
 		}
-
 	];
 
 	chrome.extension.onRequest.addListener(function(request, sender, callback) {
@@ -202,25 +201,3 @@
 		};
 	});
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
