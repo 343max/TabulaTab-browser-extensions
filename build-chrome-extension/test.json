@@ -8,15 +8,10 @@
       "http://*/*",
       "https://*/*"
    ],
-   "version" : "6",
    "background_page" : "backgroundPage.html",
+   "version" : "1",
    "name" : "TabulaTabs!",
-   "update_url" : "http://tabulatabs.com/chrome-extension-updates.xml",
    "description" : "Access your Browser tabs from everywhere",
-   "browser_action" : {
-      "default_popup" : "popup.html",
-      "default_icon" : "icon.png"
-   },
    "content_scripts" : [
       {
          "matches" : [
@@ -26,6 +21,10 @@
             "js/findMetaInPage.js"
          ]
       }
-   ]
+   ],
+   "browser_action" : {
+      "default_popup" : "popup.html",
+      "default_icon" : "icon.png"
+   }
 }
 
