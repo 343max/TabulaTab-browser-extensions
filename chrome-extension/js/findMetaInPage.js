@@ -24,13 +24,6 @@
 	}
 
 	var methods = [
-		// permalink for google URLs
-		function(collection) {
-			if ((document.location.hostname == "maps.google.com") && (document.querySelector('a.permalink-button'))) {
-				collection.URL = document.querySelector('a.permalink-button').getAttribute('href');
-			}
-		},
-
 		// find thumbnail
 		function(collection) {
 			var findImageInPage = function() {
@@ -186,7 +179,16 @@
 			if (description) {
 				collection.articleDescription = description;
 			};
-		}
+		},
+
+		// permalink for google URLs
+		function(collection) {
+			if ((document.location.hostname == "maps.google.com") && (document.querySelector('a.permalink-button'))) {
+				collection.URL = document.querySelector('a.permalink-button').getAttribute('href');
+				collection.pageTitle = document.title.replace(/ - [^-]*/, '');
+				collection.siteTitle = 'Google Maps';
+			}
+		},
 	];
 
 	chrome.extension.onRequest.addListener(function(request, sender, callback) {
