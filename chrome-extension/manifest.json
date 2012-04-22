@@ -23,7 +23,7 @@
             "http://*/*"
          ],
          "js" : [
-            "js/findMetaInPage.js"
+            "js-shared/content-script.js"
          ]
       }
    ]

@@ -8,10 +8,6 @@ function iconAnimation(path, imageCount) {
 }
 
 function tabulatabForTab(tab) {
-	if (!tab.url.match(/^https?:\/\//)) {
-		return null;
-	}
-
 	var tabulatab = {
 		identifier: tab.id,
 		title: tab.title,
@@ -36,10 +32,10 @@ function tabulatabForTab(tab) {
 		});
 	}
 
-	chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
+	chrome.tabs.sendRequest(tab.id, {method: 'collectMeta'}, function(collection) {
 		if (collection == undefined) {
 			// try injecting the javascript if it was not injected during the loading of the page
-			chrome.tabs.executeScript(tab.id, {file: "js/findMetaInPage.js"}, function() {
+			chrome.tabs.executeScript(tab.id, {file: "js-shared/content-script.js"}, function() {
 				chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
 					$.extend(tabulatab, collection);
 				});

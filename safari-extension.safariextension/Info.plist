@@ -50,7 +50,12 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict/>
+		<dict>
+			<key>Start</key>
+			<array>
+				<string>js-shared/content-script.js</string>
+			</array>
+		</dict>
 	</dict>
 	<key>Description</key>
 	<string>put your tab in your pocket!</string>
