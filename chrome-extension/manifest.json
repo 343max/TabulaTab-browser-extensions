@@ -1,5 +1,5 @@
 {
-   "options_page" : "options.html",
+   "options_page" : "js-shared/options.html",
    "permissions" : [
       "tabs",
       "https://tabulatabs.heroku.com/",

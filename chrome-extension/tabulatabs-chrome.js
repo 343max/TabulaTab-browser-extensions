@@ -129,7 +129,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
 startUploadTabsTimeout();
 
 function openOptions(firstTime) {
-	var url = "options.html";
+	var url = "js-shared/options.html";
 	if (firstTime)
 		url += "?firstTime=true";
 

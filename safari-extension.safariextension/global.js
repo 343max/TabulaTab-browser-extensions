@@ -4,9 +4,6 @@
 // SafariDeactivateEvent / deactivate
 // SafariCloseEvent / close
 
-// SafariExtensionMessageEvent / message https://developer.apple.com/library/safari/#documentation/UserExperience/Reference/ExtensionMessageClassRef/SafariExtensionMessage/SafariExtensionMessage.html#//apple_ref/doc/uid/TP40009785
-// SafariCommandEvent / command / https://developer.apple.com/library/safari/#documentation/UserExperience/Reference/SafariExtensionCommandEventClassRef/SafariCommandEvent/SafariCommandEvent.html#//apple_ref/doc/uid/TP40009892
-
 // safari.application.addEventListener('open', function(e) {
 // 	console.dir(['open', e]);
 // }, true);
@@ -26,18 +23,52 @@
 safari.application.addEventListener("popover", function(e) {
 	if (e.target.identifier == 'syncPopover') {
 		collectAllTabs();
+		$popover('p#options').click(function() {
+			console.log('click!');
+			openOptions();
+		});
 	};
 }, true);
 
+function iconAnimation(path, imageCount) {
+	var i = 0;
+	return window.setInterval(function() {
+		i++;
+		if(i > imageCount) i = 1;
+		safari.extension.toolbarItems[0].image = safari.extension.baseURI + path + '/' + i + '.png';
+	}, 50);
+}
+
+var progressAnimation;
+
+function startProgressAnimation() {
+	$popover('p#progress').addClass('inprogress').text('Synchronizing tabs');
+	progressAnimation = iconAnimation('chasingArrows', 8);
+}
+
+function stopProgressAnimation() {
+	$popover('p#progress').removeClass('inprogress').text('Synchronization complete');
+	window.clearTimeout(progressAnimation);
+	safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'icon.png';
+
+	window.setTimeout(function() {
+		safari.extension.popovers.syncPopover.hide();
+	}, 10000);
+}
+
+function $popover(el) {
+	return safari.extension.popovers.syncPopover.contentWindow.$(el);
+}
+
 function tabulatabForTab(tab, id) {
+	if (!tab.url) {
+		return null;
+	}
+
 	var tabulatab = {
 		identifier: id,
 		title: tab.title,
 		URL: tab.url
-		// selected: tab.selected,
-		// favIconURL: tab.favIconUrl,
-		// windowId: tab.windowId,
-		// windowFocused: false,
 	};
 
 	findMetaInPageTitle(tabulatab);
@@ -67,6 +98,7 @@ function tabulatabForTab(tab, id) {
 }
 
 function collectAllTabs() {
+	startProgressAnimation();
 	var tabulatabs = [];
 	var id = 0;
 
@@ -77,18 +109,41 @@ function collectAllTabs() {
 			var isActiveTab = tab == browserWindow.activeTab;
 
 			var tabulatab = tabulatabForTab(tab, id++);
+			if (tabulatab) {
+				tabulatab.selected = isActiveTab;
+				tabulatab.windowFocused = isActiveWindow;
+				tabulatab.index = j;
 
-			tabulatab.selected = isActiveTab;
-			tabulatab.windowFocused = isActiveWindow;
-			tabulatab.index = j;
-
-			tabulatabs.push(tabulatab);
+				tabulatabs.push(tabulatab);
+			};
 		});
 	});
 
 	window.setTimeout(function() {
 		console.dir(tabulatabs);
+		stopProgressAnimation();
 	}, 3000);
+}
+
+function openOptions(firstTime) {
+	var url = "js-shared/options.html";
+	if (firstTime)
+		url += "?firstTime=true";
+
+	var fullUrl = safari.extension.baseURI + url;
+
+	var win;
+	if (safari.application.activeBrowserWindow) {
+		win = safari.application.activeBrowserWindow;
+	} else if (safari.application.browserWindows.length > 0) {
+		win = safari.application.browserWindows[0];
+		win.activate();
+	} else {
+		win = safari.application.openBrowserWindow();
+	}
+
+	var tab = win.openTab();
+	tab.url = fullUrl;
 }
 
 window.setTimeout(function() {

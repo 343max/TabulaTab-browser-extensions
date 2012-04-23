@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="utf-8" />
-	<title>TabulaTabs</title>
+	<style>
+
+p#progress {
+	padding-left: 20px;
+}
+
+p#progress.inprogress {
+	background-image: url(chassingArrowsOnWhite.gif);
+	background-position: 0% 50%;
+	background-repeat: no-repeat;
+}
+
+p#options {
+	color: #3079c4;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+	</style>
+	<script type="text/javascript" src="js-shared/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript">
+	</script>
 </head>
 <body>
-Syncing Tabs…
+<div id="content" style="width: 200px; height: 60px">
+<p id="progress" class="inprogress">Synchronizing tabs</p>
+<p id="options">Options / Add iPhone</p>
+</div>
 </body>
 </html>
