@@ -106,8 +106,8 @@ function tabulatabForTab(tab, id) {
 		$.extend(tabulatab, msgEvent.message.collection);
 		// console.dir(msgEvent);
 
-		if (tabulatab.favIconUrl) {
-			imageColors(tabulatab.favIconUrl, function(colors, totalPixelCount) {
+		if (tabulatab.favIconURL) {
+			imageColors(tabulatab.favIconURL, function(colors, totalPixelCount) {
 				var colorPalette = [];
 				for(var i = 0; i < Math.min(5, colors.length); i++) {
 					colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
