@@ -20,11 +20,18 @@
 // 	console.dir(['beforeNavigate', e]);
 // }, true);
 
+function isSafari() {
+	return typeof(safari) != 'undefined';
+}
+
+function isChrome() {
+	return typeof(chrome) != 'undefined';
+}
+
 safari.application.addEventListener("popover", function(e) {
 	if (e.target.identifier == 'syncPopover') {
 		collectAllTabs();
 		$popover('p#options').click(function() {
-			console.log('click!');
 			openOptions();
 		});
 	};
@@ -35,29 +42,49 @@ function iconAnimation(path, imageCount) {
 	return window.setInterval(function() {
 		i++;
 		if(i > imageCount) i = 1;
-		safari.extension.toolbarItems[0].image = safari.extension.baseURI + path + '/' + i + '.png';
+		if (isSafari) {
+			safari.extension.toolbarItems[0].image = safari.extension.baseURI + path + '/' + i + '.png';
+		};
 	}, 50);
 }
 
 var progressAnimation;
+var syncInProgress = false;
 
 function startProgressAnimation() {
-	$popover('p#progress').addClass('inprogress').text('Synchronizing tabs');
-	progressAnimation = iconAnimation('chasingArrows', 8);
+	syncInProgress = true;
+	if (isSafari()) {
+		$popover('p#progress').addClass('inprogress').text('Synchronizing tabs');
+		progressAnimation = iconAnimation('chasingArrows', 8);
+	} else if (isChrome()) {
+    	progressAnimation = iconAnimation('chasingArrows', 8);
+	};
 }
 
 function stopProgressAnimation() {
-	$popover('p#progress').removeClass('inprogress').text('Synchronization complete');
-	window.clearTimeout(progressAnimation);
-	safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'icon.png';
+	syncInProgress = false;
+	if (isSafari()) {
+		$popover('p#progress').removeClass('inprogress').text('Synchronization complete');
+		window.clearTimeout(progressAnimation);
+		safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'icon.png';
 
-	window.setTimeout(function() {
-		safari.extension.popovers.syncPopover.hide();
-	}, 10000);
+		window.setTimeout(function() {
+			safari.extension.popovers[0].hide();
+		}, 10000);
+	} else {
+		window.clearTimeout(progressAnimation);
+		chrome.browserAction.setIcon({path: 'icon.png'});
+        
+        $.each(chrome.extension.getViews(), function(index, view) {
+        	if (view.document.onTabsSaved) {
+        		view.document.onTabsSaved();
+        	}
+        });
+	}
 }
 
 function $popover(el) {
-	return safari.extension.popovers.syncPopover.contentWindow.$(el);
+	return safari.extension.popovers[0].contentWindow.$(el);
 }
 
 function tabulatabForTab(tab, id) {
@@ -98,12 +125,17 @@ function tabulatabForTab(tab, id) {
 }
 
 function collectAllTabs() {
+	if (syncInProgress) {
+		return;
+	};
+
 	startProgressAnimation();
 	var tabulatabs = [];
 	var id = 0;
 
 	$.each(safari.application.browserWindows, function(i, browserWindow) {
 		var isActiveWindow = browserWindow == safari.application.activeBrowserWindow;
+		var windowId = 'window' + i;
 
 		$.each(browserWindow.tabs, function(j, tab) {
 			var isActiveTab = tab == browserWindow.activeTab;
@@ -113,6 +145,7 @@ function collectAllTabs() {
 				tabulatab.selected = isActiveTab;
 				tabulatab.windowFocused = isActiveWindow;
 				tabulatab.index = j;
+				tabulatab.windowId = windowId;
 
 				tabulatabs.push(tabulatab);
 			};
@@ -120,9 +153,14 @@ function collectAllTabs() {
 	});
 
 	window.setTimeout(function() {
-		console.dir(tabulatabs);
-		stopProgressAnimation();
-	}, 3000);
+		thisBrowser().whenReady(function() {
+			thisBrowser().saveTabs(tabulatabs, function() {
+				stopProgressAnimation();
+	        }, function() {
+	        	stopProgressAnimation();
+	        });
+		});
+	}, 5000);
 }
 
 function openOptions(firstTime) {
