@@ -184,6 +184,14 @@ function openOptions(firstTime) {
 	tab.url = fullUrl;
 }
 
+thisBrowser(function() {
+	thisBrowser().loadClients(function() {
+	    if (thisBrowser().clients.length == 0) {
+	        openOptions(true);
+	    }
+	});
+});
+
 window.setTimeout(function() {
 	collectAllTabs();
 }, 10000);

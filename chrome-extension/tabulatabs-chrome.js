@@ -151,10 +151,10 @@ function openOptions(firstTime) {
 	});
 }
 
-if(thisBrowser(function() {
-	openOptions(true);
-}).loadClients(function() {
-    if (thisBrowser().clients.length == 0) {
-        openOptions(true);
-    }
-}));
+thisBrowser(function() {
+	thisBrowser().loadClients(function() {
+	    if (thisBrowser().clients.length == 0) {
+	        openOptions(true);
+	    }
+	});
+});
