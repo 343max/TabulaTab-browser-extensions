@@ -44,9 +44,14 @@ function iconAnimation(path, imageCount) {
 	return window.setInterval(function() {
 		i++;
 		if(i > imageCount) i = 1;
-		if (isSafari) {
+		if (isSafari()) {
 			safari.extension.toolbarItems[0].image = safari.extension.baseURI + path + '/' + i + '.png';
 		};
+
+		if (isChrome()) {
+			chrome.browserAction.setIcon({path: path + '/' + i + '.png'});
+		};
+
 	}, 50);
 }
 
@@ -172,18 +177,39 @@ function openOptions(firstTime) {
 
 	var fullUrl = safari.extension.baseURI + url;
 
-	var win;
-	if (safari.application.activeBrowserWindow) {
-		win = safari.application.activeBrowserWindow;
-	} else if (safari.application.browserWindows.length > 0) {
-		win = safari.application.browserWindows[0];
-		win.activate();
-	} else {
-		win = safari.application.openBrowserWindow();
+	if (isSafari()) {
+		var win;
+		if (safari.application.activeBrowserWindow) {
+			win = safari.application.activeBrowserWindow;
+		} else if (safari.application.browserWindows.length > 0) {
+			win = safari.application.browserWindows[0];
+			win.activate();
+		} else {
+			win = safari.application.openBrowserWindow();
+		}
+
+		var tab = win.openTab();
+		tab.url = fullUrl;
 	}
 
-	var tab = win.openTab();
-	tab.url = fullUrl;
+	if (isChrome()) {
+		var fullUrl = chrome.extension.getURL(url);
+		chrome.tabs.getAllInWindow(null, function(tabs) {
+			for (var i in tabs) { // check if Options page is open already
+				var tab = tabs[i];
+				if (tab.url == fullUrl || tab.url.substring(0, fullUrl.length) == fullUrl) {
+					chrome.tabs.update(tab.id, { selected: true }); // select the tab
+					return;
+				}
+			}
+			chrome.tabs.getSelected(null, function(tab) { // open a new tab next to currently selected tab
+				chrome.tabs.create({
+					url: url,
+					index: tab.index + 1
+				});
+			});
+		});
+	}
 }
 
 thisBrowser(function() {
