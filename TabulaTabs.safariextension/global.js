@@ -94,8 +94,31 @@ function $popover(el) {
 	return safari.extension.popovers[0].contentWindow.$(el);
 }
 
+function favIconColorsForTabulatab(tabulatab) {
+	if (tabulatab.favIconURL) {
+		var favIconURL = tabulatab.favIconURL;
+
+		if (isChrome()) {
+			favIconURL = 'chrome://favicon/' + tabulatab.url;
+		};
+
+		imageColors(favIconURL, function(colors, totalPixelCount) {
+			var colorPalette = [];
+			for(var i = 0; i < Math.min(5, colors.length); i++) {
+				colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
+			}
+
+			tabulatab.colorPalette = colorPalette;
+		});
+	}
+}
+
 function tabulatabForTab(tab, id) {
 	if (!tab.url) {
+		return null;
+	}
+
+	if (!tab.url.match(/^https?:\/\//)) {
 		return null;
 	}
 
@@ -107,26 +130,37 @@ function tabulatabForTab(tab, id) {
 
 	findMetaInPageTitle(tabulatab);
 
-	var messageListener = function(msgEvent) {
-		tab.removeEventListener('message', messageListener);
+	if (isSafari()) {
+		var messageListener = function(msgEvent) {
+			tab.removeEventListener('message', messageListener);			
 
-		$.extend(tabulatab, msgEvent.message.collection);
-		// console.dir(msgEvent);
+			$.extend(tabulatab, msgEvent.message.collection);
 
-		if (tabulatab.favIconURL) {
-			imageColors(tabulatab.favIconURL, function(colors, totalPixelCount) {
-				var colorPalette = [];
-				for(var i = 0; i < Math.min(5, colors.length); i++) {
-					colorPalette.push([colors[i].red, colors[i].green, colors[i].blue]);
-				}
+			favIconColorsForTabulatab(tabulatab);
+		};
 
-				tabulatab.colorPalette = colorPalette;
-			});
-		}
+		tab.addEventListener('message', messageListener, false);
+		tab.page.dispatchMessage('collectMeta', {tabId: id});		
 	};
-	tab.addEventListener('message', messageListener, false);
 
-	tab.page.dispatchMessage('collectMeta', {tabId: id});
+	if (isChrome()) {
+		favIconColorsForTabulatab(tabulatab);
+
+		chrome.tabs.sendRequest(tab.id, {method: 'collectMeta'}, function(collection) {
+			if (collection == undefined) {
+				// try injecting the javascript if it was not injected during the loading of the page
+				console.dir(tab);
+				chrome.tabs.executeScript(tab.id, {file: "js/content-script.js"}, function() {
+					chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
+						$.extend(tabulatab, collection);
+					});
+				});
+			} else {
+				$.extend(tabulatab, collection);
+			}
+		});
+	}
+
 
 	return tabulatab;
 }
@@ -140,24 +174,42 @@ function collectAllTabs() {
 	var tabulatabs = [];
 	var id = 0;
 
-	$.each(safari.application.browserWindows, function(i, browserWindow) {
-		var isActiveWindow = browserWindow == safari.application.activeBrowserWindow;
-		var windowId = 'window' + i;
-
-		$.each(browserWindow.tabs, function(j, tab) {
-			var isActiveTab = tab == browserWindow.activeTab;
-
-			var tabulatab = tabulatabForTab(tab, id++);
-			if (tabulatab) {
-				tabulatab.selected = isActiveTab;
-				tabulatab.windowFocused = isActiveWindow;
-				tabulatab.index = j;
-				tabulatab.windowId = windowId;
-
-				tabulatabs.push(tabulatab);
-			};
+	if (isChrome()) {
+		chrome.windows.getAll({populate: true}, function(chromeWindows) {
+			$.each(chromeWindows, function(index, chromeWindow) {
+				if (!chromeWindow.incognito && chromeWindow.type == 'normal') {
+					$.each(chromeWindow.tabs, function(index, chromeTab) {
+						var tabulatab = tabulatabForTab(chromeTab, chromeTab.id);
+						if (tabulatab) {
+							tabulatab.windowFocused = chromeWindow.focused;
+							tabulatabs.push(tabulatab);
+						}
+					});
+				}
+			});
 		});
-	});
+	}
+
+	if (isSafari()) {
+		$.each(safari.application.browserWindows, function(i, browserWindow) {
+			var isActiveWindow = browserWindow == safari.application.activeBrowserWindow;
+			var windowId = 'window' + i;
+	
+			$.each(browserWindow.tabs, function(j, tab) {
+				var isActiveTab = tab == browserWindow.activeTab;
+	
+				var tabulatab = tabulatabForTab(tab, id++);
+				if (tabulatab) {
+					tabulatab.selected = isActiveTab;
+					tabulatab.windowFocused = isActiveWindow;
+					tabulatab.index = j;
+					tabulatab.windowId = windowId;
+	
+					tabulatabs.push(tabulatab);
+				};
+			});
+		});
+	}
 
 	window.setTimeout(function() {
 		thisBrowser().whenReady(function() {
@@ -174,7 +226,7 @@ function openOptions(firstTime) {
 	var url = "options.html";
 	if (firstTime)
 		url += "?firstTime=true";
-	
+
 	if (isSafari()) {
 		var fullUrl = safari.extension.baseURI + url;
 		var win;
@@ -210,8 +262,6 @@ function openOptions(firstTime) {
 		});
 	}
 }
-
-openOptions();
 
 thisBrowser(function() {
 	thisBrowser().loadClients(function() {
