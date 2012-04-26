@@ -51,7 +51,7 @@ function tabulatabForTab(tab) {
 function collectAllTabs() {
 	var animation = iconAnimation('chasingArrows', 8);
 
-	var tabs = [];
+	var tabulatabs = [];
 
 	chrome.windows.getAll({populate: true}, function(chromeWindows) {
 		$.each(chromeWindows, function(index, chromeWindow) {
@@ -60,26 +60,11 @@ function collectAllTabs() {
 					var tabulatab = tabulatabForTab(chromeTab);
 					if (tabulatab) {
 						tabulatab.windowFocused = chromeWindow.focused;
-						tabs.push(tabulatab);
+						tabulatabs.push(tabulatab);
 					}
 				});
 			}
 		});
-		window.setTimeout(function() {
-	        thisBrowser().saveTabs(tabs, function() {
-	            window.clearTimeout(animation);
-				chrome.browserAction.setIcon({path: 'icon.png'});
-	            
-	            $.each(chrome.extension.getViews(), function(index, view) {
-	            	if (view.document.onTabsSaved) {
-	            		view.document.onTabsSaved();
-	            	}
-	            });
-	        }, function() {
-	            window.clearTimeout(animation);
-				chrome.browserAction.setIcon({path: 'icon.png'});	        	
-	        });
-		}, 1500);
 	});
 }
 

@@ -95,12 +95,15 @@ function $popover(el) {
 }
 
 function favIconColorsForTabulatab(tabulatab) {
+	console.dir(tabulatab);
 	if (tabulatab.favIconURL) {
 		var favIconURL = tabulatab.favIconURL;
 
 		if (isChrome()) {
-			favIconURL = 'chrome://favicon/' + tabulatab.url;
+			favIconURL = 'chrome://favicon/' + tabulatab.URL;
 		};
+
+		console.log(favIconURL);
 
 		imageColors(favIconURL, function(colors, totalPixelCount) {
 			var colorPalette = [];
@@ -125,7 +128,8 @@ function tabulatabForTab(tab, id) {
 	var tabulatab = {
 		identifier: id,
 		title: tab.title,
-		URL: tab.url
+		URL: tab.url,
+		favIconURL: tab.favIconUrl
 	};
 
 	findMetaInPageTitle(tabulatab);
@@ -149,7 +153,6 @@ function tabulatabForTab(tab, id) {
 		chrome.tabs.sendRequest(tab.id, {method: 'collectMeta'}, function(collection) {
 			if (collection == undefined) {
 				// try injecting the javascript if it was not injected during the loading of the page
-				console.dir(tab);
 				chrome.tabs.executeScript(tab.id, {file: "js/content-script.js"}, function() {
 					chrome.tabs.sendRequest(tab.id, {method: 'tabinfo'}, function(collection) {
 						$.extend(tabulatab, collection);
@@ -182,6 +185,7 @@ function collectAllTabs() {
 						var tabulatab = tabulatabForTab(chromeTab, chromeTab.id);
 						if (tabulatab) {
 							tabulatab.windowFocused = chromeWindow.focused;
+							tabulatab.windowId = chromeTab.windowId;
 							tabulatabs.push(tabulatab);
 						}
 					});
@@ -219,7 +223,7 @@ function collectAllTabs() {
 	        	stopProgressAnimation();
 	        });
 		});
-	}, 5000);
+	}, 2000);
 }
 
 function openOptions(firstTime) {
