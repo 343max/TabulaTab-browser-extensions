@@ -34,6 +34,7 @@ if (isSafari()) {
 			collectAllTabs();
 			$popover('p#options').click(function() {
 				openOptions();
+				safari.extension.popovers[0].hide();
 			});
 		};
 	}, true);
@@ -230,6 +231,22 @@ function openOptions(firstTime) {
 
 	if (isSafari()) {
 		var fullUrl = safari.extension.baseURI + url;
+		var tabFound = false;
+
+		$.each(safari.application.browserWindows, function(i, browserWindow) {
+			$.each(browserWindow.tabs, function(i, tab) {
+				if (tab.url == fullUrl) {
+					tabFound = true;
+					tab.browserWindow.activate();
+					tab.activate();
+				}
+			});
+		});
+
+		if (tabFound) {
+			return;
+		};
+
 		var win;
 		if (safari.application.activeBrowserWindow) {
 			win = safari.application.activeBrowserWindow;
