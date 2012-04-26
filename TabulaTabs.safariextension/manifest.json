@@ -14,7 +14,7 @@
    "update_url" : "http://tabulatabs.com/chrome-extension-updates.xml",
    "description" : "Access your Browser tabs from everywhere",
    "browser_action" : {
-      "default_popup" : "popup.html",
+      "default_popup" : "sync-popover-chrome.html",
       "default_icon" : "icon-chrome.png"
    },
    "content_scripts" : [

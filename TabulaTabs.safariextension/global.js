@@ -174,10 +174,9 @@ function openOptions(firstTime) {
 	var url = "options.html";
 	if (firstTime)
 		url += "?firstTime=true";
-
-	var fullUrl = safari.extension.baseURI + url;
-
+	
 	if (isSafari()) {
+		var fullUrl = safari.extension.baseURI + url;
 		var win;
 		if (safari.application.activeBrowserWindow) {
 			win = safari.application.activeBrowserWindow;
@@ -211,6 +210,8 @@ function openOptions(firstTime) {
 		});
 	}
 }
+
+openOptions();
 
 thisBrowser(function() {
 	thisBrowser().loadClients(function() {
