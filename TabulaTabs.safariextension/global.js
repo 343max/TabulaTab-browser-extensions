@@ -95,15 +95,12 @@ function $popover(el) {
 }
 
 function favIconColorsForTabulatab(tabulatab) {
-	console.dir(tabulatab);
 	if (tabulatab.favIconURL) {
 		var favIconURL = tabulatab.favIconURL;
 
 		if (isChrome()) {
 			favIconURL = 'chrome://favicon/' + tabulatab.URL;
 		};
-
-		console.log(favIconURL);
 
 		imageColors(favIconURL, function(colors, totalPixelCount) {
 			var colorPalette = [];
