@@ -24,7 +24,7 @@
 		<array>
 			<dict>
 				<key>Filename</key>
-				<string>syncPopover.html</string>
+				<string>sync-popover-safari.html</string>
 				<key>Height</key>
 				<real>90</real>
 				<key>Identifier</key>
@@ -39,7 +39,7 @@
 				<key>Identifier</key>
 				<string>sync</string>
 				<key>Image</key>
-				<string>icon.png</string>
+				<string>icon-safari.png</string>
 				<key>Label</key>
 				<string>TabulaTabs</string>
 				<key>Popover</key>
@@ -53,7 +53,7 @@
 		<dict>
 			<key>Start</key>
 			<array>
-				<string>js-shared/content-script.js</string>
+				<string>js/content-script.js</string>
 			</array>
 		</dict>
 	</dict>

@@ -28,14 +28,16 @@ function isChrome() {
 	return typeof(chrome) != 'undefined';
 }
 
-safari.application.addEventListener("popover", function(e) {
-	if (e.target.identifier == 'syncPopover') {
-		collectAllTabs();
-		$popover('p#options').click(function() {
-			openOptions();
-		});
-	};
-}, true);
+if (isSafari()) {
+	safari.application.addEventListener("popover", function(e) {
+		if (e.target.identifier == 'syncPopover') {
+			collectAllTabs();
+			$popover('p#options').click(function() {
+				openOptions();
+			});
+		};
+	}, true);
+};
 
 function iconAnimation(path, imageCount) {
 	var i = 0;
@@ -66,14 +68,14 @@ function stopProgressAnimation() {
 	if (isSafari()) {
 		$popover('p#progress').removeClass('inprogress').text('Synchronization complete');
 		window.clearTimeout(progressAnimation);
-		safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'icon.png';
+		safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'icon-safari.png';
 
 		window.setTimeout(function() {
 			safari.extension.popovers[0].hide();
 		}, 10000);
 	} else {
 		window.clearTimeout(progressAnimation);
-		chrome.browserAction.setIcon({path: 'icon.png'});
+		chrome.browserAction.setIcon({path: 'icon-chrome.png'});
         
         $.each(chrome.extension.getViews(), function(index, view) {
         	if (view.document.onTabsSaved) {
@@ -164,7 +166,7 @@ function collectAllTabs() {
 }
 
 function openOptions(firstTime) {
-	var url = "js-shared/options.html";
+	var url = "options.html";
 	if (firstTime)
 		url += "?firstTime=true";
 

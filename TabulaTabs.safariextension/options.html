@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>TabulaTabs!</title>
+	<script src="js/base64.js"></script>
+	<script src="js/gibberish-aes.js"></script>
+	<script src="js/jquery-1.7.1.min.js"></script>
+	<script src="js/webtoolkit.sha1.js"></script>
+	<script src="js/tabulatabs-client.js"></script>
+	<script src="js/tabulatabs-encryption.js"></script>
+	<script src="js/tabulatabs-browser.js"></script>
+	<script src="js/qrCode.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="js/options.js"></script>
+	<style>
+
+#qrCode {
+	margin: 20px;
+	float: left;
+}
+
+ul#clients li {
+	list-style-type: none;
+	min-height: 28px;
+	background-position: top left;
+	background-repeat: no-repeat;
+}
+
+a#sendRegistrationMail {
+	display: none;
+}
+
+	</style>
+</head>
+<body>
+
+<form id="propertiesForm">
+	<p><label>Browser Name:</label><input type="text" placeholder="e.g. Chrome" id="label"></p>
+	<p><label>Description:</label><input type="text" placeholder="e.g. Home / Work / Laptop" id="description"></p>
+	<p><input type="submit" value="Save" id="save" disabled="disabled"></p>
+</form>
+
+<canvas width="360" height="360" id="qrCode"></canvas>
+<a href="#" id="sendRegistrationMail">Don't have an Camera in your iPod? Send yourself the Registration Link via URL.</a>
+<div class="clients">
+	<h2>Currently registered clients:</h2>
+	<ul id="clients">
+	</ul>
+</div>
+
+</body>
+</html>
