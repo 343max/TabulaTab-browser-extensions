@@ -1,6 +1,0 @@
-[submodule "chrome-extension/js-shared"]
-	path = chrome-extension/js-shared
-	url = git@github.com:343max/TabulaTabs-js-shared.git
-[submodule "safari-extension.safariextension/js-shared"]
-	path = safari-extension.safariextension/js-shared
-	url = git@github.com:343max/TabulaTabs-js-shared.git
