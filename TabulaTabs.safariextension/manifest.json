@@ -24,7 +24,7 @@
       }
    ],
    "browser_action" : {
-      "default_popup" : "sync-popover-chrome.html",
+      "default_popup" : "sync-popover.html",
       "default_icon" : "icon-chrome.png"
    }
 }
