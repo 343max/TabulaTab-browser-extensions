@@ -32,7 +32,7 @@ function iconAnimation(path, imageCount) {
 			chrome.browserAction.setIcon({path: path + '/' + i + '.png'});
 		};
 
-	}, 50);
+	}, 75);
 }
 
 var progressAnimation;
@@ -42,10 +42,8 @@ function startProgressAnimation() {
 	syncInProgress = true;
 	if (isSafari()) {
 		$popover('p#progress').addClass('inprogress').text('Synchronizing tabs');
-		progressAnimation = iconAnimation('chasingArrows', 8);
-	} else if (isChrome()) {
-    	progressAnimation = iconAnimation('chasingArrows', 8);
-	};
+	}
+	progressAnimation = iconAnimation('chasingArrows', 6);
 }
 
 function stopProgressAnimation() {
