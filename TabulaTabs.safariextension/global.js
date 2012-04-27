@@ -1,24 +1,3 @@
-// SafariActivateEvent / activate
-// SafariOpenEvent / open
-// SafariNavigateEvent / navigate
-// SafariDeactivateEvent / deactivate
-// SafariCloseEvent / close
-
-// safari.application.addEventListener('open', function(e) {
-// 	console.dir(['open', e]);
-// }, true);
-
-// safari.application.addEventListener('close', function(e) {
-// 	console.dir(['close', e]);
-// }, true);
-
-// safari.application.addEventListener('activate', function(e) {
-// 	console.dir(['activate', e]);
-// }, true);
-
-// safari.application.addEventListener('beforeNavigate', function(e) {
-// 	console.dir(['beforeNavigate', e]);
-// }, true);
 
 function isSafari() {
 	return typeof(safari) != 'undefined';
@@ -223,6 +202,71 @@ function collectAllTabs() {
 		});
 	}, 2000);
 }
+
+var uploadTabTimout = null;
+
+function startUploadTabsTimeout() {
+	if(uploadTabTimout != null) {
+		return;
+	}
+
+	uploadTabTimout = window.setTimeout(function() {
+		collectAllTabs();
+		uploadTabTimout = null;
+	}, 30000);
+}
+
+if (isChrome()) {
+	chrome.tabs.onAttached.addListener(function(tabId, attachInfo) {
+		startUploadTabsTimeout();
+	});
+
+	chrome.tabs.onCreated.addListener(function(tab) {
+		startUploadTabsTimeout();
+	});
+
+	chrome.tabs.onMoved.addListener(function(tabId, moveInfo) {
+	//	console.log('onMoved');console.dir(moveInfo);
+		startUploadTabsTimeout();
+	});
+
+	chrome.tabs.onRemoved.addListener(function(tabId) {
+	//	console.log('onRemoved');console.dir(tabId);
+		startUploadTabsTimeout();
+	});
+
+	chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
+	//	console.log('onSelectionChanged');console.dir(selectInfo);
+		startUploadTabsTimeout();
+	});
+
+	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
+	//	console.log('onUpdated');console.dir(changeInfo);
+		startUploadTabsTimeout();
+	});
+};
+
+if (isSafari()) {
+	safari.application.addEventListener('open', function(e) {
+		// console.dir(['open', e]);
+		startUploadTabsTimeout();
+	}, true);
+
+	safari.application.addEventListener('close', function(e) {
+		// console.dir(['close', e]);
+		startUploadTabsTimeout();
+	}, true);
+
+	safari.application.addEventListener('activate', function(e) {
+		// console.dir(['activate', e]);
+		startUploadTabsTimeout();
+	}, true);
+
+	safari.application.addEventListener('navigate', function(e) {
+		// console.dir(['navigate', e]);
+		startUploadTabsTimeout();
+	}, true);
+};
 
 function openOptions(firstTime) {
 	var url = "options.html";
