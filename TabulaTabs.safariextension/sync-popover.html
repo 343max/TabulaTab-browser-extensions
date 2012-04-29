@@ -2,20 +2,42 @@
 <head>
 	<style>
 
+body {
+	font-family: "Helvetica Neue" Helvetica, Arial;
+	background-color: #3d516a;
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.6);
+}
+
+div#content {
+	width: 230px; 
+	height: 60px
+}
+
+p {
+	margin: 5px 0;
+}
+
 p#progress {
-	padding-left: 20px;
+	padding-left: 34px;
 }
 
 p#progress.inprogress {
-	background-image: url(chasingArrowsOnWhite.gif);
-	background-position: 0% 50%;
+	background-image: url(chasingArrowOnDenim.gif);
+	background-position: 6px 50%;
 	background-repeat: no-repeat;
 }
 
 p#options {
-	color: #3079c4;
-	text-decoration: underline;
+	color: #cadbff;
 	cursor: pointer;
+	background-image: url(TabListSettingsButton.png);
+	background-repeat: no-repeat;
+	padding-left: 34px;
+	display: block;
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
 }
 
 	</style>
@@ -43,7 +65,7 @@ if (typeof(chrome) != 'undefined') {
 	</script>
 </head>
 <body>
-<div id="content" style="width: 200px; height: 60px">
+<div id="content">
 <p id="progress" class="inprogress">Synchronizing tabs</p>
 <p id="options">Options / Add iPhone</p>
 </div>

@@ -26,11 +26,11 @@
 				<key>Filename</key>
 				<string>sync-popover.html</string>
 				<key>Height</key>
-				<real>90</real>
+				<real>80</real>
 				<key>Identifier</key>
 				<string>syncPopover</string>
 				<key>Width</key>
-				<real>220</real>
+				<real>250</real>
 			</dict>
 		</array>
 		<key>Toolbar Items</key>
