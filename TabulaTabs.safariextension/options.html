@@ -1,53 +1,82 @@
+
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>TabulaTabs!</title>
-	<script src="js/base64.js"></script>
-	<script src="js/gibberish-aes.js"></script>
-	<script src="js/jquery-1.7.1.min.js"></script>
-	<script src="js/webtoolkit.sha1.js"></script>
-	<script src="js/tabulatabs-client.js"></script>
-	<script src="js/tabulatabs-encryption.js"></script>
-	<script src="js/tabulatabs-browser.js"></script>
-	<script src="js/qrCode.js"></script>
-	<script src="js/moment.min.js"></script>
-	<script src="js/options.js"></script>
-	<style>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TabulaTabs Options</title>
 
-#qrCode {
-	margin: 20px;
-	float: left;
-}
+    <!-- Le styles -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/options.css">
 
-ul#clients li {
-	list-style-type: none;
-	min-height: 28px;
-	background-position: top left;
-	background-repeat: no-repeat;
-}
+    <script src="js/base64.js"></script>
+    <script src="js/gibberish-aes.js"></script>
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/webtoolkit.sha1.js"></script>
+    <script src="js/tabulatabs-client.js"></script>
+    <script src="js/tabulatabs-encryption.js"></script>
+    <script src="js/tabulatabs-browser.js"></script>
+    <script src="js/qrCode.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/options.js"></script>
+  </head>
 
-a#sendRegistrationMail {
-	display: none;
-}
+  <body>
+    <div class="container">
+      <div class="modal hide fade" id="removeClientModal">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">×</button>
+          <h3>Remove client</h3>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to remove the device &quot;<span class="device">xxxx</span>&quot;? If you remove it you wont be able to access your tabs from this device anymore.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
+          <a href="#" class="btn btn-danger remove">Remove</a>
+        </div>
+      </div>
+      <div class="modal hide fade" id="addDeviceModal">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">×</button>
+          <h3>Send your <span class="browserName"></span> tabs to your iPhone</h3>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Start "Tabulatabs" on your iPhone</li>
+            <li>If neccessary: open the Settings by tapping the gear icon in tab list</li>
+            <li>Tap "Add Browser"</li>
+          </ol>
+          <canvas width="340" height="340" id="qrCode"></canvas>
+          <a href="#" class="sendRegistrationMail">Your iPod doesn't has a camera? Send yourself the registration link by mail.</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span6">
+          <h2>Preferences</h2>
+          <form id="propertiesForm">
+            <p><label>Browser Name:</label><input type="text" placeholder="e.g. Chrome" id="label"></p>
+            <p><label>Description:</label><input type="text" placeholder="e.g. Home / Work / Laptop" id="description"></p>
+            <p><input type="submit" value="Save" id="save" class="btn" disabled="disabled"></p>
+          </form>
+        </div>
 
-	</style>
-</head>
-<body>
+        <div class="span6">
+          <a class="btn btn-primary addDevice">Add iPhone</a>
+          <h2>Registered iPhones</h2>
+          <h4>iPhone which can access this browsers tabs</h4>
+          <ul id="clients"></ul>
+        </div>
+      </div>
 
-<form id="propertiesForm">
-	<p><label>Browser Name:</label><input type="text" placeholder="e.g. Chrome" id="label"></p>
-	<p><label>Description:</label><input type="text" placeholder="e.g. Home / Work / Laptop" id="description"></p>
-	<p><input type="submit" value="Save" id="save" disabled="disabled"></p>
-</form>
-
-<canvas width="360" height="360" id="qrCode"></canvas>
-<a href="#" id="sendRegistrationMail">Don't have an Camera in your iPod? Send yourself the Registration Link via URL.</a>
-<div class="clients">
-	<h2>Currently registered clients:</h2>
-	<ul id="clients">
-	</ul>
-</div>
-
-</body>
+    </div> <!-- /container -->
+  </body>
 </html>

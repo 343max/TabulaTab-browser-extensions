@@ -1,0 +1,67 @@
+#save {
+	width: 80px;
+}
+
+ul#clients {
+	width: 275px;
+	padding: 0;
+	margin: 0;
+}
+
+ul#clients li {
+	background-repeat: no-repeat;
+	background-position: 0% 50%;
+	min-height: 35px;
+	padding-left: 25px;
+	list-style-type: none;
+	clear: both;
+	margin: 5px;
+}
+
+ul#clients li span {
+	display: block;
+}
+
+ul#clients li span.left {
+	float: left;
+}
+
+ul#clients li span.title {
+	font-weight: bold;
+}
+
+ul#clients li span.lastSeen {
+	color: #888;
+}
+
+ul#clients li a.delete {
+	margin-top: 3px;
+	float: right;
+	display: none;
+}
+
+ul#clients li:hover a.delete {
+	display: block;
+}
+
+.addDevice {
+	float: right;
+	width: 130px;
+}
+
+#removeClientModal {
+	position: absolute;
+}
+
+.sendRegistrationMail {
+	display: none;
+}
+
+#addDeviceModal .modal-body {
+	max-height: 500px;
+}
+
+#qrCode {
+	display: block;
+	margin: 10px auto;
+}

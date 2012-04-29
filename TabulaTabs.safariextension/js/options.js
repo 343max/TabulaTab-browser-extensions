@@ -1,30 +1,63 @@
 
+function registerNewClient() {
+	thisBrowser().whenReady(function() {
+		var client = thisBrowser().newClient();
+
+		client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
+			console.log(client.registrationURL());
+			drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
+			$('.sendRegistrationMail').show().attr('href', 'mailto:?body=' + escape(client.registrationURL() + ' send your self an mail with this link and open it on your iPod.'));
+		});
+	});
+
+	$('#addDeviceModal').modal();
+}
+
+var currentDeviceCount = -1;
+
 function registeredClients() {
 	var browser = thisBrowser();
 
 	browser.loadClients(function() {
-		if ($('#clients>li').length != browser.clients.length) {
+		if (currentDeviceCount != browser.clients.length) {
+			currentDeviceCount = browser.clients.length;
+
+			if (browser.clients.length == 0) {
+				registerNewClient();
+			} else {
+				$('#addDeviceModal').modal('hide');
+			}
+
 			$('#clients').empty();
 
+			browser.clients.sort(function(a, b) {
+				return a.accessedAt - b.accessedAt;
+			})
+
 			$.each(browser.clients, function(i, client){
-				var li = $('<li>').text(client.label);
+				var li = $('<li>');
 				li.css('background-image', 'url(' + client.iconURL + ')');
 
 				var a = moment(client.accessedAt);
 
+				var left = $('<span>').addClass('left');
+				left.append($('<span>').addClass('title').text(client.label));
 				if (a) {
-					var accessedAt = $('<span>').addClass("accessedAt").text('last seen ' + a.fromNow());
-					li.append(accessedAt);
+					var accessedAt = $('<span>').addClass("lastSeen").text('last seen ' + a.fromNow());
+					left.append(accessedAt);
 				};
+				li.append(left);
 
-				var deleteLink = $('<a>').text('Delete').addClass('delete');
+				var deleteLink = $('<a>').text('Remove').addClass('delete').addClass('btn').addClass('btn-danger');
 				deleteLink.click(function() {
-					if (window.confirm('Are you sure you want to revoke access for the client "' + client.label + '"?' + "\n\n" + 'This device wont be able to access the tablist of this browser anymore.')) {
-
+					$('#removeClientModal .device').text(client.label);
+					$('#removeClientModal .remove').unbind().click(function() {
+						$('#removeClientModal').modal('hide');
 						browser.destroyClient(client, function() {
 							li.remove();
 						});
-					}
+					});
+					$('#removeClientModal').modal();
 				});
 
 				li.append(deleteLink);
@@ -45,15 +78,17 @@ function prefillProperties() {
 	})
 }
 
-$().ready(function() {
+$().ready(function() {	
+	if (typeof(chrome) != 'undefined') {
+		$('.browserName').text('Chrome');
+	}
+
+	if (typeof(safari) != 'undefined') {
+		$('.browserName').text('Safari');
+	}
+
     thisBrowser().whenReady(function() {
     	var client = thisBrowser().newClient();
-
-	    client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
-			console.log(client.registrationURL());
-	        drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
-	        $('#sendRegistrationMail').show().attr('href', 'mailto:?body=' + escape(client.registrationURL()));
-	    });
 
 	    prefillProperties();
 		registeredClients();
@@ -63,13 +98,18 @@ $().ready(function() {
 
 			browser.label = $('#label').val();
 			browser.description = $('#description').val();
-			$('#save').attr('disabled', 'disabled');
+			$('#save').attr('disabled', 'disabled').val('Saving…');
 			browser.update(function() {
-				$('#save').attr("disabled", null);
+				window.setTimeout(function() {
+					$('#save').attr("disabled", null).val('Save');
+				}, 1500);
 			});
 
 			return false;
 		});
-    })
+    });
 
+    $('.addDevice').click(function() {
+    	registerNewClient();
+    });
 });
