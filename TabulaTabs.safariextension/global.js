@@ -11,7 +11,7 @@ if (isSafari()) {
 	safari.application.addEventListener("popover", function(e) {
 		if (e.target.identifier == 'syncPopover') {
 			collectAllTabs();
-			$popover('p#options').click(function() {
+			$popover('p#options').unbind().click(function() {
 				openOptions();
 				safari.extension.popovers[0].hide();
 			});
