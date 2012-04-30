@@ -15,7 +15,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleVersion</key>
-	<string>8</string>
+	<string>13</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -71,5 +71,7 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://tabulatabs.com/safari-extension-updates.plist</string>
 </dict>
 </plist>

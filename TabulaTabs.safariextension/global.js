@@ -161,6 +161,7 @@ function collectAllTabs() {
 						if (tabulatab) {
 							tabulatab.windowFocused = chromeWindow.focused;
 							tabulatab.windowId = chromeTab.windowId;
+							tabulatab.index = chromeTab.index;
 							tabulatabs.push(tabulatab);
 						}
 					});
