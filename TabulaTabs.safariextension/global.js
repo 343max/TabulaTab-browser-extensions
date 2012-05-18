@@ -177,6 +177,8 @@ function collectAllTabs() {
 	
 			$.each(browserWindow.tabs, function(j, tab) {
 				var isActiveTab = tab == browserWindow.activeTab;
+
+				console.dir(tab);
 	
 				var tabulatab = tabulatabForTab(tab, id++);
 				if (tabulatab) {

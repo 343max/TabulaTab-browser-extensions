@@ -1,4 +1,15 @@
 
+var currentDeviceCount = -1;
+var normalListPollInterval = 20000;
+var reducedListPollInvterval = 10 * 60 * 1000;
+var highListPollInterval = 1500;
+var clientListPollInterval = normalListPollInterval;
+
+function setClientListPollIntervall(interval) {
+	// console.log('new poll interval: ' + interval)
+	clientListPollInterval = interval;
+}
+
 function registerNewClient() {
 	thisBrowser().whenReady(function() {
 		var client = thisBrowser().newClient();
@@ -7,15 +18,19 @@ function registerNewClient() {
 			console.log(client.registrationURL());
 			drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
 			$('.sendRegistrationMail').show().attr('href', 'mailto:?body=' + escape(client.registrationURL() + ' send your self an mail with this link and open it on your iPod.'));
+			setClientListPollIntervall(highListPollInterval);
+			registeredClients();
 		});
 	});
 
-	$('#addDeviceModal').modal();
+	$('#addDeviceModal').on('hide', function() {
+		setClientListPollIntervall(normalListPollInterval);
+	}).modal();
 }
 
-var currentDeviceCount = -1;
-
+var clientListPollHandler = null;
 function registeredClients() {
+	console.log('poll!');
 	var browser = thisBrowser();
 
 	browser.loadClients(function() {
@@ -65,7 +80,9 @@ function registeredClients() {
 				$('#clients').prepend(li);
 			});
 		}
-		window.setTimeout(function() { registeredClients() }, 3000);
+
+		window.clearTimeout(clientListPollHandler);
+		clientListPollHandler = window.setTimeout(function() { registeredClients() }, clientListPollInterval);
 	});
 }
 
@@ -112,4 +129,35 @@ $().ready(function() {
     $('.addDevice').click(function() {
     	registerNewClient();
     });
+
+    var reducedPollIntervalHandler = null;
+    $('body').mousemove(function() {
+    	if (clientListPollInterval > normalListPollInterval) {
+    		setClientListPollIntervall(normalListPollInterval);
+    	};
+
+    	window.clearTimeout(reducedPollIntervalHandler);
+    	reducedPollIntervalHandler = window.setTimeout(function() {
+    		setClientListPollIntervall(reducedListPollInvterval);
+    	}, 60000);
+    });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
