@@ -2,8 +2,8 @@
    "options_page" : "options.html",
    "icons": {
       "16": "favicon.png",
-      "48": "chrome_48.png",
-      "128": "chrome_128.png"
+      "48": "icon-48.png",
+      "128": "icon-128.png"
    },
    "permissions" : [
       "tabs",
