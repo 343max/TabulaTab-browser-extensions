@@ -8,20 +8,16 @@
       "http://*/*",
       "https://*/*"
    ],
-   "version" : "28",
    "background_page" : "global.html",
-   "name" : "TabulaTabs!",
+   "version" : "29",
    "update_url" : "http://tabulatabs.com/chrome-extension-updates.xml",
+   "name" : "TabulaTabs!",
    "icons" : {
       "128" : "icon-128.png",
       "16" : "favicon.png",
       "48" : "icon-48.png"
    },
    "description" : "Access your Browser tabs from everywhere",
-   "browser_action" : {
-      "default_popup" : "sync-popover.html",
-      "default_icon" : "toolbar-icon-chrome.png"
-   },
    "content_scripts" : [
       {
          "matches" : [
@@ -31,6 +27,10 @@
             "js/content-script.js"
          ]
       }
-   ]
+   ],
+   "browser_action" : {
+      "default_popup" : "sync-popover.html",
+      "default_icon" : "toolbar-icon-chrome.png"
+   }
 }
 
