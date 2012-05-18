@@ -19,6 +19,16 @@ if (isSafari()) {
 	}, true);
 };
 
+if (isSafari()) {
+	safari.extension.settings.addEventListener("change", function(e) {
+		console.dir(e);
+		if (e.key == 'showOptionsCheckbox' && safari.extension.settings.showOptionsCheckbox == true) {
+			openOptions();
+			safari.extension.settings.showOptionsCheckbox = false;
+		};
+	}, false);
+}
+
 function iconAnimation(path, imageCount) {
 	var i = 0;
 	return window.setInterval(function() {
@@ -304,6 +314,7 @@ function openOptions(firstTime) {
 
 		var tab = win.openTab();
 		tab.url = fullUrl;
+		win.activate();
 	}
 
 	if (isChrome()) {
