@@ -73,5 +73,7 @@
 	</dict>
 	<key>Update Manifest URL</key>
 	<string>http://tabulatabs.com/safari-extension-updates.plist</string>
+	<key>Website</key>
+	<string>http://tabulatabs.com/</string>
 </dict>
 </plist>
