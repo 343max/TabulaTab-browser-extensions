@@ -30,7 +30,6 @@ function registerNewClient() {
 
 var clientListPollHandler = null;
 function registeredClients() {
-	console.log('poll!');
 	var browser = thisBrowser();
 
 	browser.loadClients(function() {
