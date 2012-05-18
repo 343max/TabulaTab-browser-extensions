@@ -1,0 +1,30 @@
+{
+   "options_page" : "options.html",
+   "permissions" : [
+      "tabs",
+      "https://tabulatabs.heroku.com/",
+      "http://tabulatabs.heroku.com/",
+      "chrome://favicon/",
+      "http://*/*",
+      "https://*/*"
+   ],
+   "background_page" : "backgroundPage.html",
+   "version" : "1",
+   "name" : "TabulaTabs!",
+   "description" : "Access your Browser tabs from everywhere",
+   "content_scripts" : [
+      {
+         "matches" : [
+            "http://*/*"
+         ],
+         "js" : [
+            "js/findMetaInPage.js"
+         ]
+      }
+   ],
+   "browser_action" : {
+      "default_popup" : "popup.html",
+      "default_icon" : "icon.png"
+   }
+}
+
