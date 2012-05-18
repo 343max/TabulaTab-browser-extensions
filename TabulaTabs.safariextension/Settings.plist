@@ -6,7 +6,7 @@
 		<key>Key</key>
 		<string>showOptionsCheckbox</string>
 		<key>Title</key>
-		<string>Show Options</string>
+		<string>Manage devices and other Settings…</string>
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
