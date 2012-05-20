@@ -1,5 +1,26 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-image: url(../background.jpg);
+}
+
 #save {
 	width: 80px;
+}
+
+.container {
+	background-color: white;
+	min-height: 100%;
+	padding: 0 40px;
+}
+
+div.row {
+	padding: 40px 0;
 }
 
 ul#clients {
