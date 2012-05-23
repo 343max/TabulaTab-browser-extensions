@@ -127,7 +127,6 @@
 			var findYouTubeVideoInPage = function() {
 				var el = document.querySelector('iframe[src^="http://www.youtube.com/embed/"]');
 				if (!el) return null;
-				console.dir(el);
 
 				var videoId = el.getAttribute('src').replace(/^https?:\/\/www.youtube.com\/embed\//, '');
 				if (!videoId) return null;
