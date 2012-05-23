@@ -124,8 +124,21 @@
 				return getMetaTagContentByProperty('og:image');
 			}
 
+			var findYouTubeVideoInPage = function() {
+				var el = document.querySelector('iframe[src^="http://www.youtube.com/embed/"]');
+				if (!el) return null;
+				console.dir(el);
+
+				var videoId = el.getAttribute('src').replace(/^https?:\/\/www.youtube.com\/embed\//, '');
+				if (!videoId) return null;
+				return 'http://img.youtube.com/vi/' + videoId + '/0.jpg';
+			}
+
 			var thumbSrc = findFacebookImageInPage();
+			if (!thumbSrc) thumbSrc = findYouTubeVideoInPage();
 			if (!thumbSrc) thumbSrc = findImageInPage();
+
+			console.log(thumbSrc);
 
 			if (thumbSrc) {
 				collection.pageThumbnail = thumbSrc;
