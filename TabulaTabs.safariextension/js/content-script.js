@@ -227,7 +227,6 @@
 	}
 
 	if (typeof(chrome) != "undefined") {
-		console.log('Listening');
 		chrome.extension.onRequest.addListener(function(request, sender, callback) {
 			if (request.method == 'collectMeta') {
 				collectMetaInformation(methods, callback);
