@@ -39,7 +39,7 @@
 				<key>Identifier</key>
 				<string>sync</string>
 				<key>Image</key>
-				<string>toolbar-icon-safari.png</string>
+				<string>img/toolbar-icon-safari.png</string>
 				<key>Label</key>
 				<string>TabulaTabs</string>
 				<key>Popover</key>

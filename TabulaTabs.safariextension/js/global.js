@@ -53,7 +53,7 @@ function startProgressAnimation() {
 	if (isSafari()) {
 		$popover('p#progress').addClass('inprogress').text('Synchronizing tabs');
 	}
-	progressAnimation = iconAnimation('chasingArrows', 6);
+	progressAnimation = iconAnimation('img/chasingArrows', 6);
 }
 
 function stopProgressAnimation() {
@@ -61,14 +61,14 @@ function stopProgressAnimation() {
 	if (isSafari()) {
 		$popover('p#progress').removeClass('inprogress').text('Synchronization complete');
 		window.clearTimeout(progressAnimation);
-		safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'toolbar-icon-safari.png';
+		safari.extension.toolbarItems[0].image = safari.extension.baseURI + 'img/toolbar-icon-safari.png';
 
 		window.setTimeout(function() {
 			safari.extension.popovers[0].hide();
 		}, 10000);
 	} else {
 		window.clearTimeout(progressAnimation);
-		chrome.browserAction.setIcon({path: 'toolbar-icon-chrome.png'});
+		chrome.browserAction.setIcon({path: 'img/toolbar-icon-chrome.png'});
         
         $.each(chrome.extension.getViews(), function(index, view) {
         	if (view.document.onTabsSaved) {
