@@ -214,8 +214,14 @@ function collectAllTabs() {
 
 var uploadTabTimout = null;
 
+autosync = false;
+
 function startUploadTabsTimeout() {
-	if(uploadTabTimout != null) {
+	if (!autosync) {
+		return;
+	}
+
+	if (uploadTabTimout != null) {
 		return;
 	}
 
@@ -235,44 +241,36 @@ if (isChrome()) {
 	});
 
 	chrome.tabs.onMoved.addListener(function(tabId, moveInfo) {
-	//	console.log('onMoved');console.dir(moveInfo);
 		startUploadTabsTimeout();
 	});
 
 	chrome.tabs.onRemoved.addListener(function(tabId) {
-	//	console.log('onRemoved');console.dir(tabId);
 		startUploadTabsTimeout();
 	});
 
 	chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
-	//	console.log('onSelectionChanged');console.dir(selectInfo);
 		startUploadTabsTimeout();
 	});
 
 	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
-	//	console.log('onUpdated');console.dir(changeInfo);
 		startUploadTabsTimeout();
 	});
 };
 
 if (isSafari()) {
 	safari.application.addEventListener('open', function(e) {
-		// console.dir(['open', e]);
 		startUploadTabsTimeout();
 	}, true);
 
 	safari.application.addEventListener('close', function(e) {
-		// console.dir(['close', e]);
 		startUploadTabsTimeout();
 	}, true);
 
 	safari.application.addEventListener('activate', function(e) {
-		// console.dir(['activate', e]);
 		startUploadTabsTimeout();
 	}, true);
 
 	safari.application.addEventListener('navigate', function(e) {
-		// console.dir(['navigate', e]);
 		startUploadTabsTimeout();
 	}, true);
 };
