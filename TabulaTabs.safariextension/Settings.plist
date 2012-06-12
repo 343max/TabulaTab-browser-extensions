@@ -10,5 +10,43 @@
 		<key>Type</key>
 		<string>CheckBox</string>
 	</dict>
+	<dict>
+		<key>Key</key>
+		<string>installed</string>
+		<key>Title</key>
+		<string>installed</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>Key</key>
+		<string>username</string>
+		<key>Secure</key>
+		<true/>
+		<key>Title</key>
+		<string>username</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>Key</key>
+		<string>password</string>
+		<key>Secure</key>
+		<true/>
+		<key>Title</key>
+		<string>password</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
+	<dict>
+		<key>Key</key>
+		<string>key</string>
+		<key>Secure</key>
+		<true/>
+		<key>Title</key>
+		<string>key</string>
+		<key>Type</key>
+		<string>TextField</string>
+	</dict>
 </array>
 </plist>

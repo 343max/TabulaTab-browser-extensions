@@ -1,12 +1,3 @@
-
-function isSafari() {
-	return typeof(safari) != 'undefined';
-}
-
-function isChrome() {
-	return typeof(chrome) != 'undefined';
-}
-
 if (isSafari()) {
 	safari.application.addEventListener("popover", function(e) {
 		if (e.target.identifier == 'syncPopover') {
@@ -21,7 +12,7 @@ if (isSafari()) {
 
 if (isSafari()) {
 	safari.extension.settings.addEventListener("change", function(e) {
-		console.dir(e);
+		// console.dir(e);
 		if (e.key == 'showOptionsCheckbox' && safari.extension.settings.showOptionsCheckbox == true) {
 			openOptions();
 			safari.extension.settings.showOptionsCheckbox = false;
@@ -129,7 +120,7 @@ function tabulatabForTab(tab, id) {
 		};
 
 		tab.addEventListener('message', messageListener, false);
-		tab.page.dispatchMessage('collectMeta', {tabId: id});		
+		tab.page.dispatchMessage('collectMeta', {tabId: id});
 	};
 
 	if (isChrome()) {
@@ -281,36 +272,46 @@ function openOptions(firstTime) {
 		url += "?firstTime=true";
 
 	if (isSafari()) {
-		var fullUrl = safari.extension.baseURI + url;
-		var tabFound = false;
+		thisBrowser().whenReady(function() {
+			var fullUrl = safari.extension.baseURI + url;
+			var tabFound = false;
 
-		$.each(safari.application.browserWindows, function(i, browserWindow) {
-			$.each(browserWindow.tabs, function(i, tab) {
-				if (tab.url == fullUrl) {
-					tabFound = true;
-					tab.browserWindow.activate();
-					tab.activate();
-				}
+			$.each(safari.application.browserWindows, function(i, browserWindow) {
+				$.each(browserWindow.tabs, function(i, tab) {
+					if (tab.url == fullUrl) {
+						tabFound = true;
+						tab.browserWindow.activate();
+						tab.activate();
+					}
+				});
 			});
-		});
 
-		if (tabFound) {
-			return;
-		};
+			if (tabFound) {
+				return;
+			};
 
-		var win;
-		if (safari.application.activeBrowserWindow) {
-			win = safari.application.activeBrowserWindow;
-		} else if (safari.application.browserWindows.length > 0) {
-			win = safari.application.browserWindows[0];
+			var win;
+			if (safari.application.activeBrowserWindow) {
+				win = safari.application.activeBrowserWindow;
+			} else if (safari.application.browserWindows.length > 0) {
+				win = safari.application.browserWindows[0];
+				win.activate();
+			} else {
+				win = safari.application.openBrowserWindow();
+			}
+
+			var tab = win.openTab();
+			tab.url = fullUrl;
+			tab.addEventListener('message', function() {
+				console.log('ask for settings…');
+				tab.page.dispatchMessage('settings', {
+					key: settingsStorage.getSecureItem('key'),
+					username: thisBrowser().username,
+					password: thisBrowser().password
+				}, false);
+			}, false);
 			win.activate();
-		} else {
-			win = safari.application.openBrowserWindow();
-		}
-
-		var tab = win.openTab();
-		tab.url = fullUrl;
-		win.activate();
+		});
 	}
 
 	if (isChrome()) {
@@ -333,10 +334,10 @@ function openOptions(firstTime) {
 	}
 }
 
-thisBrowser(function() {
-	if (!localStorage.getItem('installed')) {
+thisBrowser().whenReady(function() {
+	if (settingsStorage.getItem('installed') != 'true') {
+		settingsStorage.setItem('installed', 'true');
 		openOptions(true);
-		localStorage.setItem('installed', true);
 
 		window.setTimeout(function() {
 			collectAllTabs();

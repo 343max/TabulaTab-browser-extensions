@@ -14,7 +14,13 @@ function TabulatabsBrowser(encryption) {
 
 	this.whenReadyCallbacks = [];
 
+	var registrationInProgress = false;
 	this.register = function(password, callback) {
+		if (registrationInProgress) {
+			return;
+		};
+		registrationInProgress = true;
+
 		if (!callback) callback = function() {};
 
 		this.password = password;
@@ -34,6 +40,7 @@ function TabulatabsBrowser(encryption) {
 				callback();
 			});
 			self.whenReadyCallbacks = [];
+			registrationInProgress = false;
 		});
 	}
 
@@ -169,45 +176,11 @@ function TabulatabsBrowser(encryption) {
     }
 
     this.whenReady = function(callback) {
-    	if (this.username) {
+    	if (self.username) {
     		callback();
     	} else {
-    		this.whenReadyCallbacks.push(callback);
+    		self.whenReadyCallbacks.push(callback);
     	}
     }
 }
 
-var _tabulatabsCurrentBrowser = null;
-
-function thisBrowser(browserRegisteredCallback) {
-    if (!_tabulatabsCurrentBrowser) {
-        var encryption = new TabulatabsEncryption(localStorage.getItem('key'));
-        localStorage.setItem('key', encryption.hexKey());
-
-        _tabulatabsCurrentBrowser = new TabulatabsBrowser(encryption);
-        _tabulatabsCurrentBrowser.username = localStorage.getItem('username');
-        _tabulatabsCurrentBrowser.password = localStorage.getItem('password');
-
-        if (!_tabulatabsCurrentBrowser.username) {
-			_tabulatabsCurrentBrowser.useragent = navigator.userAgent;
-			if (typeof(safari) != 'undefined') _tabulatabsCurrentBrowser.label = 'Safari';
-			if (typeof(chrome) != 'undefined') _tabulatabsCurrentBrowser.label = 'Chrome';
-			_tabulatabsCurrentBrowser.description = '';
-
-            _tabulatabsCurrentBrowser.register(encryption.generatePassword(), function(result) {
-                localStorage.setItem('username', _tabulatabsCurrentBrowser.username);
-                localStorage.setItem('password', _tabulatabsCurrentBrowser.password);
-
-                if (browserRegisteredCallback) {
-                	browserRegisteredCallback();
-                };
-            });
-        }
-    }
-
-    if (browserRegisteredCallback) {
-    	browserRegisteredCallback();
-    } else {
-		return _tabulatabsCurrentBrowser;
-	}
-}
