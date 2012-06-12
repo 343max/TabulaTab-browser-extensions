@@ -344,3 +344,10 @@ thisBrowser().whenReady(function() {
 		}, 5000);
 	};
 });
+
+function totalReset() {
+	settingsStorage.setItem('installed', null);
+	settingsStorage.setSecureItem('key', null);
+	settingsStorage.setSecureItem('username', null);
+	settingsStorage.setSecureItem('password', null);
+}
