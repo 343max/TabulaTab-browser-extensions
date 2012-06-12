@@ -334,13 +334,12 @@ function openOptions(firstTime) {
 }
 
 thisBrowser(function() {
-	thisBrowser().loadClients(function() {
-	    if (thisBrowser().clients.length == 0) {
-	        openOptions(true);
-	    }
-	});
-});
+	if (!localStorage.getItem('installed')) {
+		openOptions(true);
+		localStorage.setItem('installed', true);
 
-window.setTimeout(function() {
-	collectAllTabs();
-}, 10000);
+		window.setTimeout(function() {
+			collectAllTabs();
+		}, 5000);
+	};
+});

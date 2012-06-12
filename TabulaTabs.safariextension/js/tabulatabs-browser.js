@@ -204,5 +204,10 @@ function thisBrowser(browserRegisteredCallback) {
             });
         }
     }
-	return _tabulatabsCurrentBrowser;
+
+    if (browserRegisteredCallback) {
+    	browserRegisteredCallback();
+    } else {
+		return _tabulatabsCurrentBrowser;
+	}
 }
