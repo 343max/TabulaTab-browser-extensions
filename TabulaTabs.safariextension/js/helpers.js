@@ -52,7 +52,7 @@ function thisBrowser(browserRegisteredCallback) {
         _tabulatabsCurrentBrowser.username = settingsStorage.getSecureItem('username');
         _tabulatabsCurrentBrowser.password = settingsStorage.getSecureItem('password');
 
-        if (!_tabulatabsCurrentBrowser.password) {
+        if (!_tabulatabsCurrentBrowser.username || !_tabulatabsCurrentBrowser.username) {
             _tabulatabsCurrentBrowser.useragent = navigator.userAgent;
             if (typeof(safari) != 'undefined') _tabulatabsCurrentBrowser.label = 'Safari';
             if (typeof(chrome) != 'undefined') _tabulatabsCurrentBrowser.label = 'Chrome';

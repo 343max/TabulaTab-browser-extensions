@@ -157,7 +157,7 @@ if (isSafari()) {
 	}, false);
 	safari.self.tab.dispatchMessage('settings', null);
 } else {
-	$.jQuery(document).ready(function($) {
+	$(document).ready(function($) {
 		docReady();
 	});
 }
