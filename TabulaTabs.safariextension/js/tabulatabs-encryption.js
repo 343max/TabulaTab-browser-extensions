@@ -17,7 +17,7 @@ function TabulatabsEncryption(hexKey) {
 	}
 
 	var key = null;
-	if (!hexKey) {
+	if ((new String(hexKey)).length != 64) {
 		key = generateKey();
 	} else {
 		key = GibberishAES.h2a(hexKey);

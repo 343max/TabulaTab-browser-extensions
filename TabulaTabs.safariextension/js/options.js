@@ -15,7 +15,7 @@ function registerNewClient() {
 		var client = thisBrowser().newClient();
 
 		client.createWithBrowser(thisBrowser(), thisBrowser().encryption.generatePassword(), function() {
-			console.log(client.registrationURL());
+			// console.log(client.registrationURL());
 			drawQrCode(client.registrationURL(), 1, $('#qrCode')[0]);
 			$('.sendRegistrationMail').show().attr('href', 'mailto:?body=' + escape(client.registrationURL() + ' send your self an mail with this link and open it on your iPod.'));
 			setClientListPollIntervall(highListPollInterval);
@@ -130,6 +130,14 @@ function docReady() {
     $('.addDevice').click(function() {
     	registerNewClient();
     });
+
+    $('#startOver').click(function() {
+		$('#startOverModal .startOver').unbind().click(function() {
+			$('#startOverModal').modal('hide');
+			alert('meeep!');
+		});
+		$('#startOverModal').modal();
+	});
 
     var reducedPollIntervalHandler = null;
     $('body').mousemove(function() {

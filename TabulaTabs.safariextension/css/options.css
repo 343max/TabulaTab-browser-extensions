@@ -109,3 +109,14 @@ ul#clients li:hover a.delete {
 	display: block;
 	margin: 10px auto;
 }
+
+.reset {
+	text-align: right;
+	display: none;
+}
+
+#totalReset {
+	font-size: 0.9em;
+	color: grey;
+	cursor: pointer;
+}

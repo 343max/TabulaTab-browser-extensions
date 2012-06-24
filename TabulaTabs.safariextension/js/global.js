@@ -303,9 +303,8 @@ function openOptions(firstTime) {
 			var tab = win.openTab();
 			tab.url = fullUrl;
 			tab.addEventListener('message', function() {
-				console.log('ask for settings…');
 				tab.page.dispatchMessage('settings', {
-					key: settingsStorage.getSecureItem('key'),
+					key: thisBrowser().encryption.hexKey(),
 					username: thisBrowser().username,
 					password: thisBrowser().password
 				}, false);

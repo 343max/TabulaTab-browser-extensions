@@ -39,6 +39,21 @@
           <a href="#" class="btn btn-danger remove">Remove</a>
         </div>
       </div>
+      <div class="modal hide fade" id="startOverModal">
+        <div class="modal-header">
+          <button class="close" data-dismiss="modal">×</button>
+          <h3>Start over completly</h3>
+        </div>
+        <div class="modal-body">
+          <p>This function will remove delete all your settings and lets you start over completly.</p>
+          <p>If you do this you will have to re-register every registered iPhone.</p>
+          <p>Only do this if TabulaTabs don't works as expected for you.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
+          <a href="#" class="btn btn-danger startOver">Start over</a>
+        </div>
+      </div>
       <div class="modal hide fade" id="addDeviceModal">
         <div class="modal-header">
           <button class="close" data-dismiss="modal">×</button>
@@ -70,8 +85,13 @@
         <div class="span6">
           <a class="btn btn-primary addDevice">Add iPhone</a>
           <h2>Registered iPhones</h2>
-          <h4>iPhone which can access this browsers tabs</h4>
+          <h4>iPhone which have access to this browsers tabs</h4>
           <ul id="clients"></ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span11 reset">
+          <a id="startOver">Start over completly</a>
         </div>
       </div>
 
