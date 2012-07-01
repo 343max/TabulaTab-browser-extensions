@@ -6,14 +6,14 @@ if (isSafari()) {
 				openOptions();
 				safari.extension.popovers[0].hide();
 			});
-		};
+		}
 	}, true);
-};
+}
 
 if (isSafari()) {
-	safari.extension.settings.addEventListener("change", function(e) {
+	safari.extension.settings.addEventListener("change", function (e) {
 		// console.dir(e);
-		if (e.key == 'showOptionsCheckbox' && safari.extension.settings.showOptionsCheckbox == true) {
+		if (e.key === 'showOptionsCheckbox' && safari.extension.settings.showOptionsCheckbox === true) {
 			openOptions();
 			safari.extension.settings.showOptionsCheckbox = false;
 		};
@@ -27,11 +27,11 @@ function iconAnimation(path, imageCount) {
 		if(i > imageCount) i = 1;
 		if (isSafari()) {
 			safari.extension.toolbarItems[0].image = safari.extension.baseURI + path + '/' + i + '.png';
-		};
+		}
 
 		if (isChrome()) {
 			chrome.browserAction.setIcon({path: path + '/' + i + '.png'});
-		};
+		}
 
 	}, 75);
 }
@@ -61,10 +61,10 @@ function stopProgressAnimation() {
 		window.clearTimeout(progressAnimation);
 		chrome.browserAction.setIcon({path: 'img/toolbar-icon-chrome.png'});
         
-        $.each(chrome.extension.getViews(), function(index, view) {
+        $.each(chrome.extension.getViews(), function (index, view) {
         	if (view.document.onTabsSaved) {
         		view.document.onTabsSaved();
-        	}
+            }
         });
 	}
 }
@@ -79,7 +79,7 @@ function favIconColorsForTabulatab(tabulatab) {
 
 		if (isChrome()) {
 			favIconURL = 'chrome://favicon/' + tabulatab.URL;
-		};
+		}
 
 		imageColors(favIconURL, function(colors, totalPixelCount) {
 			var colorPalette = [];
