@@ -15,6 +15,7 @@ function TabulatabsBrowser(encryption) {
 	this.whenReadyCallbacks = [];
 
 	var registrationInProgress = false;
+
 	this.register = function(password, callback) {
 		if (registrationInProgress) {
 			return;
@@ -145,7 +146,7 @@ function TabulatabsBrowser(encryption) {
 		});
 	}
 
-	this.saveTabs = function(tabs, callback, errorCallback) {
+	var uploadTabs = function(method, tabs, callback, errorCallback) {
 		if (!callback) callback = function() {};
 		if (!errorCallback) errorCallback = function() {};
 
@@ -158,8 +159,8 @@ function TabulatabsBrowser(encryption) {
 			encryptedTabs.push(encryptedTab);
 		});
 
-		$.ajax(tabulatabsServerPath + 'browsers/tabs.json', {
-			type: 'POST',
+		$.ajax(tabulatabsServerPath + 'browsers/tabs/' + (method == 'PUT' ? 'update' : ''), {
+			type: method,
 			username: self.username,
 			password: self.password,
 			beforeSend: tabulatabsFixChromeAuthentifiaction,
@@ -169,6 +170,14 @@ function TabulatabsBrowser(encryption) {
 			},
 			error: errorCallback
 		});
+	}
+
+	this.saveTabs = function(tabs, callback, errorCallback) {
+		uploadTabs('POST', tabs, callback, errorCallback);
+	}
+
+	this.updateTabs = function(tabs, callback, errorCallback) {
+		uploadTabs('PUT', tabs, callback, errorCallback);
 	}
 
     this.newClient = function() {

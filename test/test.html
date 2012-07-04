@@ -21,6 +21,9 @@
   <h2 id="qunit-banner"></h2>
   <ol id="qunit-tests"></ol>
 <script>
+
+tabulatabsServerPath = 'http://localhost:3000/';
+
 test("cross domain connection, server responding", function() {
     stop(3);
 
@@ -158,33 +161,67 @@ test('clients / tabs', function() {
 
                         var tab1 = new TabulatabsTab({identifier: 'id1', title: 'title', URL: 'http://tabulatabs.com/', selected: true, favIconURL: 'favicon.ico', windowId: 'wid2', windowFocused: true, index: 3, colorPalette: ['red', 'green', 'blue']});
                         var tab2 = new TabulatabsTab({identifier: 'id2', title: 'title2', URL: 'http://tabulatabs.com/2', selected: true, favIconURL: 'favicon2.ico', windowId: 'wid1', windowFocused: false, index: 4, colorPalette: ['red', 'green', 'blue']});
+                        var tab3 = new TabulatabsTab({identifier: 'id3', title: 'title3', URL: 'http://tabulatabs.com/3', selected: true, favIconURL: 'favicon3.ico', windowId: 'wid1', windowFocused: false, index: 5, colorPalette: ['red', 'green', 'blue']});
+                        var tab4 = new TabulatabsTab({identifier: 'id4', title: 'title4', URL: 'http://tabulatabs.com/4', selected: true, favIconURL: 'favicon4.ico', windowId: 'wid1', windowFocused: false, index: 6, colorPalette: ['red', 'green', 'blue']});
                         
-                        var tabs = [tab1, tab2];
+                        var tabs = [tab1, tab2, tab3, tab4];
 
                         browser.saveTabs(tabs, function(savingTabsResult) {
                             equal(savingTabsResult.success, true, 'Tabs saved successfully');
 
                             client.loadTabs(function() {
-                                equal(client.tabs.length, 2, 'correct number of tabs loaded');
+                                equal(client.tabs.length, 4, 'correct number of tabs loaded');
 
-                                equal(client.tabs[0].identifier, tab1.identifier, 'save identifier correctly');
-                                equal(client.tabs[0].title, tab1.title, 'save title correctly');
-                                equal(client.tabs[0].url, tab1.url, 'save url correctly');
-                                equal(client.tabs[0].selected, tab1.selected, 'save selected correctly');
-                                equal(client.tabs[0].favIconURL, tab1.favIconURL, 'save favIconURL correctly');
-                                equal(client.tabs[0].windowId, tab1.windowId, 'save windowId correctly');
-                                equal(client.tabs[0].windowFocused, tab1.windowFocused, 'save windowFocused correctly');
-                                equal(client.tabs[0].index, tab1.index, 'save index correctly');
-                                equal(client.tabs[0].colorPalette.length, tab1.colorPalette.length, 'save pageColors correctly');
+                                for (var i = 0; i < tabs.length; i++) {
+                                    equal(client.tabs[i].identifier, tabs[i].identifier, 'save identifier correctly');
+                                    equal(client.tabs[i].title, tabs[i].title, 'save title correctly');
+                                    equal(client.tabs[i].url, tabs[i].url, 'save url correctly');
+                                    equal(client.tabs[i].selected, tabs[i].selected, 'save selected correctly');
+                                    equal(client.tabs[i].favIconURL, tabs[i].favIconURL, 'save favIconURL correctly');
+                                    equal(client.tabs[i].windowId, tabs[i].windowId, 'save windowId correctly');
+                                    equal(client.tabs[i].windowFocused, tabs[i].windowFocused, 'save windowFocused correctly');
+                                    equal(client.tabs[i].index, tabs[i].index, 'save index correctly');
+                                    equal(client.tabs[i].colorPalette.length, tabs[i].colorPalette.length, 'save pageColors correctly');
+                                }
 
-                                equal(client.tabs[1].identifier, tab2.identifier, 'saved identifier on second tab correctly');
+                                tab2.title = 'title2a';
+                                tab2.URL = 'http://tabulatabs.com/2a';
+                                tab2.selected = false;
+                                tab2.favIconURL = 'favicon2a.ico';
+                                tab2.windowId = 'window2a';
+                                tab2.windowFocused = true;
 
-                                browser.destroyClient(client, function(destroyClientResult) {
-                                    ok(destroyClientResult.success, 'got invalid response');
+                                tab3.title = 'title3a';
+                                tab3.URL = 'http://tabulatabs.com/3a';
+                                tab3.selected = false;
+                                tab3.favIconURL = 'favicon3a.ico';
+                                tab3.windowId = 'window3a';
+                                tab3.windowFocused = true;
 
-                                    browser.loadClients(function(loadClientsResult) {
-                                        equal(browser.clients.length, 0, 'client was not destroyed');
-                                        start();
+                                browser.updateTabs(tabs, function(updatingTabsResult) {
+                                    client.loadTabs(function() {
+                                        equal(client.tabs.length, 4, 'correct number of tabs loaded');
+
+                                        for (var i = 0; i < tabs.length; i++) {
+                                            equal(client.tabs[i].identifier, tabs[i].identifier, 'save identifier correctly');
+                                            equal(client.tabs[i].title, tabs[i].title, 'save title correctly');
+                                            equal(client.tabs[i].url, tabs[i].url, 'save url correctly');
+                                            equal(client.tabs[i].selected, tabs[i].selected, 'save selected correctly');
+                                            equal(client.tabs[i].favIconURL, tabs[i].favIconURL, 'save favIconURL correctly');
+                                            equal(client.tabs[i].windowId, tabs[i].windowId, 'save windowId correctly');
+                                            equal(client.tabs[i].windowFocused, tabs[i].windowFocused, 'save windowFocused correctly');
+                                            equal(client.tabs[i].index, tabs[i].index, 'save index correctly');
+                                            equal(client.tabs[i].colorPalette.length, tabs[i].colorPalette.length, 'save pageColors correctly');
+                                        }
+
+                                        browser.destroyClient(client, function(destroyClientResult) {
+                                            ok(destroyClientResult.success, 'got invalid response');
+
+                                            browser.loadClients(function(loadClientsResult) {
+                                                equal(browser.clients.length, 0, 'client was not destroyed');
+                                                start();
+                                            });
+                                        });
                                     });
                                 });
                             });
