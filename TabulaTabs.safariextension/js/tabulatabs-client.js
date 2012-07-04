@@ -1,8 +1,7 @@
 tabulatabsDocumentVersion = 1;
 
-// var tabulatabsServerPath = 'https://tabulatabs.heroku.com/';
-//var tabulatabsServerPath = 'http://localhost:3000/';
-var tabulatabsServerPath = 'http://apiv0.tabulatabs.com/';
+if (typeof(tabulatabsServerPath) == 'undefined')
+	tabulatabsServerPath = 'http://apiv0.tabulatabs.com/';
 
 var tabulatabsFixChromeAuthentifiaction = function(jqXHR, settings) {
 	if (settings.username != null) {
