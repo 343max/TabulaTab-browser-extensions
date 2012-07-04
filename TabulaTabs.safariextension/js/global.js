@@ -1,4 +1,5 @@
 if (isSafari()) {
+	nextTabIdenitifier = 1;
 	safari.application.addEventListener("popover", function(e) {
 		if (e.target.identifier == 'syncPopover') {
 			collectAllTabs();
@@ -151,7 +152,6 @@ function collectAllTabs() {
 
 	startProgressAnimation();
 	var tabulatabs = [];
-	var id = 0;
 
 	if (isChrome()) {
 		chrome.windows.getAll({populate: true}, function(chromeWindows) {
@@ -179,7 +179,11 @@ function collectAllTabs() {
 			$.each(browserWindow.tabs, function(j, tab) {
 				var isActiveTab = tab == browserWindow.activeTab;
 
-				var tabulatab = tabulatabForTab(tab, id++);
+				if (!tab.id) {
+					tab.id = nextTabIdenitifier++;
+				}
+
+				var tabulatab = tabulatabForTab(tab, tab.id);
 				if (tabulatab) {
 					tabulatab.selected = isActiveTab;
 					tabulatab.windowFocused = isActiveWindow;
