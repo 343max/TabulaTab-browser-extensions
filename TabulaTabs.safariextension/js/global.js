@@ -349,8 +349,8 @@ thisBrowser().whenReady(function() {
 });
 
 function totalReset() {
-	settingsStorage.setItem('installed', null);
-	settingsStorage.setSecureItem('key', null);
-	settingsStorage.setSecureItem('username', null);
-	settingsStorage.setSecureItem('password', null);
+	settingsStorage.removeItem('installed');
+	settingsStorage.removeSecureItem('key');
+	settingsStorage.removeSecureItem('username');
+	settingsStorage.removeSecureItem('password');
 }

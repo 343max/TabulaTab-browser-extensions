@@ -24,6 +24,14 @@ settingsStorage = {
         }
     },
 
+    removeItem: function(key) {
+        if (isSafari()) {
+            safari.extension.settings.removeItem(key);
+        } else {
+            localStorage.removeItem(key);
+        }
+    },
+
    getSecureItem: function(key) {
         if (isSafari()) {
             return safari.extension.secureSettings[key];
@@ -37,6 +45,14 @@ settingsStorage = {
             safari.extension.secureSettings[key] = value;
         } else {
             localStorage.setItem(key, value);
+        }
+    },
+
+    removeSecureItem: function(key) {
+        if (isSafari()) {
+            safari.extension.secureSettings.removeItem(key);
+        } else {
+            localStorage.removeItem(key);
         }
     }
 };
