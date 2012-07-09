@@ -55,7 +55,6 @@ function TabulatabsBrowser(encryption) {
 			username: self.username,
 			password: self.password,
 			data: JSON.stringify(payload),
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				callback(result);
 			}
@@ -69,7 +68,6 @@ function TabulatabsBrowser(encryption) {
 			type: 'GET',
 			username: username,
 			password: password,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				result.payload = encryption.decrypt(result);
 				delete(result.iv);
@@ -104,7 +102,6 @@ function TabulatabsBrowser(encryption) {
 			type: 'GET',
 			username: self.username,
 			password: self.password,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				self.clients = [];
 
@@ -141,7 +138,6 @@ function TabulatabsBrowser(encryption) {
 			type: 'DELETE',
 			username: self.username,
 			password: self.password,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: callback
 		});
 	}
@@ -163,7 +159,6 @@ function TabulatabsBrowser(encryption) {
 			type: method,
 			username: self.username,
 			password: self.password,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			data: JSON.stringify(encryptedTabs),
 			success: function(result) {
 				callback(result);

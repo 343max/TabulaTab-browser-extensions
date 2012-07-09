@@ -3,11 +3,20 @@ tabulatabsDocumentVersion = 1;
 if (typeof(tabulatabsServerPath) == 'undefined')
 	tabulatabsServerPath = 'http://apiv0.tabulatabs.com/';
 
-var tabulatabsFixChromeAuthentifiaction = function(jqXHR, settings) {
-	if (settings.username != null) {
-		jqXHR.setRequestHeader('Authorization', 'Basic ' + base64_encode(settings.username + ':' + settings.password) + '==');
+$.ajaxSetup({
+	beforeSend: function(jqXHR, settings) {
+		// fix authorization in some chorme versions
+		if (settings.username != null) {
+			jqXHR.setRequestHeader('Authorization', 'Basic ' + base64_encode(settings.username + ':' + settings.password) + '==');
+		}
+
+		// add correct request content type
+		if ((settings.type == 'POST') || (settings.type == 'PUT')) {
+			jqXHR.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+			settings.contentType = 'application/json; charset=UTF-8';
+		};
 	}
-};
+});
 
 function TabulatabsClient(encryption) {
 	var self = this;
@@ -40,7 +49,6 @@ function TabulatabsClient(encryption) {
 			type: 'POST',
 			username: username,
 			password: password,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			data: JSON.stringify({password: claimingPassword}),
 			success: function(result) {
 				self.claimingPassword = claimingPassword;
@@ -66,7 +74,6 @@ function TabulatabsClient(encryption) {
 			type: 'PUT',
 			username: self.username,
 			password: claimingPassword,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			data: JSON.stringify(payload),
 			success: function(result) {
 				self.password = permanentPassword;
@@ -81,7 +88,6 @@ function TabulatabsClient(encryption) {
 			type: 'GET',
 			username: self.username,
 			password: self.password,
-			beforeSend: tabulatabsFixChromeAuthentifiaction,
 			success: function(result) {
 				tabs = [];
 
