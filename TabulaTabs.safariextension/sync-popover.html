@@ -40,27 +40,7 @@ p#options {
 
 	</style>
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript">
-
-if (typeof(chrome) != 'undefined') {
-	document.onTabsSaved = function() {
-		$('#progress').text('Synchronization complete').removeClass('inprogress');
-
-		window.setTimeout(function() {
-			window.close();
-		}, 10000);
-	}
-
-	$().ready(function() {
-		$('p#options').click(function() {
-			chrome.extension.getBackgroundPage().openOptions(false);
-			window.close();
-		}).blur();
-
-		chrome.extension.getBackgroundPage().collectAllTabs();
-	});
-};
-	</script>
+	<script type="text/javascript" src="js/sync-popover.js"></script>
 </head>
 <body>
 <div id="content">
