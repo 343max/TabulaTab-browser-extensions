@@ -1,40 +1,75 @@
-function TabulatabsSocketIo(username, password, categories) {
+function TabulatabsSocketIo(username, password, key, categories) {
+    var self = this;
+
     if (!categories) categories = ['tabs', 'clients', 'browsers'];
+    var encryption = new TabulatabsEncryption(key);
 
-    var socket = io.connect(tabulatabsServerPath);
+    var socket = null;
+    this.socket = null;
 
-    socket.on('connect', function() {
-        console.log('connect');
-        socket.emit('login', {
-            username: username,
-            password: password,
-            categories: ['tabs', 'clients', 'browsers']
-        }, function(result) {
-            console.dir(result);
+    this.connected = function() {};
+    this.connectionError = function() {};
+    this.tabsReplaced = function(tabs) {};
+    this.tabsUpdated = function(tabs) {};
+    this.clientClaimed = function(client) {};
+    this.clientSeen = function(client) {};
+    this.clientRemoved = function(client) {};
+    this.browserUpdated = function(browser) {};
+
+    this.connect = function() {
+        this.socket = socket = io.connect(tabulatabsServerPath);
+
+        socket.on('connect', function() {
+            socket.emit('login', {
+                username: username,
+                password: password,
+                categories: ['tabs', 'clients', 'browsers']
+            }, function(result) {
+                if (result.success) {
+                    self.connected();
+                } else {
+                    self.connectionError();
+                }
+            });
         });
-    });
 
-    socket.on('tabsReplaced', function(data) {
-        console.dir({ tabsReplaced: data });
-    });
+        socket.on('tabsReplaced', function(response) {
+            var tabs = $.map(response.tabs, function(encryptedTab) {
+                return new TabulatabsTab(encryption.decrypt(encryptedTab));
+            });
+            self.tabsReplaced(tabs);
+        });
 
-    socket.on('tabsUpdated', function(data) {
-        console.dir({ tabsUpdated: data });
-    });
+        socket.on('tabsUpdated', function(response) {
+            var tabs = $.map(response.tabs, function(encryptedTab) {
+                return new TabulatabsTab(encryption.decrypt(encryptedTab));
+            });
+            self.tabsUpdated(tabs);
+        });
 
-    socket.on('claimClient', function(data) {
-        console.dir({ claimClient: data });
-    });
+        socket.on('claimClient', function(response) {
+            var client = new TabulatabsClient(encryption);
+            client.fromData(response.client);
+            self.clientClaimed(client);
+        });
 
-    socket.on('clientSeen', function(data) {
-        console.dir({ clientSeen: data });
-    });
+        socket.on('clientSeen', function(response) {
+            var client = new TabulatabsClient(encryption);
+            client.fromData(response.client);
+            self.clientSeen(client);
+        });
 
-    socket.on('clientRemoved', function(data) {
-        console.dir({ clientRemoved: data });
-    });
+        socket.on('clientRemoved', function(response) {
+            var client = new TabulatabsClient(encryption);
+            client.fromData(response.client);
+            self.clientRemoved(client);
+        });
 
-    socket.on('browserUpdated', function(data) {
-        console.dir({ browserUpdated: data });
-    });
+        socket.on('browserUpdated', function(response) {
+            var browser = new TabulatabsBrowser(encryption.decrypt(response.browser));
+            self.browserUpdated(browser);
+        });
+
+        return this;
+    }
 }

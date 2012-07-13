@@ -107,21 +107,8 @@ function TabulatabsBrowser(encryption) {
 
 				if(result.length) {
 					$.each(result, function(index, data) {
-						data.payload = encryption.decrypt(data);
-						delete(data.iv);
-						delete(data.ic);
-
-						client = new TabulatabsClient();
-
-						client.id = data.id;
-						client.useragent = data.useragent;
-						client.label = data.payload.label;
-						client.description = data.payload.description;
-						client.iconURL = data.payload.iconURL;
-						if (data.accessed_at) {
-							client.accessedAt = new Date(data.accessed_at);
-						}
-
+                        var client = new TabulatabsClient(encryption);
+                        client.fromData(data);
 						self.clients.push(client);
 					});
 				}

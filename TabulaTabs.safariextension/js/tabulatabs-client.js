@@ -17,7 +17,7 @@ $.ajaxSetup({
 	beforeSend: function(jqXHR, settings) {
 		// fix authorization in some chorme versions
 		if (settings.username != null) {
-			jqXHR.setRequestHeader('Authorization', 'Basic ' + base64_encode(settings.username + ':' + settings.password) + '==');
+			jqXHR.setRequestHeader('Authorization', 'Basic ' + base64_encode(settings.username + ':' + settings.password));
 		}
 
 		// add correct request content type
@@ -47,6 +47,19 @@ function TabulatabsClient(encryption) {
 	this.tabs = [];
 
 	this.claimingPassword = '';
+
+    this.fromData = function(data) {
+        data.payload = this.encryption.decrypt(data);
+
+        this.id = data.id;
+        this.useragent = data.useragent;
+        this.label = data.payload.label;
+        this.description = data.payload.description;
+        this.iconURL = data.payload.iconURL;
+        if (data.accessed_at) {
+            this.accessedAt = new Date(data.accessed_at);
+        }
+    }
 
 	this.registrationURL = function() {
 		return 'tabulatabs://client/claim/' + [this.username, this.claimingPassword, encryption.hexKey()].join('/');

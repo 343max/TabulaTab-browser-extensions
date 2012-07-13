@@ -2,16 +2,59 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<script src="../js/helpers.js"></script>
 	<script src="../js/jquery-1.7.2.min.js"></script>
+	<script src="../js/gibberish-aes.js"></script>
+
+	<script src="../js/helpers.js"></script>
+	<script src="../js/tabulatabs-encryption.js"></script>
 	<script src="../js/tabulatabs-client.js"></script>
 	<script src="../js/socket.io.js"></script>
 	<script src="../js/tabulatabs-socket.io.js"></script>
-	<script>
+<script>
 
-var socket = new TabulatabsSocketIo('b_363', '92869a7ef4c9428366617edf4e9d2b85');
+var socket = new TabulatabsSocketIo('b_363', '92869a7ef4c9428366617edf4e9d2b85', '0df88de22a24cea67d0473d2dd163bf1faa0c954198925d38c96cecc349ae58c');
 
-	</script>
+socket.connected = function() {
+	console.log('connected!');
+};
+
+socket.connectionError = function () {
+	console.log('something went wrong when tried to connect');
+};
+
+socket.tabsReplaced = function(tabs) {
+	console.log('tabsReplaced');
+	console.dir(tabs);
+}
+
+socket.tabsUpdated = function(tab) {
+	console.log('tabsUpdated');
+	console.dir(tabs);
+}
+
+socket.clientClaimed = function(client) {
+	console.log('clientClaimed');
+	console.dir(client);
+}
+
+socket.clientSeen = function(client) {
+	console.log('clientSeen');
+	console.dir(client);
+}
+
+socket.clientRemoved = function(client) {
+	console.log('clientRemoved');
+	console.dir(client);
+}
+
+socket.browserUpdated = function(browser) {
+	console.log('browserUpdated');
+	console.dir(browser);
+}
+
+socket.connect();
+
+</script>
 
 </head>
 <body>

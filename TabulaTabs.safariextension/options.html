@@ -15,10 +15,12 @@
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/bootstrap-modal.js"></script>
     <script src="js/webtoolkit.sha1.js"></script>
-		<script type="text/javascript" src="js/helpers.js"></script>
+		<script src="js/socket.io.js"></script>
+		<script src="js/helpers.js"></script>
 		<script src="js/tabulatabs-client.js"></script>
     <script src="js/tabulatabs-encryption.js"></script>
     <script src="js/tabulatabs-browser.js"></script>
+		<script src="js/tabulatabs-socket.io.js"></script>
     <script src="js/qrCode.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/options.js"></script>
@@ -37,21 +39,6 @@
         <div class="modal-footer">
           <a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
           <a href="#" class="btn btn-danger remove">Remove</a>
-        </div>
-      </div>
-      <div class="modal hide fade" id="startOverModal">
-        <div class="modal-header">
-          <button class="close" data-dismiss="modal">×</button>
-          <h3>Start over completely</h3>
-        </div>
-        <div class="modal-body">
-          <p>All your settings will be deleted. You can start over completely.</p>
-          <p>If you do this you will have to re-register all your devices.</p>
-          <p>Only do this if TabulaTabs doesn't work as expected for you.</p>
-        </div>
-        <div class="modal-footer">
-          <a href="#" class="btn cancel" data-dismiss="modal">Cancel</a>
-          <a href="#" class="btn btn-danger startOver">Start over</a>
         </div>
       </div>
       <div class="modal hide fade" id="addDeviceModal">
