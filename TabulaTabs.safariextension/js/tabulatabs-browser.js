@@ -16,6 +16,16 @@ function TabulatabsBrowser(encryption) {
 
 	var registrationInProgress = false;
 
+    this.fromData = function(result) {
+        result.payload = encryption.decrypt(result);
+
+        self.id = result.id;
+        self.useragent = result.useragent;
+        self.label = result.payload.label;
+        self.description = result.payload.description;
+        self.iconURL = result.payload.iconURL;
+    }
+
 	this.register = function(password, callback) {
 		if (registrationInProgress) {
 			return;
@@ -69,15 +79,7 @@ function TabulatabsBrowser(encryption) {
 			username: username,
 			password: password,
 			success: function(result) {
-				result.payload = encryption.decrypt(result);
-				delete(result.iv);
-				delete(result.ic);
-
-				self.id = result.id;
-				self.useragent = result.useragent;
-				self.label = result.payload.label;
-				self.description = result.payload.description;
-				self.iconURL = result.payload.iconURL;
+                self.fromData(result);
 
 				callback(result);
 			},

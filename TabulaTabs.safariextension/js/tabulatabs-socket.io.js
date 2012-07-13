@@ -66,7 +66,8 @@ function TabulatabsSocketIo(username, password, key, categories) {
         });
 
         socket.on('browserUpdated', function(response) {
-            var browser = new TabulatabsBrowser(encryption.decrypt(response.browser));
+            var browser = new TabulatabsBrowser(encryption);
+            browser.fromData(response.browser);
             self.browserUpdated(browser);
         });
 
