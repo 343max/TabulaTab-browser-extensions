@@ -22,7 +22,8 @@
   <ol id="qunit-tests"></ol>
 <script>
 
-tabulatabsServerPath = 'http://localhost:3000/';
+// tabulatabsServerPath = 'http://78.47.67.78:4242/';
+// tabulatabsServerPath = 'http://localhost:4242/';
 
 test("cross domain connection, server responding", function() {
     stop(3);
@@ -134,6 +135,14 @@ test('clients / tabs', function() {
         var client = new TabulatabsClient(encryption);
         var unclaimedClient = new TabulatabsClient(encryption);
 
+        console.dir({
+            registeredBrowser: {
+                username: browser.username,
+                password: password,
+                key: browser.encryption.hexKey()
+            }
+        });
+
         unclaimedClient.createWithBrowser(browser, claimingClientPassword, function(registration_result) {
             ok(unclaimedClient.username != '', 'Successfully registered a client - will never claim it');
 
@@ -146,7 +155,14 @@ test('clients / tabs', function() {
 
                 client.claim(claimingClientPassword, permanentClientPassword, function(claiming_result) {
                     ok(client.password != '', 'Successfully claimed a client');
-                    ok(client.id != 0, 'returned the id of the just claimed client');
+                    ok(client.id != '', 'returned the id of the just claimed client');
+
+                    console.dir({
+                        claimedClient: {
+                            username: client.username,
+                            password: permanentClientPassword
+                        }
+                    });
 
                     browser.loadClients(function(loadClientsResult) {
                         equal(browser.clients.length, 1, 'returns exactly one registered client');
@@ -197,6 +213,8 @@ test('clients / tabs', function() {
                                 tab3.favIconURL = 'favicon3a.ico';
                                 tab3.windowId = 'window3a';
                                 tab3.windowFocused = true;
+
+                                start();return;
 
                                 browser.updateTabs(tabs, function(updatingTabsResult) {
                                     client.loadTabs(function() {

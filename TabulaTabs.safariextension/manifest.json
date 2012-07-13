@@ -1,5 +1,4 @@
 {
-   "manifest_version": 2,
    "options_page" : "options.html",
    "permissions" : [
       "tabs",
@@ -9,22 +8,18 @@
       "http://*/*",
       "https://*/*"
    ],
-   "version" : "38",
-   "background" : {
-     "page": "global.html"
-   },
-   "name" : "TabulaTabs!",
+   "version" : "39",
    "update_url" : "http://tabulatabs.com/chrome-extension-updates.xml",
+   "name" : "TabulaTabs!",
+   "background" : {
+      "page" : "global.html"
+   },
    "icons" : {
       "128" : "icon-128.png",
       "16" : "img/favicon.png",
       "48" : "icon-48.png"
    },
    "description" : "Access your Browser tabs from everywhere",
-   "browser_action" : {
-      "default_popup" : "sync-popover.html",
-      "default_icon" : "img/toolbar-icon-chrome.png"
-   },
    "content_scripts" : [
       {
          "matches" : [
@@ -34,6 +29,11 @@
             "js/content-script.js"
          ]
       }
-   ]
+   ],
+   "browser_action" : {
+      "default_popup" : "sync-popover.html",
+      "default_icon" : "img/toolbar-icon-chrome.png"
+   },
+   "manifest_version" : 2
 }
 

@@ -2,6 +2,16 @@ tabulatabsDocumentVersion = 1;
 
 if (typeof(tabulatabsServerPath) == 'undefined')
 	tabulatabsServerPath = 'http://apiv0.tabulatabs.com/';
+    // tabulatabsServerPath = 'http://localhost:4242/';
+
+if (settingsStorage.getItem('apiServer')) {
+    tabulatabsServerPath = settingsStorage.getItem('apiServer');
+}
+
+// we are running on a webserver - lets assume its a testserver
+if (document.location.protocol.match(/^https?:$/)) {
+    tabulatabsServerPath = document.location.origin + '/';
+}
 
 $.ajaxSetup({
 	beforeSend: function(jqXHR, settings) {

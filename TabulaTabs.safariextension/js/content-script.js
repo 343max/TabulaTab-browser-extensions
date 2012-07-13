@@ -137,8 +137,6 @@
 			if (!thumbSrc) thumbSrc = findYouTubeVideoInPage();
 			if (!thumbSrc) thumbSrc = findImageInPage();
 
-			console.log(thumbSrc);
-
 			if (thumbSrc) {
 				collection.pageThumbnail = thumbSrc;
 			}
