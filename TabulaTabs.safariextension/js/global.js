@@ -13,7 +13,6 @@ if (isSafari()) {
 
 if (isSafari()) {
 	safari.extension.settings.addEventListener("change", function (e) {
-		// console.dir(e);
 		if (e.key === 'showOptionsCheckbox' && safari.extension.settings.showOptionsCheckbox === true) {
 			openOptions();
 			safari.extension.settings.showOptionsCheckbox = false;
@@ -275,46 +274,47 @@ function openOptions(firstTime) {
 	if (firstTime)
 		url += "?firstTime=true";
 
-	if (isSafari()) {
-		thisBrowser().whenReady(function() {
-			var fullUrl = safari.extension.baseURI + url;
-			var tabFound = false;
+    if (isSafari()) {
+        var fullUrl = safari.extension.baseURI + url;
+        var tabFound = false;
 
-			$.each(safari.application.browserWindows, function(i, browserWindow) {
-				$.each(browserWindow.tabs, function(i, tab) {
-					if (tab.url == fullUrl) {
-						tabFound = true;
-						tab.browserWindow.activate();
-						tab.activate();
-					}
-				});
-			});
+        $.each(safari.application.browserWindows, function(i, browserWindow) {
+            $.each(browserWindow.tabs, function(i, tab) {
+                if (tab.url == fullUrl) {
+                    tabFound = true;
+                    tab.browserWindow.activate();
+                    tab.activate();
+                }
+            });
+        });
 
-			if (tabFound) {
-				return;
-			};
+        if (tabFound) {
+            return;
+        };
 
-			var win;
-			if (safari.application.activeBrowserWindow) {
-				win = safari.application.activeBrowserWindow;
-			} else if (safari.application.browserWindows.length > 0) {
-				win = safari.application.browserWindows[0];
-				win.activate();
-			} else {
-				win = safari.application.openBrowserWindow();
-			}
+        var win;
+        if (safari.application.activeBrowserWindow) {
+            win = safari.application.activeBrowserWindow;
+        } else if (safari.application.browserWindows.length > 0) {
+            win = safari.application.browserWindows[0];
+            win.activate();
+        } else {
+            win = safari.application.openBrowserWindow();
+        }
 
-			var tab = win.openTab();
-			tab.url = fullUrl;
-			tab.addEventListener('message', function() {
-				tab.page.dispatchMessage('settings', {
-					key: thisBrowser().encryption.hexKey(),
-					username: thisBrowser().username,
-					password: thisBrowser().password
-				}, false);
-			}, false);
-			win.activate();
-		});
+        var tab = win.openTab();
+        tab.url = fullUrl;
+        tab.addEventListener('message', function() {
+            thisBrowser().whenReady(function() {
+                tab.page.dispatchMessage('settings', {
+                    key: thisBrowser().encryption.hexKey(),
+                    username: thisBrowser().username,
+                    password: thisBrowser().password,
+                    apiEndpoint: tabulatabsServerPath
+                }, false);
+            });
+        }, false);
+        win.activate();
 	}
 
 	if (isChrome()) {

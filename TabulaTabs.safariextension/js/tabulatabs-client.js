@@ -1,10 +1,10 @@
 tabulatabsDocumentVersion = 1;
 
 if (typeof(tabulatabsServerPath) == 'undefined')
-	tabulatabsServerPath = 'http://apiv0.tabulatabs.com/';
+	tabulatabsServerPath = 'http://apiv1.tabulatabs.com/';
     // tabulatabsServerPath = 'http://localhost:4242/';
 
-if (settingsStorage.getItem('apiServer')) {
+if (settingsStorage && settingsStorage.getItem('apiServer')) {
     tabulatabsServerPath = settingsStorage.getItem('apiServer');
 }
 
@@ -25,6 +25,8 @@ $.ajaxSetup({
 			jqXHR.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 			settings.contentType = 'application/json; charset=UTF-8';
 		};
+
+        settings.accepts = 'application/json';
 	}
 });
 
@@ -43,6 +45,7 @@ function TabulatabsClient(encryption) {
 	this.description = '';
 	this.iconURL = '';
 	this.accessedAt = null;
+    this.version = 2;
 
 	this.tabs = [];
 
@@ -56,6 +59,8 @@ function TabulatabsClient(encryption) {
         this.label = data.payload.label;
         this.description = data.payload.description;
         this.iconURL = data.payload.iconURL;
+        this.version = data.version;
+
         if (data.accessed_at) {
             this.accessedAt = new Date(data.accessed_at);
         }
@@ -111,6 +116,7 @@ function TabulatabsClient(encryption) {
 			type: 'GET',
 			username: self.username,
 			password: self.password,
+            data: { client_version: this.version },
 			success: function(result) {
 				tabs = [];
 

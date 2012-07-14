@@ -82,16 +82,12 @@ function docReady() {
                                             ['clients']).connect();
 
         socket.clientSeen = function(client) {
-            console.log('clientSeen');
-            console.dir(client);
             var span = $('#client_' + client.id + ' .lastSeen');
             var a = moment(client.accessedAt);
             if (a) span.text('last seen ' + a.fromNow());
         }
 
         socket.clientClaimed = function(client) {
-            console.log('clientClaimed');
-            console.dir(client);
             $('#addDeviceModal').modal('hide');
             window.setTimeout(function() {
                 $('#clients').prepend(listItem(client));
@@ -144,6 +140,7 @@ if (isSafari()) {
 	safari.self.addEventListener("message", function(msgEvent) {
 		if (msgEvent.name == 'settings') {
 			var params = msgEvent.message;
+            tabulatabsServerPath = params.apiEndpoint;
 			var encryption = new TabulatabsEncryption(params.key);
 	        _tabulatabsCurrentBrowser = new TabulatabsBrowser(encryption);
 	        _tabulatabsCurrentBrowser.username = params.username;

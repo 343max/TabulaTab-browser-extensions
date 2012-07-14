@@ -6,6 +6,7 @@ function TabulatabsBrowser(encryption) {
 	this.description = '';
 	this.iconURL = '';
 	this.id = 0;
+    this.streamingEnabledUntil = new Date(null);
 
 	this.username = null;
 	this.password = null;
@@ -16,11 +17,16 @@ function TabulatabsBrowser(encryption) {
 
 	var registrationInProgress = false;
 
+    this.streamingEnabled = function() {
+        return this.streamingEnabledUntil > (new Date());
+    }
+
     this.fromData = function(result) {
         result.payload = encryption.decrypt(result);
 
         self.id = result.id;
         self.useragent = result.useragent;
+        self.streamingEnabledUntil = result.streaming_enabled_until;
         self.label = result.payload.label;
         self.description = result.payload.description;
         self.iconURL = result.payload.iconURL;
@@ -41,9 +47,12 @@ function TabulatabsBrowser(encryption) {
 		payload.password = password;
 		payload.useragent = this.useragent;
 
+        console.log(tabulatabsServerPath + 'browsers.json');
 		$.post(tabulatabsServerPath + 'browsers.json', JSON.stringify(payload), function(result) {
+            console.dir(result);
 			self.username = result.username;
 			self.id = result.id;
+            self.streamingEnabledUntil = new Date(result.streaming_enabled_until);
 
 			callback(result);
 
@@ -150,7 +159,8 @@ function TabulatabsBrowser(encryption) {
 			password: self.password,
 			data: JSON.stringify(encryptedTabs),
 			success: function(result) {
-				callback(result);
+                self.streamingEnabledUntil = new Date(result.streaming_enabled_until);
+                callback(result);
 			},
 			error: errorCallback
 		});
