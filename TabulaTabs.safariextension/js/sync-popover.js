@@ -13,6 +13,6 @@ if (typeof(chrome) != 'undefined') {
             window.close();
         }).blur();
 
-        chrome.extension.getBackgroundPage().collectAllTabs();
+        chrome.extension.getBackgroundPage().collectAllTabs(true);
     });
 };

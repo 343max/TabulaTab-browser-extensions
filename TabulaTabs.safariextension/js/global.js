@@ -2,7 +2,7 @@ if (isSafari()) {
 	nextTabIdenitifier = 1;
 	safari.application.addEventListener("popover", function(e) {
 		if (e.target.identifier == 'syncPopover') {
-			collectAllTabs();
+			collectAllTabs(true);
 			$popover('p#options').unbind().click(function() {
 				openOptions();
 				safari.extension.popovers[0].hide();
@@ -103,9 +103,17 @@ function startUploadTabsTimeout() {
             }
 
             uploadTabTimout = window.setTimeout(function() {
-                collectAllTabs();
+                collectAllTabs(true);
                 uploadTabTimout = null;
-            }, 10000);
+            }, 5000);
+        }
+    });
+}
+
+function updateTabs() {
+    thisBrowser().whenReady(function() {
+        if (thisBrowser().streamingEnabled()) {
+            collectAllTabs(false);
         }
     });
 }
@@ -120,20 +128,22 @@ if (isChrome()) {
 	});
 
 	chrome.tabs.onMoved.addListener(function(tabId, moveInfo) {
-		startUploadTabsTimeout();
+		updateTabs();
 	});
 
 	chrome.tabs.onRemoved.addListener(function(tabId) {
 		startUploadTabsTimeout();
+        invalidateTabulaTab(tabId);
 	});
 
 	chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
-		startUploadTabsTimeout();
+		updateTabs();
 	});
 
 	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo) {
         if (changeInfo.status == 'complete') {
-    		startUploadTabsTimeout();
+            invalidateTabulaTab(tabId);
+    		updateTabs();
         }
 	});
 };
@@ -226,7 +236,7 @@ function openOptions(firstTime) {
 
 thisBrowser().whenReady(function() {
     window.setTimeout(function() {
-        collectAllTabs();
+        collectAllTabs(true);
     }, 5000);
 
     if (settingsStorage.getItem('installed') != 'true') {
