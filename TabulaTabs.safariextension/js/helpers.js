@@ -59,7 +59,7 @@ settingsStorage = {
 
 var _tabulatabsCurrentBrowser = null;
 
-function thisBrowser(browserRegisteredCallback) {
+function thisBrowser() {
     if (!_tabulatabsCurrentBrowser) {
         var encryption = new TabulatabsEncryption(settingsStorage.getSecureItem('key'));
         settingsStorage.setSecureItem('key', encryption.hexKey());

@@ -4,7 +4,7 @@ if (typeof(tabulatabsServerPath) == 'undefined')
 	tabulatabsServerPath = 'http://apiv1.tabulatabs.com/';
     // tabulatabsServerPath = 'http://localhost:4242/';
 
-if (settingsStorage && settingsStorage.getItem('apiServer')) {
+if (typeof(settingsStorage) != 'undefined' && settingsStorage.getItem('apiServer')) {
     tabulatabsServerPath = settingsStorage.getItem('apiServer');
 }
 

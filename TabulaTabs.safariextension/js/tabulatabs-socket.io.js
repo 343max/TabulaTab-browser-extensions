@@ -23,7 +23,7 @@ function TabulatabsSocketIo(username, password, key, categories) {
             socket.emit('login', {
                 username: username,
                 password: password,
-                categories: ['tabs', 'clients', 'browsers']
+                categories: categories
             }, function(result) {
                 if (result.success) {
                     self.connected();

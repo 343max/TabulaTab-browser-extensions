@@ -47,9 +47,7 @@ function TabulatabsBrowser(encryption) {
 		payload.password = password;
 		payload.useragent = this.useragent;
 
-        console.log(tabulatabsServerPath + 'browsers.json');
 		$.post(tabulatabsServerPath + 'browsers.json', JSON.stringify(payload), function(result) {
-            console.dir(result);
 			self.username = result.username;
 			self.id = result.id;
             self.streamingEnabledUntil = new Date(result.streaming_enabled_until);
