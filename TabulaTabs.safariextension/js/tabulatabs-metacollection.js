@@ -86,11 +86,13 @@ function collectAllTabs(forceCompleteUpload) {
                     });
                 } else {
                     console.log('updating ' + changedTabulaTabs.length + ' of ' + allTabulaTabs.length + ' tabs');
-                    thisBrowser().updateTabs(changedTabulaTabs, function() {
-                        stopProgressAnimation();
-                    }, function() {
-                        stopProgressAnimation();
-                    })
+                    if (changedTabulaTabs.length > 0) {
+                        thisBrowser().updateTabs(changedTabulaTabs, function() {
+                            stopProgressAnimation();
+                        }, function() {
+                            stopProgressAnimation();
+                        });
+                    }
                 }
             });
         }
