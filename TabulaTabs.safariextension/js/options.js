@@ -74,6 +74,7 @@ function prefillProperties() {
 }
 
 function docReady() {
+    $('.apiEndpoint').text('API Endpoint: ' + tabulatabsServerPath);
 
     thisBrowser().whenReady(function() {
         var socket = new TabulatabsSocketIo(thisBrowser().username,

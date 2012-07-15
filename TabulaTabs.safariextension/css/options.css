@@ -110,13 +110,8 @@ ul#clients li:hover a.delete {
 	margin: 10px auto;
 }
 
-.reset {
-	text-align: right;
-	display: none;
-}
-
-#totalReset {
-	font-size: 0.9em;
-	color: grey;
-	cursor: pointer;
+.apiEndpoint {
+    font-size: 0.8em;
+    color: #000000;
+    opacity: 0.6;
 }
