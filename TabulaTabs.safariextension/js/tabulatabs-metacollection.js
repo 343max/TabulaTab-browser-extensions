@@ -1,4 +1,4 @@
-function tabulatabForTab(tab, id, next) {
+function tabulatabForTab(tab, next) {
     if (!tab.url) {
         return null;
     }
@@ -8,10 +8,11 @@ function tabulatabForTab(tab, id, next) {
     }
 
     var tabulatab = {
-        identifier: id,
+        identifier: tab.id,
         title: tab.title,
         URL: tab.url,
-        favIconURL: tab.favIconUrl
+        favIconURL: tab.favIconUrl,
+        windowId: 0
     };
 
     findMetaInPageTitle(tabulatab);
@@ -26,7 +27,7 @@ function tabulatabForTab(tab, id, next) {
         };
 
         tab.addEventListener('message', messageListener, false);
-        tab.page.dispatchMessage('collectMeta', {tabId: id});
+        tab.page.dispatchMessage('collectMeta', {tabId: tab.id});
     };
 
     if (isChrome()) {
@@ -57,39 +58,79 @@ function invalidateTabulaTab(tabIdentifier) {
     delete cachedTabulatabs[tabIdentifier];
 }
 
+var nextIdenitifier = 1;
+var identifierCache = {};
+
+function injectId(object) {
+    var hadId = true;
+
+    if (!identifierCache[object]) {
+        identifierCache[object] = nextIdenitifier++;
+        hadId = false;
+    }
+    var id = identifierCache[object];
+    object.id = id;
+
+    return hadId;
+}
+
+var currentUploadConnection = null;
+
+function forceTabSync() {
+    if (currentUploadConnection) {
+        currentUploadConnection.abort();
+    }
+    syncInProgress = false;
+    collectAllTabs(true);
+}
+
 function collectAllTabs(forceCompleteUpload) {
+    console.log('started collection of tabs, forceCompleteUpload: ' + forceCompleteUpload);
     if (syncInProgress) {
         return;
     };
+
+    if (forceCompleteUpload) {
+        cachedTabulatabs = {};
+    }
 
     startProgressAnimation();
     var allTabulaTabs = [];
     var changedTabulaTabs = [];
 
-    var tabsComplete = 0;
+    var tabsWithCompleteInformation = 0;
     var tabUploadStarted = false;
+    var listsOfTabsAreComplete = false;
 
     var uploadTabs = function(forcedUpload) {
         if (tabUploadStarted) {
             return;
         }
 
-        if (tabsComplete == allTabulaTabs.length || forcedUpload) {
+        if (tabsWithCompleteInformation == allTabulaTabs.length || forcedUpload) {
             tabUploadStarted = true;
             thisBrowser().whenReady(function() {
                 if (forceCompleteUpload) {
                     console.log('replacing ' + allTabulaTabs.length + ' tabs');
-                    thisBrowser().saveTabs(allTabulaTabs, function() {
+                    currentUploadConnection = thisBrowser().saveTabs(allTabulaTabs, function() {
+                        console.log('upload complete');
+                        currentUploadConnection = null;
                         stopProgressAnimation();
                     }, function() {
+                        console.log('error!');
+                        currentUploadConnection = null;
                         stopProgressAnimation();
                     });
                 } else {
                     console.log('updating ' + changedTabulaTabs.length + ' of ' + allTabulaTabs.length + ' tabs');
                     if (changedTabulaTabs.length > 0) {
-                        thisBrowser().updateTabs(changedTabulaTabs, function() {
+                        currentUploadConnection = thisBrowser().updateTabs(changedTabulaTabs, function() {
+                            console.log('upload complete');
+                            currentUploadConnection = null;
                             stopProgressAnimation();
                         }, function() {
+                            console.log('error!');
+                            currentUploadConnection = null;
                             stopProgressAnimation();
                         });
                     }
@@ -99,16 +140,21 @@ function collectAllTabs(forceCompleteUpload) {
     }
 
     var nextTabCollected = function() {
-        tabsComplete++;
+        tabsWithCompleteInformation++;
 
-        uploadTabs(false);
+        if (listsOfTabsAreComplete) {
+            uploadTabs(false);
+        }
     }
 
     var tabListComplete = function() {
-        if (tabsComplete == allTabulaTabs.length) {
+        listsOfTabsAreComplete = true;
+
+        if (tabsWithCompleteInformation == allTabulaTabs.length) {
             uploadTabs(false);
         } else {
             window.setTimeout(function() {
+                console.log('timeout...');
                 uploadTabs(true);
             }, 10000);
         }
@@ -126,7 +172,7 @@ function collectAllTabs(forceCompleteUpload) {
                             tabulatab = cachedTabulatabs[chromeTab.id];
                             nextTabCollected();
                         } else {
-                            tabulatab = tabulatabForTab(chromeTab, chromeTab.id, nextTabCollected);
+                            tabulatab = tabulatabForTab(chromeTab, nextTabCollected);
                             tabWasUpdated = true;
                         }
 
@@ -134,17 +180,16 @@ function collectAllTabs(forceCompleteUpload) {
                             if (tabulatab.windowFocused != chromeWindow.focused) tabWasUpdated = true;
                             if (tabulatab.windowId != chromeTab.windowId) tabWasUpdated = true;
                             if (tabulatab.index != chromeTab.index) tabWasUpdated = true;
-                            if (tabulatab.active != chromeTab.active) tabWasUpdated = true;
+                            if (tabulatab.selected != chromeTab.active) tabWasUpdated = true;
                             if (tabulatab.pinned != chromeTab.pinned) tabWasUpdated = true;
 
                             tabulatab.windowFocused = chromeWindow.focused;
                             tabulatab.windowId = chromeTab.windowId;
                             tabulatab.index = chromeTab.index;
-                            tabulatab.active = chromeTab.active;
+                            tabulatab.selected = chromeTab.active;
                             tabulatab.pinned = chromeTab.pinned;
 
                             allTabulaTabs.push(tabulatab);
-
                             if (tabWasUpdated) {
                                 changedTabulaTabs.push(tabulatab);
                             }
@@ -162,30 +207,60 @@ function collectAllTabs(forceCompleteUpload) {
     }
 
     if (isSafari()) {
-        $.each(safari.application.browserWindows, function(i, browserWindow) {
+        for (var i = 0; i < safari.application.browserWindows.length; i++) {
+            var browserWindow = safari.application.browserWindows[i];
             var isActiveWindow = browserWindow == safari.application.activeBrowserWindow;
-            var windowId = 'window' + i;
 
-            $.each(browserWindow.tabs, function(j, tab) {
+            if (!injectId(browserWindow)) {
+                console.log('forcing upload because window has no id');
+                forceCompleteUpload = true;
+            }
+
+            for (var j = 0; j < browserWindow.tabs.length; j++) {
+                var tab = browserWindow.tabs[j];
+
                 var isActiveTab = tab == browserWindow.activeTab;
 
-                if (!tab.id) {
-                    tab.id = nextTabIdenitifier++;
+                if (!injectId(tab)) {
+                    console.log('forcing upload because tab has no id');
+                    forceCompleteUpload = true;
                 }
 
-                var tabulatab = tabulatabForTab(tab, tab.id, nextTabCollected);
+                var tabWasUpdated = false;
+                var tabulatab = null;
+
+                if (cachedTabulatabs[tab]) {
+                    tabulatab = cachedTabulatabs[tab];
+                    nextTabCollected();
+                } else {
+                    console.log('creating new tabulatabs');
+                    tabulatab = tabulatabForTab(tab, nextTabCollected);
+                    tabWasUpdated = true;
+                }
+
                 if (tabulatab) {
+                    if (tabulatab.windowFocused != isActiveWindow) tabWasUpdated = true;
+                    if (tabulatab.windowId != browserWindow.id) tabWasUpdated = true;
+                    if (tabulatab.index != j) tabWasUpdated = true;
+                    if (tabulatab.selected != isActiveTab) tabWasUpdated = true;
+
                     tabulatab.selected = isActiveTab;
                     tabulatab.windowFocused = isActiveWindow;
                     tabulatab.index = j;
-                    tabulatab.windowId = windowId;
+                    tabulatab.windowId = browserWindow.id;
                     tabulatab.pinned = false;
 
                     allTabulaTabs.push(tabulatab);
-                };
-            });
-        });
+                    if (tabWasUpdated) {
+                        changedTabulaTabs.push(tabulatab);
+                    }
 
+                    cachedTabulatabs[tab] = tabulatab;
+                };
+            }
+        }
+
+        console.log('tab list complete');
         tabListComplete();
     }
 }

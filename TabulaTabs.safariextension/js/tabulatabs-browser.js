@@ -151,7 +151,7 @@ function TabulatabsBrowser(encryption) {
 			encryptedTabs.push(encryptedTab);
 		});
 
-		$.ajax(tabulatabsServerPath + 'browsers/tabs/' + (method == 'PUT' ? 'update' : ''), {
+		return $.ajax(tabulatabsServerPath + 'browsers/tabs/' + (method == 'PUT' ? 'update' : ''), {
 			type: method,
 			username: self.username,
 			password: self.password,
@@ -161,15 +161,15 @@ function TabulatabsBrowser(encryption) {
                 callback(result);
 			},
 			error: errorCallback
-		});
+		}).fail(errorCallback);
 	}
 
 	this.saveTabs = function(tabs, callback, errorCallback) {
-		uploadTabs('POST', tabs, callback, errorCallback);
+		return uploadTabs('POST', tabs, callback, errorCallback);
 	}
 
 	this.updateTabs = function(tabs, callback, errorCallback) {
-		uploadTabs('PUT', tabs, callback, errorCallback);
+		return uploadTabs('PUT', tabs, callback, errorCallback);
 	}
 
     this.newClient = function() {
